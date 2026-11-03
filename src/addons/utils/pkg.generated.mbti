@@ -1,0 +1,160 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/addons/utils"
+
+import {
+  "bobzhang/three/animation",
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/nodes",
+}
+
+// Values
+pub fn addon_new_error(String) -> @core.JsValue
+
+pub fn[T] addon_throw(@core.JsValue) -> T
+
+pub fn[T] addon_throw_error(String) -> T
+
+pub fn addon_try(() -> Unit) -> @core.JsValue?
+
+pub fn create_meshes_from_instanced_mesh(@core.Object3D) -> @core.Object3D
+
+pub fn create_meshes_from_multi_material_mesh(@core.Object3D) -> @core.Object3D
+
+pub fn create_multi_material_object(@core.BufferGeometry, Array[@core.Material]) -> @core.Object3D
+
+pub fn decompress(@core.Texture, max_texture_size? : Double, renderer? : @nodes.Renderer, (@core.Texture) -> Unit, on_error? : (String) -> Unit) -> Unit
+
+pub fn frame_corners(@core.Object3D, @math.Vector3, @math.Vector3, @math.Vector3, estimate_view_frustum? : Bool) -> Unit
+
+pub fn gosper(size? : Double) -> Array[Double]
+
+pub fn hilbert2d(center? : @math.Vector3, size? : Double, iterations? : Int32, v0? : Int32, v1? : Int32, v2? : Int32, v3? : Int32) -> Array[@math.Vector3]
+
+pub fn hilbert3d(center? : @math.Vector3, size? : Double, iterations? : Int32, v0? : Int32, v1? : Int32, v2? : Int32, v3? : Int32, v4? : Int32, v5? : Int32, v6? : Int32, v7? : Int32) -> Array[@math.Vector3]
+
+pub fn load_web_gpu_texture_utils() -> Unit
+
+pub fn[T] radix_sort(Array[T], get~ : (T) -> Double, aux? : Array[T], reversed? : Bool) -> Unit
+
+pub fn radix_sort_numbers(Array[Double], get? : (Double) -> Double, aux? : Array[Double], reversed? : Bool) -> Unit
+
+pub fn radix_sort_typed(@core.TypedArray, get? : (Double) -> Double, aux? : @core.TypedArray, reversed? : Bool) -> Unit
+
+pub fn[T] reduce_vertices(@core.Object3D, (T, @math.Vector3) -> T, T) -> T
+
+pub fn set_kelvin(@math.Color, Double) -> @math.Color
+
+pub fn sort_instanced_mesh(@core.Object3D, (Int32, Int32) -> Double) -> Unit
+
+pub fn traverse_ancestors_generator(@core.Object3D) -> Iter[@core.Object3D]
+
+pub fn traverse_generator(@core.Object3D) -> Iter[@core.Object3D]
+
+pub fn traverse_visible_generator(@core.Object3D) -> Iter[@core.Object3D]
+
+// Errors
+
+// Types and methods
+#external
+pub type AddonPromise
+pub fn AddonPromise::all(Array[Self]) -> Self
+pub fn AddonPromise::all_values(Array[@core.JsValue]) -> Self
+pub fn[B] AddonPromise::catch_(Self, (@core.JsValue) -> B) -> Self
+pub fn AddonPromise::from_js(@core.JsValue) -> Self
+pub fn AddonPromise::is_promise(@core.JsValue) -> Bool
+pub fn AddonPromise::new(((@core.JsValue) -> Unit, (@core.JsValue) -> Unit) -> Unit) -> Self
+pub fn AddonPromise::reject(@core.JsValue) -> Self
+pub fn[T] AddonPromise::resolve(T) -> Self
+pub fn AddonPromise::resolve_undefined() -> Self
+pub fn[A, B] AddonPromise::then2(Self, (A) -> B, (@core.JsValue) -> B) -> Self
+pub fn[A, B] AddonPromise::then_(Self, (A) -> B) -> Self
+pub fn AddonPromise::to_js(Self) -> @core.JsValue
+
+#external
+pub type BufferGeometryUtils
+pub fn BufferGeometryUtils::compute_mikktspace_tangents(@core.BufferGeometry, @core.JsValue, negate_sign? : Bool) -> @core.BufferGeometry
+pub fn BufferGeometryUtils::compute_morphed_attributes(@core.Object3D) -> MorphedAttributes
+pub fn BufferGeometryUtils::deep_clone_attribute(@core.GeometryAttribute) -> @core.BufferAttribute
+pub fn BufferGeometryUtils::deinterleave_attribute(@core.InterleavedBufferAttribute) -> @core.BufferAttribute
+pub fn BufferGeometryUtils::deinterleave_geometry(@core.BufferGeometry) -> Unit
+pub fn BufferGeometryUtils::estimate_bytes_used(@core.BufferGeometry) -> Int32
+pub fn BufferGeometryUtils::interleave_attributes(Array[@core.GeometryAttribute]) -> Array[@core.InterleavedBufferAttribute]?
+pub fn BufferGeometryUtils::merge_attributes(Array[@core.GeometryAttribute]) -> @core.BufferAttribute?
+pub fn BufferGeometryUtils::merge_geometries(Array[@core.BufferGeometry], use_groups? : Bool) -> @core.BufferGeometry?
+pub fn BufferGeometryUtils::merge_groups(@core.BufferGeometry) -> @core.BufferGeometry
+pub fn BufferGeometryUtils::merge_vertices(@core.BufferGeometry, tolerance? : Double) -> @core.BufferGeometry
+pub fn BufferGeometryUtils::remap_attribute(@core.GeometryAttribute, Array[Int32], buffers? : RemapBuffers) -> @core.GeometryAttribute
+pub fn BufferGeometryUtils::to_creased_normals(@core.BufferGeometry, crease_angle? : Double) -> @core.BufferGeometry
+pub fn BufferGeometryUtils::to_triangles_draw_mode(@core.BufferGeometry, Int32) -> @core.BufferGeometry
+
+pub(all) struct MorphedAttributes {
+  position_attribute : @core.GeometryAttribute
+  normal_attribute : @core.GeometryAttribute
+  morphed_position_attribute : @core.BufferAttribute
+  morphed_normal_attribute : @core.BufferAttribute
+}
+
+pub struct RemapBuffers {
+  // private fields
+}
+pub fn RemapBuffers::new() -> Self
+
+pub(all) struct RetargetOptions {
+  mut use_first_frame_position : Bool
+  mut fps : Double?
+  mut names : Map[String, String]
+  mut get_bone_name : ((@core.Object3D) -> String?)?
+  mut trim : (Double, Double)?
+  mut preserve_bone_matrix : Bool
+  mut preserve_bone_positions : Bool
+  mut use_target_matrix : Bool
+  mut hip : String
+  mut hip_influence : @math.Vector3
+  mut scale : Double
+  mut local_offsets : Map[String, @math.Matrix4]?
+  mut hip_position : @math.Vector3?
+}
+pub fn RetargetOptions::new(use_first_frame_position? : Bool, fps? : Double, names? : Map[String, String], get_bone_name? : (@core.Object3D) -> String?, trim? : (Double, Double), preserve_bone_matrix? : Bool, preserve_bone_positions? : Bool, use_target_matrix? : Bool, hip? : String, hip_influence? : @math.Vector3, scale? : Double, local_offsets? : Map[String, @math.Matrix4], hip_position? : @math.Vector3) -> Self
+
+pub(all) enum SkeletonRef {
+  Object(@core.Object3D)
+  Skeleton(@core.Skeleton)
+}
+
+#external
+pub type SkeletonUtils
+pub fn SkeletonUtils::clone(@core.Object3D) -> @core.Object3D
+pub fn SkeletonUtils::retarget(SkeletonRef, SkeletonRef, options? : RetargetOptions) -> Unit
+pub fn SkeletonUtils::retarget_clip(@core.Object3D, SkeletonRef, @animation.AnimationClip, options? : RetargetOptions) -> @animation.AnimationClip
+
+#external
+pub type Worker
+pub fn Worker::add_event_listener(Self, String, (@core.JsValue) -> Unit) -> Unit
+pub fn Worker::new(String) -> Self
+pub fn Worker::post_message(Self, @core.JsValue, Array[@core.JsValue]) -> Unit
+pub fn Worker::terminate(Self) -> Unit
+
+pub(all) struct WorkerPool {
+  mut pool : Int32
+  queue : Array[WorkerPoolMessage]
+  workers : Array[Worker?]
+  workers_resolve : Array[((@core.JsValue) -> Unit)?]
+  mut worker_status : Int32
+  mut worker_creator : (() -> Worker)?
+}
+pub fn WorkerPool::dispose(Self) -> Unit
+pub fn WorkerPool::new(pool? : Int32) -> Self
+pub fn WorkerPool::post_message(Self, @core.JsValue, Array[@core.JsValue]) -> AddonPromise
+pub fn WorkerPool::set_worker_creator(Self, () -> Worker) -> Unit
+pub fn WorkerPool::set_worker_limit(Self, Int32) -> Unit
+
+pub(all) struct WorkerPoolMessage {
+  resolve : (@core.JsValue) -> Unit
+  msg : @core.JsValue
+  transfer : Array[@core.JsValue]
+}
+
+// Type aliases
+
+// Traits

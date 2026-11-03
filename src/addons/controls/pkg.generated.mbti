@@ -1,0 +1,829 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/addons/controls"
+
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/extras",
+  "bobzhang/three/math",
+  "moonbitlang/core/json",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub(all) struct ArcballControls {
+  base : @extras.Controls
+  mut scene : @core.Object3D?
+  mut target : @math.Vector3
+  _current_target : @math.Vector3
+  mut radius_factor : Double
+  mouse_actions : Array[ArcballMouseAction]
+  mut _mouse_op : String?
+  _v2_1 : @math.Vector2
+  _v3_1 : @math.Vector3
+  _v3_2 : @math.Vector3
+  _m4_1 : @math.Matrix4
+  _m4_2 : @math.Matrix4
+  _quat : @math.Quaternion
+  _translation_matrix : @math.Matrix4
+  _rotation_matrix : @math.Matrix4
+  _scale_matrix : @math.Matrix4
+  _rotation_axis : @math.Vector3
+  _camera_matrix_state : @math.Matrix4
+  _camera_projection_state : @math.Matrix4
+  mut _fov_state : Double
+  _up_state : @math.Vector3
+  mut _zoom_state : Double
+  mut _near_pos : Double
+  mut _far_pos : Double
+  _gizmo_matrix_state : @math.Matrix4
+  _up0 : @math.Vector3
+  mut _zoom0 : Double
+  mut _fov0 : Double
+  mut _initial_near : Double
+  mut _near_pos0 : Double
+  mut _initial_far : Double
+  mut _far_pos0 : Double
+  _camera_matrix_state0 : @math.Matrix4
+  _gizmo_matrix_state0 : @math.Matrix4
+  _target0 : @math.Vector3
+  mut _button : Double
+  _touch_start : Array[@core.JsValue]
+  _touch_current : Array[@core.JsValue]
+  mut _input : ArcballInput
+  mut _switch_sensibility : Double
+  mut _start_finger_distance : Double
+  mut _current_finger_distance : Double
+  mut _start_finger_rotation : Double
+  mut _current_finger_rotation : Double
+  mut _dev_px_ratio : Double
+  mut _down_valid : Bool
+  mut _nclicks : Int32
+  _down_events : Array[@core.JsValue]
+  mut _down_start : Double
+  mut _click_start : Double
+  mut _max_down_time : Double
+  mut _max_interval : Double
+  mut _pos_threshold : Double
+  mut _movement_threshold : Double
+  _current_cursor_position : @math.Vector3
+  _start_cursor_position : @math.Vector3
+  mut _grid : @core.Object3D?
+  _grid_position : @math.Vector3
+  _gizmos : @core.Object3D
+  mut _curve_pts : Int32
+  mut _time_start : Double
+  mut _animation_id : Double
+  mut focus_animation_time : Double
+  mut _time_prev : Double
+  mut _time_current : Double
+  mut _angle_prev : Double
+  mut _angle_current : Double
+  _cursor_pos_prev : @math.Vector3
+  _cursor_pos_curr : @math.Vector3
+  mut _w_prev : Double
+  mut _w_curr : Double
+  mut adjust_near_far : Bool
+  mut scale_factor : Double
+  mut damping_factor : Double
+  mut w_max : Double
+  mut enable_animations : Bool
+  mut enable_grid : Bool
+  mut cursor_zoom : Bool
+  mut min_fov : Double
+  mut max_fov : Double
+  mut rotate_speed : Double
+  mut enable_pan : Bool
+  mut enable_rotate : Bool
+  mut enable_zoom : Bool
+  mut enable_gizmos : Bool
+  mut enable_focus : Bool
+  mut min_distance : Double
+  mut max_distance : Double
+  mut min_zoom : Double
+  mut max_zoom : Double
+  mut _tb_radius : Double
+  mut _state : ArcballState
+  mut _on_context_menu : (@core.JsValue) -> Unit
+  mut _on_wheel : (@core.JsValue) -> Unit
+  mut _on_pointer_up : (@core.JsValue) -> Unit
+  mut _on_pointer_move : (@core.JsValue) -> Unit
+  mut _on_pointer_down : (@core.JsValue) -> Unit
+  mut _on_pointer_cancel : (@core.JsValue) -> Unit
+  mut _on_window_resize : (@core.JsValue) -> Unit
+}
+pub fn ArcballControls::activate_gizmos(Self, Bool) -> Unit
+pub fn ArcballControls::add_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn ArcballControls::apply_transform_matrix(Self, ArcballTransformation) -> Unit
+pub fn ArcballControls::calculate_angular_speed(Self, Double, Double, Double, Double) -> Double
+pub fn ArcballControls::calculate_pointers_distance(Self, @core.JsValue, @core.JsValue) -> Double
+pub fn ArcballControls::calculate_rotation_axis(Self, @math.Vector3, @math.Vector3) -> @math.Vector3
+pub fn ArcballControls::calculate_tb_radius(Self, @core.Object3D) -> Double
+pub fn ArcballControls::compare_mouse_action(Self, ArcballMouseAction, ArcballMouseAction) -> Bool
+pub fn ArcballControls::connect(Self, @core.JsValue) -> Unit
+pub fn ArcballControls::copy_state(Self) -> Unit
+pub fn ArcballControls::disconnect(Self) -> Unit
+pub fn ArcballControls::dispatch_event(Self, @core.Event) -> Unit
+pub fn ArcballControls::dispose(Self) -> Unit
+pub fn ArcballControls::dispose_grid(Self) -> Unit
+pub fn ArcballControls::draw_grid(Self) -> Unit
+pub fn ArcballControls::ease_out_cubic(Self, Double) -> Double
+pub fn ArcballControls::event_dispatcher(Self) -> @core.EventDispatcher
+pub fn ArcballControls::event_target(Self) -> @core.EventTarget
+pub fn ArcballControls::focus(Self, @math.Vector3, Double, amount? : Double) -> Unit
+pub fn ArcballControls::get_angle(Self, @core.JsValue, @core.JsValue) -> Double
+pub fn ArcballControls::get_cursor_ndc(Self, Double, Double, @core.JsValue) -> @math.Vector2
+pub fn ArcballControls::get_cursor_position(Self, Double, Double, @core.JsValue) -> @math.Vector2
+pub fn ArcballControls::get_op_from_action(Self, ArcballMouse?, String?) -> String?
+pub fn ArcballControls::get_op_state_from_action(Self, ArcballMouse?, String?) -> ArcballState?
+pub fn ArcballControls::get_raycaster(Self) -> @core.Raycaster
+pub fn ArcballControls::has_event_listener(Self, String, (@core.Event) -> Unit) -> Bool
+pub fn ArcballControls::initialize_mouse_actions(Self) -> Unit
+pub fn ArcballControls::make_gizmos(Self, @math.Vector3, Double) -> Unit
+pub fn ArcballControls::new(@core.Object3D, dom_element? : @core.JsValue, scene? : @core.Object3D) -> Self
+pub fn ArcballControls::on_double_pan_end(Self) -> Unit
+pub fn ArcballControls::on_double_pan_move(Self) -> Unit
+pub fn ArcballControls::on_double_pan_start(Self) -> Unit
+pub fn ArcballControls::on_double_tap(Self, @core.JsValue) -> Unit
+pub fn ArcballControls::on_focus_anim(Self, Double, @math.Vector3, @math.Matrix4, @math.Matrix4) -> Unit
+pub fn ArcballControls::on_pinch_end(Self) -> Unit
+pub fn ArcballControls::on_pinch_move(Self) -> Unit
+pub fn ArcballControls::on_pinch_start(Self) -> Unit
+pub fn ArcballControls::on_rotate_end(Self) -> Unit
+pub fn ArcballControls::on_rotate_move(Self) -> Unit
+pub fn ArcballControls::on_rotate_start(Self) -> Unit
+pub fn ArcballControls::on_rotation_anim(Self, Double, @math.Vector3, Double) -> Unit
+pub fn ArcballControls::on_single_pan_end(Self) -> Unit
+pub fn ArcballControls::on_single_pan_move(Self, @core.JsValue, ArcballState) -> Unit
+pub fn ArcballControls::on_single_pan_start(Self, @core.JsValue, String) -> Unit
+pub fn ArcballControls::on_triple_pan_end(Self) -> Unit
+pub fn ArcballControls::on_triple_pan_move(Self) -> Unit
+pub fn ArcballControls::on_triple_pan_start(Self) -> Unit
+pub fn ArcballControls::pan(Self, @math.Vector3, @math.Vector3, adjust? : Bool) -> ArcballTransformation
+pub fn ArcballControls::paste_state(Self) -> Unit
+pub fn ArcballControls::remove_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn ArcballControls::reset(Self) -> Unit
+pub fn ArcballControls::rotate(Self, @math.Vector3, Double) -> ArcballTransformation
+pub fn ArcballControls::save_state(Self) -> Unit
+pub fn ArcballControls::scale(Self, Double, @math.Vector3, scale_gizmos? : Bool) -> ArcballTransformation
+pub fn ArcballControls::set_camera(Self, @core.Object3D) -> Unit
+pub fn ArcballControls::set_center(Self, Double, Double) -> Unit
+pub fn ArcballControls::set_fov(Self, Double) -> Unit
+pub fn ArcballControls::set_gizmos_visible(Self, Bool) -> Unit
+pub fn ArcballControls::set_mouse_action(Self, String, ArcballMouse, key? : String) -> Bool
+pub fn ArcballControls::set_state_from_json(Self, String) -> Unit
+pub fn ArcballControls::set_tb_radius(Self, Double) -> Unit
+pub fn ArcballControls::set_transformation_matrices(Self, camera? : @math.Matrix4, gizmos? : @math.Matrix4) -> Unit
+pub fn ArcballControls::unproject_on_obj(Self, @math.Vector2, @core.Object3D) -> @math.Vector3?
+pub fn ArcballControls::unproject_on_tb_plane(Self, @core.Object3D, Double, Double, @core.JsValue, initial_distance? : Bool) -> @math.Vector3
+pub fn ArcballControls::unproject_on_tb_surface(Self, @core.Object3D, Double, Double, @core.JsValue, Double) -> @math.Vector3
+pub fn ArcballControls::unset_mouse_action(Self, ArcballMouse, key? : String) -> Bool
+pub fn ArcballControls::update(Self) -> Unit
+pub fn ArcballControls::update_matrix_state(Self) -> Unit
+pub fn ArcballControls::update_tb_state(Self, ArcballState, Bool) -> Unit
+pub fn ArcballControls::update_touch_event(Self, @core.JsValue) -> Unit
+pub fn ArcballControls::z_rotate(Self, @math.Vector3, Double) -> ArcballTransformation
+pub impl @core.EventSource for ArcballControls
+pub impl @extras.ControlsExtension for ArcballControls
+
+#derive(Eq)
+pub(all) enum ArcballInput {
+  None
+  OneFinger
+  OneFingerSwitched
+  TwoFinger
+  MultFinger
+  Cursor
+}
+
+#derive(Eq)
+pub(all) enum ArcballMouse {
+  Button(Int32)
+  Wheel
+}
+
+pub(all) struct ArcballMouseAction {
+  operation : String
+  mouse : ArcballMouse
+  key : String?
+  state : ArcballState
+}
+
+#derive(Eq)
+pub(all) enum ArcballState {
+  Idle
+  Rotate
+  Pan
+  Scale
+  Fov
+  Focus
+  ZRotate
+  TouchMulti
+  AnimationFocus
+  AnimationRotate
+}
+
+pub(all) struct ArcballTransformation {
+  mut camera : @math.Matrix4?
+  mut gizmos : @math.Matrix4?
+}
+
+pub(all) struct DragControls {
+  base : @extras.Controls
+  mut objects : Array[@core.Object3D]
+  mut recursive : Bool
+  mut transform_group : Bool
+  mut rotate_speed : Double
+  mut raycaster : @core.Raycaster
+  mut _on_pointer_move : (@core.JsValue) -> Unit
+  mut _on_pointer_down : (@core.JsValue) -> Unit
+  mut _on_pointer_cancel : (@core.JsValue) -> Unit
+  mut _on_context_menu : (@core.JsValue) -> Unit
+}
+pub fn DragControls::add_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn DragControls::connect(Self, @core.JsValue) -> Unit
+pub fn DragControls::disconnect(Self) -> Unit
+pub fn DragControls::dispatch_event(Self, @core.Event) -> Unit
+pub fn DragControls::dispose(Self) -> Unit
+pub fn DragControls::event_dispatcher(Self) -> @core.EventDispatcher
+pub fn DragControls::event_target(Self) -> @core.EventTarget
+pub fn DragControls::has_event_listener(Self, String, (@core.Event) -> Unit) -> Bool
+pub fn DragControls::new(Array[@core.Object3D], @core.Object3D, dom_element? : @core.JsValue) -> Self
+pub fn DragControls::remove_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub impl @core.EventSource for DragControls
+pub impl @extras.ControlsExtension for DragControls
+
+pub(all) struct FirstPersonControls {
+  base : @extras.Controls
+  mut movement_speed : Double
+  mut look_speed : Double
+  mut damping_factor : Double
+  mut look_vertical : Bool
+  mut auto_forward : Bool
+  mut height_speed : Bool
+  mut height_coef : Double
+  mut height_min : Double
+  mut height_max : Double
+  mut constrain_vertical : Bool
+  mut vertical_min : Double
+  mut vertical_max : Double
+  mut mouse_drag_on : Bool
+  _velocity : @math.Vector3
+  mut _pointer_x : Double
+  mut _pointer_y : Double
+  mut _pointer_down_x : Double
+  mut _pointer_down_y : Double
+  mut _pointer_count : Int32
+  mut _key_forward : Bool
+  mut _key_backward : Bool
+  mut _pointer_forward : Bool
+  mut _pointer_backward : Bool
+  mut _move_left : Bool
+  mut _move_right : Bool
+  mut _move_up : Bool
+  mut _move_down : Bool
+  mut _lat : Double
+  mut _lon : Double
+  mut _lon_velocity : Double
+  mut _lat_velocity : Double
+  mut _on_pointer_move : (@core.JsValue) -> Unit
+  mut _on_pointer_down : (@core.JsValue) -> Unit
+  mut _on_pointer_up : (@core.JsValue) -> Unit
+  mut _on_context_menu : (@core.JsValue) -> Unit
+  mut _on_key_down : (@core.JsValue) -> Unit
+  mut _on_key_up : (@core.JsValue) -> Unit
+}
+pub fn FirstPersonControls::add_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn FirstPersonControls::connect(Self, @core.JsValue) -> Unit
+pub fn FirstPersonControls::disconnect(Self) -> Unit
+pub fn FirstPersonControls::dispatch_event(Self, @core.Event) -> Unit
+pub fn FirstPersonControls::dispose(Self) -> Unit
+pub fn FirstPersonControls::event_dispatcher(Self) -> @core.EventDispatcher
+pub fn FirstPersonControls::event_target(Self) -> @core.EventTarget
+pub fn FirstPersonControls::handle_resize(Self) -> Unit
+pub fn FirstPersonControls::has_event_listener(Self, String, (@core.Event) -> Unit) -> Bool
+pub fn FirstPersonControls::look_at(Self, @math.Vector3) -> Self
+pub fn FirstPersonControls::look_at_xyz(Self, Double, Double, Double) -> Self
+pub fn FirstPersonControls::new(@core.Object3D, dom_element? : @core.JsValue) -> Self
+pub fn FirstPersonControls::remove_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn FirstPersonControls::update(Self, Double) -> Unit
+pub impl @core.EventSource for FirstPersonControls
+pub impl @extras.ControlsExtension for FirstPersonControls
+
+pub(all) struct FlyControls {
+  base : @extras.Controls
+  mut movement_speed : Double
+  mut roll_speed : Double
+  mut drag_to_look : Bool
+  mut auto_forward : Bool
+  mut movement_speed_multiplier : Double?
+  _move_state : FlyMoveState
+  _move_vector : @math.Vector3
+  _rotation_vector : @math.Vector3
+  _last_quaternion : @math.Quaternion
+  _last_position : @math.Vector3
+  mut _status : Int32
+  mut _on_key_down : (@core.JsValue) -> Unit
+  mut _on_key_up : (@core.JsValue) -> Unit
+  mut _on_pointer_move : (@core.JsValue) -> Unit
+  mut _on_pointer_down : (@core.JsValue) -> Unit
+  mut _on_pointer_up : (@core.JsValue) -> Unit
+  mut _on_pointer_cancel : (@core.JsValue) -> Unit
+  mut _on_context_menu : (@core.JsValue) -> Unit
+}
+pub fn FlyControls::add_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn FlyControls::connect(Self, @core.JsValue) -> Unit
+pub fn FlyControls::disconnect(Self) -> Unit
+pub fn FlyControls::dispatch_event(Self, @core.Event) -> Unit
+pub fn FlyControls::dispose(Self) -> Unit
+pub fn FlyControls::event_dispatcher(Self) -> @core.EventDispatcher
+pub fn FlyControls::event_target(Self) -> @core.EventTarget
+pub fn FlyControls::has_event_listener(Self, String, (@core.Event) -> Unit) -> Bool
+pub fn FlyControls::new(@core.Object3D, dom_element? : @core.JsValue) -> Self
+pub fn FlyControls::remove_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn FlyControls::update(Self, Double) -> Unit
+pub impl @core.EventSource for FlyControls
+pub impl @extras.ControlsExtension for FlyControls
+
+pub(all) struct FlyMoveState {
+  mut up : Double
+  mut down : Double
+  mut left : Double
+  mut right : Double
+  mut forward : Double
+  mut back : Double
+  mut pitch_up : Double
+  mut pitch_down : Double
+  mut yaw_left : Double
+  mut yaw_right : Double
+  mut roll_left : Double
+  mut roll_right : Double
+}
+
+#external
+pub type MapControls
+pub fn MapControls::new(@core.Object3D, dom_element? : @core.JsValue) -> OrbitControls
+
+pub(all) struct OrbitControls {
+  base : @extras.Controls
+  mut target : @math.Vector3
+  mut cursor : @math.Vector3
+  mut min_distance : Double
+  mut max_distance : Double
+  mut min_zoom : Double
+  mut max_zoom : Double
+  mut min_target_radius : Double
+  mut max_target_radius : Double
+  mut min_polar_angle : Double
+  mut max_polar_angle : Double
+  mut min_azimuth_angle : Double
+  mut max_azimuth_angle : Double
+  mut enable_damping : Bool
+  mut damping_factor : Double
+  mut enable_zoom : Bool
+  mut zoom_speed : Double
+  mut enable_rotate : Bool
+  mut rotate_speed : Double
+  mut key_rotate_speed : Double
+  mut enable_pan : Bool
+  mut pan_speed : Double
+  mut screen_space_panning : Bool
+  mut key_pan_speed : Double
+  mut zoom_to_cursor : Bool
+  mut auto_rotate : Bool
+  mut auto_rotate_speed : Double
+  mut target0 : @math.Vector3
+  mut position0 : @math.Vector3
+  mut zoom0 : Double
+  mut _cursor_style : String
+  mut _dom_element_key_events : @core.JsValue?
+  _last_position : @math.Vector3
+  _last_quaternion : @math.Quaternion
+  _last_target_position : @math.Vector3
+  mut _quat : @math.Quaternion
+  mut _quat_inverse : @math.Quaternion
+  _spherical : @math.Spherical
+  _spherical_delta : @math.Spherical
+  mut _scale : Double
+  _pan_offset : @math.Vector3
+  _rotate_start : @math.Vector2
+  _rotate_end : @math.Vector2
+  _rotate_delta : @math.Vector2
+  _pan_start : @math.Vector2
+  _pan_end : @math.Vector2
+  _pan_delta : @math.Vector2
+  _dolly_start : @math.Vector2
+  _dolly_end : @math.Vector2
+  _dolly_delta : @math.Vector2
+  _dolly_direction : @math.Vector3
+  _mouse : @math.Vector2
+  mut _perform_cursor_zoom : Bool
+  _pointers : Array[Double]
+  mut _pointer_positions : Map[Double, @math.Vector2]
+  mut _control_active : Bool
+  mut _pan_world_start : @math.Vector3?
+  mut _on_pointer_move : (@core.JsValue) -> Unit
+  mut _on_pointer_down : (@core.JsValue) -> Unit
+  mut _on_pointer_up : (@core.JsValue) -> Unit
+  mut _on_context_menu : (@core.JsValue) -> Unit
+  mut _on_mouse_wheel : (@core.JsValue) -> Unit
+  mut _on_key_down : (@core.JsValue) -> Unit
+  mut _on_touch_start : (@core.JsValue) -> Unit
+  mut _on_touch_move : (@core.JsValue) -> Unit
+  mut _on_mouse_down : (@core.JsValue) -> Unit
+  mut _on_mouse_move : (@core.JsValue) -> Unit
+  mut _intercept_control_down : (@core.JsValue) -> Unit
+  mut _intercept_control_up : (@core.JsValue) -> Unit
+}
+pub fn OrbitControls::add_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn OrbitControls::connect(Self, @core.JsValue) -> Unit
+pub fn OrbitControls::cursor_style(Self) -> String
+pub fn OrbitControls::disconnect(Self) -> Unit
+pub fn OrbitControls::dispatch_event(Self, @core.Event) -> Unit
+pub fn OrbitControls::dispose(Self) -> Unit
+pub fn OrbitControls::dolly_in(Self, Double) -> Unit
+pub fn OrbitControls::dolly_out(Self, Double) -> Unit
+pub fn OrbitControls::event_dispatcher(Self) -> @core.EventDispatcher
+pub fn OrbitControls::event_target(Self) -> @core.EventTarget
+pub fn OrbitControls::get_azimuthal_angle(Self) -> Double
+pub fn OrbitControls::get_distance(Self) -> Double
+pub fn OrbitControls::get_polar_angle(Self) -> Double
+pub fn OrbitControls::has_event_listener(Self, String, (@core.Event) -> Unit) -> Bool
+pub fn OrbitControls::is_map_controls(Self) -> Bool
+pub fn OrbitControls::listen_to_key_events(Self, @core.JsValue) -> Unit
+pub fn OrbitControls::new(@core.Object3D, dom_element? : @core.JsValue) -> Self
+pub fn OrbitControls::pan(Self, Double, Double) -> Unit
+pub fn OrbitControls::remove_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn OrbitControls::reset(Self) -> Unit
+pub fn OrbitControls::rotate_left(Self, Double) -> Unit
+pub fn OrbitControls::rotate_up(Self, Double) -> Unit
+pub fn OrbitControls::save_state(Self) -> Unit
+pub fn OrbitControls::set_cursor_style(Self, String) -> Unit
+pub fn OrbitControls::stop_listen_to_key_events(Self) -> Unit
+pub fn OrbitControls::update(Self, delta_time? : Double) -> Bool
+pub impl @core.EventSource for OrbitControls
+pub impl @extras.ControlsExtension for OrbitControls
+
+pub(all) struct PointerLockControls {
+  base : @extras.Controls
+  mut is_locked : Bool
+  mut min_polar_angle : Double
+  mut max_polar_angle : Double
+  mut pointer_speed : Double
+  mut _on_mouse_move : (@core.JsValue) -> Unit
+  mut _on_pointerlock_change : (@core.JsValue) -> Unit
+  mut _on_pointerlock_error : (@core.JsValue) -> Unit
+}
+pub fn PointerLockControls::add_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn PointerLockControls::connect(Self, @core.JsValue) -> Unit
+pub fn PointerLockControls::disconnect(Self) -> Unit
+pub fn PointerLockControls::dispatch_event(Self, @core.Event) -> Unit
+pub fn PointerLockControls::dispose(Self) -> Unit
+pub fn PointerLockControls::event_dispatcher(Self) -> @core.EventDispatcher
+pub fn PointerLockControls::event_target(Self) -> @core.EventTarget
+pub fn PointerLockControls::get_direction(Self, @math.Vector3) -> @math.Vector3
+pub fn PointerLockControls::has_event_listener(Self, String, (@core.Event) -> Unit) -> Bool
+pub fn PointerLockControls::lock(Self, unadjusted_movement? : Bool) -> Unit
+pub fn PointerLockControls::move_forward(Self, Double) -> Unit
+pub fn PointerLockControls::move_right(Self, Double) -> Unit
+pub fn PointerLockControls::new(@core.Object3D, dom_element? : @core.JsValue) -> Self
+pub fn PointerLockControls::remove_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn PointerLockControls::unlock(Self) -> Unit
+pub impl @core.EventSource for PointerLockControls
+pub impl @extras.ControlsExtension for PointerLockControls
+
+pub(all) struct TrackballControls {
+  base : @extras.Controls
+  screen : TrackballScreen
+  mut rotate_speed : Double
+  mut zoom_speed : Double
+  mut pan_speed : Double
+  mut roll_speed : Double
+  mut no_rotate : Bool
+  mut no_zoom : Bool
+  mut no_pan : Bool
+  mut multi_touch_roll : Bool
+  mut static_moving : Bool
+  mut dynamic_damping_factor : Double
+  mut min_distance : Double
+  mut max_distance : Double
+  mut min_zoom : Double
+  mut max_zoom : Double
+  mut target : @math.Vector3
+  mut key_state : Int32
+  _last_position : @math.Vector3
+  _last_up : @math.Vector3
+  mut _last_zoom : Double
+  mut _touch_zoom_distance_start : Double
+  mut _touch_zoom_distance_end : Double
+  mut _touch_roll_angle : Double
+  mut _touch_roll_pointer_ids : String
+  mut _last_angle : Double
+  mut _last_roll_angle : Double
+  _eye : @math.Vector3
+  _move_prev : @math.Vector2
+  _move_curr : @math.Vector2
+  _last_axis : @math.Vector3
+  _zoom_start : @math.Vector2
+  _zoom_end : @math.Vector2
+  _pan_start : @math.Vector2
+  _pan_end : @math.Vector2
+  _pointers : Array[@core.JsValue]
+  mut _pointer_positions : Map[Double, @math.Vector2]
+  mut _on_pointer_move : (@core.JsValue) -> Unit
+  mut _on_pointer_down : (@core.JsValue) -> Unit
+  mut _on_pointer_up : (@core.JsValue) -> Unit
+  mut _on_pointer_cancel : (@core.JsValue) -> Unit
+  mut _on_context_menu : (@core.JsValue) -> Unit
+  mut _on_mouse_wheel : (@core.JsValue) -> Unit
+  mut _on_key_down : (@core.JsValue) -> Unit
+  mut _on_key_up : (@core.JsValue) -> Unit
+  mut _on_touch_start : (@core.JsValue) -> Unit
+  mut _on_touch_move : (@core.JsValue) -> Unit
+  mut _on_touch_end : (@core.JsValue) -> Unit
+  mut _on_mouse_down : (@core.JsValue) -> Unit
+  mut _on_mouse_move : (@core.JsValue) -> Unit
+  mut _on_mouse_up : (@core.JsValue) -> Unit
+  mut _target0 : @math.Vector3
+  mut _position0 : @math.Vector3
+  mut _up0 : @math.Vector3
+  mut _zoom0 : Double
+}
+pub fn TrackballControls::add_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn TrackballControls::connect(Self, @core.JsValue) -> Unit
+pub fn TrackballControls::disconnect(Self) -> Unit
+pub fn TrackballControls::dispatch_event(Self, @core.Event) -> Unit
+pub fn TrackballControls::dispose(Self) -> Unit
+pub fn TrackballControls::event_dispatcher(Self) -> @core.EventDispatcher
+pub fn TrackballControls::event_target(Self) -> @core.EventTarget
+pub fn TrackballControls::handle_resize(Self) -> Unit
+pub fn TrackballControls::has_event_listener(Self, String, (@core.Event) -> Unit) -> Bool
+pub fn TrackballControls::new(@core.Object3D, dom_element? : @core.JsValue) -> Self
+pub fn TrackballControls::remove_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn TrackballControls::reset(Self) -> Unit
+pub fn TrackballControls::update(Self) -> Unit
+pub impl @core.EventSource for TrackballControls
+pub impl @extras.ControlsExtension for TrackballControls
+
+pub(all) struct TrackballScreen {
+  mut left : Double
+  mut top : Double
+  mut width : Double
+  mut height : Double
+}
+
+pub struct TransformControls {
+  base : @extras.Controls
+  _root : @core.Object3D
+  _gizmo : @core.Object3D
+  _plane : @core.Object3D
+  _gizmo_state : TransformControlsState
+  _plane_state : TransformControlsState
+  mut camera : @core.Object3D
+  mut object : @core.Object3D?
+  mut enabled : Bool
+  mut axis : String?
+  mut mode : String
+  mut translation_snap : Double?
+  mut rotation_snap : Double?
+  mut scale_snap : Double?
+  mut space : String
+  mut size : Double
+  mut dragging : Bool
+  mut show_x : Bool
+  mut show_y : Bool
+  mut show_z : Bool
+  mut show_xy : Bool
+  mut show_yz : Bool
+  mut show_xz : Bool
+  mut show_xyze : Bool
+  mut show_e : Bool
+  mut min_x : Double
+  mut max_x : Double
+  mut min_y : Double
+  mut max_y : Double
+  mut min_z : Double
+  mut max_z : Double
+  mut world_position : @math.Vector3
+  mut world_position_start : @math.Vector3
+  mut world_quaternion : @math.Quaternion
+  mut world_quaternion_start : @math.Quaternion
+  mut camera_position : @math.Vector3
+  mut camera_quaternion : @math.Quaternion
+  mut point_start : @math.Vector3
+  mut point_end : @math.Vector3
+  mut rotation_axis : @math.Vector3
+  mut rotation_angle : Double
+  mut eye : @math.Vector3
+  mut viewport : @math.Vector4?
+  _offset : @math.Vector3
+  _start_norm : @math.Vector3
+  _end_norm : @math.Vector3
+  _camera_scale : @math.Vector3
+  _parent_position : @math.Vector3
+  _parent_quaternion : @math.Quaternion
+  _parent_quaternion_inv : @math.Quaternion
+  _parent_scale : @math.Vector3
+  _world_scale_start : @math.Vector3
+  _world_quaternion_inv : @math.Quaternion
+  _world_scale : @math.Vector3
+  _position_start : @math.Vector3
+  _quaternion_start : @math.Quaternion
+  _scale_start : @math.Vector3
+  mut _on_pointer_down : (@core.JsValue) -> Unit
+  mut _on_pointer_hover : (@core.JsValue) -> Unit
+  mut _on_pointer_move : (@core.JsValue) -> Unit
+  mut _on_pointer_up : (@core.JsValue) -> Unit
+}
+pub fn TransformControls::add_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn TransformControls::attach(Self, @core.Object3D) -> Self
+pub fn TransformControls::connect(Self, @core.JsValue) -> Unit
+pub fn TransformControls::detach(Self) -> Self
+pub fn TransformControls::disconnect(Self) -> Unit
+pub fn TransformControls::dispatch_event(Self, @core.Event) -> Unit
+pub fn TransformControls::dispose(Self) -> Unit
+pub fn TransformControls::event_dispatcher(Self) -> @core.EventDispatcher
+pub fn TransformControls::event_target(Self) -> @core.EventTarget
+pub fn TransformControls::get_helper(Self) -> @core.Object3D
+pub fn TransformControls::get_mode(Self) -> String
+pub fn TransformControls::get_raycaster(Self) -> @core.Raycaster
+pub fn TransformControls::has_event_listener(Self, String, (@core.Event) -> Unit) -> Bool
+pub fn TransformControls::new(@core.Object3D, dom_element? : @core.JsValue) -> Self
+pub fn TransformControls::pointer_down(Self, TransformControlsPointer?) -> Unit
+pub fn TransformControls::pointer_hover(Self, TransformControlsPointer?) -> Unit
+pub fn TransformControls::pointer_move(Self, TransformControlsPointer?) -> Unit
+pub fn TransformControls::pointer_up(Self, TransformControlsPointer?) -> Unit
+pub fn TransformControls::remove_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn TransformControls::reset(Self) -> Unit
+pub fn TransformControls::set_axis(Self, String?) -> Unit
+pub fn TransformControls::set_camera(Self, @core.Object3D) -> Unit
+pub fn TransformControls::set_camera_position(Self, @math.Vector3) -> Unit
+pub fn TransformControls::set_camera_quaternion(Self, @math.Quaternion) -> Unit
+pub fn TransformControls::set_colors(Self, @math.Color, @math.Color, @math.Color, @math.Color) -> Unit
+pub fn TransformControls::set_colors_hex(Self, Int32, Int32, Int32, Int32) -> Unit
+pub fn TransformControls::set_dragging(Self, Bool) -> Unit
+pub fn TransformControls::set_enabled(Self, Bool) -> Unit
+pub fn TransformControls::set_eye(Self, @math.Vector3) -> Unit
+pub fn TransformControls::set_max_x(Self, Double) -> Unit
+pub fn TransformControls::set_max_y(Self, Double) -> Unit
+pub fn TransformControls::set_max_z(Self, Double) -> Unit
+pub fn TransformControls::set_min_x(Self, Double) -> Unit
+pub fn TransformControls::set_min_y(Self, Double) -> Unit
+pub fn TransformControls::set_min_z(Self, Double) -> Unit
+pub fn TransformControls::set_mode(Self, String) -> Unit
+pub fn TransformControls::set_object(Self, @core.Object3D?) -> Unit
+pub fn TransformControls::set_point_end(Self, @math.Vector3) -> Unit
+pub fn TransformControls::set_point_start(Self, @math.Vector3) -> Unit
+pub fn TransformControls::set_rotation_angle(Self, Double) -> Unit
+pub fn TransformControls::set_rotation_axis(Self, @math.Vector3) -> Unit
+pub fn TransformControls::set_rotation_snap(Self, Double?) -> Unit
+pub fn TransformControls::set_scale_snap(Self, Double?) -> Unit
+pub fn TransformControls::set_show_e(Self, Bool) -> Unit
+pub fn TransformControls::set_show_x(Self, Bool) -> Unit
+pub fn TransformControls::set_show_xy(Self, Bool) -> Unit
+pub fn TransformControls::set_show_xyze(Self, Bool) -> Unit
+pub fn TransformControls::set_show_xz(Self, Bool) -> Unit
+pub fn TransformControls::set_show_y(Self, Bool) -> Unit
+pub fn TransformControls::set_show_yz(Self, Bool) -> Unit
+pub fn TransformControls::set_show_z(Self, Bool) -> Unit
+pub fn TransformControls::set_size(Self, Double) -> Unit
+pub fn TransformControls::set_space(Self, String) -> Unit
+pub fn TransformControls::set_translation_snap(Self, Double?) -> Unit
+pub fn TransformControls::set_viewport(Self, @math.Vector4?) -> Unit
+pub fn TransformControls::set_world_position(Self, @math.Vector3) -> Unit
+pub fn TransformControls::set_world_position_start(Self, @math.Vector3) -> Unit
+pub fn TransformControls::set_world_quaternion(Self, @math.Quaternion) -> Unit
+pub fn TransformControls::set_world_quaternion_start(Self, @math.Quaternion) -> Unit
+pub impl @core.EventSource for TransformControls
+pub impl @extras.ControlsExtension for TransformControls
+
+pub(all) struct TransformControlsGizmo {
+  state : TransformControlsState
+  material_lib : TransformControlsMaterialLib
+  gizmo : Map[String, @core.Object3D]
+  picker : Map[String, @core.Object3D]
+  helper : Map[String, @core.Object3D]
+  _tags : Map[Int32, String]
+  _material_colors : Map[Int32, @math.Color]
+  _material_opacities : Map[Int32, Double]
+}
+#deprecated
+pub fn TransformControlsGizmo::construct(Self) -> @core.Object3D
+#deprecated
+pub fn TransformControlsGizmo::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn TransformControlsGizmo::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn TransformControlsGizmo::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn TransformControlsGizmo::has_flag(Self, String) -> Bool
+#deprecated
+pub fn TransformControlsGizmo::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn TransformControlsGizmo::new() -> @core.Object3D
+pub fn TransformControlsGizmo::of(@core.Object3D) -> Self?
+#deprecated
+pub fn TransformControlsGizmo::payload(Self) -> @core.JsValue
+#deprecated
+pub fn TransformControlsGizmo::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn TransformControlsGizmo::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn TransformControlsGizmo::type_name(Self) -> String
+#deprecated
+pub fn TransformControlsGizmo::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn TransformControlsGizmo::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for TransformControlsGizmo
+
+pub(all) struct TransformControlsMaterialLib {
+  x_axis : @core.Material
+  y_axis : @core.Material
+  z_axis : @core.Material
+  active : @core.Material
+  x_axis_transparent : @core.Material
+  y_axis_transparent : @core.Material
+  z_axis_transparent : @core.Material
+  active_transparent : @core.Material
+}
+
+pub(all) struct TransformControlsPlane {
+  state : TransformControlsState
+}
+#deprecated
+pub fn TransformControlsPlane::construct(Self) -> @core.Object3D
+#deprecated
+pub fn TransformControlsPlane::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn TransformControlsPlane::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn TransformControlsPlane::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn TransformControlsPlane::has_flag(Self, String) -> Bool
+#deprecated
+pub fn TransformControlsPlane::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn TransformControlsPlane::new() -> @core.Object3D
+pub fn TransformControlsPlane::of(@core.Object3D) -> Self?
+#deprecated
+pub fn TransformControlsPlane::payload(Self) -> @core.JsValue
+#deprecated
+pub fn TransformControlsPlane::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn TransformControlsPlane::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn TransformControlsPlane::type_name(Self) -> String
+#deprecated
+pub fn TransformControlsPlane::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn TransformControlsPlane::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for TransformControlsPlane
+
+pub(all) struct TransformControlsPointer {
+  x : Double
+  y : Double
+  button : Double
+}
+
+pub(all) struct TransformControlsState {
+  mut camera : @core.Object3D?
+  mut object : @core.Object3D?
+  mut enabled : Bool
+  mut axis : String?
+  mut mode : String
+  mut translation_snap : Double?
+  mut rotation_snap : Double?
+  mut scale_snap : Double?
+  mut space : String
+  mut size : Double
+  mut dragging : Bool
+  mut show_x : Bool
+  mut show_y : Bool
+  mut show_z : Bool
+  mut show_xy : Bool
+  mut show_yz : Bool
+  mut show_xz : Bool
+  mut show_xyze : Bool
+  mut show_e : Bool
+  mut min_x : Double
+  mut max_x : Double
+  mut min_y : Double
+  mut max_y : Double
+  mut min_z : Double
+  mut max_z : Double
+  mut world_position : @math.Vector3
+  mut world_position_start : @math.Vector3
+  mut world_quaternion : @math.Quaternion
+  mut world_quaternion_start : @math.Quaternion
+  mut camera_position : @math.Vector3
+  mut camera_quaternion : @math.Quaternion
+  mut point_start : @math.Vector3
+  mut point_end : @math.Vector3
+  mut rotation_axis : @math.Vector3
+  mut rotation_angle : Double
+  mut eye : @math.Vector3
+}
+
+// Type aliases
+
+// Traits

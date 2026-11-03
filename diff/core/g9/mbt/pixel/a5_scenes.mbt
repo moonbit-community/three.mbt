@@ -1,0 +1,1 @@
+../../../../../examples/pixel_compare/webgpu/a5_scenes.mbt

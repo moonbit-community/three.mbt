@@ -1,0 +1,38 @@
+A4 bug-injection tools: the TSL display add-ons (src/addons/tsl, agent group A4).
+
+The A4 checks themselves live elsewhere:
+  - shader text: diff/core/webgpu/shader_diff/run_a4.mjs [--group basic|blur|ao|ssr|pass]
+    (src/addons/tsl/a4_*shader_diff_test.mbt against shader_diff/upstream_a4.mjs + a4/<group>.mjs);
+    part of the `shader` check of run_all;
+  - mock-GPU call logs: diff/core/g9/harness/run_a4.mjs (a4_*scenarios.mjs against
+    diff/core/g9/mbt/a4); the `g9_a4` check (32/32).
+
+Each tool applies one deliberate bug at a time to a file in src/addons/tsl, runs the harness
+that should catch it, prints CAUGHT/MISSED (or the summaries), and restores the file. The
+Python tools edit through diff/lib/inject.py `patched()` (the original is restored on success,
+error, Ctrl-C and SIGTERM, and saved to diff/.out/inject_backup first; after a hard kill run
+`python3 diff/lib/inject.py --restore`). Bugs that need the mock GPU rebuild diff/core/g9/mbt,
+which is rebuilt again from the restored sources at the end. Run them from anywhere:
+
+  python3 diff/addons/tsl/a4/inject_basic.py [index ...]  basic group (FXAA, Sobel, DotScreen,
+                                                          RGBShift, CRT, bleach, ...): shader
+                                                          diff, plus a mock scenario for
+                                                          uniform-only bugs
+  python3 diff/addons/tsl/a4/inject_blur.py [index ...]   Gaussian blur, depth of field, sharpen:
+                                                          shader diff (group blur) + 4 mock scenarios
+  python3 diff/addons/tsl/a4/inject_ao.py [index ...]     GTAO, SSGI, SSS, godrays: shader diff
+                                                          (group ao) + every A4 mock scenario
+  python3 diff/addons/tsl/a4/inject_ssr.py [index ...]    SSR, recurrent denoise (one bug swaps two
+                                                          module-level Fn definitions: fn<id> order)
+  diff/addons/tsl/a4/inject_pass.sh <file> <old> <new> <shader|mock> [names...]
+                                                          one ad-hoc bug in the pass group (the
+                                                          file name is relative to src/addons/tsl);
+                                                          a bash trap restores the file; its backup
+                                                          is diff/.out/inject_backup/inject_pass_<file>
+
+INJECT_DRY_RUN=1 makes every tool only check that its patterns still occur (nothing is
+written or run); a pattern that no longer matches after a refactor raises
+InjectionNotApplied (or prints PATTERN COUNT / PATTERN FAIL) and must be updated.
+
+Do not run these while another harness runs against the same checkout: the bug is in the real
+source files for the duration of each run.

@@ -1,0 +1,396 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/animation"
+
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "moonbitlang/core/debug",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub fn animation_event_action(@core.Event) -> AnimationAction?
+
+pub fn animation_event_direction(@core.Event) -> Double?
+
+pub fn animation_event_loop_delta(@core.Event) -> Double?
+
+pub fn[A : @core.TypedArrayInit] convert_array(A, String) -> @core.TypedArray
+
+pub fn flatten_json(Array[@json.Json], Array[@json.Json], Array[@json.Json], String) -> Unit
+
+pub fn get_keyframe_order(Array[Double]) -> Array[Int32]
+
+pub fn has_tangents(KeyframeTrackSettings?) -> Bool
+
+pub fn is_typed_array(@core.JsValue) -> Bool
+
+pub fn make_clip_additive(AnimationClip, reference_frame? : Double, reference_clip? : AnimationClip, fps? : Double) -> AnimationClip
+
+pub fn sorted_array(Array[Double], Int32, Array[Int32]) -> Array[Double]
+
+pub fn sorted_typed_array(@core.TypedArray, Int32, Array[Int32]) -> @core.TypedArray
+
+pub fn subclip(AnimationClip, String, Double, Double, fps? : Double) -> AnimationClip
+
+// Errors
+
+// Types and methods
+pub(all) struct ActionsForClip {
+  known_actions : Array[AnimationAction]
+  action_by_root : Map[String, AnimationAction]
+}
+
+pub(all) struct AnimationAction {
+  _mixer : AnimationMixer
+  _clip : AnimationClip
+  _local_root : AnimationRoot?
+  mut blend_mode : Int32
+  _interpolant_settings : @math.InterpolantSettings
+  _interpolants : Array[@math.Interpolant]
+  _property_bindings : Array[PropertyMixer?]
+  mut _cache_index : Int32?
+  mut _by_clip_cache_index : Int32?
+  mut _time_scale_interpolant : ControlInterpolant?
+  mut _restore_time_scale : Double?
+  mut _weight_interpolant : ControlInterpolant?
+  mut loop_ : Int32
+  mut _loop_count : Double
+  mut _start_time : Double?
+  mut time : Double
+  mut time_scale : Double
+  mut _effective_time_scale : Double
+  mut weight : Double
+  mut _effective_weight : Double
+  mut repetitions : Double
+  mut paused : Bool
+  mut enabled : Bool
+  mut clamp_when_finished : Bool
+  mut zero_slope_at_start : Bool
+  mut zero_slope_at_end : Bool
+}
+pub fn AnimationAction::_schedule_fading(Self, Double, Double, Double) -> Self
+pub fn AnimationAction::_set_endings(Self, Bool, Bool, Bool) -> Unit
+pub fn AnimationAction::_update(Self, Double, Double, Double, Int32) -> Unit
+pub fn AnimationAction::_update_time(Self, Double) -> Double
+pub fn AnimationAction::_update_time_scale(Self, Double) -> Double
+pub fn AnimationAction::_update_weight(Self, Double) -> Double
+pub fn AnimationAction::cross_fade_from(Self, Self, Double, warp? : Bool) -> Self
+pub fn AnimationAction::cross_fade_to(Self, Self, Double, warp? : Bool) -> Self
+pub fn AnimationAction::fade_in(Self, Double) -> Self
+pub fn AnimationAction::fade_out(Self, Double) -> Self
+pub fn AnimationAction::get_clip(Self) -> AnimationClip
+pub fn AnimationAction::get_effective_time_scale(Self) -> Double
+pub fn AnimationAction::get_effective_weight(Self) -> Double
+pub fn AnimationAction::get_mixer(Self) -> AnimationMixer
+pub fn AnimationAction::get_root(Self) -> AnimationRoot
+pub fn AnimationAction::halt(Self, Double) -> Self
+pub fn AnimationAction::is_running(Self) -> Bool
+pub fn AnimationAction::is_scheduled(Self) -> Bool
+pub fn AnimationAction::new(AnimationMixer, AnimationClip, local_root? : AnimationRoot, blend_mode? : Int32) -> Self
+pub fn AnimationAction::play(Self) -> Self
+pub fn AnimationAction::reset(Self) -> Self
+pub fn AnimationAction::set_duration(Self, Double) -> Self
+pub fn AnimationAction::set_effective_time_scale(Self, Double) -> Self
+pub fn AnimationAction::set_effective_weight(Self, Double) -> Self
+pub fn AnimationAction::set_loop(Self, Int32, repetitions? : Double) -> Self
+pub fn AnimationAction::start_at(Self, Double) -> Self
+pub fn AnimationAction::stop(Self) -> Self
+pub fn AnimationAction::stop_fading(Self) -> Self
+pub fn AnimationAction::stop_warping(Self) -> Self
+pub fn AnimationAction::sync_with(Self, Self) -> Self
+pub fn AnimationAction::warp(Self, Double, Double, Double) -> Self
+
+pub(all) struct AnimationClip {
+  mut name : String
+  mut tracks : Array[KeyframeTrack]
+  mut duration : Double
+  mut blend_mode : Int32
+  mut uuid : String
+  mut user_data : @core.JsValue
+}
+pub fn AnimationClip::animations_of(@core.Object3D) -> Array[Self]
+pub fn AnimationClip::as_resource(Self) -> &@core.SerializableResource
+pub fn AnimationClip::clone(Self) -> Self
+pub fn[T : MorphTarget] AnimationClip::create_clips_from_morph_target_sequences(Array[T], Double, Bool) -> Array[Self]
+pub fn[T : MorphTarget] AnimationClip::create_from_morph_target_sequence(String, Array[T], Double, Bool) -> Self
+pub fn AnimationClip::find_by_name(Array[Self], String) -> Self?
+pub fn AnimationClip::find_by_name_in_object(@core.Object3D, String) -> Self?
+pub fn AnimationClip::from_resource(&@core.SerializableResource) -> Self?
+pub fn AnimationClip::new(name? : String, duration? : Double, tracks? : Array[KeyframeTrack], blend_mode? : Int32) -> Self
+pub fn AnimationClip::optimize(Self) -> Self
+pub fn AnimationClip::parse(@json.Json) -> Self
+pub fn AnimationClip::payload(Self) -> @core.JsValue
+pub fn AnimationClip::reset_duration(Self) -> Self
+pub fn AnimationClip::to_json(Self) -> @json.Json
+pub fn AnimationClip::trim(Self) -> Self
+pub fn AnimationClip::uuid(Self) -> String
+pub fn AnimationClip::validate(Self) -> Bool
+pub impl @core.SerializableResource for AnimationClip
+
+pub(all) struct AnimationMixer {
+  dispatcher : @core.EventDispatcher
+  _root : AnimationRoot
+  mut _accu_index : Int32
+  mut time : Double
+  mut time_scale : Double
+  _actions : Array[AnimationAction?]
+  mut _n_active_actions : Int32
+  _actions_by_clip : Map[String, ActionsForClip]
+  _bindings : Array[PropertyMixer?]
+  mut _n_active_bindings : Int32
+  _bindings_by_root_and_name : Map[String, Map[String, PropertyMixer]]
+  _control_interpolants : Array[ControlInterpolant]
+  mut _n_active_control_interpolants : Int32
+}
+pub fn AnimationMixer::add_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn AnimationMixer::clip_action(Self, AnimationClip, optional_root? : AnimationRoot, blend_mode? : Int32) -> AnimationAction
+pub fn AnimationMixer::clip_action_by_name(Self, String, optional_root? : AnimationRoot, blend_mode? : Int32) -> AnimationAction?
+pub fn AnimationMixer::dispatch_event(Self, @core.Event) -> Unit
+pub fn AnimationMixer::event_dispatcher(Self) -> @core.EventDispatcher
+pub fn AnimationMixer::event_target(Self) -> @core.EventTarget
+pub fn AnimationMixer::existing_action(Self, AnimationClip, optional_root? : AnimationRoot) -> AnimationAction?
+pub fn AnimationMixer::existing_action_by_name(Self, String, optional_root? : AnimationRoot) -> AnimationAction?
+pub fn AnimationMixer::from_event_target(@core.EventTarget) -> Self?
+pub fn AnimationMixer::get_root(Self) -> AnimationRoot
+pub fn AnimationMixer::has_event_listener(Self, String, (@core.Event) -> Unit) -> Bool
+pub fn[R : ToAnimationRoot] AnimationMixer::new(R) -> Self
+pub fn AnimationMixer::remove_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn AnimationMixer::set_time(Self, Double) -> Self
+pub fn AnimationMixer::stats(Self) -> AnimationMixerStats
+pub fn AnimationMixer::stop_all_action(Self) -> Self
+pub fn AnimationMixer::uncache_action(Self, AnimationClip, optional_root? : AnimationRoot) -> Unit
+pub fn AnimationMixer::uncache_action_by_name(Self, String, optional_root? : AnimationRoot) -> Unit
+pub fn AnimationMixer::uncache_clip(Self, AnimationClip) -> Unit
+pub fn[R : ToAnimationRoot] AnimationMixer::uncache_root(Self, R) -> Unit
+pub fn AnimationMixer::update(Self, Double) -> Self
+pub impl @core.EventSource for AnimationMixer
+
+pub(all) struct AnimationMixerStats {
+  actions_total : Int32
+  actions_in_use : Int32
+  bindings_total : Int32
+  bindings_in_use : Int32
+  control_interpolants_total : Int32
+  control_interpolants_in_use : Int32
+}
+
+pub(all) struct AnimationObjectGroup {
+  uuid : String
+  _objects : Array[@core.Object3D]
+  mut n_cached_objects_ : Int32
+  _indices_by_uuid : Map[String, Int32]
+  _paths : Array[String]
+  _parsed_paths : Array[ParsedPath]
+  _bindings : Array[Array[PropertyBinding?]]
+  _bindings_indices_by_path : Map[String, Int32]
+}
+pub fn AnimationObjectGroup::add(Self, Array[@core.Object3D]) -> Unit
+pub fn AnimationObjectGroup::new(objects? : Array[@core.Object3D]) -> Self
+pub fn AnimationObjectGroup::remove(Self, Array[@core.Object3D]) -> Unit
+pub fn AnimationObjectGroup::stats(Self) -> AnimationObjectGroupStats
+pub fn AnimationObjectGroup::subscribe_(Self, String, ParsedPath) -> Array[PropertyBinding?]
+pub fn AnimationObjectGroup::to_animation_root(Self) -> AnimationRoot
+pub fn AnimationObjectGroup::uncache(Self, Array[@core.Object3D]) -> Unit
+pub fn AnimationObjectGroup::unsubscribe_(Self, String) -> Unit
+pub impl ToAnimationRoot for AnimationObjectGroup
+
+pub(all) struct AnimationObjectGroupStats {
+  objects_total : Int32
+  objects_in_use : Int32
+  bindings_per_object : Int32
+}
+
+pub(all) enum AnimationRoot {
+  Object3D(@core.Object3D)
+  Group(AnimationObjectGroup)
+}
+pub fn AnimationRoot::to_animation_root(Self) -> Self
+pub fn AnimationRoot::uuid(Self) -> String
+pub impl ToAnimationRoot for AnimationRoot
+
+pub(all) enum AnyPropertyBinding {
+  Single(PropertyBinding)
+  Composite(Composite)
+}
+pub fn AnyPropertyBinding::bind(Self) -> Unit
+pub fn AnyPropertyBinding::get_value(Self, Array[Double], Int32) -> Unit
+pub fn AnyPropertyBinding::parsed_path(Self) -> ParsedPath?
+pub fn AnyPropertyBinding::set_value(Self, Array[Double], Int32) -> Unit
+pub fn AnyPropertyBinding::unbind(Self) -> Unit
+
+#external
+pub type BooleanKeyframeTrack
+pub fn[T : @core.TypedArrayInit] BooleanKeyframeTrack::new(String, T, Array[Bool]) -> KeyframeTrack
+
+#external
+pub type ColorKeyframeTrack
+pub fn[T : @core.TypedArrayInit, V : @core.TypedArrayInit] ColorKeyframeTrack::new(String, T, V, interpolation? : Int32) -> KeyframeTrack
+
+pub struct Composite {
+  _target_group : AnimationObjectGroup
+  _bindings : Array[PropertyBinding?]
+}
+pub fn Composite::bind(Self) -> Unit
+pub fn Composite::get_value(Self, Array[Double], Int32) -> Unit
+pub fn Composite::new(AnimationObjectGroup, String, parsed_path? : ParsedPath) -> Self
+pub fn Composite::set_value(Self, Array[Double], Int32) -> Unit
+pub fn Composite::unbind(Self) -> Unit
+
+pub(all) struct ControlInterpolant {
+  interpolant : @math.Interpolant
+  mut _cache_index : Int32
+}
+
+pub(all) struct InterpolantFactory {
+  create : (KeyframeTrack, Array[Double]?) -> @math.Interpolant
+  is_interpolant_factory_method_gltf_cubic_spline : Bool
+}
+pub fn InterpolantFactory::new((KeyframeTrack, Array[Double]?) -> @math.Interpolant, is_interpolant_factory_method_gltf_cubic_spline? : Bool) -> Self
+
+pub(all) struct KeyframeTrack {
+  mut name : String
+  mut times : @core.TypedArray
+  mut values : TrackValues
+  mut settings : KeyframeTrackSettings?
+  mut create_interpolant_factory : InterpolantFactory?
+  kind : KeyframeTrackKind
+  value_type_name : String
+  default_interpolation : Int32
+  interpolant_factory_method_discrete : InterpolantFactory?
+  interpolant_factory_method_linear : InterpolantFactory?
+  interpolant_factory_method_smooth : InterpolantFactory?
+  interpolant_factory_method_bezier : InterpolantFactory?
+}
+pub fn KeyframeTrack::clone(Self) -> Self
+pub fn KeyframeTrack::create_interpolant(Self, result? : Array[Double]) -> @math.Interpolant
+pub fn KeyframeTrack::get_interpolation(Self) -> Int32?
+pub fn KeyframeTrack::get_value_size(Self) -> Double
+pub fn[T : @core.TypedArrayInit, V : @core.TypedArrayInit] KeyframeTrack::new(String, T, V, interpolation? : Int32) -> Self
+pub fn KeyframeTrack::optimize(Self) -> Self
+pub fn KeyframeTrack::parse(@json.Json) -> Self
+pub fn KeyframeTrack::scale(Self, Double) -> Self
+pub fn KeyframeTrack::set_interpolation(Self, Int32) -> Self
+pub fn KeyframeTrack::shift(Self, Double) -> Self
+pub fn KeyframeTrack::to_json(Self) -> @json.Json
+pub fn KeyframeTrack::trim(Self, Double, Double) -> Self
+pub fn KeyframeTrack::validate(Self) -> Bool
+
+pub(all) enum KeyframeTrackKind {
+  Base
+  BooleanTrack
+  ColorTrack
+  NumberTrack
+  QuaternionTrack
+  StringTrack
+  VectorTrack
+}
+
+pub(all) struct KeyframeTrackSettings {
+  mut in_tangents : @core.TypedArray?
+  mut out_tangents : @core.TypedArray?
+}
+pub fn KeyframeTrackSettings::new(in_tangents? : @core.TypedArray, out_tangents? : @core.TypedArray) -> Self
+
+#external
+pub type NumberKeyframeTrack
+pub fn[T : @core.TypedArrayInit, V : @core.TypedArrayInit] NumberKeyframeTrack::new(String, T, V, interpolation? : Int32) -> KeyframeTrack
+
+#derive(Eq, @debug.Debug)
+pub(all) struct ParsedPath {
+  mut node_name : String?
+  mut object_name : String?
+  mut object_index : String?
+  mut property_name : String
+  mut property_index : String?
+}
+pub fn ParsedPath::equal(Self, Self) -> Bool
+pub fn ParsedPath::not_equal(Self, Self) -> Bool
+pub fn ParsedPath::to_repr(Self) -> @debug.Repr
+
+pub(all) struct PropertyBinding {
+  path : String
+  parsed_path : ParsedPath
+  mut node : @core.Object3D?
+  root_node : @core.Object3D
+  mut property_name : String?
+  mut property_index : PropertyKey?
+  // private fields
+}
+pub fn PropertyBinding::bind(Self) -> Unit
+pub fn[R : ToAnimationRoot] PropertyBinding::create(R, String, parsed_path? : ParsedPath) -> AnyPropertyBinding
+pub fn PropertyBinding::find_node(@core.Object3D, String?) -> @core.Object3D?
+pub fn PropertyBinding::get_value(Self, Array[Double], Int32) -> Unit
+pub fn PropertyBinding::is_bound(Self) -> Bool
+pub fn PropertyBinding::new(@core.Object3D, String, parsed_path? : ParsedPath) -> Self
+pub fn PropertyBinding::parse_track_name(String) -> ParsedPath
+pub fn PropertyBinding::sanitize_node_name(String) -> String
+pub fn PropertyBinding::set_value(Self, Array[Double], Int32) -> Unit
+pub fn PropertyBinding::target_object_kind(Self) -> String?
+pub fn PropertyBinding::unbind(Self) -> Unit
+
+#derive(Eq, @debug.Debug)
+pub(all) enum PropertyKey {
+  Name(String)
+  Index(Int32)
+}
+pub fn PropertyKey::equal(Self, Self) -> Bool
+pub fn PropertyKey::not_equal(Self, Self) -> Bool
+pub fn PropertyKey::to_repr(Self) -> @debug.Repr
+
+pub(all) struct PropertyMixer {
+  binding : AnyPropertyBinding
+  value_size : Int32
+  buffer : Array[Double]
+  _work_index : Int32
+  _orig_index : Int32
+  _add_index : Int32
+  mut cumulative_weight : Double
+  mut cumulative_weight_additive : Double
+  mut use_count : Int32
+  mut reference_count : Int32
+  mut _cache_index : Int32?
+  // private fields
+}
+pub fn PropertyMixer::accumulate(Self, Int32, Double) -> Unit
+pub fn PropertyMixer::accumulate_additive(Self, Double) -> Unit
+pub fn PropertyMixer::apply(Self, Int32) -> Unit
+pub fn PropertyMixer::new(AnyPropertyBinding, String, Int32) -> Self
+pub fn PropertyMixer::restore_original_state(Self) -> Unit
+pub fn PropertyMixer::save_original_state(Self) -> Unit
+
+#external
+pub type QuaternionKeyframeTrack
+pub fn[T : @core.TypedArrayInit, V : @core.TypedArrayInit] QuaternionKeyframeTrack::new(String, T, V, interpolation? : Int32) -> KeyframeTrack
+
+#external
+pub type StringKeyframeTrack
+pub fn[T : @core.TypedArrayInit] StringKeyframeTrack::new(String, T, Array[String]) -> KeyframeTrack
+
+pub(all) enum TrackValues {
+  Numbers(@core.TypedArray)
+  Booleans(Array[Bool])
+  Strings(Array[String])
+}
+pub fn TrackValues::length(Self) -> Int32
+pub fn TrackValues::numbers(Self) -> @core.TypedArray
+pub fn TrackValues::slice(Self, start? : Int32, end? : Int32) -> Self
+pub fn TrackValues::to_json(Self) -> @json.Json
+
+#external
+pub type VectorKeyframeTrack
+pub fn[T : @core.TypedArrayInit, V : @core.TypedArrayInit] VectorKeyframeTrack::new(String, T, V, interpolation? : Int32) -> KeyframeTrack
+
+// Type aliases
+
+// Traits
+pub(open) trait MorphTarget {
+  fn morph_target_name(Self) -> String
+}
+pub impl MorphTarget for String
+pub impl MorphTarget for @core.GeometryAttribute
+
+pub(open) trait ToAnimationRoot {
+  fn to_animation_root(Self) -> AnimationRoot
+}
+pub impl ToAnimationRoot for @core.Object3D

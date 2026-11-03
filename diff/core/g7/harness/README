@@ -1,0 +1,46 @@
+G7 differential harness: renderers/common data classes (MoonBit src/nodes/common_*.mbt)
+against upstream (THREE_UPSTREAM, default .repos/three.js; src/renderers/common).
+From the repository root: `node diff/run_all.mjs --only g7`. The MoonBit side is a test in the
+repository (`moon test` in the root with G7_DIFF=1); `--repo <dir>` points at another checkout.
+
+  node run.mjs [--quiet] [name ...]     run scenarios, compare logs entry by entry
+  python3 inject.py [index ...]         inject deliberate bugs into src/nodes one at a time; each
+                                        must be caught (files restored via diff/lib/inject.py;
+                                        INJECT_DRY_RUN=1 only checks the patterns)
+  node upstream_one.mjs <name>          print one upstream scenario's log
+  node gen_material_keys.mjs [out]      regenerate the node-material key table embedded in
+                                        src/nodes/common_render_object.mbt (default out:
+                                        diff/.out/core_g7/material_keys_table.txt)
+
+Files
+  common.mjs      upstream modules, the foundation's recording mock GPU (diff/core/webgpu/
+                  mock_gpu.cjs), a stub backend (subclass of upstream Backend whose
+                  methods log and drive the mock device: createBuffer/writeBuffer of every
+                  attribute and uniform buffer, so buffer bytes are compared exactly), a stub
+                  renderer (the members the data classes read), counter alignment.
+  scenarios.mjs   upstream side of each scenario.
+  src/nodes/common_g7_diff_test.mbt (repo)   MoonBit side: test "g7diff <name>", printing
+                  `@@G7 <name> <json>` with G7_DIFF=1 (G7_MOCK_GPU = path of mock_gpu.cjs).
+
+Each scenario runs in a fresh process on both sides (moon test -f "g7diff <name>"), and
+starts by advancing the global id counters (Node 20000, Object3D/Material/Texture/
+BufferAttribute/BufferGeometry 1000) so object ids, and the hashes that include them,
+agree. Module-level nodes (renderGroup, screenUV, ...) have upstream's ids on both sides:
+common.mjs loads Three.TSL.js then Three.WebGPU.js first (the bundles' order), the port
+takes them from src/nodes/core_module_node_ids.mbt; scene_nodes logs the node cache keys.
+
+Scenarios: buffer_utils_chain_map, uniforms_layout (std140 offsets/bytes for every uniform
+type in several orders, update ranges, clone, release), uniforms_types (int/uint/bool/NaN/
+-0/out-of-range/ivec/uvec/mat2), bindings (NodeBuilderState.createBindings, shared groups per
+render context, create/update/destroy, samplers and sampled textures, texture swaps),
+render_objects (cache keys and invalidation, geometry swaps, clipping, passes, draw
+parameters, dispose), render_list (classification, painter sorts, custom sorts, reversed
+depth, occlusion counts, finish with LightsNode), render_contexts, attributes_geometries
+(vertex/index/storage/indirect/interleaved/dynamic, wireframe indices, dispose), textures
+(default/data/mipmapped/cube/storage/3D, render targets with depth textures, mip levels,
+dispose), pipelines, info, clipping_context, node_manager, render_bindings (Bindings via
+RenderObject, shared updates), animation (fake requestAnimationFrame), node_buffers
+(NodeUniformBuffer/NodeStorageBuffer with G2's buffer/storage nodes, storage bindings),
+scene_nodes (fog/environment/background/output nodes built with G1-G4 TSL), misc_classes
+(storage attributes and textures, BundleGroup, RenderBundles, ReadbackBuffer,
+TimestampQueryPool, NodeLibrary, sampled textures, UniformBuffer).

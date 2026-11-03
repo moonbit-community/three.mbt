@@ -1,0 +1,16 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/renderers/webgl",
+  "bobzhang/three/renderers/shaders",
+  "bobzhang/three/geometries",
+  "bobzhang/three/loaders",
+  "bobzhang/three/nodes",
+}
+
+import {
+  "bobzhang/three/renderers/webgpu",
+  "bobzhang/three/renderers/webgl_fallback",
+} for "test"
+
+warnings = "-79"

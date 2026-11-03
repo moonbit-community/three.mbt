@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      full:
+        description: Also run the long harness checks (node diff/run_all.mjs --full)
+        type: boolean
+        default: false
+  schedule:
+    # Weekly run of every check, including the long ones (EXR corrupt inputs, hang probes).
+    - cron: '17 3 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # The toolchain the port was last verified with (`moonc -v`); bump it deliberately.
+  MOONBIT_VERSION: 0.10.19+bee578715
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install MoonBit
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash -s "$MOONBIT_VERSION"
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+
+      - name: Toolchain versions
+        run: |
+          moon version --all
+          node --version
+          python3 --version
+
+      - name: Cache upstream three.js
+        uses: actions/cache@v4
+        with:
+          path: .repos/three.js
+          key: three-upstream-${{ hashFiles('tools/fetch_upstream.sh') }}
+
+      - name: Fetch upstream three.js
+        run: tools/fetch_upstream.sh
+
+      - name: moon check
+        run: moon check --target js
+
+      - name: moon test
+        run: moon test --target js
+
+      - name: Generated files are up to date
+        run: |
+          node tools/gen_fn_layout_names.mjs --check
+          node tools/gen_module_node_ids.mjs --check
+          node tools/check_webgpu_exports.mjs
+          node tools/check_gpu_coverage.mjs
+          node tools/gen_gpu_mock.mjs --check
+          node tools/gen_g10_mock.mjs --check
+          node tools/gen_glsl_tables.mjs --check
+          node diff/core/webgl/tools/gen_mock.mjs --check
+          python3 diff/addons/gltf/ktx2_diff/tools/gen_ktx2_loader.py --check
+          python3 diff/addons/gltf/ktx2_diff/tools/gen_zstddec.py --check
+          node diff/addons/gltf/draco_diff/gen_worker.mjs --check
+
+      - name: Differential harnesses
+        env:
+          FULL: ${{ github.event_name == 'schedule' || inputs.full }}
+        run: |
+          if [ "$FULL" = true ]; then
+            node diff/run_all.mjs --full
+          else
+            node diff/run_all.mjs
+          fi
+
+      - name: Upload harness logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diff-logs
+          path: diff/.out/logs
+          if-no-files-found: ignore

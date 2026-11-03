@@ -1,0 +1,593 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/addons/objects"
+
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/nodes",
+  "bobzhang/three/renderers/webgl",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub let edge_table : FixedArray[Int32]
+
+pub let lensflare_element_shader : ShaderDefinition
+
+pub fn load_lensflare() -> Unit
+
+pub fn load_lensflare_mesh() -> Unit
+
+pub let reflector_shader : ShaderDefinition
+
+pub let refractor_shader : ShaderDefinition
+
+pub let sky_shader : ShaderDefinition
+
+pub let tri_table : FixedArray[Int32]
+
+pub let water2_shader : ShaderDefinition
+
+// Errors
+
+// Types and methods
+#external
+pub type GroundedSkybox
+pub fn GroundedSkybox::new(@core.Texture?, Double, Double, resolution? : Int32) -> @core.Object3D
+
+pub(all) struct Lensflare {
+  position_screen : @math.Vector3
+  position_view : @math.Vector3
+  temp_map : @core.Texture
+  occlusion_map : @core.Texture
+  mut current_type : Int32
+  material1a : @core.Material
+  material1b : @core.Material
+  mesh1 : @core.Object3D
+  elements : Array[LensflareElement]
+  material2 : @core.Material
+  mesh2 : @core.Object3D
+  scale : @math.Vector2
+  screen_position_pixels : @math.Vector2
+  valid_area : @math.Box2
+  viewport : @math.Vector4
+}
+pub fn Lensflare::add_element(@core.Object3D, LensflareElement) -> Unit
+#deprecated
+pub fn Lensflare::construct(Self) -> @core.Object3D
+#deprecated
+pub fn Lensflare::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Lensflare::dispose(Self, @core.Object3D) -> Unit
+pub fn Lensflare::geometry() -> @core.BufferGeometry
+#deprecated
+pub fn Lensflare::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn Lensflare::has_flag(Self, String) -> Bool
+#deprecated
+pub fn Lensflare::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn Lensflare::new() -> @core.Object3D
+pub fn Lensflare::of(@core.Object3D) -> Self?
+#deprecated
+pub fn Lensflare::payload(Self) -> @core.JsValue
+#deprecated
+pub fn Lensflare::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn Lensflare::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn Lensflare::type_name(Self) -> String
+#deprecated
+pub fn Lensflare::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Lensflare::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for Lensflare
+
+pub(all) struct LensflareElement {
+  mut texture : @core.Texture
+  mut size : Double
+  mut distance : Double
+  mut color : @math.Color
+}
+pub fn LensflareElement::new(@core.Texture, size? : Double, distance? : Double, color? : @math.Color) -> Self
+
+pub(all) struct LensflareMesh {
+  position_view : @math.Vector3
+  temp_map : @core.Texture
+  occlusion_map : @core.Texture
+  mut current_type : Int32
+  shared_scale : @math.Vector2
+  position_screen : @math.Vector3
+  material1a : @core.Material
+  material1b : @core.Material
+  mesh1 : @core.Object3D
+  elements : Array[LensflareElement]
+  element_meshes : Array[@core.Object3D]
+  material2 : @core.Material
+  material2_screen_position : @math.Vector3
+  material2_scale : @math.Vector2
+  screen_position_pixels : @math.Vector4
+  valid_area : @math.Box2
+  viewport : @math.Vector4
+  lights_node : @nodes.Node
+}
+pub fn LensflareMesh::add_element(@core.Object3D, LensflareElement) -> Unit
+#deprecated
+pub fn LensflareMesh::construct(Self) -> @core.Object3D
+#deprecated
+pub fn LensflareMesh::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn LensflareMesh::dispose(Self, @core.Object3D) -> Unit
+pub fn LensflareMesh::geometry() -> @core.BufferGeometry
+#deprecated
+pub fn LensflareMesh::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn LensflareMesh::has_flag(Self, String) -> Bool
+#deprecated
+pub fn LensflareMesh::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn LensflareMesh::new() -> @core.Object3D
+pub fn LensflareMesh::of(@core.Object3D) -> Self?
+#deprecated
+pub fn LensflareMesh::payload(Self) -> @core.JsValue
+#deprecated
+pub fn LensflareMesh::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn LensflareMesh::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn LensflareMesh::type_name(Self) -> String
+#deprecated
+pub fn LensflareMesh::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn LensflareMesh::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for LensflareMesh
+
+pub(all) struct MarchingCubes {
+  object : @core.Object3D
+  geometry : @core.BufferGeometry
+  max_poly_count : Int32
+  vlist : @core.TypedArray
+  nlist : @core.TypedArray
+  clist : @core.TypedArray
+  mut enable_uvs : Bool
+  mut enable_colors : Bool
+  mut resolution : Int32
+  mut isolation : Double
+  mut size : Int32
+  mut size2 : Int32
+  mut size3 : Int32
+  mut halfsize : Double
+  mut delta : Double
+  mut yd : Int32
+  mut zd : Int32
+  mut field : @core.TypedArray
+  mut normal_cache : @core.TypedArray
+  mut palette : @core.TypedArray
+  mut position_array : @core.TypedArray
+  mut normal_array : @core.TypedArray
+  mut uv_array : @core.TypedArray?
+  mut color_array : @core.TypedArray?
+}
+pub fn MarchingCubes::add_ball(Self, Double, Double, Double, Double, Double, colors? : MarchingCubesColor) -> Unit
+pub fn MarchingCubes::add_plane_x(Self, Double, Double) -> Unit
+pub fn MarchingCubes::add_plane_y(Self, Double, Double) -> Unit
+pub fn MarchingCubes::add_plane_z(Self, Double, Double) -> Unit
+pub fn MarchingCubes::blur(Self, intensity? : Double) -> Unit
+#deprecated
+pub fn MarchingCubes::construct(Self) -> @core.Object3D
+#deprecated
+pub fn MarchingCubes::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+pub fn MarchingCubes::count(Self) -> Int32
+#deprecated
+pub fn MarchingCubes::dispose(Self, @core.Object3D) -> Unit
+pub fn MarchingCubes::get_cell(Self, Int32, Int32, Int32) -> Double
+#deprecated
+pub fn MarchingCubes::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn MarchingCubes::has_flag(Self, String) -> Bool
+pub fn MarchingCubes::init(Self, Int32) -> Unit
+#deprecated
+pub fn MarchingCubes::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn MarchingCubes::new(Int32, @core.Material?, enable_uvs? : Bool, enable_colors? : Bool, max_poly_count? : Int32) -> @core.Object3D
+pub fn MarchingCubes::of(@core.Object3D) -> Self?
+#deprecated
+pub fn MarchingCubes::payload(Self) -> @core.JsValue
+#deprecated
+pub fn MarchingCubes::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+pub fn MarchingCubes::reset(Self) -> Unit
+pub fn MarchingCubes::set_cell(Self, Int32, Int32, Int32, Double) -> Unit
+#deprecated
+pub fn MarchingCubes::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn MarchingCubes::type_name(Self) -> String
+pub fn MarchingCubes::update(Self) -> Unit
+#deprecated
+pub fn MarchingCubes::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn MarchingCubes::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for MarchingCubes
+
+pub(all) enum MarchingCubesColor {
+  Color(@math.Color)
+  Array(Array[Double])
+  Hex(Int32)
+}
+
+pub(all) struct Reflector {
+  mut force_update : Bool
+  _reflection_cameras : @webgl.WeakMap[@core.Object3D, @core.Object3D]
+  render_target : @core.RenderTarget
+  clip_bias : Double
+  reflector_plane : @math.Plane
+  normal : @math.Vector3
+  reflector_world_position : @math.Vector3
+  camera_world_position : @math.Vector3
+  rotation_matrix : @math.Matrix4
+  look_at_position : @math.Vector3
+  clip_plane : @math.Vector4
+  view : @math.Vector3
+  target : @math.Vector3
+  q : @math.Vector4
+  texture_matrix : @math.Matrix4
+}
+#deprecated
+pub fn Reflector::construct(Self) -> @core.Object3D
+#deprecated
+pub fn Reflector::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Reflector::dispose(Self, @core.Object3D) -> Unit
+pub fn Reflector::get_reflection_camera(@core.Object3D, @core.Object3D) -> @core.Object3D
+pub fn Reflector::get_render_target(@core.Object3D) -> @core.RenderTarget
+#deprecated
+pub fn Reflector::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn Reflector::has_flag(Self, String) -> Bool
+#deprecated
+pub fn Reflector::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn Reflector::new(geometry? : @core.BufferGeometry, color? : Int32, texture_width? : Int32, texture_height? : Int32, clip_bias? : Double, shader? : ShaderDefinition, multisample? : Int32) -> @core.Object3D
+pub fn Reflector::of(@core.Object3D) -> Self?
+#deprecated
+pub fn Reflector::payload(Self) -> @core.JsValue
+#deprecated
+pub fn Reflector::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+pub fn Reflector::set_force_update(@core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Reflector::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn Reflector::type_name(Self) -> String
+#deprecated
+pub fn Reflector::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Reflector::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for Reflector
+
+pub(all) struct Refractor {
+  camera : @core.Object3D
+  render_target : @core.RenderTarget
+  clip_bias : Double
+  refractor_plane : @math.Plane
+  texture_matrix : @math.Matrix4
+  visible_refractor_world_position : @math.Vector3
+  visible_camera_world_position : @math.Vector3
+  visible_rotation_matrix : @math.Matrix4
+  visible_view : @math.Vector3
+  visible_normal : @math.Vector3
+  plane_normal : @math.Vector3
+  plane_position : @math.Vector3
+  plane_quaternion : @math.Quaternion
+  plane_scale : @math.Vector3
+  clip_plane : @math.Plane
+  clip_vector : @math.Vector4
+  q : @math.Vector4
+}
+#deprecated
+pub fn Refractor::construct(Self) -> @core.Object3D
+#deprecated
+pub fn Refractor::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Refractor::dispose(Self, @core.Object3D) -> Unit
+pub fn Refractor::get_camera(@core.Object3D) -> @core.Object3D
+pub fn Refractor::get_render_target(@core.Object3D) -> @core.RenderTarget
+#deprecated
+pub fn Refractor::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn Refractor::has_flag(Self, String) -> Bool
+#deprecated
+pub fn Refractor::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn Refractor::new(geometry? : @core.BufferGeometry, color? : Int32, texture_width? : Int32, texture_height? : Int32, clip_bias? : Double, shader? : ShaderDefinition, multisample? : Int32) -> @core.Object3D
+pub fn Refractor::of(@core.Object3D) -> Self?
+#deprecated
+pub fn Refractor::payload(Self) -> @core.JsValue
+#deprecated
+pub fn Refractor::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn Refractor::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn Refractor::type_name(Self) -> String
+#deprecated
+pub fn Refractor::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Refractor::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for Refractor
+
+pub(all) struct ShaderDefinition {
+  name : String?
+  uniforms : Map[String, @core.Uniform]
+  vertex_shader : String
+  fragment_shader : String
+}
+
+pub(all) struct ShadowMesh {
+  mut mesh_matrix : @math.Matrix4
+}
+#deprecated
+pub fn ShadowMesh::construct(Self) -> @core.Object3D
+#deprecated
+pub fn ShadowMesh::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn ShadowMesh::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn ShadowMesh::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn ShadowMesh::has_flag(Self, String) -> Bool
+#deprecated
+pub fn ShadowMesh::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn ShadowMesh::new(@core.Object3D) -> @core.Object3D
+pub fn ShadowMesh::of(@core.Object3D) -> Self?
+#deprecated
+pub fn ShadowMesh::payload(Self) -> @core.JsValue
+#deprecated
+pub fn ShadowMesh::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn ShadowMesh::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn ShadowMesh::type_name(Self) -> String
+pub fn ShadowMesh::update(@core.Object3D, @math.Plane, @math.Vector4) -> Unit
+#deprecated
+pub fn ShadowMesh::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn ShadowMesh::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for ShadowMesh
+
+pub(all) struct Sky {
+}
+#deprecated
+pub fn Sky::construct(Self) -> @core.Object3D
+#deprecated
+pub fn Sky::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Sky::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn Sky::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn Sky::has_flag(Self, String) -> Bool
+#deprecated
+pub fn Sky::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn Sky::new() -> @core.Object3D
+pub fn Sky::of(@core.Object3D) -> Self?
+#deprecated
+pub fn Sky::payload(Self) -> @core.JsValue
+#deprecated
+pub fn Sky::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn Sky::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn Sky::type_name(Self) -> String
+#deprecated
+pub fn Sky::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Sky::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for Sky
+
+pub(all) struct SkyMesh {
+  turbidity : @nodes.Node
+  rayleigh : @nodes.Node
+  mie_coefficient : @nodes.Node
+  mie_directional_g : @nodes.Node
+  sun_position : @nodes.Node
+  cloud_scale : @nodes.Node
+  cloud_speed : @nodes.Node
+  cloud_coverage : @nodes.Node
+  cloud_density : @nodes.Node
+  cloud_elevation : @nodes.Node
+  show_sun_disc : @nodes.Node
+}
+#deprecated
+pub fn SkyMesh::construct(Self) -> @core.Object3D
+#deprecated
+pub fn SkyMesh::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn SkyMesh::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn SkyMesh::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn SkyMesh::has_flag(Self, String) -> Bool
+#deprecated
+pub fn SkyMesh::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn SkyMesh::new() -> @core.Object3D
+pub fn SkyMesh::of(@core.Object3D) -> Self?
+#deprecated
+pub fn SkyMesh::payload(Self) -> @core.JsValue
+#deprecated
+pub fn SkyMesh::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn SkyMesh::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn SkyMesh::type_name(Self) -> String
+#deprecated
+pub fn SkyMesh::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn SkyMesh::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for SkyMesh
+
+pub(all) struct Water {
+  clip_bias : Double
+  eye : @math.Vector3
+  mirror_plane : @math.Plane
+  normal : @math.Vector3
+  mirror_world_position : @math.Vector3
+  camera_world_position : @math.Vector3
+  rotation_matrix : @math.Matrix4
+  look_at_position : @math.Vector3
+  clip_plane : @math.Vector4
+  view : @math.Vector3
+  target : @math.Vector3
+  q : @math.Vector4
+  texture_matrix : @math.Matrix4
+  mirror_camera : @core.Object3D
+  render_target : @core.RenderTarget
+}
+#deprecated
+pub fn Water::construct(Self) -> @core.Object3D
+#deprecated
+pub fn Water::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Water::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn Water::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn Water::has_flag(Self, String) -> Bool
+#deprecated
+pub fn Water::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn Water::new(geometry? : @core.BufferGeometry, texture_width? : Int32, texture_height? : Int32, clip_bias? : Double, alpha? : Double, time? : Double, water_normals? : @core.Texture, sun_direction? : @math.Vector3, sun_color? : Int32, water_color? : Int32, eye? : @math.Vector3, distortion_scale? : Double, side? : Int32, fog? : Bool) -> @core.Object3D
+pub fn Water::of(@core.Object3D) -> Self?
+#deprecated
+pub fn Water::payload(Self) -> @core.JsValue
+#deprecated
+pub fn Water::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn Water::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn Water::type_name(Self) -> String
+#deprecated
+pub fn Water::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Water::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for Water
+
+pub(all) struct Water2 {
+  flow_speed : Double
+  cycle : Double
+  half_cycle : Double
+  texture_matrix : @math.Matrix4
+  timer : @core.Timer
+  reflector : @core.Object3D
+  refractor : @core.Object3D
+}
+#deprecated
+pub fn Water2::construct(Self) -> @core.Object3D
+#deprecated
+pub fn Water2::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Water2::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn Water2::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn Water2::has_flag(Self, String) -> Bool
+#deprecated
+pub fn Water2::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn Water2::new(geometry? : @core.BufferGeometry, color? : Int32, texture_width? : Int32, texture_height? : Int32, clip_bias? : Double, flow_direction? : @math.Vector2, flow_speed? : Double, reflectivity? : Double, scale? : Double, shader? : ShaderDefinition, flow_map? : @core.Texture, normal_map0? : @core.Texture, normal_map1? : @core.Texture) -> @core.Object3D
+pub fn Water2::of(@core.Object3D) -> Self?
+#deprecated
+pub fn Water2::payload(Self) -> @core.JsValue
+#deprecated
+pub fn Water2::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn Water2::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn Water2::type_name(Self) -> String
+#deprecated
+pub fn Water2::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Water2::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for Water2
+
+pub(all) struct Water2Mesh {
+}
+#deprecated
+pub fn Water2Mesh::construct(Self) -> @core.Object3D
+#deprecated
+pub fn Water2Mesh::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Water2Mesh::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn Water2Mesh::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn Water2Mesh::has_flag(Self, String) -> Bool
+#deprecated
+pub fn Water2Mesh::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn Water2Mesh::new(@core.BufferGeometry?, normal_map0? : @core.Texture, normal_map1? : @core.Texture, flow_map? : @core.Texture, color? : Int32, flow_direction? : @math.Vector2, flow_speed? : Double, reflectivity? : Double, scale? : Double) -> @core.Object3D
+pub fn Water2Mesh::of(@core.Object3D) -> Self?
+#deprecated
+pub fn Water2Mesh::payload(Self) -> @core.JsValue
+#deprecated
+pub fn Water2Mesh::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn Water2Mesh::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn Water2Mesh::type_name(Self) -> String
+#deprecated
+pub fn Water2Mesh::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Water2Mesh::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for Water2Mesh
+
+pub(all) struct WaterMesh {
+  mut resolution_scale : Double
+  water_normals : @nodes.Node
+  alpha : @nodes.Node
+  size : @nodes.Node
+  sun_color : @nodes.Node
+  sun_direction : @nodes.Node
+  water_color : @nodes.Node
+  distortion_scale : @nodes.Node
+}
+#deprecated
+pub fn WaterMesh::construct(Self) -> @core.Object3D
+#deprecated
+pub fn WaterMesh::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn WaterMesh::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn WaterMesh::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn WaterMesh::has_flag(Self, String) -> Bool
+#deprecated
+pub fn WaterMesh::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn WaterMesh::new(@core.BufferGeometry?, resolution_scale? : Double, water_normals? : @core.Texture, alpha? : Double, size? : Double, sun_color? : Int32, sun_direction? : @math.Vector3, water_color? : Int32, distortion_scale? : Double) -> @core.Object3D
+pub fn WaterMesh::of(@core.Object3D) -> Self?
+#deprecated
+pub fn WaterMesh::payload(Self) -> @core.JsValue
+#deprecated
+pub fn WaterMesh::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn WaterMesh::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn WaterMesh::type_name(Self) -> String
+#deprecated
+pub fn WaterMesh::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn WaterMesh::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for WaterMesh
+
+pub(all) struct WaterNode {
+  water_body : @core.Object3D
+  normal_map0 : @nodes.Node
+  normal_map1 : @nodes.Node
+  flow_map : @nodes.Node
+  color : @nodes.Node
+  flow_direction : @nodes.Node
+  flow_speed : @nodes.Node
+  reflectivity : @nodes.Node
+  scale : @nodes.Node
+  flow_config : @nodes.Node
+  _cycle : Double
+  _half_cycle : Double
+  _use_flow : Bool
+}
+pub fn WaterNode::new(@core.Object3D, normal_map0? : @core.Texture, normal_map1? : @core.Texture, flow_map? : @core.Texture, color? : Int32, flow_direction? : @math.Vector2, flow_speed? : Double, reflectivity? : Double, scale? : Double) -> @nodes.Node
+pub fn WaterNode::of(@nodes.Node) -> Self?
+pub fn WaterNode::update_flow(Self, Double) -> Unit
+pub impl @nodes.NodeClass for WaterNode
+
+// Type aliases
+
+// Traits

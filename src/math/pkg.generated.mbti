@@ -1,0 +1,888 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/math"
+
+import {
+  "moonbitlang/core/debug",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub const DEG2RAD : Double = 0.017453292519943295
+
+pub const EULER_DEFAULT_ORDER : String = "XYZ"
+
+pub const LinearSRGBColorSpace : String = "srgb-linear"
+
+pub const LinearTransfer : String = "linear"
+
+pub const NoColorSpace : String = ""
+
+pub const RAD2DEG : Double = 57.29577951308232
+
+pub const SRGBColorSpace : String = "srgb"
+
+pub const SRGBTransfer : String = "srgb"
+
+pub const WebGLCoordinateSystem : Int32 = 2000
+
+pub const WebGPUCoordinateSystem : Int32 = 2001
+
+pub const WrapAroundEnding : Int32 = 2402
+
+pub const ZeroCurvatureEnding : Int32 = 2400
+
+pub const ZeroSlopeEnding : Int32 = 2401
+
+pub fn ceil_power_of_two(Double) -> Double
+
+pub fn clamp(Double, Double, Double) -> Double
+
+pub let color_management : ColorManagement
+
+pub let color_names : Map[String, Int32]
+
+pub fn damp(Double, Double, Double, Double) -> Double
+
+pub fn deg_to_rad(Double) -> Double
+
+pub fn denormalize(Double, TypedArrayKind) -> Double
+
+pub fn euclidean_modulo(Double, Double) -> Double
+
+pub fn floor_power_of_two(Double) -> Double
+
+pub fn generate_uuid() -> String
+
+pub fn get_normalization_scale(TypedArrayKind) -> Double?
+
+pub fn inverse_lerp(Double, Double, Double) -> Double
+
+pub fn is_power_of_two(Double) -> Bool
+
+pub fn json_number(Double) -> @json.Json
+
+pub fn json_numbers(Array[Double]) -> @json.Json
+
+pub fn json_to_number(@json.Json) -> Double?
+
+pub fn lerp(Double, Double, Double) -> Double
+
+pub fn linear_to_srgb(Double) -> Double
+
+pub fn map_linear(Double, Double, Double, Double, Double) -> Double
+
+pub fn normalize(Double, TypedArrayKind) -> Double
+
+pub fn pingpong(Double, length? : Double) -> Double
+
+pub fn rad_to_deg(Double) -> Double
+
+pub fn rand_float(Double, Double) -> Double
+
+pub fn rand_float_spread(Double) -> Double
+
+pub fn rand_int(Double, Double) -> Double
+
+pub fn seeded_random(s? : Double) -> Double
+
+pub fn set_quaternion_from_proper_euler(Quaternion, Double, Double, Double, String) -> Unit
+
+pub fn smootherstep(Double, Double, Double) -> Double
+
+pub fn smoothstep(Double, Double, Double) -> Double
+
+pub fn srgb_to_linear(Double) -> Double
+
+// Errors
+
+// Types and methods
+#external
+pub type BezierInterpolant
+pub fn BezierInterpolant::new(Array[Double], Array[Double], Int32, result_buffer? : Array[Double]) -> Interpolant
+
+pub(all) struct Box2 {
+  mut min : Vector2
+  mut max : Vector2
+}
+pub fn Box2::clamp_point(Self, Vector2, Vector2) -> Vector2
+pub fn Box2::clone(Self) -> Self
+pub fn Box2::contains_box(Self, Self) -> Bool
+pub fn Box2::contains_point(Self, Vector2) -> Bool
+pub fn Box2::copy(Self, Self) -> Self
+pub fn Box2::distance_to_point(Self, Vector2) -> Double
+pub fn Box2::equals(Self, Self) -> Bool
+pub fn Box2::expand_by_point(Self, Vector2) -> Self
+pub fn Box2::expand_by_scalar(Self, Double) -> Self
+pub fn Box2::expand_by_vector(Self, Vector2) -> Self
+pub fn Box2::get_center(Self, Vector2) -> Vector2
+pub fn Box2::get_parameter(Self, Vector2, Vector2) -> Vector2
+pub fn Box2::get_size(Self, Vector2) -> Vector2
+pub fn Box2::intersect(Self, Self) -> Self
+pub fn Box2::intersects_box(Self, Self) -> Bool
+pub fn Box2::is_empty(Self) -> Bool
+pub fn Box2::make_empty(Self) -> Self
+pub fn Box2::new(min? : Vector2, max? : Vector2) -> Self
+pub fn Box2::set(Self, Vector2, Vector2) -> Self
+pub fn Box2::set_from_center_and_size(Self, Vector2, Vector2) -> Self
+pub fn Box2::set_from_points(Self, Array[Vector2]) -> Self
+pub fn Box2::translate(Self, Vector2) -> Self
+pub fn Box2::union(Self, Self) -> Self
+
+pub(all) struct Box3 {
+  mut min : Vector3
+  mut max : Vector3
+}
+pub fn Box3::apply_matrix4(Self, Matrix4) -> Self
+pub fn Box3::clamp_point(Self, Vector3, Vector3) -> Vector3
+pub fn Box3::clone(Self) -> Self
+pub fn Box3::contains_box(Self, Self) -> Bool
+pub fn Box3::contains_point(Self, Vector3) -> Bool
+pub fn Box3::copy(Self, Self) -> Self
+pub fn Box3::distance_to_point(Self, Vector3) -> Double
+pub fn Box3::equals(Self, Self) -> Bool
+pub fn Box3::expand_by_point(Self, Vector3) -> Self
+pub fn Box3::expand_by_scalar(Self, Double) -> Self
+pub fn Box3::expand_by_vector(Self, Vector3) -> Self
+pub fn Box3::from_json(Self, @json.Json) -> Self
+pub fn Box3::get_bounding_sphere(Self, Sphere) -> Sphere
+pub fn Box3::get_center(Self, Vector3) -> Vector3
+pub fn Box3::get_parameter(Self, Vector3, Vector3) -> Vector3
+pub fn Box3::get_size(Self, Vector3) -> Vector3
+pub fn Box3::intersect(Self, Self) -> Self
+pub fn Box3::intersects_box(Self, Self) -> Bool
+pub fn Box3::intersects_plane(Self, Plane) -> Bool
+pub fn Box3::intersects_sphere(Self, Sphere) -> Bool
+pub fn Box3::intersects_triangle(Self, Triangle) -> Bool
+pub fn Box3::is_empty(Self) -> Bool
+pub fn Box3::make_empty(Self) -> Self
+pub fn Box3::new(min? : Vector3, max? : Vector3) -> Self
+pub fn Box3::set(Self, Vector3, Vector3) -> Self
+pub fn Box3::set_from_array(Self, Array[Double]) -> Self
+pub fn Box3::set_from_center_and_size(Self, Vector3, Vector3) -> Self
+pub fn Box3::set_from_points(Self, Array[Vector3]) -> Self
+pub fn Box3::to_json(Self) -> @json.Json
+pub fn Box3::translate(Self, Vector3) -> Self
+pub fn Box3::union(Self, Self) -> Self
+
+pub(all) struct Color {
+  mut r : Double
+  mut g : Double
+  mut b : Double
+}
+pub fn Color::add(Self, Self) -> Self
+pub fn Color::add_colors(Self, Self, Self) -> Self
+pub fn Color::add_scalar(Self, Double) -> Self
+pub fn Color::apply_matrix3(Self, Matrix3) -> Self
+pub fn Color::clone(Self) -> Self
+pub fn Color::convert_linear_to_srgb(Self) -> Self
+pub fn Color::convert_srgb_to_linear(Self) -> Self
+pub fn Color::copy(Self, Self) -> Self
+pub fn Color::copy_linear_to_srgb(Self, Self) -> Self
+pub fn Color::copy_srgb_to_linear(Self, Self) -> Self
+pub fn Color::equals(Self, Self) -> Bool
+pub fn Color::from_array(Self, Array[Double], offset? : Int32) -> Self
+pub fn[A : BufferAttributeLike] Color::from_buffer_attribute(Self, A, Int32) -> Self
+pub fn Color::from_hex(Int32) -> Self
+pub fn Color::from_style(String) -> Self
+pub fn Color::get_hex(Self, color_space? : String) -> Int32
+pub fn Color::get_hex_string(Self, color_space? : String) -> String
+pub fn Color::get_hsl(Self, Hsl, color_space? : String) -> Hsl
+pub fn Color::get_rgb(Self, Self, color_space? : String) -> Self
+pub fn Color::get_style(Self, color_space? : String) -> String
+pub fn Color::lerp(Self, Self, Double) -> Self
+pub fn Color::lerp_colors(Self, Self, Self, Double) -> Self
+pub fn Color::lerp_hsl(Self, Self, Double) -> Self
+pub fn Color::multiply(Self, Self) -> Self
+pub fn Color::multiply_scalar(Self, Double) -> Self
+pub fn Color::new(Double, Double, Double) -> Self
+pub fn Color::offset_hsl(Self, Double, Double, Double) -> Self
+pub fn Color::set(Self, Double, Double, Double) -> Self
+pub fn Color::set_color_name(Self, String, color_space? : String) -> Self
+pub fn Color::set_from_vector3(Self, Vector3) -> Self
+pub fn Color::set_hex(Self, Int32, color_space? : String) -> Self
+pub fn Color::set_hsl(Self, Double, Double, Double, color_space? : String) -> Self
+pub fn Color::set_rgb(Self, Double, Double, Double, color_space? : String) -> Self
+pub fn Color::set_scalar(Self, Double) -> Self
+pub fn Color::set_style(Self, String, color_space? : String) -> Self
+pub fn Color::sub(Self, Self) -> Self
+pub fn Color::to_array(Self, array? : Array[Double], offset? : Int32) -> Array[Double]
+pub fn Color::to_json(Self) -> Int32
+
+pub(all) struct ColorManagement {
+  mut enabled : Bool
+  mut working_color_space : String
+  mut spaces : Map[String, ColorSpaceDefinition]
+}
+pub fn ColorManagement::_get_drawing_buffer_color_space(Self, String) -> String
+pub fn ColorManagement::_get_matrix(Self, Matrix3, String, String) -> Matrix3
+pub fn ColorManagement::_get_unpack_color_space(Self, color_space? : String) -> String
+pub fn ColorManagement::color_space_to_working(Self, Color, String) -> Color
+pub fn ColorManagement::convert(Self, Color, String, String) -> Color
+pub fn ColorManagement::define(Self, Map[String, ColorSpaceDefinition]) -> Unit
+pub fn ColorManagement::get_luminance_coefficients(Self, Vector3, color_space? : String) -> Vector3
+pub fn ColorManagement::get_primaries(Self, String) -> Array[Double]
+pub fn ColorManagement::get_tone_mapping_mode(Self, String) -> String
+pub fn ColorManagement::get_transfer(Self, String) -> String
+pub fn ColorManagement::working_to_color_space(Self, Color, String) -> Color
+
+pub(all) struct ColorSpaceDefinition {
+  mut primaries : Array[Double]
+  mut white_point : Array[Double]
+  mut transfer : String
+  mut to_xyz : Matrix3
+  mut from_xyz : Matrix3
+  mut luminance_coefficients : Array[Double]
+  mut working_color_space_config : WorkingColorSpaceConfig?
+  mut output_color_space_config : OutputColorSpaceConfig?
+}
+
+#external
+pub type CubicInterpolant
+pub fn CubicInterpolant::new(Array[Double], Array[Double], Int32, result_buffer? : Array[Double]) -> Interpolant
+
+pub(all) struct Cylindrical {
+  mut radius : Double
+  mut theta : Double
+  mut y : Double
+}
+pub fn Cylindrical::clone(Self) -> Self
+pub fn Cylindrical::copy(Self, Self) -> Self
+pub fn Cylindrical::new(Double, Double, Double) -> Self
+pub fn Cylindrical::set(Self, Double, Double, Double) -> Self
+pub fn Cylindrical::set_from_cartesian_coords(Self, Double, Double, Double) -> Self
+pub fn Cylindrical::set_from_vector3(Self, Vector3) -> Self
+
+#external
+pub type DiscreteInterpolant
+pub fn DiscreteInterpolant::new(Array[Double], Array[Double], Int32, result_buffer? : Array[Double]) -> Interpolant
+
+pub struct Euler {
+  mut x : Double
+  mut y : Double
+  mut z : Double
+  mut order : String
+  mut on_change_callback : () -> Unit
+}
+pub fn Euler::clone(Self) -> Self
+pub fn Euler::copy(Self, Self) -> Self
+pub fn Euler::equals(Self, Self) -> Bool
+pub fn Euler::from_array(Self, Array[@json.Json]) -> Self
+pub fn Euler::new(Double, Double, Double, order? : String) -> Self
+pub fn Euler::on_change(Self, () -> Unit) -> Self
+pub fn Euler::reorder(Self, String) -> Self
+pub fn Euler::set(Self, Double, Double, Double, order? : String) -> Self
+pub fn Euler::set_from_quaternion(Self, Quaternion, order? : String, update? : Bool) -> Self
+pub fn Euler::set_from_rotation_matrix(Self, Matrix4, order? : String, update? : Bool) -> Self
+pub fn Euler::set_from_vector3(Self, Vector3, order? : String) -> Self
+pub fn Euler::set_order(Self, String) -> Unit
+pub fn Euler::set_x(Self, Double) -> Unit
+pub fn Euler::set_y(Self, Double) -> Unit
+pub fn Euler::set_z(Self, Double) -> Unit
+pub fn Euler::to_array(Self, array? : Array[@json.Json], offset? : Int32) -> Array[@json.Json]
+
+pub(all) struct Frustum {
+  mut planes : Array[Plane]
+}
+pub fn Frustum::clone(Self) -> Self
+pub fn Frustum::contains_point(Self, Vector3) -> Bool
+pub fn Frustum::copy(Self, Self) -> Self
+pub fn Frustum::intersects_box(Self, Box3) -> Bool
+pub fn Frustum::intersects_sphere(Self, Sphere) -> Bool
+pub fn Frustum::new(p0? : Plane, p1? : Plane, p2? : Plane, p3? : Plane, p4? : Plane, p5? : Plane) -> Self
+pub fn Frustum::set(Self, Plane, Plane, Plane, Plane, Plane, Plane) -> Self
+pub fn Frustum::set_from_projection_matrix(Self, Matrix4, coordinate_system? : Int32, reversed_depth? : Bool) -> Self
+
+pub(all) struct FrustumArray {
+  mut coordinate_system : Int32
+  mut frustums : Array[Frustum]
+  mut count : Int32
+}
+pub fn FrustumArray::clone(Self) -> Self
+pub fn FrustumArray::contains_point(Self, Vector3) -> Bool
+pub fn FrustumArray::copy(Self, Self) -> Self
+pub fn FrustumArray::get_frustum(Self, Int32) -> Frustum?
+pub fn FrustumArray::intersects_box(Self, Box3) -> Bool
+pub fn FrustumArray::intersects_sphere(Self, Sphere) -> Bool
+pub fn FrustumArray::new() -> Self
+
+pub(all) struct Hsl {
+  mut h : Double
+  mut s : Double
+  mut l : Double
+}
+pub fn Hsl::new(Double, Double, Double) -> Self
+
+pub(all) struct Interpolant {
+  mut parameter_positions : Array[Double]
+  mut cached_index : Int32
+  mut result_buffer : Array[Double]
+  mut sample_values : Array[Double]
+  mut value_size : Int32
+  mut settings : InterpolantSettings?
+  mut default_settings : InterpolantSettings
+  mut interpolate_impl : (Interpolant, Int32, Double, Double, Double) -> Array[Double]
+  mut interval_changed_impl : (Interpolant, Int32, Double, Double) -> Unit
+  mut copy_sample_value_impl : (Interpolant, Int32) -> Array[Double]
+  mut weight_prev : Double
+  mut offset_prev : Int32
+  mut weight_next : Double
+  mut offset_next : Int32
+  mut in_tangents : Array[Double]?
+  mut out_tangents : Array[Double]?
+}
+pub fn Interpolant::copy_sample_value_(Self, Int32) -> Array[Double]
+pub fn Interpolant::evaluate(Self, Double) -> Array[Double]
+pub fn Interpolant::get_settings_(Self) -> InterpolantSettings
+pub fn Interpolant::interpolate_(Self, Int32, Double, Double, Double) -> Array[Double]
+pub fn Interpolant::interval_changed_(Self, Int32, Double, Double) -> Unit
+pub fn Interpolant::new(Array[Double], Array[Double], Int32, result_buffer? : Array[Double], interpolate? : (Self, Int32, Double, Double, Double) -> Array[Double], interval_changed? : (Self, Int32, Double, Double) -> Unit, copy_sample_value? : (Self, Int32) -> Array[Double]) -> Self
+
+pub(all) struct InterpolantSettings {
+  mut ending_start : Int32
+  mut ending_end : Int32
+}
+pub fn InterpolantSettings::new(ending_start? : Int32, ending_end? : Int32) -> Self
+
+pub(all) struct Line3 {
+  mut start : Vector3
+  mut end : Vector3
+}
+pub fn Line3::apply_matrix4(Self, Matrix4) -> Self
+pub fn Line3::at(Self, Double, Vector3) -> Vector3
+pub fn Line3::clone(Self) -> Self
+pub fn Line3::closest_point_to_point(Self, Vector3, Bool, Vector3) -> Vector3
+pub fn Line3::closest_point_to_point_parameter(Self, Vector3, Bool) -> Double
+pub fn Line3::copy(Self, Self) -> Self
+pub fn Line3::delta(Self, Vector3) -> Vector3
+pub fn Line3::distance(Self) -> Double
+pub fn Line3::distance_sq(Self) -> Double
+pub fn Line3::distance_sq_to_line3(Self, Self, c1? : Vector3, c2? : Vector3) -> Double
+pub fn Line3::equals(Self, Self) -> Bool
+pub fn Line3::get_center(Self, Vector3) -> Vector3
+pub fn Line3::new(start? : Vector3, end? : Vector3) -> Self
+pub fn Line3::set(Self, Vector3, Vector3) -> Self
+
+#external
+pub type LinearInterpolant
+pub fn LinearInterpolant::new(Array[Double], Array[Double], Int32, result_buffer? : Array[Double]) -> Interpolant
+
+#derive(Eq, @debug.Debug)
+pub(all) struct Matrix2 {
+  mut elements : Array[Double]
+}
+pub fn Matrix2::from_array(Self, Array[Double], offset? : Int32) -> Self
+pub fn Matrix2::identity(Self) -> Self
+pub fn Matrix2::new(n11? : Double, n12? : Double, n21? : Double, n22? : Double) -> Self
+pub fn Matrix2::set(Self, Double, Double, Double, Double) -> Self
+
+#derive(Eq, @debug.Debug)
+pub(all) struct Matrix3 {
+  mut elements : Array[Double]
+}
+pub fn Matrix3::clone(Self) -> Self
+pub fn Matrix3::copy(Self, Self) -> Self
+pub fn Matrix3::determinant(Self) -> Double
+pub fn Matrix3::equals(Self, Self) -> Bool
+pub fn Matrix3::extract_basis(Self, Vector3, Vector3, Vector3) -> Self
+pub fn Matrix3::from_array(Self, Array[Double], offset? : Int32) -> Self
+pub fn Matrix3::get_normal_matrix(Self, Matrix4) -> Self
+pub fn Matrix3::identity(Self) -> Self
+pub fn Matrix3::invert(Self) -> Self
+pub fn Matrix3::make_rotation(Self, Double) -> Self
+pub fn Matrix3::make_scale(Self, Double, Double) -> Self
+pub fn Matrix3::make_translation(Self, Double, Double) -> Self
+pub fn Matrix3::make_translation_vector(Self, Vector2) -> Self
+pub fn Matrix3::multiply(Self, Self) -> Self
+pub fn Matrix3::multiply_matrices(Self, Self, Self) -> Self
+pub fn Matrix3::multiply_scalar(Self, Double) -> Self
+pub fn Matrix3::new(n11? : Double, n12? : Double, n13? : Double, n21? : Double, n22? : Double, n23? : Double, n31? : Double, n32? : Double, n33? : Double) -> Self
+pub fn Matrix3::premultiply(Self, Self) -> Self
+pub fn Matrix3::set(Self, Double, Double, Double, Double, Double, Double, Double, Double, Double) -> Self
+pub fn Matrix3::set_from_matrix4(Self, Matrix4) -> Self
+pub fn Matrix3::set_uv_transform(Self, Double, Double, Double, Double, Double, Double, Double) -> Self
+pub fn Matrix3::to_array(Self, array? : Array[Double], offset? : Int32) -> Array[Double]
+pub fn Matrix3::transpose(Self) -> Self
+pub fn Matrix3::transpose_into_array(Self, Array[Double]) -> Self
+
+#derive(Eq, @debug.Debug)
+pub(all) struct Matrix4 {
+  mut elements : Array[Double]
+}
+pub fn Matrix4::clone(Self) -> Self
+pub fn Matrix4::compose(Self, Vector3, Quaternion, Vector3) -> Self
+pub fn Matrix4::copy(Self, Self) -> Self
+pub fn Matrix4::copy_position(Self, Self) -> Self
+pub fn Matrix4::decompose(Self, Vector3, Quaternion, Vector3) -> Self
+pub fn Matrix4::determinant(Self) -> Double
+pub fn Matrix4::determinant_affine(Self) -> Double
+pub fn Matrix4::equals(Self, Self) -> Bool
+pub fn Matrix4::extract_basis(Self, Vector3, Vector3, Vector3) -> Self
+pub fn Matrix4::extract_rotation(Self, Self) -> Self
+pub fn Matrix4::from_array(Self, Array[Double], offset? : Int32) -> Self
+pub fn Matrix4::get_max_scale_on_axis(Self) -> Double
+pub fn Matrix4::identity(Self) -> Self
+pub fn Matrix4::invert(Self) -> Self
+pub fn Matrix4::look_at(Self, Vector3, Vector3, Vector3) -> Self
+pub fn Matrix4::make_basis(Self, Vector3, Vector3, Vector3) -> Self
+pub fn Matrix4::make_orthographic(Self, Double, Double, Double, Double, Double, Double, coordinate_system? : Int32, reversed_depth? : Bool) -> Self
+pub fn Matrix4::make_perspective(Self, Double, Double, Double, Double, Double, Double, coordinate_system? : Int32, reversed_depth? : Bool) -> Self
+pub fn Matrix4::make_rotation_axis(Self, Vector3, Double) -> Self
+pub fn Matrix4::make_rotation_from_euler(Self, Euler) -> Self
+pub fn Matrix4::make_rotation_from_quaternion(Self, Quaternion) -> Self
+pub fn Matrix4::make_rotation_x(Self, Double) -> Self
+pub fn Matrix4::make_rotation_y(Self, Double) -> Self
+pub fn Matrix4::make_rotation_z(Self, Double) -> Self
+pub fn Matrix4::make_scale(Self, Double, Double, Double) -> Self
+pub fn Matrix4::make_shear(Self, Double, Double, Double, Double, Double, Double) -> Self
+pub fn Matrix4::make_translation(Self, Double, Double, Double) -> Self
+pub fn Matrix4::make_translation_vector(Self, Vector3) -> Self
+pub fn Matrix4::multiply(Self, Self) -> Self
+pub fn Matrix4::multiply_matrices(Self, Self, Self) -> Self
+pub fn Matrix4::multiply_scalar(Self, Double) -> Self
+pub fn Matrix4::new() -> Self
+pub fn Matrix4::new_with(Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double) -> Self
+pub fn Matrix4::premultiply(Self, Self) -> Self
+pub fn Matrix4::scale(Self, Vector3) -> Self
+pub fn Matrix4::set(Self, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double, Double) -> Self
+pub fn Matrix4::set_from_matrix3(Self, Matrix3) -> Self
+pub fn Matrix4::set_position(Self, Double, Double, Double) -> Self
+pub fn Matrix4::set_position_vector(Self, Vector3) -> Self
+pub fn Matrix4::to_array(Self, array? : Array[Double], offset? : Int32) -> Array[Double]
+pub fn Matrix4::transpose(Self) -> Self
+
+pub(all) struct OutputColorSpaceConfig {
+  mut drawing_buffer_color_space : String
+  mut tone_mapping_mode : String?
+}
+
+pub(all) struct Plane {
+  mut normal : Vector3
+  mut constant : Double
+}
+pub fn Plane::apply_matrix4(Self, Matrix4, optional_normal_matrix? : Matrix3) -> Self
+pub fn Plane::clone(Self) -> Self
+pub fn Plane::coplanar_point(Self, Vector3) -> Vector3
+pub fn Plane::copy(Self, Self) -> Self
+pub fn Plane::distance_to_point(Self, Vector3) -> Double
+pub fn Plane::distance_to_sphere(Self, Sphere) -> Double
+pub fn Plane::equals(Self, Self) -> Bool
+pub fn Plane::from_json(Self, @json.Json) -> Self
+pub fn Plane::intersect_line(Self, Line3, Vector3, clamp_to_line? : Bool) -> Vector3?
+pub fn Plane::intersects_box(Self, Box3) -> Bool
+pub fn Plane::intersects_line(Self, Line3) -> Bool
+pub fn Plane::intersects_sphere(Self, Sphere) -> Bool
+pub fn Plane::negate(Self) -> Self
+pub fn Plane::new(normal? : Vector3, constant? : Double) -> Self
+pub fn Plane::normalize(Self) -> Self
+pub fn Plane::project_point(Self, Vector3, Vector3) -> Vector3
+pub fn Plane::set(Self, Vector3, Double) -> Self
+pub fn Plane::set_components(Self, Double, Double, Double, Double) -> Self
+pub fn Plane::set_from_coplanar_points(Self, Vector3, Vector3, Vector3) -> Self
+pub fn Plane::set_from_normal_and_coplanar_point(Self, Vector3, Vector3) -> Self
+pub fn Plane::to_json(Self) -> @json.Json
+pub fn Plane::translate(Self, Vector3) -> Self
+
+pub struct Quaternion {
+  mut x : Double
+  mut y : Double
+  mut z : Double
+  mut w : Double
+  mut on_change_callback : () -> Unit
+}
+pub fn Quaternion::angle_to(Self, Self) -> Double
+pub fn Quaternion::clone(Self) -> Self
+pub fn Quaternion::conjugate(Self) -> Self
+pub fn Quaternion::copy(Self, Self) -> Self
+pub fn Quaternion::dot(Self, Self) -> Double
+pub fn Quaternion::equals(Self, Self) -> Bool
+pub fn Quaternion::from_array(Self, Array[Double], offset? : Int32) -> Self
+pub fn[A : BufferAttributeLike] Quaternion::from_buffer_attribute(Self, A, Int32) -> Self
+pub fn Quaternion::identity(Self) -> Self
+pub fn Quaternion::invert(Self) -> Self
+pub fn Quaternion::length(Self) -> Double
+pub fn Quaternion::length_sq(Self) -> Double
+pub fn Quaternion::multiply(Self, Self) -> Self
+pub fn Quaternion::multiply_quaternions(Self, Self, Self) -> Self
+pub fn Quaternion::multiply_quaternions_flat(Array[Double], Int32, Array[Double], Int32, Array[Double], Int32) -> Array[Double]
+pub fn Quaternion::new(Double, Double, Double, Double) -> Self
+pub fn Quaternion::normalize(Self) -> Self
+pub fn Quaternion::on_change(Self, () -> Unit) -> Self
+pub fn Quaternion::premultiply(Self, Self) -> Self
+pub fn Quaternion::random(Self) -> Self
+pub fn Quaternion::rotate_towards(Self, Self, Double) -> Self
+pub fn Quaternion::set(Self, Double, Double, Double, Double) -> Self
+pub fn Quaternion::set_from_axis_angle(Self, Vector3, Double) -> Self
+pub fn Quaternion::set_from_euler(Self, Euler, update? : Bool) -> Self
+pub fn Quaternion::set_from_rotation_matrix(Self, Matrix4) -> Self
+pub fn Quaternion::set_from_unit_vectors(Self, Vector3, Vector3) -> Self
+pub fn Quaternion::set_w(Self, Double) -> Unit
+pub fn Quaternion::set_x(Self, Double) -> Unit
+pub fn Quaternion::set_y(Self, Double) -> Unit
+pub fn Quaternion::set_z(Self, Double) -> Unit
+pub fn Quaternion::slerp(Self, Self, Double) -> Self
+pub fn Quaternion::slerp_flat(Array[Double], Int32, Array[Double], Int32, Array[Double], Int32, Double) -> Unit
+pub fn Quaternion::slerp_quaternions(Self, Self, Self, Double) -> Self
+pub fn Quaternion::to_array(Self, array? : Array[Double], offset? : Int32) -> Array[Double]
+pub fn Quaternion::to_json(Self) -> Array[Double]
+
+#external
+pub type QuaternionLinearInterpolant
+pub fn QuaternionLinearInterpolant::new(Array[Double], Array[Double], Int32, result_buffer? : Array[Double]) -> Interpolant
+
+pub(all) struct Ray {
+  mut origin : Vector3
+  mut direction : Vector3
+}
+pub fn Ray::apply_matrix4(Self, Matrix4) -> Self
+pub fn Ray::at(Self, Double, Vector3) -> Vector3
+pub fn Ray::clone(Self) -> Self
+pub fn Ray::closest_point_to_point(Self, Vector3, Vector3) -> Vector3
+pub fn Ray::copy(Self, Self) -> Self
+pub fn Ray::distance_sq_to_point(Self, Vector3) -> Double
+pub fn Ray::distance_sq_to_segment(Self, Vector3, Vector3, optional_point_on_ray? : Vector3, optional_point_on_segment? : Vector3) -> Double
+pub fn Ray::distance_to_plane(Self, Plane) -> Double?
+pub fn Ray::distance_to_point(Self, Vector3) -> Double
+pub fn Ray::equals(Self, Self) -> Bool
+pub fn Ray::intersect_box(Self, Box3, Vector3) -> Vector3?
+pub fn Ray::intersect_plane(Self, Plane, Vector3) -> Vector3?
+pub fn Ray::intersect_sphere(Self, Sphere, Vector3) -> Vector3?
+pub fn Ray::intersect_triangle(Self, Vector3, Vector3, Vector3, Bool, Vector3) -> Vector3?
+pub fn Ray::intersects_box(Self, Box3) -> Bool
+pub fn Ray::intersects_plane(Self, Plane) -> Bool
+pub fn Ray::intersects_sphere(Self, Sphere) -> Bool
+pub fn Ray::look_at(Self, Vector3) -> Self
+pub fn Ray::new(origin? : Vector3, direction? : Vector3) -> Self
+pub fn Ray::recast(Self, Double) -> Self
+pub fn Ray::set(Self, Vector3, Vector3) -> Self
+
+pub(all) struct Sphere {
+  mut center : Vector3
+  mut radius : Double
+}
+pub fn Sphere::apply_matrix4(Self, Matrix4) -> Self
+pub fn Sphere::clamp_point(Self, Vector3, Vector3) -> Vector3
+pub fn Sphere::clone(Self) -> Self
+pub fn Sphere::contains_point(Self, Vector3) -> Bool
+pub fn Sphere::copy(Self, Self) -> Self
+pub fn Sphere::distance_to_point(Self, Vector3) -> Double
+pub fn Sphere::equals(Self, Self) -> Bool
+pub fn Sphere::expand_by_point(Self, Vector3) -> Self
+pub fn Sphere::from_json(Self, @json.Json) -> Self
+pub fn Sphere::get_bounding_box(Self, Box3) -> Box3
+pub fn Sphere::intersects_box(Self, Box3) -> Bool
+pub fn Sphere::intersects_plane(Self, Plane) -> Bool
+pub fn Sphere::intersects_sphere(Self, Self) -> Bool
+pub fn Sphere::is_empty(Self) -> Bool
+pub fn Sphere::make_empty(Self) -> Self
+pub fn Sphere::new(center? : Vector3, radius? : Double) -> Self
+pub fn Sphere::set(Self, Vector3, Double) -> Self
+pub fn Sphere::set_from_points(Self, Array[Vector3], optional_center? : Vector3) -> Self
+pub fn Sphere::to_json(Self) -> @json.Json
+pub fn Sphere::translate(Self, Vector3) -> Self
+pub fn Sphere::union(Self, Self) -> Self
+
+pub(all) struct Spherical {
+  mut radius : Double
+  mut phi : Double
+  mut theta : Double
+}
+pub fn Spherical::clone(Self) -> Self
+pub fn Spherical::copy(Self, Self) -> Self
+pub fn Spherical::make_safe(Self) -> Self
+pub fn Spherical::new(Double, Double, Double) -> Self
+pub fn Spherical::set(Self, Double, Double, Double) -> Self
+pub fn Spherical::set_from_cartesian_coords(Self, Double, Double, Double) -> Self
+pub fn Spherical::set_from_vector3(Self, Vector3) -> Self
+
+pub(all) struct SphericalHarmonics3 {
+  mut coefficients : Array[Vector3]
+}
+pub fn SphericalHarmonics3::add(Self, Self) -> Self
+pub fn SphericalHarmonics3::add_scaled_sh(Self, Self, Double) -> Self
+pub fn SphericalHarmonics3::clone(Self) -> Self
+pub fn SphericalHarmonics3::copy(Self, Self) -> Self
+pub fn SphericalHarmonics3::equals(Self, Self) -> Bool
+pub fn SphericalHarmonics3::from_array(Self, Array[Double], offset? : Int32) -> Self
+pub fn SphericalHarmonics3::get_at(Self, Vector3, Vector3) -> Vector3
+pub fn SphericalHarmonics3::get_basis_at(Vector3, Array[Double]) -> Unit
+pub fn SphericalHarmonics3::get_irradiance_at(Self, Vector3, Vector3) -> Vector3
+pub fn SphericalHarmonics3::lerp(Self, Self, Double) -> Self
+pub fn SphericalHarmonics3::new() -> Self
+pub fn SphericalHarmonics3::scale(Self, Double) -> Self
+pub fn SphericalHarmonics3::set(Self, Array[Vector3]) -> Self
+pub fn SphericalHarmonics3::to_array(Self, array? : Array[Double], offset? : Int32) -> Array[Double]
+pub fn SphericalHarmonics3::zero(Self) -> Self
+
+pub(all) struct Triangle {
+  mut a : Vector3
+  mut b : Vector3
+  mut c : Vector3
+}
+pub fn Triangle::clone(Self) -> Self
+pub fn Triangle::closest_point_to_point(Self, Vector3, Vector3) -> Vector3
+pub fn Triangle::contains_point(Self, Vector3) -> Bool
+pub fn Triangle::contains_point_static(Vector3, Vector3, Vector3, Vector3) -> Bool
+pub fn Triangle::copy(Self, Self) -> Self
+pub fn Triangle::equals(Self, Self) -> Bool
+pub fn Triangle::get_area(Self) -> Double
+pub fn Triangle::get_barycoord(Self, Vector3, Vector3) -> Vector3?
+pub fn Triangle::get_barycoord_static(Vector3, Vector3, Vector3, Vector3, Vector3) -> Vector3?
+pub fn[T : Interpolatable] Triangle::get_interpolation(Self, Vector3, T, T, T, T) -> T?
+pub fn[T : Interpolatable] Triangle::get_interpolation_static(Vector3, Vector3, Vector3, Vector3, T, T, T, T) -> T?
+pub fn Triangle::get_midpoint(Self, Vector3) -> Vector3
+pub fn Triangle::get_normal(Self, Vector3) -> Vector3
+pub fn Triangle::get_normal_static(Vector3, Vector3, Vector3, Vector3) -> Vector3
+pub fn Triangle::get_plane(Self, Plane) -> Plane
+pub fn Triangle::intersects_box(Self, Box3) -> Bool
+pub fn Triangle::is_front_facing(Self, Vector3) -> Bool
+pub fn Triangle::is_front_facing_static(Vector3, Vector3, Vector3, Vector3) -> Bool
+pub fn Triangle::new(a? : Vector3, b? : Vector3, c? : Vector3) -> Self
+pub fn Triangle::set(Self, Vector3, Vector3, Vector3) -> Self
+pub fn Triangle::set_from_points_and_indices(Self, Array[Vector3], Int32, Int32, Int32) -> Self
+
+pub(all) enum TypedArrayKind {
+  Float32Array
+  Uint32Array
+  Uint16Array
+  Uint8Array
+  Uint8ClampedArray
+  Int32Array
+  Int16Array
+  Int8Array
+  Other
+}
+
+#derive(Eq, @debug.Debug)
+pub(all) struct Vector2 {
+  mut x : Double
+  mut y : Double
+}
+pub fn Vector2::add(Self, Self) -> Self
+pub fn Vector2::add_scalar(Self, Double) -> Self
+pub fn Vector2::add_scaled_vector(Self, Self, Double) -> Self
+pub fn Vector2::add_vectors(Self, Self, Self) -> Self
+pub fn Vector2::angle(Self) -> Double
+pub fn Vector2::angle_to(Self, Self) -> Double
+pub fn Vector2::apply_matrix3(Self, Matrix3) -> Self
+pub fn Vector2::ceil(Self) -> Self
+pub fn Vector2::clamp(Self, Self, Self) -> Self
+pub fn Vector2::clamp_length(Self, Double, Double) -> Self
+pub fn Vector2::clamp_scalar(Self, Double, Double) -> Self
+pub fn Vector2::clone(Self) -> Self
+pub fn Vector2::copy(Self, Self) -> Self
+pub fn Vector2::cross(Self, Self) -> Double
+pub fn Vector2::distance_to(Self, Self) -> Double
+pub fn Vector2::distance_to_squared(Self, Self) -> Double
+pub fn Vector2::divide(Self, Self) -> Self
+pub fn Vector2::divide_scalar(Self, Double) -> Self
+pub fn Vector2::dot(Self, Self) -> Double
+pub fn Vector2::equals(Self, Self) -> Bool
+pub fn Vector2::floor(Self) -> Self
+pub fn Vector2::from_array(Self, Array[Double], offset? : Int32) -> Self
+pub fn[A : BufferAttributeLike] Vector2::from_buffer_attribute(Self, A, Int32) -> Self
+pub fn Vector2::get_component(Self, Int32) -> Double
+pub fn Vector2::height(Self) -> Double
+pub fn Vector2::length(Self) -> Double
+pub fn Vector2::length_sq(Self) -> Double
+pub fn Vector2::lerp(Self, Self, Double) -> Self
+pub fn Vector2::lerp_vectors(Self, Self, Self, Double) -> Self
+pub fn Vector2::manhattan_distance_to(Self, Self) -> Double
+pub fn Vector2::manhattan_length(Self) -> Double
+pub fn Vector2::max(Self, Self) -> Self
+pub fn Vector2::min(Self, Self) -> Self
+pub fn Vector2::multiply(Self, Self) -> Self
+pub fn Vector2::multiply_scalar(Self, Double) -> Self
+pub fn Vector2::negate(Self) -> Self
+pub fn Vector2::new(Double, Double) -> Self
+pub fn Vector2::normalize(Self) -> Self
+pub fn Vector2::random(Self) -> Self
+pub fn Vector2::rotate_around(Self, Self, Double) -> Self
+pub fn Vector2::round(Self) -> Self
+pub fn Vector2::round_to_zero(Self) -> Self
+pub fn Vector2::set(Self, Double, Double) -> Self
+pub fn Vector2::set_component(Self, Int32, Double) -> Self
+pub fn Vector2::set_height(Self, Double) -> Unit
+pub fn Vector2::set_length(Self, Double) -> Self
+pub fn Vector2::set_scalar(Self, Double) -> Self
+pub fn Vector2::set_width(Self, Double) -> Unit
+pub fn Vector2::set_x(Self, Double) -> Self
+pub fn Vector2::set_y(Self, Double) -> Self
+pub fn Vector2::sub(Self, Self) -> Self
+pub fn Vector2::sub_scalar(Self, Double) -> Self
+pub fn Vector2::sub_vectors(Self, Self, Self) -> Self
+pub fn Vector2::to_array(Self, array? : Array[Double], offset? : Int32) -> Array[Double]
+pub fn Vector2::width(Self) -> Double
+pub impl Interpolatable for Vector2
+
+#derive(Eq, @debug.Debug)
+pub(all) struct Vector3 {
+  mut x : Double
+  mut y : Double
+  mut z : Double
+}
+pub fn Vector3::add(Self, Self) -> Self
+pub fn Vector3::add_scalar(Self, Double) -> Self
+pub fn Vector3::add_scaled_vector(Self, Self, Double) -> Self
+pub fn Vector3::add_scaled_vector4(Self, Vector4, Double) -> Self
+pub fn Vector3::add_vectors(Self, Self, Self) -> Self
+pub fn Vector3::angle_to(Self, Self) -> Double
+pub fn Vector3::apply_axis_angle(Self, Self, Double) -> Self
+pub fn Vector3::apply_euler(Self, Euler) -> Self
+pub fn Vector3::apply_matrix3(Self, Matrix3) -> Self
+pub fn Vector3::apply_matrix4(Self, Matrix4) -> Self
+pub fn Vector3::apply_normal_matrix(Self, Matrix3) -> Self
+pub fn Vector3::apply_quaternion(Self, Quaternion) -> Self
+pub fn Vector3::ceil(Self) -> Self
+pub fn Vector3::clamp(Self, Self, Self) -> Self
+pub fn Vector3::clamp_length(Self, Double, Double) -> Self
+pub fn Vector3::clamp_scalar(Self, Double, Double) -> Self
+pub fn Vector3::clone(Self) -> Self
+pub fn Vector3::copy(Self, Self) -> Self
+pub fn Vector3::cross(Self, Self) -> Self
+pub fn Vector3::cross_vectors(Self, Self, Self) -> Self
+pub fn Vector3::distance_to(Self, Self) -> Double
+pub fn Vector3::distance_to_squared(Self, Self) -> Double
+pub fn Vector3::divide(Self, Self) -> Self
+pub fn Vector3::divide_scalar(Self, Double) -> Self
+pub fn Vector3::dot(Self, Self) -> Double
+pub fn Vector3::equals(Self, Self) -> Bool
+pub fn Vector3::floor(Self) -> Self
+pub fn Vector3::from_array(Self, Array[Double], offset? : Int32) -> Self
+pub fn[A : BufferAttributeLike] Vector3::from_buffer_attribute(Self, A, Int32) -> Self
+pub fn Vector3::get_component(Self, Int32) -> Double
+pub fn Vector3::length(Self) -> Double
+pub fn Vector3::length_sq(Self) -> Double
+pub fn Vector3::lerp(Self, Self, Double) -> Self
+pub fn Vector3::lerp_vectors(Self, Self, Self, Double) -> Self
+pub fn Vector3::manhattan_distance_to(Self, Self) -> Double
+pub fn Vector3::manhattan_length(Self) -> Double
+pub fn Vector3::max(Self, Self) -> Self
+pub fn Vector3::min(Self, Self) -> Self
+pub fn Vector3::multiply(Self, Self) -> Self
+pub fn Vector3::multiply_scalar(Self, Double) -> Self
+pub fn Vector3::multiply_vectors(Self, Self, Self) -> Self
+pub fn Vector3::negate(Self) -> Self
+pub fn Vector3::new(Double, Double, Double) -> Self
+pub fn Vector3::normalize(Self) -> Self
+pub fn[C : CameraMatrices] Vector3::project(Self, C) -> Self
+pub fn Vector3::project_on_plane(Self, Self) -> Self
+pub fn Vector3::project_on_vector(Self, Self) -> Self
+pub fn Vector3::random(Self) -> Self
+pub fn Vector3::random_direction(Self) -> Self
+pub fn Vector3::reflect(Self, Self) -> Self
+pub fn Vector3::round(Self) -> Self
+pub fn Vector3::round_to_zero(Self) -> Self
+pub fn Vector3::set(Self, Double, Double, Double) -> Self
+pub fn Vector3::set_component(Self, Int32, Double) -> Self
+pub fn Vector3::set_from_color(Self, Color) -> Self
+pub fn Vector3::set_from_cylindrical(Self, Cylindrical) -> Self
+pub fn Vector3::set_from_cylindrical_coords(Self, Double, Double, Double) -> Self
+pub fn Vector3::set_from_euler(Self, Euler) -> Self
+pub fn Vector3::set_from_matrix3_column(Self, Matrix3, Int32) -> Self
+pub fn Vector3::set_from_matrix_column(Self, Matrix4, Int32) -> Self
+pub fn Vector3::set_from_matrix_position(Self, Matrix4) -> Self
+pub fn Vector3::set_from_matrix_scale(Self, Matrix4) -> Self
+pub fn Vector3::set_from_spherical(Self, Spherical) -> Self
+pub fn Vector3::set_from_spherical_coords(Self, Double, Double, Double) -> Self
+pub fn Vector3::set_length(Self, Double) -> Self
+pub fn Vector3::set_scalar(Self, Double) -> Self
+pub fn Vector3::set_x(Self, Double) -> Self
+pub fn Vector3::set_xy(Self, Double, Double) -> Self
+pub fn Vector3::set_y(Self, Double) -> Self
+pub fn Vector3::set_z(Self, Double) -> Self
+pub fn Vector3::sub(Self, Self) -> Self
+pub fn Vector3::sub_scalar(Self, Double) -> Self
+pub fn Vector3::sub_vectors(Self, Self, Self) -> Self
+pub fn Vector3::to_array(Self, array? : Array[Double], offset? : Int32) -> Array[Double]
+pub fn Vector3::transform_direction(Self, Matrix4) -> Self
+pub fn[C : CameraMatrices] Vector3::unproject(Self, C) -> Self
+pub impl Interpolatable for Vector3
+
+#derive(Eq, @debug.Debug)
+pub(all) struct Vector4 {
+  mut x : Double
+  mut y : Double
+  mut z : Double
+  mut w : Double
+}
+pub fn Vector4::add(Self, Self) -> Self
+pub fn Vector4::add_scalar(Self, Double) -> Self
+pub fn Vector4::add_scaled_vector(Self, Self, Double) -> Self
+pub fn Vector4::add_vectors(Self, Self, Self) -> Self
+pub fn Vector4::apply_matrix4(Self, Matrix4) -> Self
+pub fn Vector4::ceil(Self) -> Self
+pub fn Vector4::clamp(Self, Self, Self) -> Self
+pub fn Vector4::clamp_length(Self, Double, Double) -> Self
+pub fn Vector4::clamp_scalar(Self, Double, Double) -> Self
+pub fn Vector4::clone(Self) -> Self
+pub fn Vector4::copy(Self, Self) -> Self
+pub fn Vector4::copy_vector3(Self, Vector3) -> Self
+pub fn Vector4::divide(Self, Self) -> Self
+pub fn Vector4::divide_scalar(Self, Double) -> Self
+pub fn Vector4::dot(Self, Self) -> Double
+pub fn Vector4::equals(Self, Self) -> Bool
+pub fn Vector4::floor(Self) -> Self
+pub fn Vector4::from_array(Self, Array[Double], offset? : Int32) -> Self
+pub fn[A : BufferAttributeLike] Vector4::from_buffer_attribute(Self, A, Int32) -> Self
+pub fn Vector4::get_component(Self, Int32) -> Double
+pub fn Vector4::height(Self) -> Double
+pub fn Vector4::length(Self) -> Double
+pub fn Vector4::length_sq(Self) -> Double
+pub fn Vector4::lerp(Self, Self, Double) -> Self
+pub fn Vector4::lerp_vectors(Self, Self, Self, Double) -> Self
+pub fn Vector4::manhattan_length(Self) -> Double
+pub fn Vector4::max(Self, Self) -> Self
+pub fn Vector4::min(Self, Self) -> Self
+pub fn Vector4::multiply(Self, Self) -> Self
+pub fn Vector4::multiply_scalar(Self, Double) -> Self
+pub fn Vector4::negate(Self) -> Self
+pub fn Vector4::new(Double, Double, Double, Double) -> Self
+pub fn Vector4::normalize(Self) -> Self
+pub fn Vector4::random(Self) -> Self
+pub fn Vector4::round(Self) -> Self
+pub fn Vector4::round_to_zero(Self) -> Self
+pub fn Vector4::set(Self, Double, Double, Double, Double) -> Self
+pub fn Vector4::set_axis_angle_from_quaternion(Self, Quaternion) -> Self
+pub fn Vector4::set_axis_angle_from_rotation_matrix(Self, Matrix4) -> Self
+pub fn Vector4::set_component(Self, Int32, Double) -> Self
+pub fn Vector4::set_from_matrix_position(Self, Matrix4) -> Self
+pub fn Vector4::set_height(Self, Double) -> Unit
+pub fn Vector4::set_length(Self, Double) -> Self
+pub fn Vector4::set_scalar(Self, Double) -> Self
+pub fn Vector4::set_w(Self, Double) -> Self
+pub fn Vector4::set_width(Self, Double) -> Unit
+pub fn Vector4::set_x(Self, Double) -> Self
+pub fn Vector4::set_y(Self, Double) -> Self
+pub fn Vector4::set_z(Self, Double) -> Self
+pub fn Vector4::sub(Self, Self) -> Self
+pub fn Vector4::sub_scalar(Self, Double) -> Self
+pub fn Vector4::sub_vectors(Self, Self, Self) -> Self
+pub fn Vector4::to_array(Self, array? : Array[Double], offset? : Int32) -> Array[Double]
+pub fn Vector4::width(Self) -> Double
+pub impl Interpolatable for Vector4
+
+pub(all) struct WorkingColorSpaceConfig {
+  mut unpack_color_space : String
+}
+
+// Type aliases
+
+// Traits
+pub(open) trait BufferAttributeLike {
+  fn get_x(Self, Int32) -> Double
+  fn get_y(Self, Int32) -> Double
+  fn get_z(Self, Int32) -> Double
+  fn get_w(Self, Int32) -> Double
+}
+
+pub(open) trait CameraMatrices {
+  fn matrix_world(Self) -> Matrix4
+  fn matrix_world_inverse(Self) -> Matrix4
+  fn projection_matrix(Self) -> Matrix4
+  fn projection_matrix_inverse(Self) -> Matrix4
+}
+
+pub(open) trait Interpolatable {
+  fn set_scalar(Self, Double) -> Self
+  fn add_scaled_vector(Self, Self, Double) -> Self
+}

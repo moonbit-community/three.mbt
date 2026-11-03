@@ -1,0 +1,59 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/loaders/nodes"
+
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/loaders",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub fn node_loader_to_js(@json.Json) -> @core.JsValue
+
+// Errors
+
+// Types and methods
+pub struct NodeLoader {
+  base : @loaders.Loader
+  mut textures : Map[String, @core.Texture]
+  mut nodes : Map[String, () -> @bobzhang/three/nodes.Node]
+}
+pub fn NodeLoader::create_node_from_type(Self, String) -> @bobzhang/three/nodes.Node
+pub fn NodeLoader::load(Self, String, (@bobzhang/three/nodes.Node) -> Unit, on_progress? : (@loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn NodeLoader::new(manager? : @loaders.LoadingManager) -> Self
+pub fn NodeLoader::parse(Self, @json.Json) -> @bobzhang/three/nodes.Node
+pub fn NodeLoader::parse_nodes(Self, @json.Json?) -> Map[String, @bobzhang/three/nodes.Node]
+pub fn NodeLoader::set_nodes(Self, Map[String, () -> @bobzhang/three/nodes.Node]) -> Self
+pub fn NodeLoader::set_textures(Self, Map[String, @core.Texture]) -> Self
+pub impl @loaders.LoaderLike for NodeLoader
+pub impl @loaders.LoaderSettings for NodeLoader
+
+pub struct NodeMaterialLoader {
+  base : @loaders.MaterialLoader
+  mut nodes : Map[String, @bobzhang/three/nodes.Node]
+  mut node_materials : Map[String, () -> @core.Material]
+}
+pub fn NodeMaterialLoader::create_material_from_type(Self, String) -> @core.Material
+pub fn NodeMaterialLoader::new(manager? : @loaders.LoadingManager) -> Self
+pub fn NodeMaterialLoader::parse(Self, @json.Json) -> @core.Material
+pub fn NodeMaterialLoader::set_node_materials(Self, Map[String, () -> @core.Material]) -> Self
+pub fn NodeMaterialLoader::set_nodes(Self, Map[String, @bobzhang/three/nodes.Node]) -> Self
+pub fn NodeMaterialLoader::set_textures(Self, Map[String, @core.Texture]) -> Self
+
+pub struct NodeObjectLoader {
+  base : @loaders.ObjectLoader
+  mut nodes : Map[String, () -> @bobzhang/three/nodes.Node]
+  mut node_materials : Map[String, () -> @core.Material]
+  mut _nodes_json : @json.Json?
+}
+pub fn NodeObjectLoader::new(manager? : @loaders.LoadingManager) -> Self
+pub fn NodeObjectLoader::parse(Self, @json.Json, on_load? : (@core.Object3D) -> Unit) -> @core.Object3D
+pub async fn NodeObjectLoader::parse_async(Self, @json.Json) -> @core.Object3D raise @loaders.LoaderError
+pub fn NodeObjectLoader::parse_materials(Self, @json.Json?, Map[String, @core.Texture]) -> Map[String, @core.Material]
+pub fn NodeObjectLoader::parse_nodes(Self, @json.Json?, Map[String, @core.Texture]) -> Map[String, @bobzhang/three/nodes.Node]
+pub fn NodeObjectLoader::set_node_materials(Self, Map[String, () -> @core.Material]) -> Self
+pub fn NodeObjectLoader::set_nodes(Self, Map[String, () -> @bobzhang/three/nodes.Node]) -> Self
+
+// Type aliases
+
+// Traits

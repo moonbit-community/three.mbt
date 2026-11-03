@@ -1,0 +1,87 @@
+G9 differential harness: the WebGPU backend and WebGPURenderer (MoonBit src/renderers/webgpu)
+against upstream (THREE_UPSTREAM, default .repos/three.js; src/renderers/webgpu), on the
+recording mock GPU. From the repository root: `node diff/run_all.mjs --only g9` builds ../mbt and
+../mbt_a5 and runs every check below (g9, g9_pixel, g9_pixel_webgl, g9_a4, g9_a5; checks.mjs).
+Commands below run from this directory.
+
+  node run.mjs [--quiet] [--show] [name ...]   run scenarios (fresh processes), compare the logs
+                                               entry by entry, print the first mismatch
+  node upstream_one.mjs <name>                 print one upstream log (@@LOG <json>)
+  node mbt_one.mjs <name>                      print one MoonBit log
+  node dump.mjs <name> <from> <to> [width]     both logs side by side over an entry range
+  python3 inject.py [index ...]                inject deliberate bugs into src/renderers/webgpu one
+                                               at a time (rebuilds the MoonBit module, restores the
+                                               file via diff/lib/inject.py); each must be caught.
+                                               INJECT_DRY_RUN=1 only checks the patterns.
+
+Build the MoonBit side first: `cd ../mbt && moon build --target js` (a module that builds
+against the repository root through its moon.work; its main package exports scenario_names and
+run_scenario; ../mbt_a5 likewise for run_a5.mjs).
+
+Files
+  ../../webgpu/mock_gpu.cjs   the generated recording mock (tools/gen_gpu_mock.mjs), installed as
+                   navigator.gpu (shared with G7 and the shader harness)
+  common.mjs       setup (mock, a requestAnimationFrame that never fires), flush, MOCK_OPTIONS
+                   (per-scenario adapter features / error scopes / compilation messages)
+  scenarios.mjs    upstream side of each scenario (async)
+  ../mbt/main/*.mbt   MoonBit side, step for step (callbacks for the async steps)
+
+Each scenario starts by advancing the global id counters (Node 20000, Object3D / Material /
+Texture / BufferAttribute / BufferGeometry 1000) on both sides; the upstream side loads
+Three.TSL.js before Three.WebGPU.js (the published bundles' order, for fn<id> names). Logs are
+[target, method, args] with mock handles numbered in creation order and descriptors snapshotted
+in key order, including the WGSL of every createShaderModule; notes ([ 'note', label, value ])
+record non-GPU results. Upstream `await` resumes on a later microtask; the port does the same
+(native Promise.resolve( p ).then), so asynchronous continuations interleave identically.
+
+Scenarios: init, smoke, materials_lit, materials_unlit (normal, matcap, line, points, sprite,
+transparent / additive / custom / multiply blending), textures_formats (11 format/type pairs,
+flipY, generated and given mipmaps, samplers, anisotropy, wrap modes, bind group cache),
+textures_kinds (cube, 3D, array, layer updates, BC / ASTC / ETC2 compressed, compressed array,
+canvas, image, video), render_targets (plain, MRT, MSAA, no resolve, discarded MSAA, depth +
+stencil), msaa_canvas, reversed_depth, reversed_depth_nostencil, geometry_draws (non-indexed,
+indexed, normalized + padded attribute, interleaved, instancing, indirect, BatchedMesh, update
+ranges), compute_storage (storage buffers, atomics, storage texture, dispatch sizes, indirect
+dispatch, compute lists, getArrayBufferAsync, readRenderTargetPixelsAsync), copies
+(copyTextureToTexture 2D / 3D / mipmapped, copyFramebufferToTexture of a target, of the
+canvas, in a render), bundles, timestamps, occlusion, shadows (directional, spot, point),
+background_env (color background, PMREM environment), background_texture (texture
+background), postprocessing (RenderPipeline + pass), clearing,
+resize, dispose, compile_async, pipeline_errors (error scopes, compilation info, async
+pipelines), compatibility (compatibility mode), features, instancing_dispose (instance matrix update,
+readback, renderer.dispose), device_lost, no_adapter (WebGL fallback: init rejects).
+
+Known differences: none. no_adapter (the fallback WebGLBackend.init's TypeError escaped instead of
+rejecting renderer.init) and background_texture (render uniform-struct member order from the
+module-level node ids) were fixed in src/nodes (Renderer::init, core_module_node_ids.mbt).
+
+Pixel scenes (G11): the WebGPU scenes of examples/pixel_compare on the same mocks.
+  node run_pixel.mjs [--quiet] [--webgl] [scene ...]   compare both sides of each scene
+  node pixel_up.mjs <scene> / pixel_mbt.mjs <scene>     one side on the mock GPU
+  node pixel_gl_up.mjs <scene> / pixel_gl_mbt.mjs <scene>   one side with forceWebGL on the
+                                                        mock WebGL 2 context
+                                                        (diff/core/webgl/harness/mock_gl.cjs, as G10 uses it)
+The upstream side imports examples/pixel_compare/webgpu_scenes.js and calls renderUpstream; the
+MoonBit side is ../mbt/pixel, whose scenes.mbt, a5_scenes.mbt and objects_scenes.mbt are relative
+symlinks to examples/pixel_compare/webgpu/{main,a5_scenes,objects_scenes}.mbt (plus align.mbt,
+`align_counters`); rebuild with `cd ../mbt && moon build --target js`.
+pixel_common.mjs / pixel_gl_common.mjs add `document.createElement( 'canvas' )` (2D canvases for
+the CanvasTexture; drawing is not recorded) and, for GL, requestAnimationFrame on a timer as
+webgpu.html does. The readback is a note (`pixels`, type and length).
+
+A4 (TSL display add-ons, src/addons/tsl): `node run_a4.mjs [--quiet] [--show] [name ...]`
+compares a4_scenarios.mjs (+ a4_<group>_scenarios.mjs: blur, ao, ssr, pass) with
+../mbt/a4 (a separate main package, so run.mjs's 30 stay as they are); each side runs in a
+fresh process (a4_one.mjs up|mbt <name>) with the `three/*` resolve hooks of
+diff/core/webgpu/shader_diff/a4/register_three.mjs. A scenario imports its add-on
+modules before the counter alignment, as the MoonBit side calls their `load_*()`. The pixel
+runners register the same hooks for the `addon_*` pixel scenes, and all four write their log
+in a loop (a single writeSync to a pipe can be partial for large logs).
+
+A5 (the other TSL add-ons: lighting, passes, temporal, utils): `node run_a5.mjs [--quiet] [--show]
+[name ...]` compares a5_scenarios.mjs with ../mbt_a5/main (its own module, built from the real
+repository like ../mbt), each side in a fresh process (a5_one.mjs up|mbt <name>) with the same
+resolve hooks; both sides get a seeded Math.random, a fixed-step performance.now and an Image stub.
+
+A4 bug injection: diff/addons/tsl/a4/inject_{basic,blur,ao,ssr}.py and inject_pass.sh run the
+shader harness (diff/core/webgpu/shader_diff/run_a4.mjs --group <g>) and run_a4.mjs here.

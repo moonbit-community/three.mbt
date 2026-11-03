@@ -1,0 +1,23 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/geometries",
+  "bobzhang/three/loaders",
+  "bobzhang/three/nodes",
+  "bobzhang/three/renderers/webgpu",
+  "bobzhang/three/addons/controls",
+  "bobzhang/three/addons/loaders" @addon_loaders,
+  "bobzhang/three/addons/objects",
+  "bobzhang/three/addons/tsl",
+  "moonbitlang/core/math" @cmath,
+}
+
+options(
+  "is-main": true,
+  link: {
+    "js": {
+      "exports": [ "start", "resize", "set_sun", "set_cycle", "set_exposure", "set_clouds" ],
+      "format": "esm",
+    },
+  },
+)

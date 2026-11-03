@@ -1,0 +1,20 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three-pixel-compare/webgpu"
+
+import {
+  "bobzhang/three/core",
+}
+
+// Values
+pub fn render_scene(String, @core.JsValue, (@core.JsValue) -> Unit, force_webgl? : Bool) -> Unit
+
+pub fn scene_names() -> Array[String]
+
+// Errors
+
+// Types and methods
+type View
+
+// Type aliases
+
+// Traits

@@ -1,0 +1,14 @@
+import {
+  "bobzhang/three/webgpu" @three,
+  "moonbitlang/core/math",
+}
+
+options(
+  "is-main": true,
+  link: {
+    "js": {
+      "exports": [ "start", "resize", "orbit", "zoom", "set_repel", "particle_count" ],
+      "format": "esm",
+    },
+  },
+)

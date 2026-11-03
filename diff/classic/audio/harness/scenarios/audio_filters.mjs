@@ -1,0 +1,36 @@
+import { setup } from '../common.mjs';
+export async function run(env) {
+  const { ctx, Audio, AudioListener, finish, note } = await setup(env);
+  const listener = new AudioListener();
+  const sound = new Audio(listener);
+  const f1 = ctx.createBiquadFilter();
+  const f2 = ctx.createBiquadFilter();
+  const f3 = ctx.createBiquadFilter();
+  const list = [f1, f2];
+  sound.setFilters(list);
+  list.push(f3);
+  note('filters', sound.getFilters());
+  note('getFilter', sound.getFilter());
+  sound.setBuffer(ctx.__buffer(2));
+  sound.play();
+  sound.setFilters([f3]);
+  sound.setFilter(f2);
+  sound.setFilter();
+  note('getFilter', sound.getFilter());
+  sound.setFilters([f1, f2, f3]);
+  sound.setFilters();
+  note('filters', sound.getFilters());
+  sound.disconnect();
+  sound.disconnect();
+  note('_connected', sound._connected);
+  sound.connect();
+  const list2 = [f1, f2];
+  sound.setFilters(list2);
+  list2.push(f3);
+  note('filters', sound.getFilters());
+  sound.setFilters([f1, f2, f3]);
+  sound.disconnect();
+  sound.setFilters([f2]);
+  note('filters', sound.getFilters());
+  return finish();
+}

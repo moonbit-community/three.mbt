@@ -1,0 +1,13 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/loaders",
+  "bobzhang/three/nodes" @tsl,
+  "moonbitlang/core/json",
+}
+
+import {
+  "bobzhang/three/geometries",
+  "bobzhang/three/math",
+} for "test"
+
+warnings = "-79"

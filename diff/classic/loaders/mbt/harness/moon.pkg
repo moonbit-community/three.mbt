@@ -1,0 +1,24 @@
+import {
+  "bobzhang/three/loaders" @loaders,
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "moonbitlang/core/json",
+  "moonbitlang/core/async/js_async",
+}
+
+options(
+  "allow-experimental-packages": [ "moonbitlang/core/async/js_async" ],
+  link: {
+    "js": {
+      "exports": [
+        "warmup",
+        "object_roundtrip",
+        "object_roundtrip_async",
+        "geometry_roundtrip",
+        "material_roundtrip",
+        "run_scenario",
+      ],
+      "format": "esm",
+    },
+  },
+)

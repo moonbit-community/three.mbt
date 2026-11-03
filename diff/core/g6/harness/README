@@ -1,0 +1,36 @@
+G6 differential harness: the common Renderer and its pipeline (MoonBit src/nodes/common_renderer.mbt
+and friends) against upstream (THREE_UPSTREAM, default .repos/three.js; src/renderers/common).
+From the repository root: `node diff/run_all.mjs --only g6`. The MoonBit side is a test in the
+repository (`moon test` in the root with G6_DIFF=1); `--repo <dir>` points at another checkout.
+
+  node run.mjs [--quiet] [name ...]     run scenarios, compare logs entry by entry
+  python3 inject.py [index ...]         inject deliberate bugs into src/nodes one at a time; each
+                                        must be caught (files restored via diff/lib/inject.py;
+                                        INJECT_DRY_RUN=1 only checks the patterns)
+  node upstream_one.mjs <name>          print one upstream scenario's log
+
+Files
+  common.mjs      upstream modules; a stub backend (subclass of upstream Backend whose methods log
+                  their arguments: beginRender with the whole render context state, draw with the
+                  render object and draw parameters, clear, programs, pipelines, textures,
+                  attributes, compute, copies, bundles, ...); a stub NodeBuilder subclass whose
+                  prebuild() logs and skips the material build (node materials are G5's) and whose
+                  buildCode() writes 'vs/fs <material>:<id>' shaders; a stub material observer whose
+                  needsRefresh returns FULL / SHARED / NONE by render id; a fake requestAnimationFrame.
+  scenarios.mjs   upstream side of each scenario (async; `await renderer.init()` etc.).
+  src/nodes/common_g6_diff_test.mbt (repo)   MoonBit side: test "g6diff <name>", printing
+                  `@@G6 <name> <json>` with G6_DIFF=1. The same stubs implement BackendClass,
+                  NodeBuilderClass (prebuild/build_code) and NodeMaterialObserverClass.
+
+Each scenario runs in a fresh process on both sides and starts by advancing the global id
+counters (Node 20000, Object3D/Material/Texture/BufferAttribute/BufferGeometry 1000).
+Module-level nodes have upstream's ids on both sides: common.mjs loads Three.TSL.js then
+Three.WebGPU.js first (the bundles' order); the port uses src/nodes/core_module_node_ids.mbt.
+Normalizations: ids of objects created at module load (< 1000, e.g. QuadMesh's camera, the
+renderer's `_scene`) print as 'module'; `renderContext.stencil` and `material.transparent` print as
+`=== true` (upstream can hold `undefined`/`null` where MoonBit has a Bool).
+
+Scenarios: init_size, render_scene, render_targets, background_fog, compute_copy, info_dispose,
+pipelines, pmrem, bundles_compile, utils_misc (fallback init, RendererUtils, highPrecision, canvas
+targets, getShaderAsync, shadow pass override material, reversed depth), nodes_render
+(PassNode.compileAsync, RTTNode, convertToTexture, ReflectorNode).

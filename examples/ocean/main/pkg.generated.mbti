@@ -1,0 +1,28 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three-ocean/main"
+
+import {
+  "bobzhang/three/core",
+}
+
+// Values
+pub fn resize(Double, Double) -> Unit
+
+pub fn set_clouds(Double) -> Unit
+
+pub fn set_cycle(Bool) -> Unit
+
+pub fn set_exposure(Double) -> Unit
+
+pub fn set_sun(Double, Double) -> Unit
+
+pub fn start(@core.JsValue, Double, Double, Double, (String?, String) -> Unit) -> Unit
+
+// Errors
+
+// Types and methods
+type App
+
+// Type aliases
+
+// Traits

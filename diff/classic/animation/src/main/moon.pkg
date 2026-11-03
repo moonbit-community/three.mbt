@@ -1,0 +1,13 @@
+import {
+  "bobzhang/three/animation",
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "moonbitlang/core/double",
+  "moonbitlang/core/json",
+}
+
+options(
+  link: {
+    "js": { "exports": [ "run_scenario", "last_log" ], "format": "esm" },
+  },
+)

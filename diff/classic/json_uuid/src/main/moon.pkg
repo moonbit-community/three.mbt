@@ -1,0 +1,18 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/extras",
+  "bobzhang/three/geometries",
+  "bobzhang/three/animation",
+  "bobzhang/three/loaders",
+  "moonbitlang/core/json",
+}
+
+options(
+  link: {
+    "js": {
+      "exports": [ "nonfinite", "fresh", "roundtrip" ],
+      "format": "esm",
+    },
+  },
+)

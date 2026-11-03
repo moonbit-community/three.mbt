@@ -1,0 +1,408 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/loaders"
+
+import {
+  "bobzhang/three/animation",
+  "bobzhang/three/audio",
+  "bobzhang/three/core",
+  "bobzhang/three/extras",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub const Loader_DEFAULT_MATERIAL_NAME : String = "__DEFAULT"
+
+pub let default_loading_manager : LoadingManager
+
+pub async fn[T] loader_promise(((T) -> Unit, (@core.JsValue) -> Unit) -> Unit) -> T raise LoaderError
+
+// Errors
+pub(all) suberror LoaderError {
+  LoaderError(@core.JsValue)
+}
+pub fn LoaderError::output(Self, &Logger) -> Unit
+pub fn LoaderError::to_string(Self) -> String
+pub impl Show for LoaderError
+
+// Types and methods
+#external
+pub type AbortController
+pub fn AbortController::abort(Self) -> Unit
+pub fn AbortController::aborted(Self) -> Bool
+pub fn AbortController::new() -> Self
+pub fn AbortController::same(Self, Self) -> Bool
+pub fn AbortController::signal(Self) -> @core.JsValue
+
+pub struct AnimationLoader {
+  base : Loader
+}
+pub fn AnimationLoader::abort(Self) -> Self
+pub fn AnimationLoader::load(Self, String, (Array[@animation.AnimationClip]) -> Unit, on_progress? : (ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub async fn AnimationLoader::load_async(Self, String, on_progress? : (ProgressEvent) -> Unit) -> Array[@animation.AnimationClip] raise LoaderError
+pub fn AnimationLoader::loader(Self) -> Loader
+pub fn AnimationLoader::new(manager? : LoadingManager) -> Self
+pub fn AnimationLoader::parse(Self, @json.Json) -> Array[@animation.AnimationClip]
+pub fn AnimationLoader::set_cache(Self, String) -> Self
+pub fn AnimationLoader::set_cross_origin(Self, String) -> Self
+pub fn AnimationLoader::set_path(Self, String) -> Self
+pub fn AnimationLoader::set_priority(Self, String) -> Self
+pub fn AnimationLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn AnimationLoader::set_resource_path(Self, String) -> Self
+pub fn AnimationLoader::set_with_credentials(Self, Bool) -> Self
+pub impl LoaderLike for AnimationLoader
+pub impl LoaderSettings for AnimationLoader
+
+pub struct AudioLoader {
+  base : Loader
+}
+pub fn AudioLoader::abort(Self) -> Self
+pub fn AudioLoader::load(Self, String, on_load? : (@audio.AudioBuffer) -> Unit, on_progress? : (ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub async fn AudioLoader::load_async(Self, String, on_progress? : (ProgressEvent) -> Unit) -> @audio.AudioBuffer raise LoaderError
+pub fn AudioLoader::loader(Self) -> Loader
+pub fn AudioLoader::new(manager? : LoadingManager) -> Self
+pub fn AudioLoader::set_cache(Self, String) -> Self
+pub fn AudioLoader::set_cross_origin(Self, String) -> Self
+pub fn AudioLoader::set_path(Self, String) -> Self
+pub fn AudioLoader::set_priority(Self, String) -> Self
+pub fn AudioLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn AudioLoader::set_resource_path(Self, String) -> Self
+pub fn AudioLoader::set_with_credentials(Self, Bool) -> Self
+pub impl LoaderLike for AudioLoader
+pub impl LoaderSettings for AudioLoader
+
+pub struct BufferGeometryLoader {
+  base : Loader
+}
+pub fn BufferGeometryLoader::abort(Self) -> Self
+pub fn BufferGeometryLoader::load(Self, String, (@core.BufferGeometry) -> Unit, on_progress? : (ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub async fn BufferGeometryLoader::load_async(Self, String, on_progress? : (ProgressEvent) -> Unit) -> @core.BufferGeometry raise LoaderError
+pub fn BufferGeometryLoader::loader(Self) -> Loader
+pub fn BufferGeometryLoader::new(manager? : LoadingManager) -> Self
+pub fn BufferGeometryLoader::parse(Self, @json.Json) -> @core.BufferGeometry
+pub fn BufferGeometryLoader::set_cache(Self, String) -> Self
+pub fn BufferGeometryLoader::set_cross_origin(Self, String) -> Self
+pub fn BufferGeometryLoader::set_path(Self, String) -> Self
+pub fn BufferGeometryLoader::set_priority(Self, String) -> Self
+pub fn BufferGeometryLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn BufferGeometryLoader::set_resource_path(Self, String) -> Self
+pub fn BufferGeometryLoader::set_with_credentials(Self, Bool) -> Self
+pub impl LoaderLike for BufferGeometryLoader
+pub impl LoaderSettings for BufferGeometryLoader
+
+#external
+pub type Cache
+pub fn Cache::add(String, @core.JsValue) -> Unit
+pub fn Cache::clear() -> Unit
+pub fn Cache::enabled() -> Bool
+pub fn Cache::files() -> Map[String, @core.JsValue]
+pub fn Cache::get(String) -> @core.JsValue?
+pub fn Cache::remove(String) -> Unit
+pub fn Cache::set_enabled(Bool) -> Unit
+
+pub(all) struct CompressedTexData {
+  mut width : Int32
+  mut height : Int32
+  mut format : Int32
+  mut mipmaps : Array[@core.TextureImage]
+  mut mipmap_count : Int32
+  mut is_cubemap : Bool
+}
+
+pub struct CompressedTextureLoader {
+  base : Loader
+  parse : (@core.JsValue, Bool) -> CompressedTexData
+}
+pub fn CompressedTextureLoader::abort(Self) -> Self
+pub fn CompressedTextureLoader::load(Self, Array[String], on_load? : (@core.Texture) -> Unit, on_progress? : (ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
+pub async fn CompressedTextureLoader::load_async(Self, Array[String], on_progress? : (ProgressEvent) -> Unit) -> @core.Texture raise LoaderError
+pub fn CompressedTextureLoader::load_single(Self, String, on_load? : (@core.Texture) -> Unit, on_progress? : (ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
+pub fn CompressedTextureLoader::loader(Self) -> Loader
+pub fn CompressedTextureLoader::new(manager? : LoadingManager, parse? : (@core.JsValue, Bool) -> CompressedTexData) -> Self
+pub fn CompressedTextureLoader::set_cache(Self, String) -> Self
+pub fn CompressedTextureLoader::set_cross_origin(Self, String) -> Self
+pub fn CompressedTextureLoader::set_path(Self, String) -> Self
+pub fn CompressedTextureLoader::set_priority(Self, String) -> Self
+pub fn CompressedTextureLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn CompressedTextureLoader::set_resource_path(Self, String) -> Self
+pub fn CompressedTextureLoader::set_with_credentials(Self, Bool) -> Self
+pub impl LoaderLike for CompressedTextureLoader
+pub impl LoaderSettings for CompressedTextureLoader
+
+pub struct CubeTextureLoader {
+  base : Loader
+}
+pub fn CubeTextureLoader::abort(Self) -> Self
+pub fn CubeTextureLoader::load(Self, Array[String], on_load? : (@core.Texture) -> Unit, on_progress? : (ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
+pub async fn CubeTextureLoader::load_async(Self, Array[String], on_progress? : (ProgressEvent) -> Unit) -> @core.Texture raise LoaderError
+pub fn CubeTextureLoader::loader(Self) -> Loader
+pub fn CubeTextureLoader::new(manager? : LoadingManager) -> Self
+pub fn CubeTextureLoader::set_cache(Self, String) -> Self
+pub fn CubeTextureLoader::set_cross_origin(Self, String) -> Self
+pub fn CubeTextureLoader::set_path(Self, String) -> Self
+pub fn CubeTextureLoader::set_priority(Self, String) -> Self
+pub fn CubeTextureLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn CubeTextureLoader::set_resource_path(Self, String) -> Self
+pub fn CubeTextureLoader::set_with_credentials(Self, Bool) -> Self
+pub impl LoaderLike for CubeTextureLoader
+pub impl LoaderSettings for CubeTextureLoader
+
+pub(all) struct DataTexData {
+  mut image : @core.TextureImage?
+  mut data : @core.TypedArray?
+  mut width : Int32?
+  mut height : Int32?
+  mut wrap_s : Int32?
+  mut wrap_t : Int32?
+  mut mag_filter : Int32?
+  mut min_filter : Int32?
+  mut anisotropy : Int32?
+  mut color_space : String?
+  mut flip_y : Bool?
+  mut format : Int32?
+  mut type_ : Int32?
+  mut mipmaps : Array[@core.TextureImage]?
+  mut mipmap_count : Int32?
+  mut generate_mipmaps : Bool?
+  mut extra : @core.JsValue?
+}
+pub fn DataTexData::new() -> Self
+
+pub struct DataTextureLoader {
+  base : Loader
+  parse : (@core.JsValue) -> DataTexData
+}
+pub fn DataTextureLoader::_apply_tex_data(Self, @core.Texture, DataTexData) -> Unit
+pub fn DataTextureLoader::abort(Self) -> Self
+pub fn DataTextureLoader::create_data_texture(Self, @core.JsValue) -> @core.Texture
+pub fn DataTextureLoader::load(Self, String, on_load? : (@core.Texture, DataTexData) -> Unit, on_progress? : (ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
+pub async fn DataTextureLoader::load_async(Self, String, on_progress? : (ProgressEvent) -> Unit) -> @core.Texture raise LoaderError
+pub fn DataTextureLoader::loader(Self) -> Loader
+pub fn DataTextureLoader::new(manager? : LoadingManager, parse? : (@core.JsValue) -> DataTexData) -> Self
+pub fn DataTextureLoader::set_cache(Self, String) -> Self
+pub fn DataTextureLoader::set_cross_origin(Self, String) -> Self
+pub fn DataTextureLoader::set_path(Self, String) -> Self
+pub fn DataTextureLoader::set_priority(Self, String) -> Self
+pub fn DataTextureLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn DataTextureLoader::set_resource_path(Self, String) -> Self
+pub fn DataTextureLoader::set_with_credentials(Self, Bool) -> Self
+pub impl LoaderLike for DataTextureLoader
+pub impl LoaderSettings for DataTextureLoader
+
+pub struct FileLoader {
+  base : Loader
+  mut mime_type : String
+  mut response_type : String
+  mut _abort_controller : AbortController
+}
+pub fn FileLoader::abort(Self) -> Self
+pub fn FileLoader::load(Self, String, on_load? : (@core.JsValue) -> Unit, on_progress? : (ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub async fn FileLoader::load_async(Self, String, on_progress? : (ProgressEvent) -> Unit) -> @core.JsValue raise LoaderError
+pub fn FileLoader::loader(Self) -> Loader
+pub fn FileLoader::new(manager? : LoadingManager) -> Self
+pub fn FileLoader::set_cache(Self, String) -> Self
+pub fn FileLoader::set_cross_origin(Self, String) -> Self
+pub fn FileLoader::set_mime_type(Self, String) -> Self
+pub fn FileLoader::set_path(Self, String) -> Self
+pub fn FileLoader::set_priority(Self, String) -> Self
+pub fn FileLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn FileLoader::set_resource_path(Self, String) -> Self
+pub fn FileLoader::set_response_type(Self, String) -> Self
+pub fn FileLoader::set_with_credentials(Self, Bool) -> Self
+pub impl LoaderLike for FileLoader
+pub impl LoaderSettings for FileLoader
+
+pub struct ImageBitmapLoader {
+  base : Loader
+  mut options : Map[String, @json.Json]
+  mut _abort_controller : AbortController
+}
+pub fn ImageBitmapLoader::abort(Self) -> Self
+pub fn ImageBitmapLoader::load(Self, String, on_load? : (@core.JsValue) -> Unit, on_progress? : (ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub async fn ImageBitmapLoader::load_async(Self, String, on_progress? : (ProgressEvent) -> Unit) -> @core.JsValue raise LoaderError
+pub fn ImageBitmapLoader::loader(Self) -> Loader
+pub fn ImageBitmapLoader::new(manager? : LoadingManager) -> Self
+pub fn ImageBitmapLoader::set_cache(Self, String) -> Self
+pub fn ImageBitmapLoader::set_cross_origin(Self, String) -> Self
+pub fn ImageBitmapLoader::set_options(Self, Map[String, @json.Json]) -> Self
+pub fn ImageBitmapLoader::set_path(Self, String) -> Self
+pub fn ImageBitmapLoader::set_priority(Self, String) -> Self
+pub fn ImageBitmapLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn ImageBitmapLoader::set_resource_path(Self, String) -> Self
+pub fn ImageBitmapLoader::set_with_credentials(Self, Bool) -> Self
+pub impl LoaderLike for ImageBitmapLoader
+pub impl LoaderSettings for ImageBitmapLoader
+
+pub struct ImageLoader {
+  base : Loader
+}
+pub fn ImageLoader::abort(Self) -> Self
+pub fn ImageLoader::load(Self, String, on_load? : (@core.JsValue) -> Unit, on_progress? : (ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.JsValue
+pub async fn ImageLoader::load_async(Self, String, on_progress? : (ProgressEvent) -> Unit) -> @core.JsValue raise LoaderError
+pub fn ImageLoader::loader(Self) -> Loader
+pub fn ImageLoader::new(manager? : LoadingManager) -> Self
+pub fn ImageLoader::set_cache(Self, String) -> Self
+pub fn ImageLoader::set_cross_origin(Self, String) -> Self
+pub fn ImageLoader::set_path(Self, String) -> Self
+pub fn ImageLoader::set_priority(Self, String) -> Self
+pub fn ImageLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn ImageLoader::set_resource_path(Self, String) -> Self
+pub fn ImageLoader::set_with_credentials(Self, Bool) -> Self
+pub impl LoaderLike for ImageLoader
+pub impl LoaderSettings for ImageLoader
+
+pub(all) struct Loader {
+  mut manager : LoadingManager
+  mut cross_origin : String
+  mut with_credentials : Bool
+  mut path : String
+  mut resource_path : String
+  mut request_header : Map[String, String]
+  mut priority : String
+  mut cache : String
+}
+pub fn Loader::abort(Self) -> Self
+pub fn Loader::loader(Self) -> Self
+pub fn Loader::new(manager? : LoadingManager) -> Self
+pub fn Loader::set_cache(Self, String) -> Self
+pub fn Loader::set_cross_origin(Self, String) -> Self
+pub fn Loader::set_path(Self, String) -> Self
+pub fn Loader::set_priority(Self, String) -> Self
+pub fn Loader::set_request_header(Self, Map[String, String]) -> Self
+pub fn Loader::set_resource_path(Self, String) -> Self
+pub fn Loader::set_with_credentials(Self, Bool) -> Self
+pub impl LoaderLike for Loader
+pub impl LoaderSettings for Loader
+
+#external
+pub type LoaderUtils
+pub fn LoaderUtils::extract_url_base(String) -> String
+pub fn LoaderUtils::resolve_url(String, String) -> String
+
+pub(all) struct LoadingManager {
+  mut on_start : ((String, Int32, Int32) -> Unit)?
+  mut on_load : (() -> Unit)?
+  mut on_progress : ((String, Int32, Int32) -> Unit)?
+  mut on_error : ((String) -> Unit)?
+  mut _abort_controller : AbortController?
+  mut is_loading : Bool
+  mut items_loaded : Int32
+  mut items_total : Int32
+  mut url_modifier : ((String) -> String)?
+  handlers : Array[(RegExp, &LoaderLike)]
+}
+pub fn LoadingManager::abort(Self) -> Self
+pub fn LoadingManager::abort_controller(Self) -> AbortController
+pub fn LoadingManager::add_handler(Self, RegExp, &LoaderLike) -> Self
+pub fn LoadingManager::get_handler(Self, String) -> &LoaderLike?
+pub fn LoadingManager::item_end(Self, String) -> Unit
+pub fn LoadingManager::item_error(Self, String) -> Unit
+pub fn LoadingManager::item_start(Self, String) -> Unit
+pub fn LoadingManager::new(on_load? : () -> Unit, on_progress? : (String, Int32, Int32) -> Unit, on_error? : (String) -> Unit) -> Self
+pub fn LoadingManager::remove_handler(Self, RegExp) -> Self
+pub fn LoadingManager::resolve_url(Self, String) -> String
+pub fn LoadingManager::set_url_modifier(Self, ((String) -> String)?) -> Self
+
+pub struct MaterialLoader {
+  base : Loader
+  mut textures : Map[String, @core.Texture]
+}
+pub fn MaterialLoader::abort(Self) -> Self
+pub fn MaterialLoader::create_material_from_type(Self, String) -> @core.Material
+pub fn MaterialLoader::create_material_from_type_static(String) -> @core.Material
+pub fn MaterialLoader::load(Self, String, (@core.Material) -> Unit, on_progress? : (ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub async fn MaterialLoader::load_async(Self, String, on_progress? : (ProgressEvent) -> Unit) -> @core.Material raise LoaderError
+pub fn MaterialLoader::loader(Self) -> Loader
+pub fn MaterialLoader::new(manager? : LoadingManager) -> Self
+pub fn MaterialLoader::parse(Self, @json.Json) -> @core.Material
+pub fn MaterialLoader::register_material(String, () -> @core.Material) -> Unit
+pub fn MaterialLoader::set_cache(Self, String) -> Self
+pub fn MaterialLoader::set_cross_origin(Self, String) -> Self
+pub fn MaterialLoader::set_path(Self, String) -> Self
+pub fn MaterialLoader::set_priority(Self, String) -> Self
+pub fn MaterialLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn MaterialLoader::set_resource_path(Self, String) -> Self
+pub fn MaterialLoader::set_textures(Self, Map[String, @core.Texture]) -> Self
+pub fn MaterialLoader::set_with_credentials(Self, Bool) -> Self
+pub impl LoaderLike for MaterialLoader
+pub impl LoaderSettings for MaterialLoader
+
+pub struct ObjectLoader {
+  base : Loader
+  mut parse_materials_override : ((@json.Json?, Map[String, @core.Texture]) -> Map[String, @core.Material])?
+}
+pub fn ObjectLoader::abort(Self) -> Self
+pub fn ObjectLoader::load(Self, String, on_load? : (@core.Object3D) -> Unit, on_progress? : (ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub async fn ObjectLoader::load_async(Self, String, on_progress? : (ProgressEvent) -> Unit) -> @core.Object3D raise LoaderError
+pub fn ObjectLoader::loader(Self) -> Loader
+pub fn ObjectLoader::new(manager? : LoadingManager) -> Self
+pub fn ObjectLoader::parse(Self, @json.Json, on_load? : (@core.Object3D) -> Unit) -> @core.Object3D
+pub fn ObjectLoader::parse_animations(Self, @json.Json?) -> Map[String, &@core.SerializableResource]
+pub async fn ObjectLoader::parse_async(Self, @json.Json) -> @core.Object3D raise LoaderError
+pub fn ObjectLoader::parse_geometries(Self, @json.Json?, Map[String, @extras.Shape]) -> Map[String, @core.BufferGeometry]
+pub fn ObjectLoader::parse_images(Self, @json.Json?, () -> Unit) -> Map[String, @core.TextureSource]
+pub async fn ObjectLoader::parse_images_async(Self, @json.Json?) -> Map[String, @core.TextureSource] raise LoaderError
+pub fn ObjectLoader::parse_materials(Self, @json.Json?, Map[String, @core.Texture]) -> Map[String, @core.Material]
+pub fn ObjectLoader::parse_shapes(Self, @json.Json?) -> Map[String, @extras.Shape]
+pub fn ObjectLoader::parse_skeletons(Self, @json.Json?, @core.Object3D) -> Map[String, @core.Skeleton]
+pub fn ObjectLoader::parse_textures(Self, @json.Json?, Map[String, @core.TextureSource]) -> Map[String, @core.Texture]
+pub fn ObjectLoader::register_geometry(String, (@json.Json, Map[String, @extras.Shape]) -> @core.BufferGeometry) -> Unit
+pub fn ObjectLoader::set_cache(Self, String) -> Self
+pub fn ObjectLoader::set_cross_origin(Self, String) -> Self
+pub fn ObjectLoader::set_parse_materials_override(Self, (@json.Json?, Map[String, @core.Texture]) -> Map[String, @core.Material]) -> Unit
+pub fn ObjectLoader::set_path(Self, String) -> Self
+pub fn ObjectLoader::set_priority(Self, String) -> Self
+pub fn ObjectLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn ObjectLoader::set_resource_path(Self, String) -> Self
+pub fn ObjectLoader::set_with_credentials(Self, Bool) -> Self
+pub impl LoaderLike for ObjectLoader
+pub impl LoaderSettings for ObjectLoader
+
+#external
+pub type ProgressEvent
+pub fn ProgressEvent::length_computable(Self) -> Bool
+pub fn ProgressEvent::loaded(Self) -> Double
+pub fn ProgressEvent::to_js(Self) -> @core.JsValue
+pub fn ProgressEvent::total(Self) -> Double
+
+#external
+pub type RegExp
+pub fn RegExp::global(Self) -> Bool
+pub fn RegExp::new(String, flags? : String) -> Self
+pub fn RegExp::set_last_index(Self, Int32) -> Unit
+pub fn RegExp::test_(Self, String) -> Bool
+
+pub struct TextureLoader {
+  base : Loader
+}
+pub fn TextureLoader::abort(Self) -> Self
+pub fn TextureLoader::load(Self, String, on_load? : (@core.Texture) -> Unit, on_progress? : (ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
+pub async fn TextureLoader::load_async(Self, String, on_progress? : (ProgressEvent) -> Unit) -> @core.Texture raise LoaderError
+pub fn TextureLoader::loader(Self) -> Loader
+pub fn TextureLoader::new(manager? : LoadingManager) -> Self
+pub fn TextureLoader::set_cache(Self, String) -> Self
+pub fn TextureLoader::set_cross_origin(Self, String) -> Self
+pub fn TextureLoader::set_path(Self, String) -> Self
+pub fn TextureLoader::set_priority(Self, String) -> Self
+pub fn TextureLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn TextureLoader::set_resource_path(Self, String) -> Self
+pub fn TextureLoader::set_with_credentials(Self, Bool) -> Self
+pub impl LoaderLike for TextureLoader
+pub impl LoaderSettings for TextureLoader
+
+// Type aliases
+
+// Traits
+pub(open) trait LoaderLike {
+  fn loader(Self) -> Loader
+}
+
+pub(open) trait LoaderSettings : LoaderLike {
+  fn set_cross_origin(Self, String) -> Self = _
+  fn set_with_credentials(Self, Bool) -> Self = _
+  fn set_path(Self, String) -> Self = _
+  fn set_resource_path(Self, String) -> Self = _
+  fn set_request_header(Self, Map[String, String]) -> Self = _
+  fn set_priority(Self, String) -> Self = _
+  fn set_cache(Self, String) -> Self = _
+  fn abort(Self) -> Self = _
+}

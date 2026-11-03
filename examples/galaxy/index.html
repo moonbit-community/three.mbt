@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>three.mbt galaxy</title>
+<style>
+	html, body { margin: 0; height: 100%; background: #030208; overflow: hidden; }
+	canvas { display: block; width: 100vw; height: 100vh; touch-action: none; cursor: grab; }
+	canvas.dragging { cursor: grabbing; }
+	#hud {
+		position: fixed; left: 16px; top: 14px; color: #c9c4e8;
+		font: 13px/1.5 ui-sans-serif, system-ui, -apple-system, sans-serif;
+		pointer-events: none; text-shadow: 0 1px 2px #000;
+	}
+	#hud b { color: #fff; font-weight: 600; letter-spacing: 0.02em; }
+	#hud .dim { color: #8a85a8; }
+	#error { color: #ff8f8f; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud">
+	<b>three.mbt</b> &mdash; GPU particle galaxy<br>
+	<span id="info" class="dim">starting&hellip;</span><br>
+	<span class="dim">drag to orbit &middot; scroll to zoom &middot; hold right button or space to repel</span>
+	<div id="error"></div>
+</div>
+<script type="module">
+// The whole simulation and rendering is MoonBit (main/main.mbt) running the port's
+// WebGPURenderer; this script only wires DOM events to it.
+
+// An embedded or hidden pane may get no animation frames; fall back to a timer there.
+const framesRun = await Promise.race( [
+	new Promise( ( resolve ) => requestAnimationFrame( () => resolve( true ) ) ),
+	new Promise( ( resolve ) => setTimeout( () => resolve( false ), 200 ) )
+] );
+if ( ! framesRun ) window.requestAnimationFrame = ( f ) => setTimeout( () => f( performance.now() ), 16 );
+
+const info = document.getElementById( 'info' );
+const errorBox = document.getElementById( 'error' );
+let galaxy;
+// Debug first: the release JS build currently mis-orders a hoisted constant at load
+// (see repro/release_hoist_cycle in the repository).
+for ( const mode of [ 'debug', 'release' ] ) {
+
+	try {
+
+		// The query string defeats the cache, so a rebuild shows up on reload.
+		galaxy = await import( `./_build/js/${ mode }/build/bobzhang/three-galaxy/main/main.js?${ Date.now() }` );
+		break;
+
+	} catch ( e ) { /* try the next build mode */ }
+
+}
+
+if ( galaxy === undefined ) {
+
+	errorBox.textContent = 'MoonBit build not found: run `moon build --target js` in examples/galaxy.';
+
+} else {
+
+	const canvas = document.getElementById( 'c' );
+	const count = galaxy.particle_count().toLocaleString( 'en-US' );
+	let backend = '';
+	galaxy.start( canvas, innerWidth, innerHeight, Math.min( devicePixelRatio, 2 ), ( error, name ) => {
+
+		if ( error ) { errorBox.textContent = error; return; }
+		backend = name;
+
+	} );
+
+	// Frame rate, measured on the page side.
+	let frames = 0, last = performance.now();
+	( function tick() {
+
+		frames ++;
+		const now = performance.now();
+		if ( now - last >= 500 ) {
+
+			info.textContent = `${ count } particles · ${ backend } · ${ Math.round( frames * 1000 / ( now - last ) ) } fps`;
+			frames = 0; last = now;
+
+		}
+		requestAnimationFrame( tick );
+
+	} )();
+
+	addEventListener( 'resize', () => galaxy.resize( innerWidth, innerHeight ) );
+
+	let dragging = false, px = 0, py = 0;
+	canvas.addEventListener( 'pointerdown', ( e ) => {
+
+		if ( e.button === 2 ) { galaxy.set_repel( true ); return; }
+		dragging = true; px = e.clientX; py = e.clientY;
+		canvas.setPointerCapture( e.pointerId );
+		canvas.classList.add( 'dragging' );
+
+	} );
+	canvas.addEventListener( 'pointermove', ( e ) => {
+
+		if ( ! dragging ) return;
+		galaxy.orbit( e.clientX - px, e.clientY - py );
+		px = e.clientX; py = e.clientY;
+
+	} );
+	canvas.addEventListener( 'pointerup', ( e ) => {
+
+		if ( e.button === 2 ) { galaxy.set_repel( false ); return; }
+		dragging = false;
+		canvas.classList.remove( 'dragging' );
+
+	} );
+	canvas.addEventListener( 'contextmenu', ( e ) => e.preventDefault() );
+	canvas.addEventListener( 'wheel', ( e ) => { e.preventDefault(); galaxy.zoom( e.deltaY ); }, { passive: false } );
+	addEventListener( 'keydown', ( e ) => { if ( e.code === 'Space' ) galaxy.set_repel( true ); } );
+	addEventListener( 'keyup', ( e ) => { if ( e.code === 'Space' ) galaxy.set_repel( false ); } );
+
+}
+</script>
+</body>
+</html>

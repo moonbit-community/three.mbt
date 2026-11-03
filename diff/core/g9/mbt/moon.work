@@ -1,0 +1,5 @@
+// The MoonBit side of the G9 harness builds against the port in the repository root.
+members = [
+  ".",
+  "../../../..",
+]

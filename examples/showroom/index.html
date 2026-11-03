@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>three.mbt showroom</title>
+<style>
+	html, body { margin: 0; height: 100%; background: #111; overflow: hidden; }
+	canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
+	#hud {
+		position: fixed; left: 16px; top: 14px; color: #ddd;
+		font: 13px/1.6 ui-sans-serif, system-ui, -apple-system, sans-serif;
+		text-shadow: 0 1px 2px #000; user-select: none;
+	}
+	#hud b { color: #fff; font-weight: 600; }
+	#hud .dim { color: #aaa; }
+	#hud label { display: inline-flex; align-items: center; gap: 6px; margin-right: 14px; }
+	#error { color: #ff8f8f; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud">
+	<b>three.mbt</b> &mdash; showroom<br>
+	<span id="info" class="dim">loading&hellip;</span><br>
+	<span class="dim">GLTFLoader &middot; HDRLoader &middot; OrbitControls &middot; TSL bloom &mdash; all MoonBit</span><br>
+	<label>bloom <input id="bloom" type="range" min="0" max="2" step="0.05" value="0.45"></label>
+	<label><input id="spin" type="checkbox" checked> auto-rotate</label>
+	<div id="error"></div>
+</div>
+<script type="module">
+// Scene, loaders, controls and post-processing are MoonBit (main/main.mbt); this script
+// only creates the canvas size, the HUD and the slider wiring.
+
+// An embedded or hidden pane may get no animation frames; fall back to a timer there.
+const framesRun = await Promise.race( [
+	new Promise( ( resolve ) => requestAnimationFrame( () => resolve( true ) ) ),
+	new Promise( ( resolve ) => setTimeout( () => resolve( false ), 200 ) )
+] );
+if ( ! framesRun ) window.requestAnimationFrame = ( f ) => setTimeout( () => f( performance.now() ), 16 );
+
+const info = document.getElementById( 'info' );
+const errorBox = document.getElementById( 'error' );
+let showroom;
+// Debug first: the release JS build currently mis-orders a hoisted constant at load
+// (see repro/release_hoist_cycle in the repository).
+for ( const mode of [ 'debug', 'release' ] ) {
+
+	try {
+
+		showroom = await import( `./_build/js/${ mode }/build/bobzhang/three-showroom/main/main.js?${ Date.now() }` );
+		break;
+
+	} catch ( e ) { console.error( e ); }
+
+}
+
+if ( showroom === undefined ) {
+
+	errorBox.textContent = 'MoonBit build not found: run `moon build --target js` in examples/showroom.';
+
+} else {
+
+	const canvas = document.getElementById( 'c' );
+	let backend = '';
+	showroom.start( canvas, innerWidth, innerHeight, Math.min( devicePixelRatio, 2 ), ( error, name ) => {
+
+		if ( error ) { errorBox.textContent = error; return; }
+		backend = name;
+
+	} );
+
+	let frames = 0, last = performance.now();
+	( function tick() {
+
+		frames ++;
+		const now = performance.now();
+		if ( now - last >= 500 ) {
+
+			info.textContent = `DamagedHelmet · venice_sunset_1k.hdr · ${ backend } · ${ Math.round( frames * 1000 / ( now - last ) ) } fps`;
+			frames = 0; last = now;
+
+		}
+		requestAnimationFrame( tick );
+
+	} )();
+
+	addEventListener( 'resize', () => showroom.resize( innerWidth, innerHeight ) );
+	document.getElementById( 'bloom' ).addEventListener( 'input', ( e ) => showroom.set_bloom( Number( e.target.value ) ) );
+	document.getElementById( 'spin' ).addEventListener( 'change', ( e ) => showroom.set_auto_rotate( e.target.checked ) );
+
+}
+</script>
+</body>
+</html>

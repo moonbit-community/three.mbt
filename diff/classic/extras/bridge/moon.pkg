@@ -1,0 +1,10 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/extras",
+  "moonbitlang/core/json",
+}
+
+options(
+  link: { "js": { "exports": [ "build2", "build3", "apply2", "apply3", "earcut", "earcut_dev", "earcut_flat", "shape_area", "shape_cw", "shape_tri", "to_shapes", "byte_length", "fit", "srgb", "half_to", "half_from", "interp", "text_roundtrip2", "text_roundtrip3", "panic_probe" ], "format": "esm" } },
+)

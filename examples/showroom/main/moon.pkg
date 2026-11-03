@@ -1,0 +1,18 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/nodes",
+  "bobzhang/three/renderers/webgpu",
+  "bobzhang/three/addons/controls",
+  "bobzhang/three/addons/loaders",
+  "bobzhang/three/addons/tsl",
+}
+
+options(
+  "is-main": true,
+  link: {
+    "js": {
+      "exports": [ "start", "resize", "set_bloom", "set_auto_rotate" ],
+      "format": "esm",
+    },
+  },
+)

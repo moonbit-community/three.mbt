@@ -1,0 +1,16 @@
+[
+  ('extrude_geometry.mbt', 'let k = if i - 1 < 0 {', 'let k = if i - 1 <= 0 {', '"name":"Extrude"'),
+  ('extrude_geometry.mbt', 'if v_trans_lensq <= 2.0 {', 'if v_trans_lensq <= 2.5 {', '"name":"Extrude"'),
+  ('extrude_geometry.mbt', 'if dist_sq <= threshold_sq_scaled {', 'if dist_sq < threshold_sq_scaled {', '"name":"Extrude"'),
+  ('extrude_geometry.mbt', 'vertices_array.push(placeholder_at(placeholder, index * 3.0 + 0.0))', 'vertices_array.push(number_at(placeholder, index * 3.0 + 0.0))', '"name":"Extrude"'),
+  ('extrude_geometry.mbt', 'number("steps", self.steps)\n  number("depth", self.depth)', 'number("depth", self.depth)\n  number("steps", self.steps)', '"name":"Extrude"'),
+  ('extrude_geometry.mbt', 'material_index=1,', 'material_index=0,', '"name":"Extrude"'),
+  ('extrude_geometry.mbt', 'CatmullRom(curve) => curve.closed', 'CatmullRom(_) => false', '"name":"Extrude"'),
+  ('extrude_geometry.mbt', 'push2(uv_array, vector2_default(vector2.x), vector2_default(vector2.y))', 'push2(uv_array, vector2.x, vector2.y)', '"name":"Extrude"'),
+  ('shape_geometry.mbt', 'material_index=i)', 'material_index=0)', '"name":"Shape"'),
+  ('shape_geometry.mbt', 'if !@extras.ShapeUtils::is_clock_wise(shape_vertices) {', 'if @extras.ShapeUtils::is_clock_wise(shape_vertices) {', '"name":"Shape"'),
+  ('tube_geometry.mbt', 'let cos = -@cmath.cos(v)', 'let cos = @cmath.cos(v)', '"name":"Tube"'),
+  ('tube_geometry.mbt', 'generate_segment(if closed { 0.0 } else { tubular_segments })', 'generate_segment(tubular_segments)', '"name":"Tube"'),
+  ('tube_geometry.mbt', 'compute_frenet_frames(64, closed=false)', 'compute_frenet_frames(32, closed=false)', '"name":"Tube"'),
+  ('tube_geometry.mbt', '"path": lazy_placeholder,\n      "tubularSegments": @math.json_number(tubular_segments),', '"tubularSegments": @math.json_number(tubular_segments),\n      "path": lazy_placeholder,', '"name":"Tube"'),
+]

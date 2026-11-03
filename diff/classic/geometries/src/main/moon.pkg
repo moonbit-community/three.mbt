@@ -1,0 +1,13 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/extras",
+  "bobzhang/three/math",
+  "bobzhang/three/geometries",
+  "moonbitlang/core/json",
+}
+
+options(
+  link: {
+    "js": { "exports": [ "snapshot_case", "from_json_case" ], "format": "esm" },
+  },
+)

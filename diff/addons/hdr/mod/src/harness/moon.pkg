@@ -1,0 +1,28 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/addons/libs" @libs,
+  "bobzhang/three/addons/loaders" @aloaders,
+  "bobzhang/three/loaders" @loaders,
+}
+
+warnings = "-1-2-3"
+
+options(
+  link: {
+    "js": {
+      "exports": [
+        "unzlib",
+        "unzlib_opts",
+        "hdr_load",
+        "hdr_parse",
+        "rgbe_load",
+        "exr_load",
+        "exr_parse",
+        "cube_load",
+        "ultra_load",
+        "cube_load_errors",
+      ],
+      "format": "esm",
+    },
+  },
+)

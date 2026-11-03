@@ -1,0 +1,24 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three-showroom/main"
+
+import {
+  "bobzhang/three/core",
+}
+
+// Values
+pub fn resize(Double, Double) -> Unit
+
+pub fn set_auto_rotate(Bool) -> Unit
+
+pub fn set_bloom(Double) -> Unit
+
+pub fn start(@core.JsValue, Double, Double, Double, (String?, String) -> Unit) -> Unit
+
+// Errors
+
+// Types and methods
+type App
+
+// Type aliases
+
+// Traits

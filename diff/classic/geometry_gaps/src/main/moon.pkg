@@ -1,0 +1,12 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/extras",
+  "bobzhang/three/math",
+  "bobzhang/three/geometries",
+}
+
+options(
+  link: {
+    "js": { "exports": [ "run" ], "format": "esm" },
+  },
+)

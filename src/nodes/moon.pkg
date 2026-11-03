@@ -1,0 +1,8 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/geometries",
+  "bobzhang/three/math",
+  "bobzhang/three/renderers/webgl",
+}
+
+warnings = "-79"

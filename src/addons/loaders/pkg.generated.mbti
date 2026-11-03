@@ -1,0 +1,531 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/addons/loaders"
+
+import {
+  "bobzhang/three/addons/utils",
+  "bobzhang/three/animation",
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/nodes",
+  "bobzhang/three/renderers/webgl",
+}
+
+// Values
+pub const DRACO_LIBS_URL : String = "https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/libs/draco/"
+
+pub const KTX2_LIBS_URL : String = "https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/libs/basis/"
+
+pub let draco_gltf_config : DRACOPathConfig
+
+pub fn gltf_cubic_spline_interpolant(Array[Double], Array[Double], Int32, result_buffer? : Array[Double], quaternion? : Bool) -> @math.Interpolant
+
+pub let ktx2_loader_basis_format : Map[String, Int32]
+
+pub let ktx2_loader_basis_worker : String
+
+pub let ktx2_loader_engine_format : Map[String, Int32]
+
+pub let ktx2_loader_engine_type : Map[String, Int32]
+
+pub let ktx2_loader_transcoder_format : Map[String, Int32]
+
+// Errors
+
+// Types and methods
+pub(all) struct DRACODecoderPaths {
+  mut js : String
+  mut wasm : String
+  mut dep_js : String?
+}
+
+pub struct DRACOLoader {
+  base : @bobzhang/three/loaders.Loader
+  decoder_paths : DRACODecoderPaths
+  mut decoder_config : @core.JsValue
+  mut decoder_pending : @utils.AddonPromise?
+  mut worker_limit : Int32
+  mut worker_next_task_id : Int32
+  mut worker_source_url : String
+  default_attribute_ids : Map[String, String]
+  default_attribute_types : Map[String, String]
+  // private fields
+}
+pub fn DRACOLoader::abort(Self) -> Self
+pub fn DRACOLoader::debug(Self) -> Unit
+pub fn DRACOLoader::decode_draco_file(Self, @core.JsValue, (@core.BufferGeometry) -> Unit, attribute_ids? : Map[String, Int32], attribute_types? : Map[String, String], vertex_color_space? : String, on_error? : (@core.JsValue) -> Unit) -> @utils.AddonPromise
+pub fn DRACOLoader::dispose(Self) -> Self
+pub fn DRACOLoader::load(Self, String, (@core.BufferGeometry) -> Unit, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn DRACOLoader::loader(Self) -> @bobzhang/three/loaders.Loader
+pub fn DRACOLoader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> Self
+pub fn DRACOLoader::parse(Self, @core.JsValue, (@core.BufferGeometry) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn DRACOLoader::preload(Self) -> Self
+pub fn DRACOLoader::set_cache(Self, String) -> Self
+pub fn DRACOLoader::set_cross_origin(Self, String) -> Self
+pub fn DRACOLoader::set_decoder_config(Self, @core.JsValue) -> Self
+pub fn DRACOLoader::set_decoder_path(Self, String) -> Self
+pub fn DRACOLoader::set_decoder_path_config(Self, String, String) -> Self
+pub fn DRACOLoader::set_path(Self, String) -> Self
+pub fn DRACOLoader::set_priority(Self, String) -> Self
+pub fn DRACOLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn DRACOLoader::set_resource_path(Self, String) -> Self
+pub fn DRACOLoader::set_with_credentials(Self, Bool) -> Self
+pub fn DRACOLoader::set_worker_limit(Self, Int32) -> Self
+pub impl @bobzhang/three/loaders.LoaderLike for DRACOLoader
+pub impl @bobzhang/three/loaders.LoaderSettings for DRACOLoader
+
+pub(all) struct DRACOPathConfig {
+  js : String
+  wasm : String
+}
+
+pub(all) struct EXRLoader {
+  mut base : @bobzhang/three/loaders.DataTextureLoader
+  mut type_ : Int32
+  mut output_format : Int32
+  mut part : Int32
+}
+pub fn EXRLoader::abort(Self) -> Self
+pub fn EXRLoader::load(Self, String, on_load? : (@core.Texture, @bobzhang/three/loaders.DataTexData) -> Unit, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
+pub async fn EXRLoader::load_async(Self, String, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit) -> @core.Texture raise @bobzhang/three/loaders.LoaderError
+pub fn EXRLoader::loader(Self) -> @bobzhang/three/loaders.Loader
+pub fn EXRLoader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> Self
+pub fn EXRLoader::parse(Self, @core.JsValue) -> @bobzhang/three/loaders.DataTexData
+pub fn EXRLoader::set_cache(Self, String) -> Self
+pub fn EXRLoader::set_cross_origin(Self, String) -> Self
+pub fn EXRLoader::set_data_type(Self, Int32) -> Self
+pub fn EXRLoader::set_output_format(Self, Int32) -> Self
+pub fn EXRLoader::set_part(Self, Int32) -> Self
+pub fn EXRLoader::set_path(Self, String) -> Self
+pub fn EXRLoader::set_priority(Self, String) -> Self
+pub fn EXRLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn EXRLoader::set_resource_path(Self, String) -> Self
+pub fn EXRLoader::set_with_credentials(Self, Bool) -> Self
+pub impl @bobzhang/three/loaders.LoaderLike for EXRLoader
+pub impl @bobzhang/three/loaders.LoaderSettings for EXRLoader
+
+pub(all) enum GLTFAssociationKey {
+  Object3D(@core.Object3D)
+  Material(@core.Material)
+  Texture(@core.Texture)
+}
+
+pub struct GLTFAssociations {
+  // private fields
+}
+pub fn GLTFAssociations::entries(Self) -> Array[(GLTFAssociationKey, GLTFReference?)]
+pub fn GLTFAssociations::get(Self, GLTFAssociationKey) -> GLTFReference?
+pub fn GLTFAssociations::get_material(Self, @core.Material) -> GLTFReference?
+pub fn GLTFAssociations::get_object(Self, @core.Object3D) -> GLTFReference?
+pub fn GLTFAssociations::get_texture(Self, @core.Texture) -> GLTFReference?
+pub fn GLTFAssociations::has(Self, GLTFAssociationKey) -> Bool
+pub fn GLTFAssociations::new() -> Self
+pub fn GLTFAssociations::set(Self, GLTFAssociationKey, GLTFReference?) -> Unit
+pub fn GLTFAssociations::size(Self) -> Int32
+
+pub struct GLTFBinaryExtension {
+  name : String
+  content : String?
+  body : @core.JsValue?
+  header : GLTFBinaryHeader
+}
+pub fn GLTFBinaryExtension::new(@core.JsValue) -> Self
+
+pub(all) struct GLTFBinaryHeader {
+  magic : String
+  version : Double
+  length : Double
+}
+
+pub struct GLTFDracoMeshCompressionExtension {
+  name : String
+  json : @core.JsValue
+  draco_loader : DRACOLoader
+}
+pub fn GLTFDracoMeshCompressionExtension::decode_primitive(Self, @core.JsValue, GLTFParser) -> @utils.AddonPromise
+pub fn GLTFDracoMeshCompressionExtension::new(@core.JsValue, DRACOLoader?) -> Self
+
+pub enum GLTFExtension {
+  Plugin
+  Binary(GLTFBinaryExtension)
+  MaterialsUnlit(GLTFMaterialsUnlitExtension)
+  DracoMeshCompression(GLTFDracoMeshCompressionExtension)
+  TextureTransform(GLTFTextureTransformExtension)
+  MeshQuantization(GLTFMeshQuantizationExtension)
+}
+
+pub enum GLTFImageLoader {
+  TextureLoader(@bobzhang/three/loaders.TextureLoader)
+  ImageBitmapLoader(@bobzhang/three/loaders.ImageBitmapLoader)
+  KTX2Loader(KTX2Loader)
+}
+
+pub struct GLTFLightsExtension {
+  parser : GLTFParser
+  name : String
+  cache : GLTFNodeRefCache
+}
+pub fn GLTFLightsExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFLoader {
+  base : @bobzhang/three/loaders.Loader
+  mut draco_loader : DRACOLoader?
+  mut ktx2_loader : KTX2Loader?
+  mut meshopt_decoder : @core.JsValue?
+  plugin_callbacks : Array[(GLTFParser) -> &GLTFPlugin]
+}
+pub fn GLTFLoader::load(Self, String, (GLTFResult) -> Unit, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn GLTFLoader::loader(Self) -> @bobzhang/three/loaders.Loader
+pub fn GLTFLoader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> Self
+pub fn GLTFLoader::parse(Self, @core.JsValue, String, (GLTFResult) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn GLTFLoader::register(Self, (GLTFParser) -> &GLTFPlugin) -> Self
+pub fn GLTFLoader::set_cache(Self, String) -> Self
+pub fn GLTFLoader::set_cross_origin(Self, String) -> Self
+pub fn GLTFLoader::set_draco_loader(Self, DRACOLoader) -> Self
+pub fn GLTFLoader::set_ktx2_loader(Self, KTX2Loader) -> Self
+pub fn GLTFLoader::set_meshopt_decoder(Self, @core.JsValue) -> Self
+pub fn GLTFLoader::set_path(Self, String) -> Self
+pub fn GLTFLoader::set_priority(Self, String) -> Self
+pub fn GLTFLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn GLTFLoader::set_resource_path(Self, String) -> Self
+pub fn GLTFLoader::set_with_credentials(Self, Bool) -> Self
+pub fn GLTFLoader::unregister(Self, (GLTFParser) -> &GLTFPlugin) -> Self
+pub impl @bobzhang/three/loaders.LoaderLike for GLTFLoader
+pub impl @bobzhang/three/loaders.LoaderSettings for GLTFLoader
+
+pub(all) enum GLTFMaterialType {
+  MeshBasicMaterial
+  MeshStandardMaterial
+  MeshPhysicalMaterial
+  Other(String, () -> @core.Material)
+}
+pub fn GLTFMaterialType::create(Self) -> @core.Material
+pub fn GLTFMaterialType::same(Self, Self) -> Bool
+
+pub struct GLTFMaterialsAnisotropyExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFMaterialsAnisotropyExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFMaterialsBumpExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFMaterialsBumpExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFMaterialsClearcoatExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFMaterialsClearcoatExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFMaterialsDiffuseRoughnessExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFMaterialsDiffuseRoughnessExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFMaterialsDispersionExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFMaterialsDispersionExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFMaterialsEmissiveStrengthExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFMaterialsEmissiveStrengthExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFMaterialsIorExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFMaterialsIorExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFMaterialsIridescenceExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFMaterialsIridescenceExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFMaterialsSheenExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFMaterialsSheenExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFMaterialsSpecularExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFMaterialsSpecularExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFMaterialsTransmissionExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFMaterialsTransmissionExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFMaterialsUnlitExtension {
+  name : String
+}
+pub fn GLTFMaterialsUnlitExtension::extend_params(Self, Map[String, @core.MaterialValue], @core.JsValue, GLTFParser) -> @utils.AddonPromise
+pub fn GLTFMaterialsUnlitExtension::get_material_type(Self) -> GLTFMaterialType
+pub fn GLTFMaterialsUnlitExtension::new() -> Self
+
+pub struct GLTFMaterialsVolumeExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFMaterialsVolumeExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFMeshGpuInstancing {
+  name : String
+  parser : GLTFParser
+}
+pub fn GLTFMeshGpuInstancing::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFMeshQuantizationExtension {
+  name : String
+}
+pub fn GLTFMeshQuantizationExtension::new() -> Self
+
+pub struct GLTFMeshoptCompression {
+  name : String
+  parser : GLTFParser
+}
+pub fn GLTFMeshoptCompression::new(GLTFParser, String) -> &GLTFPlugin
+
+pub struct GLTFNodeRefCache {
+  refs : Map[Int32, Int32]
+  uses : Map[Int32, Int32]
+}
+pub fn GLTFNodeRefCache::new() -> Self
+
+pub struct GLTFParser {
+  json : @core.JsValue
+  mut extensions : Map[String, GLTFExtension]
+  mut plugins : Map[String, &GLTFPlugin]
+  options : GLTFParserOptions
+  cache : GLTFRegistry
+  mut associations : GLTFAssociations
+  primitive_cache : Map[String, @utils.AddonPromise]
+  mut node_cache : Map[Int32, @utils.AddonPromise]
+  mesh_cache : GLTFNodeRefCache
+  camera_cache : GLTFNodeRefCache
+  light_cache : GLTFNodeRefCache
+  source_cache : Map[Int32, @utils.AddonPromise]
+  texture_cache : Map[String, @utils.AddonPromise]
+  node_names_used : @core.JsValue
+  texture_loader : GLTFImageLoader
+  file_loader : @bobzhang/three/loaders.FileLoader
+}
+pub fn GLTFParser::add_node_ref(Self, GLTFNodeRefCache, @core.JsValue) -> Unit
+pub fn GLTFParser::assign_final_material(Self, @core.Object3D) -> Unit
+pub fn GLTFParser::assign_texture(Self, Map[String, @core.MaterialValue], String, @core.JsValue, color_space? : String) -> @utils.AddonPromise
+pub fn GLTFParser::create_node_mesh(Self, Int32) -> @utils.AddonPromise?
+pub fn GLTFParser::create_unique_name(Self, @core.JsValue) -> String
+pub fn GLTFParser::get_dependencies(Self, String) -> @utils.AddonPromise
+pub fn GLTFParser::get_dependency(Self, String, Int32) -> @utils.AddonPromise
+pub fn GLTFParser::get_node_ref(Self, GLTFNodeRefCache, Int32, @core.Object3D) -> @core.Object3D
+pub fn GLTFParser::load_texture_image(Self, Int32, Int32, GLTFImageLoader) -> @utils.AddonPromise
+pub fn GLTFParser::new(@core.JsValue, GLTFParserOptions) -> Self
+pub fn GLTFParser::parse(Self, (GLTFResult) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn GLTFParser::set_extensions(Self, Map[String, GLTFExtension]) -> Unit
+pub fn GLTFParser::set_plugins(Self, Map[String, &GLTFPlugin]) -> Unit
+
+pub(all) struct GLTFParserOptions {
+  path : String
+  cross_origin : String
+  priority : String
+  cache : String
+  with_credentials : Bool
+  request_header : Map[String, String]
+  manager : @bobzhang/three/loaders.LoadingManager
+  ktx2_loader : KTX2Loader?
+  meshopt_decoder : @core.JsValue?
+}
+
+pub(all) struct GLTFReference {
+  mut materials : Int32?
+  mut textures : Int32?
+  mut meshes : Int32?
+  mut nodes : Int32?
+  mut primitives : Int32?
+}
+pub fn GLTFReference::copy(Self) -> Self
+pub fn GLTFReference::new(materials? : Int32, textures? : Int32, meshes? : Int32, nodes? : Int32, primitives? : Int32) -> Self
+
+pub struct GLTFRegistry {
+  mut objects : Map[String, @core.JsValue]
+  mut default_material : @core.Material?
+}
+pub fn GLTFRegistry::add(Self, String, @core.JsValue) -> Unit
+pub fn GLTFRegistry::get(Self, String) -> @core.JsValue
+pub fn GLTFRegistry::remove(Self, String) -> Unit
+pub fn GLTFRegistry::remove_all(Self) -> Unit
+
+pub struct GLTFResult {
+  scene : @core.Object3D?
+  scenes : Array[@core.Object3D]
+  animations : Array[@animation.AnimationClip]
+  cameras : Array[@core.Object3D?]
+  asset : @core.JsValue
+  parser : GLTFParser
+  user_data : @core.JsValue
+}
+
+pub struct GLTFTextureAVIFExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFTextureAVIFExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFTextureBasisUExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFTextureBasisUExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub struct GLTFTextureTransformExtension {
+  name : String
+}
+pub fn GLTFTextureTransformExtension::extend_texture(Self, @core.Texture, @core.JsValue) -> @core.Texture
+pub fn GLTFTextureTransformExtension::new() -> Self
+
+pub struct GLTFTextureWebPExtension {
+  parser : GLTFParser
+  name : String
+}
+pub fn GLTFTextureWebPExtension::new(GLTFParser) -> &GLTFPlugin
+
+pub(all) struct HDRCubeTextureLoader {
+  base : @bobzhang/three/loaders.Loader
+  hdr_loader : HDRLoader
+  mut type_ : Int32
+}
+pub fn HDRCubeTextureLoader::abort(Self) -> Self
+pub fn HDRCubeTextureLoader::load(Self, Array[String], on_load? : (@core.Texture) -> Unit, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
+pub async fn HDRCubeTextureLoader::load_async(Self, Array[String], on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit) -> @core.Texture raise @bobzhang/three/loaders.LoaderError
+pub fn HDRCubeTextureLoader::loader(Self) -> @bobzhang/three/loaders.Loader
+pub fn HDRCubeTextureLoader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> Self
+pub fn HDRCubeTextureLoader::set_cache(Self, String) -> Self
+pub fn HDRCubeTextureLoader::set_cross_origin(Self, String) -> Self
+pub fn HDRCubeTextureLoader::set_data_type(Self, Int32) -> Self
+pub fn HDRCubeTextureLoader::set_path(Self, String) -> Self
+pub fn HDRCubeTextureLoader::set_priority(Self, String) -> Self
+pub fn HDRCubeTextureLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn HDRCubeTextureLoader::set_resource_path(Self, String) -> Self
+pub fn HDRCubeTextureLoader::set_with_credentials(Self, Bool) -> Self
+pub impl @bobzhang/three/loaders.LoaderLike for HDRCubeTextureLoader
+pub impl @bobzhang/three/loaders.LoaderSettings for HDRCubeTextureLoader
+
+pub(all) struct HDRLoader {
+  mut base : @bobzhang/three/loaders.DataTextureLoader
+  mut type_ : Int32
+}
+pub fn HDRLoader::abort(Self) -> Self
+pub fn HDRLoader::load(Self, String, on_load? : (@core.Texture, @bobzhang/three/loaders.DataTexData) -> Unit, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
+pub async fn HDRLoader::load_async(Self, String, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit) -> @core.Texture raise @bobzhang/three/loaders.LoaderError
+pub fn HDRLoader::loader(Self) -> @bobzhang/three/loaders.Loader
+pub fn HDRLoader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> Self
+pub fn HDRLoader::parse(Self, @core.JsValue) -> @bobzhang/three/loaders.DataTexData
+pub fn HDRLoader::set_cache(Self, String) -> Self
+pub fn HDRLoader::set_cross_origin(Self, String) -> Self
+pub fn HDRLoader::set_data_type(Self, Int32) -> Self
+pub fn HDRLoader::set_path(Self, String) -> Self
+pub fn HDRLoader::set_priority(Self, String) -> Self
+pub fn HDRLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn HDRLoader::set_resource_path(Self, String) -> Self
+pub fn HDRLoader::set_with_credentials(Self, Bool) -> Self
+pub impl @bobzhang/three/loaders.LoaderLike for HDRLoader
+pub impl @bobzhang/three/loaders.LoaderSettings for HDRLoader
+
+pub(all) struct KTX2Loader {
+  base : @bobzhang/three/loaders.Loader
+  mut transcoder_path : String
+  mut transcoder_binary : @core.JsValue
+  mut transcoder_pending : @utils.AddonPromise?
+  worker_pool : @utils.WorkerPool
+  mut worker_source_url : String
+  mut worker_config : KTX2WorkerConfig?
+}
+pub fn KTX2Loader::abort(Self) -> Self
+pub fn KTX2Loader::detect_support(Self, @webgl.WebGLRenderer) -> Self
+pub fn KTX2Loader::detect_support_webgpu(Self, @nodes.Renderer) -> Self
+pub fn KTX2Loader::dispose(Self) -> Self
+pub fn KTX2Loader::init(Self) -> @utils.AddonPromise
+pub fn KTX2Loader::load(Self, String, (@core.Texture) -> Unit, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn KTX2Loader::loader(Self) -> @bobzhang/three/loaders.Loader
+pub fn KTX2Loader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> Self
+pub fn KTX2Loader::parse(Self, @core.JsValue, ((@core.Texture) -> Unit)?, ((@core.JsValue) -> Unit)?) -> Unit
+pub fn KTX2Loader::set_cache(Self, String) -> Self
+pub fn KTX2Loader::set_cross_origin(Self, String) -> Self
+pub fn KTX2Loader::set_path(Self, String) -> Self
+pub fn KTX2Loader::set_priority(Self, String) -> Self
+pub fn KTX2Loader::set_request_header(Self, Map[String, String]) -> Self
+pub fn KTX2Loader::set_resource_path(Self, String) -> Self
+pub fn KTX2Loader::set_transcoder_path(Self, String) -> Self
+pub fn KTX2Loader::set_with_credentials(Self, Bool) -> Self
+pub fn KTX2Loader::set_worker_limit(Self, Int32) -> Self
+pub impl @bobzhang/three/loaders.LoaderLike for KTX2Loader
+pub impl @bobzhang/three/loaders.LoaderSettings for KTX2Loader
+
+pub(all) struct KTX2WorkerConfig {
+  mut astc_supported : Bool
+  mut astc_hdr_supported : Bool
+  mut etc1_supported : Bool
+  mut etc2_supported : Bool
+  mut dxt_supported : Bool
+  mut bptc_supported : Bool
+  mut pvrtc_supported : Bool
+}
+pub fn KTX2WorkerConfig::to_js(Self) -> @core.JsValue
+
+#external
+pub type RGBELoader
+pub fn RGBELoader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> HDRLoader
+
+pub(all) struct UltraHDRLoader {
+  base : @bobzhang/three/loaders.Loader
+  mut type_ : Int32
+}
+pub fn UltraHDRLoader::abort(Self) -> Self
+pub fn UltraHDRLoader::load(Self, String, on_load? : (@core.Texture, @bobzhang/three/loaders.DataTexData) -> Unit, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
+pub async fn UltraHDRLoader::load_async(Self, String, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit) -> @core.Texture raise @bobzhang/three/loaders.LoaderError
+pub fn UltraHDRLoader::loader(Self) -> @bobzhang/three/loaders.Loader
+pub fn UltraHDRLoader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> Self
+pub fn UltraHDRLoader::parse(Self, @core.JsValue, (@bobzhang/three/loaders.DataTexData) -> Unit) -> Unit
+pub fn UltraHDRLoader::set_cache(Self, String) -> Self
+pub fn UltraHDRLoader::set_cross_origin(Self, String) -> Self
+pub fn UltraHDRLoader::set_data_type(Self, Int32) -> Self
+pub fn UltraHDRLoader::set_path(Self, String) -> Self
+pub fn UltraHDRLoader::set_priority(Self, String) -> Self
+pub fn UltraHDRLoader::set_request_header(Self, Map[String, String]) -> Self
+pub fn UltraHDRLoader::set_resource_path(Self, String) -> Self
+pub fn UltraHDRLoader::set_with_credentials(Self, Bool) -> Self
+pub impl @bobzhang/three/loaders.LoaderLike for UltraHDRLoader
+pub impl @bobzhang/three/loaders.LoaderSettings for UltraHDRLoader
+
+// Type aliases
+pub type GLTFMaterialParams = Map[String, @core.MaterialValue]
+
+// Traits
+pub(open) trait GLTFPlugin {
+  fn name(Self) -> String
+  fn mark_defs(Self) -> Unit = _
+  fn before_root(Self) -> @utils.AddonPromise? = _
+  fn after_root(Self, GLTFResult) -> @utils.AddonPromise? = _
+  fn load_node(Self, Int32) -> @utils.AddonPromise? = _
+  fn load_mesh(Self, Int32) -> @utils.AddonPromise? = _
+  fn load_buffer_view(Self, Int32) -> @utils.AddonPromise? = _
+  fn load_material(Self, Int32) -> @utils.AddonPromise? = _
+  fn load_texture(Self, Int32) -> @utils.AddonPromise? = _
+  fn load_animation(Self, Int32) -> @utils.AddonPromise? = _
+  fn get_dependency(Self, String, Int32) -> @utils.AddonPromise? = _
+  fn get_material_type(Self, Int32) -> GLTFMaterialType? = _
+  fn extend_material_params(Self, Int32, Map[String, @core.MaterialValue]) -> @utils.AddonPromise? = _
+  fn create_node_mesh(Self, Int32) -> @utils.AddonPromise? = _
+  fn create_node_attachment(Self, Int32) -> @utils.AddonPromise? = _
+}

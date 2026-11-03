@@ -1,0 +1,36 @@
+{
+ "yc_sub.dwaa.orig.exr": {
+  "upstream": [
+   "parseNullTerminatedString",
+   "uncompressDWA",
+   "parseScanline",
+   "parse"
+  ],
+  "port": [
+   "parse_null_terminated_string",
+   "uncompress_dwa",
+   "parse_scanline",
+   "decode",
+   "_M0MP35a3hdr3mod8aloaders9EXRLoader5parse",
+   "parse"
+  ],
+  "portHangs": true
+ },
+ "yc_sub.dwab.orig.exr": {
+  "upstream": [
+   "parseNullTerminatedString",
+   "uncompressDWA",
+   "parseScanline",
+   "parse"
+  ],
+  "port": [
+   "parse_null_terminated_string",
+   "uncompress_dwa",
+   "parse_scanline",
+   "decode",
+   "_M0MP35a3hdr3mod8aloaders9EXRLoader5parse",
+   "parse"
+  ],
+  "portHangs": true
+ }
+}

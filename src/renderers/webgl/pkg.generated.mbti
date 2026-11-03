@@ -1,0 +1,2446 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/renderers/webgl"
+
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub const GL_ACTIVE_ATTRIBUTES : Int32 = 0x8B89
+
+pub const GL_ACTIVE_UNIFORMS : Int32 = 0x8B86
+
+pub const GL_ALPHA : Int32 = 0x1906
+
+pub const GL_ALWAYS : Int32 = 0x0207
+
+pub const GL_ANY_SAMPLES_PASSED : Int32 = 0x8C2F
+
+pub const GL_ARRAY_BUFFER : Int32 = 0x8892
+
+pub const GL_BACK : Int32 = 0x0405
+
+pub const GL_BLEND : Int32 = 0x0BE2
+
+pub const GL_BROWSER_DEFAULT_WEBGL : Int32 = 0x9244
+
+pub const GL_BYTE : Int32 = 0x1400
+
+pub const GL_CCW : Int32 = 0x0901
+
+pub const GL_CLAMP_TO_EDGE : Int32 = 0x812F
+
+pub const GL_COLOR : Int32 = 0x1800
+
+pub const GL_COLOR_ATTACHMENT0 : Int32 = 0x8CE0
+
+pub const GL_COLOR_BUFFER_BIT : Int32 = 0x4000
+
+pub const GL_COMPARE_REF_TO_TEXTURE : Int32 = 0x884E
+
+pub const GL_COMPILE_STATUS : Int32 = 0x8B81
+
+pub const GL_CONSTANT_ALPHA : Int32 = 0x8003
+
+pub const GL_CONSTANT_COLOR : Int32 = 0x8001
+
+pub const GL_COPY_READ_BUFFER : Int32 = 0x8F36
+
+pub const GL_COPY_WRITE_BUFFER : Int32 = 0x8F37
+
+pub const GL_CULL_FACE : Int32 = 0x0B44
+
+pub const GL_CW : Int32 = 0x0900
+
+pub const GL_DEPTH : Int32 = 0x1801
+
+pub const GL_DEPTH24_STENCIL8 : Int32 = 0x88F0
+
+pub const GL_DEPTH32F_STENCIL8 : Int32 = 0x8CAD
+
+pub const GL_DEPTH_ATTACHMENT : Int32 = 0x8D00
+
+pub const GL_DEPTH_BUFFER_BIT : Int32 = 0x0100
+
+pub const GL_DEPTH_COMPONENT : Int32 = 0x1902
+
+pub const GL_DEPTH_COMPONENT16 : Int32 = 0x81A5
+
+pub const GL_DEPTH_COMPONENT24 : Int32 = 0x81A6
+
+pub const GL_DEPTH_COMPONENT32F : Int32 = 0x8CAC
+
+pub const GL_DEPTH_STENCIL : Int32 = 0x84F9
+
+pub const GL_DEPTH_STENCIL_ATTACHMENT : Int32 = 0x821A
+
+pub const GL_DEPTH_TEST : Int32 = 0x0B71
+
+pub const GL_DRAW_FRAMEBUFFER : Int32 = 0x8CA9
+
+pub const GL_DST_ALPHA : Int32 = 0x0304
+
+pub const GL_DST_COLOR : Int32 = 0x0306
+
+pub const GL_DYNAMIC_DRAW : Int32 = 0x88E8
+
+pub const GL_ELEMENT_ARRAY_BUFFER : Int32 = 0x8893
+
+pub const GL_EQUAL : Int32 = 0x0202
+
+pub const GL_FLOAT : Int32 = 0x1406
+
+pub const GL_FLOAT_MAT2 : Int32 = 0x8B5A
+
+pub const GL_FLOAT_MAT3 : Int32 = 0x8B5B
+
+pub const GL_FLOAT_MAT4 : Int32 = 0x8B5C
+
+pub const GL_FRAGMENT_SHADER : Int32 = 0x8B30
+
+pub const GL_FRAMEBUFFER : Int32 = 0x8D40
+
+pub const GL_FRONT : Int32 = 0x0404
+
+pub const GL_FRONT_AND_BACK : Int32 = 0x0408
+
+pub const GL_FUNC_ADD : Int32 = 0x8006
+
+pub const GL_FUNC_REVERSE_SUBTRACT : Int32 = 0x800B
+
+pub const GL_FUNC_SUBTRACT : Int32 = 0x800A
+
+pub const GL_GEQUAL : Int32 = 0x0206
+
+pub const GL_GREATER : Int32 = 0x0204
+
+pub const GL_HALF_FLOAT : Int32 = 0x140B
+
+pub const GL_HIGH_FLOAT : Int32 = 0x8DF2
+
+pub const GL_IMPLEMENTATION_COLOR_READ_FORMAT : Int32 = 0x8B9B
+
+pub const GL_IMPLEMENTATION_COLOR_READ_TYPE : Int32 = 0x8B9A
+
+pub const GL_INT : Int32 = 0x1404
+
+pub const GL_KEEP : Int32 = 0x1E00
+
+pub const GL_LEQUAL : Int32 = 0x0203
+
+pub const GL_LESS : Int32 = 0x0201
+
+pub const GL_LINEAR : Int32 = 0x2601
+
+pub const GL_LINEAR_MIPMAP_LINEAR : Int32 = 0x2703
+
+pub const GL_LINEAR_MIPMAP_NEAREST : Int32 = 0x2701
+
+pub const GL_LINES : Int32 = 0x0001
+
+pub const GL_LINE_LOOP : Int32 = 0x0002
+
+pub const GL_LINE_STRIP : Int32 = 0x0003
+
+pub const GL_LINK_STATUS : Int32 = 0x8B82
+
+pub const GL_MAX : Int32 = 0x8008
+
+pub const GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS : Int32 = 0x8B4D
+
+pub const GL_MAX_CUBE_MAP_TEXTURE_SIZE : Int32 = 0x851C
+
+pub const GL_MAX_FRAGMENT_UNIFORM_VECTORS : Int32 = 0x8DFD
+
+pub const GL_MAX_SAMPLES : Int32 = 0x8D57
+
+pub const GL_MAX_TEXTURE_IMAGE_UNITS : Int32 = 0x8872
+
+pub const GL_MAX_TEXTURE_SIZE : Int32 = 0x0D33
+
+pub const GL_MAX_UNIFORM_BLOCK_SIZE : Int32 = 0x8A30
+
+pub const GL_MAX_VARYING_VECTORS : Int32 = 0x8DFC
+
+pub const GL_MAX_VERTEX_ATTRIBS : Int32 = 0x8869
+
+pub const GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS : Int32 = 0x8B4C
+
+pub const GL_MAX_VERTEX_UNIFORM_VECTORS : Int32 = 0x8DFB
+
+pub const GL_MEDIUM_FLOAT : Int32 = 0x8DF1
+
+pub const GL_MIN : Int32 = 0x8007
+
+pub const GL_MIRRORED_REPEAT : Int32 = 0x8370
+
+pub const GL_NEAREST : Int32 = 0x2600
+
+pub const GL_NEAREST_MIPMAP_LINEAR : Int32 = 0x2702
+
+pub const GL_NEAREST_MIPMAP_NEAREST : Int32 = 0x2700
+
+pub const GL_NEVER : Int32 = 0x0200
+
+pub const GL_NONE : Int32 = 0x0000
+
+pub const GL_NOTEQUAL : Int32 = 0x0205
+
+pub const GL_ONE : Int32 = 0x0001
+
+pub const GL_ONE_MINUS_CONSTANT_ALPHA : Int32 = 0x8004
+
+pub const GL_ONE_MINUS_CONSTANT_COLOR : Int32 = 0x8002
+
+pub const GL_ONE_MINUS_DST_ALPHA : Int32 = 0x0305
+
+pub const GL_ONE_MINUS_DST_COLOR : Int32 = 0x0307
+
+pub const GL_ONE_MINUS_SRC_ALPHA : Int32 = 0x0303
+
+pub const GL_ONE_MINUS_SRC_COLOR : Int32 = 0x0301
+
+pub const GL_PACK_ALIGNMENT : Int32 = 0x0D05
+
+pub const GL_PACK_ROW_LENGTH : Int32 = 0x0D02
+
+pub const GL_PACK_SKIP_PIXELS : Int32 = 0x0D04
+
+pub const GL_PACK_SKIP_ROWS : Int32 = 0x0D03
+
+pub const GL_PIXEL_PACK_BUFFER : Int32 = 0x88EB
+
+pub const GL_PIXEL_UNPACK_BUFFER : Int32 = 0x88EC
+
+pub const GL_POINTS : Int32 = 0x0000
+
+pub const GL_POLYGON_OFFSET_FILL : Int32 = 0x8037
+
+pub const GL_QUERY_RESULT : Int32 = 0x8866
+
+pub const GL_QUERY_RESULT_AVAILABLE : Int32 = 0x8867
+
+pub const GL_R11F_G11F_B10F : Int32 = 0x8C3A
+
+pub const GL_R16F : Int32 = 0x822D
+
+pub const GL_R16I : Int32 = 0x8233
+
+pub const GL_R16UI : Int32 = 0x8234
+
+pub const GL_R32F : Int32 = 0x822E
+
+pub const GL_R32I : Int32 = 0x8235
+
+pub const GL_R32UI : Int32 = 0x8236
+
+pub const GL_R8 : Int32 = 0x8229
+
+pub const GL_R8I : Int32 = 0x8231
+
+pub const GL_R8UI : Int32 = 0x8232
+
+pub const GL_R8_SNORM : Int32 = 0x8F94
+
+pub const GL_RASTERIZER_DISCARD : Int32 = 0x8C89
+
+pub const GL_READ_FRAMEBUFFER : Int32 = 0x8CA8
+
+pub const GL_RED : Int32 = 0x1903
+
+pub const GL_RED_INTEGER : Int32 = 0x8D94
+
+pub const GL_RENDERBUFFER : Int32 = 0x8D41
+
+pub const GL_REPEAT : Int32 = 0x2901
+
+pub const GL_RG : Int32 = 0x8227
+
+pub const GL_RG16F : Int32 = 0x822F
+
+pub const GL_RG16I : Int32 = 0x8239
+
+pub const GL_RG16UI : Int32 = 0x823A
+
+pub const GL_RG32F : Int32 = 0x8230
+
+pub const GL_RG32I : Int32 = 0x823B
+
+pub const GL_RG32UI : Int32 = 0x823C
+
+pub const GL_RG8 : Int32 = 0x822B
+
+pub const GL_RG8I : Int32 = 0x8237
+
+pub const GL_RG8UI : Int32 = 0x8238
+
+pub const GL_RG8_SNORM : Int32 = 0x8F95
+
+pub const GL_RGB : Int32 = 0x1907
+
+pub const GL_RGB16F : Int32 = 0x881B
+
+pub const GL_RGB16I : Int32 = 0x8D89
+
+pub const GL_RGB16UI : Int32 = 0x8D77
+
+pub const GL_RGB32F : Int32 = 0x8815
+
+pub const GL_RGB32I : Int32 = 0x8D83
+
+pub const GL_RGB32UI : Int32 = 0x8D71
+
+pub const GL_RGB4 : Int32 = 0x804F
+
+pub const GL_RGB565 : Int32 = 0x8D62
+
+pub const GL_RGB5_A1 : Int32 = 0x8057
+
+pub const GL_RGB8 : Int32 = 0x8051
+
+pub const GL_RGB8I : Int32 = 0x8D8F
+
+pub const GL_RGB8UI : Int32 = 0x8D7D
+
+pub const GL_RGB8_SNORM : Int32 = 0x8F96
+
+pub const GL_RGB9_E5 : Int32 = 0x8C3D
+
+pub const GL_RGBA : Int32 = 0x1908
+
+pub const GL_RGBA16F : Int32 = 0x881A
+
+pub const GL_RGBA16I : Int32 = 0x8D88
+
+pub const GL_RGBA16UI : Int32 = 0x8D76
+
+pub const GL_RGBA32F : Int32 = 0x8814
+
+pub const GL_RGBA32I : Int32 = 0x8D82
+
+pub const GL_RGBA32UI : Int32 = 0x8D70
+
+pub const GL_RGBA4 : Int32 = 0x8056
+
+pub const GL_RGBA8 : Int32 = 0x8058
+
+pub const GL_RGBA8I : Int32 = 0x8D8E
+
+pub const GL_RGBA8UI : Int32 = 0x8D7C
+
+pub const GL_RGBA8_SNORM : Int32 = 0x8F97
+
+pub const GL_RGBA_INTEGER : Int32 = 0x8D99
+
+pub const GL_RGB_INTEGER : Int32 = 0x8D98
+
+pub const GL_RG_INTEGER : Int32 = 0x8228
+
+pub const GL_SAMPLER_2D_ARRAY_SHADOW : Int32 = 0x8DC4
+
+pub const GL_SAMPLER_2D_SHADOW : Int32 = 0x8B62
+
+pub const GL_SAMPLER_CUBE_SHADOW : Int32 = 0x8DC5
+
+pub const GL_SAMPLES : Int32 = 0x80A9
+
+pub const GL_SAMPLE_ALPHA_TO_COVERAGE : Int32 = 0x809E
+
+pub const GL_SCISSOR_BOX : Int32 = 0x0C10
+
+pub const GL_SCISSOR_TEST : Int32 = 0x0C11
+
+pub const GL_SEPARATE_ATTRIBS : Int32 = 0x8C8D
+
+pub const GL_SHORT : Int32 = 0x1402
+
+pub const GL_SRC_ALPHA : Int32 = 0x0302
+
+pub const GL_SRC_ALPHA_SATURATE : Int32 = 0x0308
+
+pub const GL_SRC_COLOR : Int32 = 0x0300
+
+pub const GL_SRGB8 : Int32 = 0x8C41
+
+pub const GL_SRGB8_ALPHA8 : Int32 = 0x8C43
+
+pub const GL_STATIC_DRAW : Int32 = 0x88E4
+
+pub const GL_STENCIL : Int32 = 0x1802
+
+pub const GL_STENCIL_BUFFER_BIT : Int32 = 0x0400
+
+pub const GL_STENCIL_TEST : Int32 = 0x0B90
+
+pub const GL_STREAM_READ : Int32 = 0x88E1
+
+pub const GL_SYNC_FLUSH_COMMANDS_BIT : Int32 = 0x0001
+
+pub const GL_SYNC_GPU_COMMANDS_COMPLETE : Int32 = 0x9117
+
+pub const GL_TEXTURE0 : Int32 = 0x84C0
+
+pub const GL_TEXTURE_2D : Int32 = 0x0DE1
+
+pub const GL_TEXTURE_2D_ARRAY : Int32 = 0x8C1A
+
+pub const GL_TEXTURE_3D : Int32 = 0x806F
+
+pub const GL_TEXTURE_COMPARE_FUNC : Int32 = 0x884D
+
+pub const GL_TEXTURE_COMPARE_MODE : Int32 = 0x884C
+
+pub const GL_TEXTURE_CUBE_MAP : Int32 = 0x8513
+
+pub const GL_TEXTURE_CUBE_MAP_NEGATIVE_Z : Int32 = 0x851A
+
+pub const GL_TEXTURE_CUBE_MAP_POSITIVE_X : Int32 = 0x8515
+
+pub const GL_TEXTURE_MAG_FILTER : Int32 = 0x2800
+
+pub const GL_TEXTURE_MAX_LEVEL : Int32 = 0x813D
+
+pub const GL_TEXTURE_MIN_FILTER : Int32 = 0x2801
+
+pub const GL_TEXTURE_WRAP_R : Int32 = 0x8072
+
+pub const GL_TEXTURE_WRAP_S : Int32 = 0x2802
+
+pub const GL_TEXTURE_WRAP_T : Int32 = 0x2803
+
+pub const GL_TIMEOUT_EXPIRED : Int32 = 0x911B
+
+pub const GL_TRANSFORM_FEEDBACK_BUFFER : Int32 = 0x8C8E
+
+pub const GL_TRIANGLES : Int32 = 0x0004
+
+pub const GL_UNIFORM_BUFFER : Int32 = 0x8A11
+
+pub const GL_UNPACK_ALIGNMENT : Int32 = 0x0CF5
+
+pub const GL_UNPACK_COLORSPACE_CONVERSION_WEBGL : Int32 = 0x9243
+
+pub const GL_UNPACK_FLIP_Y_WEBGL : Int32 = 0x9240
+
+pub const GL_UNPACK_IMAGE_HEIGHT : Int32 = 0x806E
+
+pub const GL_UNPACK_PREMULTIPLY_ALPHA_WEBGL : Int32 = 0x9241
+
+pub const GL_UNPACK_ROW_LENGTH : Int32 = 0x0CF2
+
+pub const GL_UNPACK_SKIP_IMAGES : Int32 = 0x806D
+
+pub const GL_UNPACK_SKIP_PIXELS : Int32 = 0x0CF4
+
+pub const GL_UNPACK_SKIP_ROWS : Int32 = 0x0CF3
+
+pub const GL_UNSIGNED_BYTE : Int32 = 0x1401
+
+pub const GL_UNSIGNED_INT : Int32 = 0x1405
+
+pub const GL_UNSIGNED_INT_10F_11F_11F_REV : Int32 = 0x8C3B
+
+pub const GL_UNSIGNED_INT_24_8 : Int32 = 0x84FA
+
+pub const GL_UNSIGNED_INT_5_9_9_9_REV : Int32 = 0x8C3E
+
+pub const GL_UNSIGNED_SHORT : Int32 = 0x1403
+
+pub const GL_UNSIGNED_SHORT_4_4_4_4 : Int32 = 0x8033
+
+pub const GL_UNSIGNED_SHORT_5_5_5_1 : Int32 = 0x8034
+
+pub const GL_UNSIGNED_SHORT_5_6_5 : Int32 = 0x8363
+
+pub const GL_VALIDATE_STATUS : Int32 = 0x8B83
+
+pub const GL_VERSION : Int32 = 0x1F02
+
+pub const GL_VERTEX_SHADER : Int32 = 0x8B31
+
+pub const GL_VIEWPORT : Int32 = 0x0BA2
+
+pub const GL_WAIT_FAILED : Int32 = 0x911D
+
+pub const GL_ZERO : Int32 = 0x0000
+
+pub fn camera_viewport(@core.Object3D) -> @math.Vector4?
+
+pub fn create_canvas_element() -> HTMLCanvasElement
+
+pub fn create_element_ns(String) -> @core.JsValue
+
+pub fn delete_geometry_max_instance_count(@core.BufferGeometry) -> Unit
+
+pub fn dom_event_prevent_default(@core.JsValue) -> Unit
+
+pub fn geometry_max_instance_count(@core.BufferGeometry) -> Int32?
+
+pub fn global_self() -> AnimationFrameProvider?
+
+pub fn interleaved_buffer_source(@core.InterleavedBuffer) -> @core.BufferAttribute?
+
+pub fn is_html_canvas_element(@core.JsValue) -> Bool
+
+pub fn is_html_image_element(@core.JsValue) -> Bool
+
+pub fn is_image_bitmap(@core.JsValue) -> Bool
+
+pub fn is_light_probe_grid(@core.Object3D) -> Bool
+
+pub fn is_sun_light(@core.Object3D) -> Bool
+
+pub fn is_video_frame(@core.JsValue) -> Bool
+
+pub fn is_webgl1_context(@core.JsValue) -> Bool
+
+pub fn js_array_like_to_doubles(@core.JsValue) -> Array[Double]
+
+pub fn js_has_key(@core.JsValue, String) -> Bool
+
+pub fn js_math_max(Double, Double) -> Double
+
+pub fn js_math_min(Double, Double) -> Double
+
+pub fn js_number_to_int(@core.JsValue) -> Int32
+
+pub fn js_to_double(@core.JsValue) -> Double
+
+pub fn js_to_string(@core.JsValue) -> String
+
+pub fn js_truthy(@core.JsValue) -> Bool
+
+pub fn js_try(() -> Unit) -> String?
+
+pub fn light_probe_grid_of(@core.Object3D) -> &LightProbeGridSource?
+
+pub fn navigator_user_agent() -> String?
+
+pub fn new_offscreen_canvas(Int32, Int32) -> HTMLCanvasElement
+
+pub fn offscreen_canvas_2d_supported() -> Bool
+
+pub fn painter_sort_stable(RenderItem, RenderItem) -> Double
+
+pub fn register_light_probe_grid(@core.Object3D, &LightProbeGridSource) -> Unit
+
+pub fn register_sun_light(@core.Object3D, &SunLightShadowSource) -> Unit
+
+pub fn reverse_painter_sort_stable(RenderItem, RenderItem) -> Double
+
+pub fn[T] same_handle(T?, T?) -> Bool
+
+pub fn set_camera_viewport(@core.Object3D, @math.Vector4?) -> Unit
+
+pub fn set_geometry_max_instance_count(@core.BufferGeometry, Int32) -> Unit
+
+pub fn set_interleaved_buffer_source(@core.InterleavedBuffer, @core.BufferAttribute) -> Unit
+
+pub fn set_timeout(() -> Unit, Double) -> Unit
+
+pub fn set_uniform_needs_update(@core.Uniform, Bool) -> Unit
+
+pub fn set_uniform_type(@core.Uniform, String) -> Unit
+
+pub fn[T] stable_sort_by(Array[T], (T, T) -> Double) -> Unit
+
+pub fn sun_light_shadow_of(@core.Object3D) -> &SunLightShadowSource?
+
+pub fn three_devtools_observe(@core.JsValue) -> Unit
+
+pub fn[T] truncate_array(Array[T], Int32) -> Unit
+
+pub fn uniform_needs_update(@core.Uniform) -> Bool?
+
+pub fn uniform_type(@core.Uniform) -> String?
+
+pub let uniforms_lib_ltc : UniformsLibLTC
+
+pub fn[T] uninitialized() -> T
+
+pub fn webgl_render_target_kind(@core.RenderTarget) -> WebGLRenderTargetKind?
+
+pub fn webgl_shader(WebGL2RenderingContext, Int32, String) -> GLShader
+
+pub fn xr_compatible_attribute(@core.JsValue) -> Bool
+
+pub fn xr_controller_space(@core.Object3D) -> XRControllerSpace?
+
+pub fn xr_hand_space(@core.Object3D) -> XRHandSpace?
+
+pub fn xr_joint_radius(@core.Object3D) -> Double?
+
+pub fn xr_webgl_binding_supported() -> Bool
+
+pub fn xr_webgl_binding_supports_layers() -> Bool
+
+// Errors
+
+// Types and methods
+#external
+pub type AnimationFrameProvider
+pub fn AnimationFrameProvider::cancel_animation_frame(Self, @core.JsValue) -> Unit
+pub fn AnimationFrameProvider::request_animation_frame(Self, (Double, @core.JsValue) -> Unit) -> @core.JsValue
+
+pub(all) struct BindingCacheEntry {
+  attribute : @core.GeometryAttribute?
+  data : @core.InterleavedBuffer?
+}
+
+pub(all) struct BindingState {
+  mut geometry : @core.BufferGeometry?
+  mut program : WebGLProgram?
+  mut wireframe : Bool
+  new_attributes : Array[Int32]
+  enabled_attributes : Array[Int32]
+  attribute_divisors : Array[Int32]
+  object : GLVertexArrayObject?
+  mut attributes : Map[String, BindingCacheEntry]
+  mut attributes_num : Int32?
+  mut index : @core.GeometryAttribute?
+}
+
+pub(all) struct BoundTexture {
+  mut type_ : Int32?
+  mut texture : GLTexture?
+}
+
+#external
+pub type CanvasRenderingContext2D
+pub fn CanvasRenderingContext2D::draw_image(Self, @core.JsValue, Double, Double, Double, Double) -> Unit
+
+pub(all) struct ColorBuffer {
+  gl : WebGL2RenderingContext
+  mut locked : Bool
+  color : @math.Vector4
+  mut current_color_mask : Bool?
+  current_color_clear : @math.Vector4
+}
+pub fn ColorBuffer::reset(Self) -> Unit
+pub fn ColorBuffer::set_clear(Self, Double, Double, Double, Double, premultiplied_alpha? : Bool) -> Unit
+pub fn ColorBuffer::set_locked(Self, Bool) -> Unit
+pub fn ColorBuffer::set_mask(Self, Bool) -> Unit
+
+#external
+pub type DOMPointReadOnly
+pub fn DOMPointReadOnly::x(Self) -> Double
+pub fn DOMPointReadOnly::y(Self) -> Double
+pub fn DOMPointReadOnly::z(Self) -> Double
+
+pub(all) struct DepthBuffer {
+  gl : WebGL2RenderingContext
+  extensions : WebGLExtensions
+  mut state : WebGLState
+  mut locked : Bool
+  mut current_reversed : Bool
+  mut current_depth_mask : Bool?
+  mut current_depth_func : Int32?
+  mut current_depth_clear : Double?
+}
+pub fn DepthBuffer::get_reversed(Self) -> Bool
+pub fn DepthBuffer::reset(Self) -> Unit
+pub fn DepthBuffer::set_clear(Self, Double) -> Unit
+pub fn DepthBuffer::set_func(Self, Int32) -> Unit
+pub fn DepthBuffer::set_locked(Self, Bool) -> Unit
+pub fn DepthBuffer::set_mask(Self, Bool) -> Unit
+pub fn DepthBuffer::set_reversed(Self, Bool) -> Unit
+pub fn DepthBuffer::set_test(Self, Bool) -> Unit
+
+#external
+pub type FinalizationRegistry[H]
+pub fn[H] FinalizationRegistry::new((H) -> Unit) -> Self[H]
+pub fn[H, T, K] FinalizationRegistry::register(Self[H], T, H, K) -> Unit
+pub fn[H, K] FinalizationRegistry::unregister(Self[H], K) -> Unit
+
+#external
+pub type GLActiveInfo
+pub fn GLActiveInfo::name(Self) -> String
+pub fn GLActiveInfo::size(Self) -> Int32
+pub fn GLActiveInfo::type_(Self) -> Int32
+
+#external
+pub type GLBuffer
+
+#external
+pub type GLExtension
+pub fn GLExtension::clip_control_ext(Self, Int32, Int32) -> Unit
+pub fn GLExtension::constant(Self, String) -> Int32
+pub fn GLExtension::framebuffer_texture2d_multisample_ext(Self, Int32, Int32, Int32, GLTexture?, Int32, Int32) -> Unit
+pub fn GLExtension::framebuffer_texture_multisample_multiview_ovr(Self, Int32, Int32, GLTexture?, Int32, Int32, Int32, Int32) -> Unit
+pub fn GLExtension::get_translated_shader_source(Self, GLShader) -> String
+pub fn GLExtension::lose_context(Self) -> Unit
+pub fn[D0 : GLData, D1 : GLData, D2 : GLData] GLExtension::multi_draw_arrays_instanced_webgl(Self, Int32, D0, Int32, D1, Int32, D2, Int32, Int32) -> Unit
+pub fn[D0 : GLData, D1 : GLData] GLExtension::multi_draw_arrays_webgl(Self, Int32, D0, Int32, D1, Int32, Int32) -> Unit
+pub fn[D0 : GLData, D1 : GLData, D2 : GLData] GLExtension::multi_draw_elements_instanced_webgl(Self, Int32, D0, Int32, Int32, D1, Int32, D2, Int32, Int32) -> Unit
+pub fn[D0 : GLData, D1 : GLData] GLExtension::multi_draw_elements_webgl(Self, Int32, D0, Int32, Int32, D1, Int32, Int32) -> Unit
+pub fn GLExtension::renderbuffer_storage_multisample_ext(Self, Int32, Int32, Int32, Int32, Int32) -> Unit
+pub fn GLExtension::restore_context(Self) -> Unit
+
+#external
+pub type GLFramebuffer
+
+#external
+pub type GLProgram
+
+#external
+pub type GLQuery
+
+#external
+pub type GLRenderbuffer
+
+#external
+pub type GLShader
+
+#external
+pub type GLShaderPrecisionFormat
+pub fn GLShaderPrecisionFormat::precision(Self) -> Int32
+pub fn GLShaderPrecisionFormat::range_max(Self) -> Int32
+pub fn GLShaderPrecisionFormat::range_min(Self) -> Int32
+
+#external
+pub type GLSync
+
+#external
+pub type GLTexture
+
+#external
+pub type GLUniformLocation
+
+#external
+pub type GLVertexArrayObject
+
+#external
+pub type HTMLCanvasElement
+pub fn HTMLCanvasElement::add_event_listener(Self, String, (@core.JsValue) -> Unit) -> Unit
+pub fn HTMLCanvasElement::get_context_2d(Self) -> CanvasRenderingContext2D?
+pub fn HTMLCanvasElement::get_context_webgl2(Self, @core.JsValue) -> WebGL2RenderingContext?
+pub fn HTMLCanvasElement::has_set_attribute(Self) -> Bool
+pub fn HTMLCanvasElement::height(Self) -> Int32
+pub fn HTMLCanvasElement::remove_event_listener(Self, String, (@core.JsValue) -> Unit) -> Unit
+pub fn HTMLCanvasElement::set_attribute(Self, String, String) -> Unit
+pub fn HTMLCanvasElement::set_height(Self, Int32) -> Unit
+pub fn HTMLCanvasElement::set_style_height(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_style_width(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_width(Self, Int32) -> Unit
+pub fn HTMLCanvasElement::width(Self) -> Int32
+
+type JsWeakMap
+
+pub(all) struct LightProbeGridUniforms {
+  textures : Array[@core.UniformValue]
+  min : Array[@core.UniformValue]
+  max : Array[@core.UniformValue]
+  resolution : Array[@core.UniformValue]
+}
+
+pub(all) struct MaterialProperties {
+  mut __version : Int32?
+  mut batching : Bool?
+  mut batching_color : Bool?
+  mut instancing : Bool?
+  mut instancing_color : Bool?
+  mut instancing_morph : Bool?
+  mut skinning : Bool?
+  mut morph_targets : Bool?
+  mut morph_normals : Bool?
+  mut morph_colors : Bool?
+  mut morph_targets_count : Int32?
+  mut num_clipping_planes : Int32?
+  mut num_intersection : Int32?
+  mut num_light_probe_grids : Int32?
+  mut vertex_alphas : Bool?
+  mut vertex_tangents : Bool?
+  mut tone_mapping : Int32?
+  mut output_color_space : String?
+  mut receive_shadow : Bool?
+  mut needs_lights : Bool
+  mut lights_state_version : Int32?
+  mut clipping_state : @core.TypedArray?
+  mut current_program : WebGLProgram?
+  mut programs : Map[String, WebGLProgram]?
+  mut program_variants : Map[String, WebGLProgram]?
+  mut uniforms : Map[String, @core.Uniform]?
+  mut uniforms_list : Array[WebGLUniformSetter]?
+  mut environment : @core.Texture?
+  mut env_map : @core.Texture?
+  mut env_map_rotation : @math.Euler?
+  mut fog : @core.SceneFog?
+  mut light : @core.Object3D?
+}
+pub fn MaterialProperties::new() -> Self
+
+pub(all) struct MorphTextureEntry {
+  count : Int32
+  texture : @core.Texture
+  size : @math.Vector2
+}
+
+pub struct PMREMGenerator {
+  _renderer : WebGLRenderer
+  mut _cube_size : Int32
+  mut _source_target : @core.RenderTarget?
+  _cube_camera : @core.Object3D
+  _box_mesh : @core.Object3D
+  mut _cubemap_material : @core.Material?
+  mut _equirect_material : @core.Material?
+  mut _blur_material : @core.Material?
+  mut _ggx_material : @core.Material?
+  mut _integration_material : @core.Material?
+}
+pub fn PMREMGenerator::compile_cubemap_shader(Self) -> Unit
+pub fn PMREMGenerator::compile_equirectangular_shader(Self) -> Unit
+pub fn PMREMGenerator::dispose(Self) -> Unit
+pub fn PMREMGenerator::from_cubemap(Self, @core.Texture, render_target? : @core.RenderTarget) -> @core.RenderTarget
+pub fn PMREMGenerator::from_equirectangular(Self, @core.Texture, render_target? : @core.RenderTarget) -> @core.RenderTarget
+pub fn PMREMGenerator::from_scene(Self, @core.Object3D, sigma? : Double, near? : Double, far? : Double, size? : Int32, position? : @math.Vector3) -> @core.RenderTarget
+pub fn PMREMGenerator::lod_to_roughness(Double, Double) -> Double
+pub fn PMREMGenerator::new(WebGLRenderer) -> Self
+
+pub(all) struct ProgramAttribute {
+  type_ : Int32
+  location : Int32
+  location_size : Int32
+}
+
+pub(all) struct PureArrayUniform {
+  id : UniformId
+  addr : GLUniformLocation
+  cache : Array[Double]
+  type_ : Int32
+  size : Int32
+}
+
+pub(all) struct RenderItem {
+  mut id : Int32
+  mut object : @core.Object3D
+  mut geometry : @core.BufferGeometry
+  mut material : @core.Material
+  mut material_variant : Int32
+  mut group_order : Double
+  mut render_order : Double
+  mut z : Double
+  mut group : @core.GeometryGroup?
+  mut released : Bool
+}
+
+pub(all) struct RenderTargetProperties {
+  mut __webgl_framebuffer : WebGLFramebufferSlot?
+  mut __webgl_multisampled_framebuffer : GLFramebuffer?
+  mut __webgl_depthbuffer : WebGLRenderbufferSlot?
+  mut __webgl_depth_renderbuffer : GLRenderbuffer?
+  mut __webgl_color_renderbuffer : Array[GLRenderbuffer?]?
+  mut __use_default_framebuffer : Bool?
+  mut __has_external_textures : Bool
+  mut __auto_allocate_depth_buffer : Bool
+  mut __use_render_to_texture : Bool?
+  mut __bound_depth_texture : @core.Texture??
+  mut __depth_dispose_callback : (() -> Unit)?
+  mut __ref : WeakRef[@core.RenderTarget]?
+}
+pub fn RenderTargetProperties::new() -> Self
+
+pub(all) struct ShaderDiagnostics {
+  log : String
+  prefix : String
+}
+
+pub(all) struct SingleUniform {
+  id : UniformId
+  addr : GLUniformLocation
+  cache : Array[Double]
+  type_ : Int32
+}
+
+pub(all) struct SourceProperties {
+  mut __version : Int32?
+}
+pub fn SourceProperties::new() -> Self
+
+pub(all) struct StencilBuffer {
+  gl : WebGL2RenderingContext
+  mut state : WebGLState
+  mut locked : Bool
+  mut current_stencil_mask : Int32?
+  mut current_stencil_func : Int32?
+  mut current_stencil_ref : Int32?
+  mut current_stencil_func_mask : Int32?
+  mut current_stencil_fail : Int32?
+  mut current_stencil_z_fail : Int32?
+  mut current_stencil_z_pass : Int32?
+  mut current_stencil_clear : Int32?
+}
+pub fn StencilBuffer::reset(Self) -> Unit
+pub fn StencilBuffer::set_clear(Self, Int32) -> Unit
+pub fn StencilBuffer::set_func(Self, Int32, Int32, Int32) -> Unit
+pub fn StencilBuffer::set_locked(Self, Bool) -> Unit
+pub fn StencilBuffer::set_mask(Self, Int32) -> Unit
+pub fn StencilBuffer::set_op(Self, Int32, Int32, Int32) -> Unit
+pub fn StencilBuffer::set_test(Self, Bool) -> Unit
+
+pub(all) struct StructuredUniform {
+  id : UniformId
+  seq : Array[WebGLUniformSetter]
+  map : Map[String, WebGLUniformSetter]
+}
+
+pub(all) struct TextureCacheEntry {
+  texture : GLTexture
+  mut used_times : Int32
+}
+
+pub(all) enum TextureCopyPosition {
+  Vector2(@math.Vector2)
+  Vector3(@math.Vector3)
+}
+
+pub(all) enum TextureCopyRegion {
+  Box2(@math.Box2)
+  Box3(@math.Box3)
+}
+
+pub(all) struct TextureProperties {
+  mut __webgl_texture : GLTexture?
+  mut __webgl_init : Bool
+  mut __version : Int32?
+  mut __cache_key : String?
+  mut __render_target : @core.RenderTarget?
+  mut __current_anisotropy : Int32?
+  mut __read_format : Int32?
+  mut __read_type : Int32?
+  mut __format_readable : Bool
+  mut __type_readable : Bool
+  mut __ref : WeakRef[@core.Texture]?
+}
+pub fn TextureProperties::new() -> Self
+
+pub(all) enum TrackedRef {
+  TextureRef(WeakRef[@core.Texture])
+  RenderTargetRef(WeakRef[@core.RenderTarget])
+}
+
+pub(all) struct UniformBufferData {
+  data : @core.TypedArray
+  offset : Int32
+}
+
+#derive(Eq)
+pub(all) enum UniformId {
+  Name(String)
+  Index(Int32)
+}
+pub fn UniformId::equal(Self, Self) -> Bool
+pub fn UniformId::key(Self) -> String
+pub fn UniformId::not_equal(Self, Self) -> Bool
+
+pub(all) struct UniformsGroupLayout {
+  mut size : Int32
+  cache : Map[String, @core.UniformValue]
+}
+
+pub(all) struct UniformsLibLTC {
+  mut ltc_float_1 : @core.Texture?
+  mut ltc_float_2 : @core.Texture?
+  mut ltc_half_1 : @core.Texture?
+  mut ltc_half_2 : @core.Texture?
+}
+
+pub struct WeakMap[K, V] {
+  // private fields
+}
+pub fn[K, V] WeakMap::delete(Self[K, V], K) -> Unit
+pub fn[K, V] WeakMap::get(Self[K, V], K) -> V?
+pub fn[K, V] WeakMap::has(Self[K, V], K) -> Bool
+pub fn[K, V] WeakMap::new() -> Self[K, V]
+pub fn[K, V] WeakMap::set(Self[K, V], K, V) -> Unit
+
+#external
+pub type WeakRef[T]
+pub fn[T] WeakRef::deref(Self[T]) -> T?
+pub fn[T] WeakRef::new(T) -> Self[T]
+
+#external
+pub type WebGL2RenderingContext
+pub fn WebGL2RenderingContext::active_texture(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::attach_shader(Self, GLProgram, GLShader) -> Unit
+pub fn WebGL2RenderingContext::begin_query(Self, Int32, GLQuery) -> Unit
+pub fn WebGL2RenderingContext::begin_transform_feedback(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::bind_attrib_location(Self, GLProgram, Int32, String) -> Unit
+pub fn WebGL2RenderingContext::bind_buffer(Self, Int32, GLBuffer?) -> Unit
+pub fn WebGL2RenderingContext::bind_buffer_base(Self, Int32, Int32, GLBuffer?) -> Unit
+pub fn WebGL2RenderingContext::bind_framebuffer(Self, Int32, GLFramebuffer?) -> Unit
+pub fn WebGL2RenderingContext::bind_renderbuffer(Self, Int32, GLRenderbuffer?) -> Unit
+pub fn WebGL2RenderingContext::bind_texture(Self, Int32, GLTexture?) -> Unit
+pub fn WebGL2RenderingContext::bind_vertex_array(Self, GLVertexArrayObject?) -> Unit
+pub fn WebGL2RenderingContext::blend_color(Self, Double, Double, Double, Double) -> Unit
+pub fn WebGL2RenderingContext::blend_equation(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::blend_equation_separate(Self, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::blend_func(Self, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::blend_func_separate(Self, Int32, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::blit_framebuffer(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::buffer_data(Self, Int32, D0, Int32) -> Unit
+pub fn WebGL2RenderingContext::buffer_data_size(Self, Int32, Int32, Int32) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::buffer_sub_data(Self, Int32, Int32, D0) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::buffer_sub_data_range(Self, Int32, Int32, D0, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::canvas(Self) -> HTMLCanvasElement
+pub fn WebGL2RenderingContext::clear(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::clear_bufferfi(Self, Int32, Int32, Double, Int32) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::clear_bufferfv(Self, Int32, Int32, D0) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::clear_bufferiv(Self, Int32, Int32, D0) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::clear_bufferuiv(Self, Int32, Int32, D0) -> Unit
+pub fn WebGL2RenderingContext::clear_color(Self, Double, Double, Double, Double) -> Unit
+pub fn WebGL2RenderingContext::clear_depth(Self, Double) -> Unit
+pub fn WebGL2RenderingContext::clear_stencil(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::client_wait_sync(Self, GLSync, Int32, Double) -> Int32
+pub fn WebGL2RenderingContext::color_mask(Self, Bool, Bool, Bool, Bool) -> Unit
+pub fn WebGL2RenderingContext::compile_shader(Self, GLShader) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::compressed_tex_image2d(Self, Int32, Int32, Int32, Int32, Int32, Int32, D0) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::compressed_tex_image3d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, D0, Int32, Int32) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::compressed_tex_sub_image2d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, D0) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::compressed_tex_sub_image3d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, D0) -> Unit
+pub fn WebGL2RenderingContext::copy_tex_sub_image2d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::copy_tex_sub_image3d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::create_buffer(Self) -> GLBuffer
+pub fn WebGL2RenderingContext::create_framebuffer(Self) -> GLFramebuffer
+pub fn WebGL2RenderingContext::create_program(Self) -> GLProgram
+pub fn WebGL2RenderingContext::create_query(Self) -> GLQuery
+pub fn WebGL2RenderingContext::create_renderbuffer(Self) -> GLRenderbuffer
+pub fn WebGL2RenderingContext::create_shader(Self, Int32) -> GLShader
+pub fn WebGL2RenderingContext::create_texture(Self) -> GLTexture
+pub fn WebGL2RenderingContext::create_vertex_array(Self) -> GLVertexArrayObject
+pub fn WebGL2RenderingContext::cull_face(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::delete_buffer(Self, GLBuffer) -> Unit
+pub fn WebGL2RenderingContext::delete_framebuffer(Self, GLFramebuffer) -> Unit
+pub fn WebGL2RenderingContext::delete_program(Self, GLProgram) -> Unit
+pub fn WebGL2RenderingContext::delete_query(Self, GLQuery) -> Unit
+pub fn WebGL2RenderingContext::delete_renderbuffer(Self, GLRenderbuffer) -> Unit
+pub fn WebGL2RenderingContext::delete_shader(Self, GLShader) -> Unit
+pub fn WebGL2RenderingContext::delete_sync(Self, GLSync) -> Unit
+pub fn WebGL2RenderingContext::delete_texture(Self, GLTexture) -> Unit
+pub fn WebGL2RenderingContext::delete_vertex_array(Self, GLVertexArrayObject) -> Unit
+pub fn WebGL2RenderingContext::depth_func(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::depth_mask(Self, Bool) -> Unit
+pub fn WebGL2RenderingContext::detach_shader(Self, GLProgram, GLShader) -> Unit
+pub fn WebGL2RenderingContext::disable(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::disable_vertex_attrib_array(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::draw_arrays(Self, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::draw_arrays_instanced(Self, Int32, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::draw_buffers(Self, Array[Int32]) -> Unit
+pub fn WebGL2RenderingContext::draw_elements(Self, Int32, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::draw_elements_instanced(Self, Int32, Int32, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::enable(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::enable_vertex_attrib_array(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::end_query(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::end_transform_feedback(Self) -> Unit
+pub fn WebGL2RenderingContext::fence_sync(Self, Int32, Int32) -> GLSync
+pub fn WebGL2RenderingContext::finish(Self) -> Unit
+pub fn WebGL2RenderingContext::flush(Self) -> Unit
+pub fn WebGL2RenderingContext::framebuffer_renderbuffer(Self, Int32, Int32, Int32, GLRenderbuffer?) -> Unit
+pub fn WebGL2RenderingContext::framebuffer_texture2d(Self, Int32, Int32, Int32, GLTexture?, Int32) -> Unit
+pub fn WebGL2RenderingContext::framebuffer_texture_layer(Self, Int32, Int32, GLTexture?, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::front_face(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::generate_mipmap(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::get_active_attrib(Self, GLProgram, Int32) -> GLActiveInfo
+pub fn WebGL2RenderingContext::get_active_uniform(Self, GLProgram, Int32) -> GLActiveInfo
+pub fn WebGL2RenderingContext::get_attrib_location(Self, GLProgram, String) -> Int32
+pub fn[D0 : GLData] WebGL2RenderingContext::get_buffer_sub_data(Self, Int32, Int32, D0) -> Unit
+pub fn WebGL2RenderingContext::get_constant(Self, String) -> Int32?
+pub fn WebGL2RenderingContext::get_context_attributes(Self) -> @core.JsValue
+pub fn WebGL2RenderingContext::get_error(Self) -> Int32
+pub fn WebGL2RenderingContext::get_extension(Self, String) -> GLExtension?
+pub fn WebGL2RenderingContext::get_parameter(Self, Int32) -> @core.JsValue
+pub fn WebGL2RenderingContext::get_parameter_array(Self, Int32) -> Array[Double]
+pub fn WebGL2RenderingContext::get_parameter_int(Self, Int32) -> Int32
+pub fn WebGL2RenderingContext::get_parameter_string(Self, Int32) -> String
+pub fn WebGL2RenderingContext::get_program_info_log(Self, GLProgram) -> String?
+pub fn WebGL2RenderingContext::get_program_parameter(Self, GLProgram, Int32) -> @core.JsValue
+pub fn WebGL2RenderingContext::get_query_parameter(Self, GLQuery, Int32) -> @core.JsValue
+pub fn WebGL2RenderingContext::get_shader_info_log(Self, GLShader) -> String?
+pub fn WebGL2RenderingContext::get_shader_parameter(Self, GLShader, Int32) -> @core.JsValue
+pub fn WebGL2RenderingContext::get_shader_precision_format(Self, Int32, Int32) -> GLShaderPrecisionFormat
+pub fn WebGL2RenderingContext::get_shader_source(Self, GLShader) -> String?
+pub fn WebGL2RenderingContext::get_supported_extensions(Self) -> @core.JsValue
+pub fn WebGL2RenderingContext::get_uniform_block_index(Self, GLProgram, String) -> Int32
+pub fn WebGL2RenderingContext::get_uniform_location(Self, GLProgram, String) -> GLUniformLocation?
+pub fn WebGL2RenderingContext::has_tex_element_image2d(Self) -> Bool
+pub fn WebGL2RenderingContext::invalidate_framebuffer(Self, Int32, Array[Int32]) -> Unit
+pub fn WebGL2RenderingContext::line_width(Self, Double) -> Unit
+pub fn WebGL2RenderingContext::link_program(Self, GLProgram) -> Unit
+pub fn WebGL2RenderingContext::make_xr_compatible(Self, () -> Unit) -> Unit
+pub fn WebGL2RenderingContext::pixel_storei(Self, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::pixel_storei_bool(Self, Int32, Bool) -> Unit
+pub fn WebGL2RenderingContext::polygon_offset(Self, Double, Double) -> Unit
+pub fn WebGL2RenderingContext::read_buffer(Self, Int32) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::read_pixels(Self, Int32, Int32, Int32, Int32, Int32, Int32, D0) -> Unit
+pub fn WebGL2RenderingContext::read_pixels_offset(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::renderbuffer_storage(Self, Int32, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::renderbuffer_storage_multisample(Self, Int32, Int32, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::scissor(Self, Double, Double, Double, Double) -> Unit
+pub fn WebGL2RenderingContext::set_drawing_buffer_color_space(Self, String) -> Unit
+pub fn WebGL2RenderingContext::set_unpack_color_space(Self, String) -> Unit
+pub fn WebGL2RenderingContext::shader_source(Self, GLShader, String) -> Unit
+pub fn WebGL2RenderingContext::stencil_func(Self, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::stencil_mask(Self, Int32) -> Unit
+pub fn WebGL2RenderingContext::stencil_op(Self, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::tex_element_image2d(Self, Int32, Int32, @core.JsValue) -> Unit
+pub fn WebGL2RenderingContext::tex_element_image2d_full(Self, Int32, Int32, Int32, Int32, Int32, @core.JsValue) -> Unit
+pub fn WebGL2RenderingContext::tex_element_image2d_length(Self) -> Int32
+pub fn[D0 : GLData] WebGL2RenderingContext::tex_image2d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, D0) -> Unit
+pub fn WebGL2RenderingContext::tex_image2d_source(Self, Int32, Int32, Int32, Int32, Int32, @core.JsValue) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::tex_image3d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, D0) -> Unit
+pub fn WebGL2RenderingContext::tex_parameterf(Self, Int32, Int32, Double) -> Unit
+pub fn WebGL2RenderingContext::tex_parameteri(Self, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::tex_storage2d(Self, Int32, Int32, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::tex_storage3d(Self, Int32, Int32, Int32, Int32, Int32, Int32) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::tex_sub_image2d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, D0) -> Unit
+pub fn WebGL2RenderingContext::tex_sub_image2d_source(Self, Int32, Int32, Int32, Int32, Int32, Int32, @core.JsValue) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::tex_sub_image3d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, D0) -> Unit
+pub fn WebGL2RenderingContext::transform_feedback_varyings(Self, GLProgram, @core.JsValue, Int32) -> Unit
+pub fn WebGL2RenderingContext::uniform1f(Self, GLUniformLocation, Double) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform1fv(Self, GLUniformLocation, D0) -> Unit
+pub fn WebGL2RenderingContext::uniform1i(Self, GLUniformLocation, Int32) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform1iv(Self, GLUniformLocation, D0) -> Unit
+pub fn WebGL2RenderingContext::uniform1ui(Self, GLUniformLocation, Double) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform1uiv(Self, GLUniformLocation, D0) -> Unit
+pub fn WebGL2RenderingContext::uniform2f(Self, GLUniformLocation, Double, Double) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform2fv(Self, GLUniformLocation, D0) -> Unit
+pub fn WebGL2RenderingContext::uniform2i(Self, GLUniformLocation, Int32, Int32) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform2iv(Self, GLUniformLocation, D0) -> Unit
+pub fn WebGL2RenderingContext::uniform2ui(Self, GLUniformLocation, Double, Double) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform2uiv(Self, GLUniformLocation, D0) -> Unit
+pub fn WebGL2RenderingContext::uniform3f(Self, GLUniformLocation, Double, Double, Double) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform3fv(Self, GLUniformLocation, D0) -> Unit
+pub fn WebGL2RenderingContext::uniform3i(Self, GLUniformLocation, Int32, Int32, Int32) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform3iv(Self, GLUniformLocation, D0) -> Unit
+pub fn WebGL2RenderingContext::uniform3ui(Self, GLUniformLocation, Double, Double, Double) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform3uiv(Self, GLUniformLocation, D0) -> Unit
+pub fn WebGL2RenderingContext::uniform4f(Self, GLUniformLocation, Double, Double, Double, Double) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform4fv(Self, GLUniformLocation, D0) -> Unit
+pub fn WebGL2RenderingContext::uniform4i(Self, GLUniformLocation, Int32, Int32, Int32, Int32) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform4iv(Self, GLUniformLocation, D0) -> Unit
+pub fn WebGL2RenderingContext::uniform4ui(Self, GLUniformLocation, Double, Double, Double, Double) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform4uiv(Self, GLUniformLocation, D0) -> Unit
+pub fn WebGL2RenderingContext::uniform_block_binding(Self, GLProgram, Int32, Int32) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform_matrix2fv(Self, GLUniformLocation, Bool, D0) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform_matrix3fv(Self, GLUniformLocation, Bool, D0) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::uniform_matrix4fv(Self, GLUniformLocation, Bool, D0) -> Unit
+pub fn WebGL2RenderingContext::use_program(Self, GLProgram?) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::vertex_attrib1fv(Self, Int32, D0) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::vertex_attrib2fv(Self, Int32, D0) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::vertex_attrib3fv(Self, Int32, D0) -> Unit
+pub fn[D0 : GLData] WebGL2RenderingContext::vertex_attrib4fv(Self, Int32, D0) -> Unit
+pub fn WebGL2RenderingContext::vertex_attrib_divisor(Self, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::vertex_attrib_i_pointer(Self, Int32, Int32, Int32, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::vertex_attrib_pointer(Self, Int32, Int32, Int32, Bool, Int32, Int32) -> Unit
+pub fn WebGL2RenderingContext::viewport(Self, Double, Double, Double, Double) -> Unit
+
+#external
+pub type WebGL3DRenderTarget
+pub fn WebGL3DRenderTarget::new(width? : Int32, height? : Int32, depth? : Int32, generate_mipmaps? : Bool, internal_format? : String, min_filter? : Int32, depth_buffer? : Bool, stencil_buffer? : Bool, resolve_color_buffer? : Bool, resolve_depth_buffer? : Bool, resolve_stencil_buffer? : Bool, store_multisampled_color_buffer? : Bool, store_multisampled_depth_buffer? : Bool, store_multisampled_stencil_buffer? : Bool, depth_texture? : @core.Texture, samples? : Int32, count? : Int32, multiview? : Bool, use_array_depth_texture? : Bool, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, wrap_r? : Int32, mag_filter? : Int32, format? : Int32, type_? : Int32, anisotropy? : Int32, color_space? : String, flip_y? : Bool, mipmaps_auto_update? : Bool) -> @core.RenderTarget
+
+pub struct WebGLAnimation {
+  mut context : AnimationFrameProvider?
+  mut is_animating : Bool
+  mut animation_loop : ((Double, @core.JsValue) -> Unit)?
+  mut request_id : @core.JsValue
+}
+pub fn WebGLAnimation::new() -> Self
+pub fn WebGLAnimation::set_animation_loop(Self, ((Double, @core.JsValue) -> Unit)?) -> Unit
+pub fn WebGLAnimation::set_context(Self, AnimationFrameProvider?) -> Unit
+pub fn WebGLAnimation::start(Self) -> Unit
+pub fn WebGLAnimation::stop(Self) -> Unit
+
+#external
+pub type WebGLArrayRenderTarget
+pub fn WebGLArrayRenderTarget::new(width? : Int32, height? : Int32, depth? : Int32, generate_mipmaps? : Bool, internal_format? : String, min_filter? : Int32, depth_buffer? : Bool, stencil_buffer? : Bool, resolve_color_buffer? : Bool, resolve_depth_buffer? : Bool, resolve_stencil_buffer? : Bool, store_multisampled_color_buffer? : Bool, store_multisampled_depth_buffer? : Bool, store_multisampled_stencil_buffer? : Bool, depth_texture? : @core.Texture, samples? : Int32, count? : Int32, multiview? : Bool, use_array_depth_texture? : Bool, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, wrap_r? : Int32, mag_filter? : Int32, format? : Int32, type_? : Int32, anisotropy? : Int32, color_space? : String, flip_y? : Bool, mipmaps_auto_update? : Bool) -> @core.RenderTarget
+
+pub(all) struct WebGLAttributeBuffer {
+  buffer : GLBuffer
+  type_ : Int32
+  bytes_per_element : Int32
+  mut version : Int32
+  size : Int32?
+}
+
+pub struct WebGLAttributes {
+  gl : WebGL2RenderingContext
+  buffers : WeakMap[@core.JsValue, WebGLAttributeBuffer]
+}
+pub fn WebGLAttributes::get(Self, @core.GeometryAttribute) -> WebGLAttributeBuffer?
+pub fn WebGLAttributes::new(WebGL2RenderingContext) -> Self
+pub fn WebGLAttributes::remove(Self, @core.GeometryAttribute) -> Unit
+pub fn WebGLAttributes::update(Self, @core.GeometryAttribute, Int32) -> Unit
+
+pub struct WebGLBackground {
+  renderer : WebGLRenderer
+  environments : WebGLEnvironments
+  state : WebGLState
+  objects : WebGLObjects
+  alpha : Bool
+  premultiplied_alpha : Bool
+  clear_color : @math.Color
+  mut clear_alpha : Double
+  mut plane_mesh : @core.Object3D?
+  mut box_mesh : @core.Object3D?
+  mut current_background : @core.SceneBackground?
+  mut current_background_version : Int32
+  mut current_tonemapping : Int32?
+}
+pub fn WebGLBackground::add_to_render_list(Self, WebGLRenderList, @core.Object3D) -> Unit
+pub fn WebGLBackground::dispose(Self) -> Unit
+pub fn WebGLBackground::get_clear_alpha(Self) -> Double
+pub fn WebGLBackground::get_clear_color(Self) -> @math.Color
+pub fn WebGLBackground::new(WebGLRenderer, WebGLEnvironments, WebGLState, WebGLObjects, Bool, Bool) -> Self
+pub fn WebGLBackground::render(Self, @core.Object3D) -> Unit
+pub fn WebGLBackground::set_clear_alpha(Self, Double) -> Unit
+pub fn WebGLBackground::set_clear_color(Self, @math.Color, alpha? : Double) -> Unit
+pub fn WebGLBackground::set_clear_color_hex(Self, Int32, alpha? : Double) -> Unit
+
+pub struct WebGLBindingStates {
+  gl : WebGL2RenderingContext
+  attributes : WebGLAttributes
+  max_vertex_attributes : Int32
+  binding_states : Map[Int32, Map[Int32, Map[Int32, Map[Bool, BindingState]]]]
+  default_state : BindingState
+  mut current_state : BindingState
+  mut force_update : Bool
+}
+pub fn WebGLBindingStates::disable_unused_attributes(Self) -> Unit
+pub fn WebGLBindingStates::dispose(Self) -> Unit
+pub fn WebGLBindingStates::enable_attribute(Self, Int32) -> Unit
+pub fn WebGLBindingStates::init_attributes(Self) -> Unit
+pub fn WebGLBindingStates::new(WebGL2RenderingContext, WebGLAttributes) -> Self
+pub fn WebGLBindingStates::release_states_of_geometry(Self, @core.BufferGeometry) -> Unit
+pub fn WebGLBindingStates::release_states_of_object(Self, @core.Object3D) -> Unit
+pub fn WebGLBindingStates::release_states_of_program(Self, WebGLProgram) -> Unit
+pub fn WebGLBindingStates::reset(Self) -> Unit
+pub fn WebGLBindingStates::reset_default_state(Self) -> Unit
+pub fn WebGLBindingStates::setup(Self, @core.Object3D, @core.Material, WebGLProgram, @core.BufferGeometry, @core.GeometryAttribute?) -> Unit
+
+pub struct WebGLBufferRenderer {
+  gl : WebGL2RenderingContext
+  extensions : WebGLExtensions
+  info : WebGLInfo
+  mut mode : Int32
+}
+pub fn WebGLBufferRenderer::new(WebGL2RenderingContext, WebGLExtensions, WebGLInfo) -> Self
+pub fn WebGLBufferRenderer::render(Self, Int32, Int32) -> Unit
+pub fn WebGLBufferRenderer::render_instances(Self, Int32, Int32, Int32) -> Unit
+pub fn WebGLBufferRenderer::render_multi_draw(Self, @core.TypedArray, @core.TypedArray, Int32) -> Unit
+pub fn WebGLBufferRenderer::set_mode(Self, Int32) -> Unit
+
+pub struct WebGLCapabilities {
+  gl : WebGL2RenderingContext
+  extensions : WebGLExtensions
+  utils : WebGLUtils
+  mut max_anisotropy : Double?
+  is_webgl2 : Bool
+  precision : String
+  logarithmic_depth_buffer : Bool
+  reversed_depth_buffer : Bool
+  max_textures : Int32
+  max_vertex_textures : Int32
+  max_texture_size : Int32
+  max_cubemap_size : Int32
+  max_attributes : Int32
+  max_vertex_uniforms : Int32
+  max_varyings : Int32
+  max_fragment_uniforms : Int32
+  max_samples : Int32
+  samples : Int32
+}
+pub fn WebGLCapabilities::get_max_anisotropy(Self) -> Double
+pub fn WebGLCapabilities::get_max_precision(Self, String) -> String
+pub fn WebGLCapabilities::new(WebGL2RenderingContext, WebGLExtensions, WebGLCapabilitiesParameters, WebGLUtils) -> Self
+pub fn WebGLCapabilities::texture_format_readable(Self, Int32) -> Bool
+pub fn WebGLCapabilities::texture_type_readable(Self, Int32) -> Bool
+
+pub(all) struct WebGLCapabilitiesParameters {
+  precision : String?
+  logarithmic_depth_buffer : Bool
+  reversed_depth_buffer : Bool
+}
+
+pub struct WebGLClipping {
+  properties : WebGLProperties
+  mut global_state : @core.TypedArray?
+  mut num_global_planes : Int32
+  mut local_clipping_enabled : Bool
+  mut rendering_shadows : Bool
+  plane : @math.Plane
+  view_normal_matrix : @math.Matrix3
+  uniform : @core.Uniform
+  mut num_planes : Int32
+  mut num_intersection : Int32
+}
+pub fn WebGLClipping::begin_shadows(Self) -> Unit
+pub fn WebGLClipping::end_shadows(Self) -> Unit
+pub fn WebGLClipping::init(Self, Array[@math.Plane], Bool) -> Bool
+pub fn WebGLClipping::new(WebGLProperties) -> Self
+pub fn WebGLClipping::set_global_state(Self, Array[@math.Plane], @core.Object3D) -> Unit
+pub fn WebGLClipping::set_state(Self, @core.Material, @core.Object3D, Bool) -> Unit
+
+#external
+pub type WebGLCubeRenderTarget
+pub fn WebGLCubeRenderTarget::clear(@core.RenderTarget, WebGLRenderer, color? : Bool, depth? : Bool, stencil? : Bool) -> Unit
+pub fn WebGLCubeRenderTarget::from_equirectangular_texture(@core.RenderTarget, WebGLRenderer, @core.Texture) -> @core.RenderTarget
+pub fn WebGLCubeRenderTarget::new(size? : Int32, generate_mipmaps? : Bool, internal_format? : String, min_filter? : Int32, depth_buffer? : Bool, stencil_buffer? : Bool, resolve_color_buffer? : Bool, resolve_depth_buffer? : Bool, resolve_stencil_buffer? : Bool, store_multisampled_color_buffer? : Bool, store_multisampled_depth_buffer? : Bool, store_multisampled_stencil_buffer? : Bool, depth_texture? : @core.Texture, samples? : Int32, count? : Int32, multiview? : Bool, use_array_depth_texture? : Bool, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, wrap_r? : Int32, mag_filter? : Int32, format? : Int32, type_? : Int32, anisotropy? : Int32, color_space? : String, flip_y? : Bool, mipmaps_auto_update? : Bool) -> @core.RenderTarget
+
+pub(all) struct WebGLDebug {
+  mut check_shader_errors : Bool
+  diagnostics : WebGLDebugDiagnostics
+  mut on_shader_error : ((WebGL2RenderingContext, GLProgram, GLShader, GLShader) -> Unit)?
+}
+
+pub(all) struct WebGLDebugDiagnostics {
+  mut keywords : Bool
+}
+
+pub struct WebGLEnvironments {
+  renderer : WebGLRenderer
+  mut cube_maps : WeakMap[@core.Texture, @core.RenderTarget]
+  mut pmrem_maps : WeakMap[@core.Texture, @core.RenderTarget]
+  mut pmrem_generator : PMREMGenerator?
+  mut on_cubemap_dispose : (@core.Event) -> Unit
+  mut on_pmrem_dispose : (@core.Event) -> Unit
+}
+pub fn WebGLEnvironments::dispose(Self) -> Unit
+pub fn WebGLEnvironments::get(Self, @core.Texture?, use_pmrem? : Bool) -> @core.Texture?
+pub fn WebGLEnvironments::new(WebGLRenderer) -> Self
+
+pub struct WebGLExtensions {
+  gl : WebGL2RenderingContext
+  extensions : Map[String, GLExtension?]
+}
+pub fn WebGLExtensions::get(Self, String) -> GLExtension?
+pub fn WebGLExtensions::has(Self, String) -> Bool
+pub fn WebGLExtensions::init(Self) -> Unit
+pub fn WebGLExtensions::new(WebGL2RenderingContext) -> Self
+
+pub(all) enum WebGLFramebufferSlot {
+  Framebuffer(GLFramebuffer?)
+  Mipmaps(Array[GLFramebuffer])
+  CubeFaces(Array[WebGLFramebufferSlot])
+}
+
+pub struct WebGLGeometries {
+  gl : WebGL2RenderingContext
+  attributes : WebGLAttributes
+  info : WebGLInfo
+  binding_states : WebGLBindingStates
+  geometries : Map[Int32, WeakRef[@core.BufferGeometry]]
+  wireframe_attributes : WeakMap[@core.BufferGeometry, @core.BufferAttribute]
+  registry : FinalizationRegistry[Int32]
+  mut on_geometry_dispose : (@core.Event) -> Unit
+}
+pub fn WebGLGeometries::dispose(Self) -> Unit
+pub fn WebGLGeometries::get(Self, @core.Object3D, @core.BufferGeometry) -> @core.BufferGeometry
+pub fn WebGLGeometries::get_wireframe_attribute(Self, @core.BufferGeometry) -> @core.BufferAttribute?
+pub fn WebGLGeometries::new(WebGL2RenderingContext, WebGLAttributes, WebGLInfo, WebGLBindingStates) -> Self
+pub fn WebGLGeometries::update(Self, @core.BufferGeometry) -> Unit
+
+pub struct WebGLIndexedBufferRenderer {
+  gl : WebGL2RenderingContext
+  extensions : WebGLExtensions
+  info : WebGLInfo
+  mut mode : Int32
+  mut type_ : Int32
+  mut bytes_per_element : Int32
+}
+pub fn WebGLIndexedBufferRenderer::new(WebGL2RenderingContext, WebGLExtensions, WebGLInfo) -> Self
+pub fn WebGLIndexedBufferRenderer::render(Self, Int32, Int32) -> Unit
+pub fn WebGLIndexedBufferRenderer::render_instances(Self, Int32, Int32, Int32) -> Unit
+pub fn WebGLIndexedBufferRenderer::render_multi_draw(Self, @core.TypedArray, @core.TypedArray, Int32) -> Unit
+pub fn WebGLIndexedBufferRenderer::set_index(Self, WebGLAttributeBuffer) -> Unit
+pub fn WebGLIndexedBufferRenderer::set_mode(Self, Int32) -> Unit
+
+pub(all) struct WebGLInfo {
+  gl : WebGL2RenderingContext
+  memory : WebGLInfoMemory
+  render : WebGLInfoRender
+  mut programs : Array[WebGLProgram]?
+  mut auto_reset : Bool
+}
+pub fn WebGLInfo::new(WebGL2RenderingContext) -> Self
+pub fn WebGLInfo::reset(Self) -> Unit
+pub fn WebGLInfo::update(Self, Int32, Int32, Int32) -> Unit
+
+pub(all) struct WebGLInfoMemory {
+  mut geometries : Int32
+  mut textures : Int32
+}
+
+pub(all) struct WebGLInfoRender {
+  mut frame : Int32
+  mut calls : Int32
+  mut triangles : Double
+  mut points : Double
+  mut lines : Double
+}
+
+pub(all) struct WebGLLights {
+  extensions : WebGLExtensions
+  cache : Map[Int32, Map[String, @core.UniformValue]]
+  shadow_cache : Map[Int32, Map[String, @core.UniformValue]]
+  state : WebGLLightsState
+  vector3 : @math.Vector3
+  matrix4 : @math.Matrix4
+  matrix42 : @math.Matrix4
+}
+pub fn WebGLLights::new(WebGLExtensions) -> Self
+pub fn WebGLLights::setup(Self, Array[@core.Object3D]) -> Unit
+pub fn WebGLLights::setup_view(Self, Array[@core.Object3D], @core.Object3D) -> Unit
+
+pub(all) struct WebGLLightsHash {
+  mut sun_length : Int32
+  mut directional_length : Int32
+  mut point_length : Int32
+  mut spot_length : Int32
+  mut rect_area_length : Int32
+  mut hemi_length : Int32
+  mut num_sun_shadows : Int32
+  mut num_directional_shadows : Int32
+  mut num_point_shadows : Int32
+  mut num_spot_shadows : Int32
+  mut num_spot_maps : Int32
+  mut num_light_probes : Int32
+}
+
+pub(all) struct WebGLLightsState {
+  mut version : Int32
+  hash : WebGLLightsHash
+  ambient : Array[Double]
+  probe : Array[@core.UniformValue]
+  sun : Array[@core.UniformValue]
+  sun_shadow : Array[@core.UniformValue]
+  sun_shadow_map : Array[@core.UniformValue]
+  sun_shadow_matrix : Array[@core.UniformValue]
+  sun_shadow_cascade : Array[@core.UniformValue]
+  directional : Array[@core.UniformValue]
+  directional_shadow : Array[@core.UniformValue]
+  directional_shadow_map : Array[@core.UniformValue]
+  directional_shadow_matrix : Array[@core.UniformValue]
+  spot : Array[@core.UniformValue]
+  spot_light_map : Array[@core.UniformValue]
+  spot_shadow : Array[@core.UniformValue]
+  spot_shadow_map : Array[@core.UniformValue]
+  spot_light_matrix : Array[@core.UniformValue]
+  rect_area : Array[@core.UniformValue]
+  mut rect_area_ltc1 : @core.Texture?
+  mut rect_area_ltc2 : @core.Texture?
+  point : Array[@core.UniformValue]
+  point_shadow : Array[@core.UniformValue]
+  point_shadow_map : Array[@core.UniformValue]
+  point_shadow_matrix : Array[@core.UniformValue]
+  hemi : Array[@core.UniformValue]
+  mut num_spot_light_shadows_with_maps : Int32
+  mut num_light_probes : Int32
+}
+
+pub struct WebGLMaterials {
+  renderer : WebGLRenderer
+  properties : WebGLProperties
+}
+pub fn WebGLMaterials::new(WebGLRenderer, WebGLProperties) -> Self
+pub fn WebGLMaterials::refresh_fog_uniforms(Self, Map[String, @core.Uniform], @core.SceneFog) -> Unit
+pub fn WebGLMaterials::refresh_material_uniforms(Self, Map[String, @core.Uniform], @core.Material, Double, Double, @core.RenderTarget?) -> Unit
+
+pub struct WebGLMorphtargets {
+  gl : WebGL2RenderingContext
+  capabilities : WebGLCapabilities
+  textures : WebGLTextures
+  morph_textures : WeakMap[@core.BufferGeometry, MorphTextureEntry]
+  morph : @math.Vector4
+}
+pub fn WebGLMorphtargets::new(WebGL2RenderingContext, WebGLCapabilities, WebGLTextures) -> Self
+pub fn WebGLMorphtargets::update(Self, @core.Object3D, @core.BufferGeometry, WebGLProgram) -> Unit
+
+pub struct WebGLObjects {
+  gl : WebGL2RenderingContext
+  geometries : WebGLGeometries
+  attributes : WebGLAttributes
+  binding_states : WebGLBindingStates
+  info : WebGLInfo
+  mut update_map : WeakMap[@core.JsValue, Int32]
+  mut on_instanced_mesh_dispose : (@core.Event) -> Unit
+}
+pub fn WebGLObjects::dispose(Self) -> Unit
+pub fn WebGLObjects::new(WebGL2RenderingContext, WebGLGeometries, WebGLAttributes, WebGLBindingStates, WebGLInfo) -> Self
+pub fn WebGLObjects::update(Self, @core.Object3D) -> @core.BufferGeometry
+
+pub struct WebGLOutput {
+  type_ : Int32
+  antialias : Bool
+  depth : Bool
+  stencil : Bool
+  target_scene : @core.RenderTarget
+  mut target_a : @core.RenderTarget?
+  mut target_b : @core.RenderTarget?
+  mut depth_texture : @core.Texture?
+  geometry : @core.BufferGeometry
+  material : @core.Material
+  mesh : @core.Object3D
+  camera : @core.Object3D
+  mut _output_color_space : String?
+  mut _output_tone_mapping : Int32?
+  mut _is_compositing : Bool
+  mut _saved_tone_mapping : Int32
+  mut _saved_render_target : @core.RenderTarget?
+  mut _effects : Array[&WebGLOutputEffect]
+  mut _has_render_pass : Bool
+}
+pub fn WebGLOutput::begin(Self, WebGLRenderer, @core.RenderTarget?) -> Bool
+pub fn WebGLOutput::dispose(Self) -> Unit
+pub fn WebGLOutput::end(Self, WebGLRenderer, delta_time? : Double) -> Unit
+pub fn WebGLOutput::has_render_pass(Self) -> Bool
+pub fn WebGLOutput::is_compositing(Self) -> Bool
+pub fn WebGLOutput::new(Int32, Int32, Int32, Bool, Bool, Bool) -> Self
+pub fn WebGLOutput::set_effects(Self, Array[&WebGLOutputEffect]) -> Unit
+pub fn WebGLOutput::set_size(Self, Int32, Int32) -> Unit
+
+pub(all) struct WebGLProgram {
+  type_ : String
+  name : String
+  id : Int32
+  cache_key : String
+  mut used_times : Int32
+  mut program : GLProgram?
+  vertex_shader : GLShader
+  fragment_shader : GLShader
+  mut diagnostics : WebGLProgramDiagnostics?
+  renderer : WebGLRenderer
+  gl : WebGL2RenderingContext
+  binding_states : WebGLBindingStates
+  prefix_vertex : String
+  prefix_fragment : String
+  mut cached_uniforms : WebGLUniforms?
+  mut cached_attributes : Map[String, ProgramAttribute]?
+  mut program_ready : Bool
+}
+pub fn WebGLProgram::destroy(Self) -> Unit
+pub fn WebGLProgram::get_attributes(Self) -> Map[String, ProgramAttribute]
+pub fn WebGLProgram::get_uniforms(Self) -> WebGLUniforms
+pub fn WebGLProgram::is_ready(Self) -> Bool
+pub fn WebGLProgram::new(WebGLRenderer, String, WebGLProgramParameters, WebGLBindingStates) -> Self
+pub fn WebGLProgram::on_first_use(Self) -> Unit
+
+pub(all) struct WebGLProgramDiagnostics {
+  runnable : Bool
+  program_log : String
+  vertex_shader : ShaderDiagnostics
+  fragment_shader : ShaderDiagnostics
+}
+
+pub(all) struct WebGLProgramParameters {
+  shader_id : String?
+  shader_type : String
+  shader : @core.ShaderObject
+  defines : Map[String, @json.Json]?
+  custom_vertex_shader_id : Int32?
+  custom_fragment_shader_id : Int32?
+  mut is_raw_shader_material : Bool
+  mut glsl_version : String?
+  precision : String
+  batching : Bool
+  batching_color : Bool
+  instancing : Bool
+  instancing_color : Bool
+  instancing_morph : Bool
+  output_color_space : String
+  alpha_to_coverage : Bool
+  map : Bool
+  matcap : Bool
+  env_map : Bool
+  env_map_mode : Int32?
+  env_map_pmrem : Bool
+  env_map_max_lod : Int32?
+  env_map_size : Int32?
+  ao_map : Bool
+  light_map : Bool
+  bump_map : Bool
+  normal_map : Bool
+  displacement_map : Bool
+  emissive_map : Bool
+  normal_map_object_space : Bool
+  normal_map_tangent_space : Bool
+  packed_normal_map : Bool
+  metalness_map : Bool
+  roughness_map : Bool
+  anisotropy : Bool
+  anisotropy_map : Bool
+  clearcoat : Bool
+  clearcoat_map : Bool
+  clearcoat_normal_map : Bool
+  clearcoat_roughness_map : Bool
+  diffuse_roughness : Bool
+  diffuse_roughness_map : Bool
+  dispersion : Bool
+  retroreflection : Bool
+  iridescence : Bool
+  iridescence_map : Bool
+  iridescence_thickness_map : Bool
+  sheen : Bool
+  sheen_color_map : Bool
+  sheen_roughness_map : Bool
+  specular_map : Bool
+  specular_color_map : Bool
+  specular_intensity_map : Bool
+  transmission : Bool
+  transmission_map : Bool
+  thickness_map : Bool
+  gradient_map : Bool
+  opaque_ : Bool
+  alpha_map : Bool
+  alpha_test : Bool
+  alpha_hash : Bool
+  combine : Int32?
+  map_uv : String?
+  ao_map_uv : String?
+  light_map_uv : String?
+  bump_map_uv : String?
+  normal_map_uv : String?
+  displacement_map_uv : String?
+  emissive_map_uv : String?
+  metalness_map_uv : String?
+  roughness_map_uv : String?
+  anisotropy_map_uv : String?
+  clearcoat_map_uv : String?
+  clearcoat_normal_map_uv : String?
+  clearcoat_roughness_map_uv : String?
+  diffuse_roughness_map_uv : String?
+  iridescence_map_uv : String?
+  iridescence_thickness_map_uv : String?
+  sheen_color_map_uv : String?
+  sheen_roughness_map_uv : String?
+  specular_map_uv : String?
+  specular_color_map_uv : String?
+  specular_intensity_map_uv : String?
+  transmission_map_uv : String?
+  thickness_map_uv : String?
+  alpha_map_uv : String?
+  vertex_tangents : Bool
+  vertex_normals : Bool
+  vertex_colors : Bool
+  vertex_alphas : Bool
+  points_uvs : Bool
+  fog : Bool
+  use_fog : Bool
+  fog_exp2 : Bool
+  flat_shading : Bool
+  size_attenuation : Bool
+  logarithmic_depth_buffer : Bool
+  reversed_depth_buffer : Bool
+  skinning : Bool
+  has_position_attribute : Bool
+  morph_targets : Bool
+  morph_normals : Bool
+  morph_colors : Bool
+  morph_targets_count : Int32
+  morph_texture_stride : Int32
+  num_sun_lights : Int32
+  num_dir_lights : Int32
+  num_point_lights : Int32
+  num_spot_lights : Int32
+  num_spot_light_maps : Int32
+  num_rect_area_lights : Int32
+  num_hemi_lights : Int32
+  num_sun_light_shadows : Int32
+  num_dir_light_shadows : Int32
+  num_point_light_shadows : Int32
+  num_spot_light_shadows : Int32
+  num_spot_light_shadows_with_maps : Int32
+  num_light_probes : Int32
+  num_light_probe_grids : Int32
+  num_clipping_planes : Int32
+  num_clip_intersection : Int32
+  dithering : Bool
+  shadow_map_enabled : Bool
+  shadow_map_type : Int32
+  tone_mapping : Int32
+  decode_video_texture : Bool
+  decode_video_texture_emissive : Bool
+  premultiplied_alpha : Bool
+  double_sided : Bool
+  flip_sided : Bool
+  use_depth_packing : Bool
+  depth_packing : Int32
+  index0_attribute_name : String?
+  extension_clip_cull_distance : Bool
+  extension_multi_draw : Bool
+  renderer_extension_parallel_shader_compile : Bool
+  custom_program_cache_key : String
+  mut vertex_uv1s : Bool
+  mut vertex_uv2s : Bool
+  mut vertex_uv3s : Bool
+}
+
+pub struct WebGLPrograms {
+  renderer : WebGLRenderer
+  environments : WebGLEnvironments
+  extensions : WebGLExtensions
+  capabilities : WebGLCapabilities
+  binding_states : WebGLBindingStates
+  clipping : WebGLClipping
+  _program_layers : @core.Layers
+  _custom_shaders : WebGLShaderCache
+  _active_channels : Map[Int32, Bool]
+  programs : Array[WebGLProgram]
+  programs_map : Map[String, WebGLProgram]
+  logarithmic_depth_buffer : Bool
+  shader_ids : Map[String, String]
+}
+pub fn WebGLPrograms::acquire_program(Self, WebGLProgramParameters, String) -> WebGLProgram
+pub fn WebGLPrograms::dispose(Self) -> Unit
+pub fn WebGLPrograms::get_parameters(Self, @core.Material, WebGLLightsState, Array[@core.Object3D], @core.Object3D, @core.Object3D, Array[@core.Object3D]) -> WebGLProgramParameters
+pub fn WebGLPrograms::get_program_cache_key(Self, WebGLProgramParameters) -> String
+pub fn WebGLPrograms::get_uniforms(Self, @core.Material) -> Map[String, @core.Uniform]
+pub fn WebGLPrograms::new(WebGLRenderer, WebGLEnvironments, WebGLExtensions, WebGLCapabilities, WebGLBindingStates, WebGLClipping) -> Self
+pub fn WebGLPrograms::release_program(Self, WebGLProgram) -> Unit
+pub fn WebGLPrograms::release_shader_cache(Self, @core.Material) -> Unit
+
+pub struct WebGLProperties {
+  mut properties : WeakMap[@core.JsValue, @core.JsValue]
+}
+pub fn WebGLProperties::dispose(Self) -> Unit
+pub fn WebGLProperties::get_material(Self, @core.Material) -> MaterialProperties
+pub fn WebGLProperties::get_render_target(Self, @core.RenderTarget) -> RenderTargetProperties
+pub fn WebGLProperties::get_source(Self, @core.TextureSource) -> SourceProperties
+pub fn WebGLProperties::get_texture(Self, @core.Texture) -> TextureProperties
+pub fn[T] WebGLProperties::has(Self, T) -> Bool
+pub fn WebGLProperties::new() -> Self
+pub fn[T] WebGLProperties::remove(Self, T) -> Unit
+
+pub struct WebGLRenderList {
+  render_items : Array[RenderItem]
+  mut render_items_index : Int32
+  opaque_ : Array[RenderItem]
+  transmissive : Array[RenderItem]
+  transparent : Array[RenderItem]
+}
+pub fn WebGLRenderList::finish(Self) -> Unit
+pub fn WebGLRenderList::init(Self) -> Unit
+pub fn WebGLRenderList::new() -> Self
+pub fn WebGLRenderList::push(Self, @core.Object3D, @core.BufferGeometry, @core.Material, Double, Double, @core.GeometryGroup?, @core.Object3D) -> Unit
+pub fn WebGLRenderList::sort(Self, ((RenderItem, RenderItem) -> Double)?, ((RenderItem, RenderItem) -> Double)?) -> Unit
+pub fn WebGLRenderList::unshift(Self, @core.Object3D, @core.BufferGeometry, @core.Material, Double, Double, @core.GeometryGroup?) -> Unit
+
+pub struct WebGLRenderLists {
+  mut lists : WeakMap[@core.Object3D, Array[WebGLRenderList]]
+}
+pub fn WebGLRenderLists::dispose(Self) -> Unit
+pub fn WebGLRenderLists::get(Self, @core.Object3D, Int32) -> WebGLRenderList
+pub fn WebGLRenderLists::new() -> Self
+
+pub struct WebGLRenderState {
+  extensions : WebGLExtensions
+  state : WebGLRenderStateData
+}
+pub fn WebGLRenderState::init(Self, @core.Object3D) -> Unit
+pub fn WebGLRenderState::new(WebGLExtensions) -> Self
+pub fn WebGLRenderState::push_light(Self, @core.Object3D) -> Unit
+pub fn WebGLRenderState::push_shadow(Self, @core.Object3D) -> Unit
+pub fn WebGLRenderState::setup_lights(Self) -> Unit
+pub fn WebGLRenderState::setup_lights_view(Self, @core.Object3D) -> Unit
+
+pub(all) struct WebGLRenderStateData {
+  lights_array : Array[@core.Object3D]
+  shadows_array : Array[@core.Object3D]
+  light_probe_grid_array : Array[@core.Object3D]
+  mut camera : @core.Object3D?
+  lights : WebGLLights
+  transmission_render_target : Map[Int32, @core.RenderTarget]
+  mut texture_units : Int32
+}
+
+pub struct WebGLRenderStates {
+  extensions : WebGLExtensions
+  mut render_states : WeakMap[@core.Object3D, Array[WebGLRenderState]]
+}
+pub fn WebGLRenderStates::dispose(Self) -> Unit
+pub fn WebGLRenderStates::get(Self, @core.Object3D, render_call_depth? : Int32) -> WebGLRenderState
+pub fn WebGLRenderStates::new(WebGLExtensions) -> Self
+
+#external
+pub type WebGLRenderTarget
+pub fn WebGLRenderTarget::new(width? : Int32, height? : Int32, depth? : Int32, generate_mipmaps? : Bool, internal_format? : String, min_filter? : Int32, depth_buffer? : Bool, stencil_buffer? : Bool, resolve_color_buffer? : Bool, resolve_depth_buffer? : Bool, resolve_stencil_buffer? : Bool, store_multisampled_color_buffer? : Bool, store_multisampled_depth_buffer? : Bool, store_multisampled_stencil_buffer? : Bool, depth_texture? : @core.Texture, samples? : Int32, count? : Int32, multiview? : Bool, use_array_depth_texture? : Bool, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, wrap_r? : Int32, mag_filter? : Int32, format? : Int32, type_? : Int32, anisotropy? : Int32, color_space? : String, flip_y? : Bool, mipmaps_auto_update? : Bool) -> @core.RenderTarget
+
+pub(all) struct WebGLRenderTargetExtension {
+  kind : WebGLRenderTargetKind
+}
+#deprecated
+pub fn WebGLRenderTargetExtension::construct(Self) -> @core.RenderTarget
+#deprecated
+pub fn WebGLRenderTargetExtension::copy_from(Self, @core.RenderTarget, @core.RenderTarget) -> Unit
+#deprecated
+pub fn WebGLRenderTargetExtension::has_flag(Self, String) -> Bool
+#deprecated
+pub fn WebGLRenderTargetExtension::payload(Self) -> @core.JsValue
+pub impl @core.RenderTargetExtension for WebGLRenderTargetExtension
+
+#derive(Eq)
+pub(all) enum WebGLRenderTargetKind {
+  WebGLRenderTarget
+  WebGL3DRenderTarget
+  WebGLArrayRenderTarget
+  WebGLCubeRenderTarget
+}
+pub fn WebGLRenderTargetKind::equal(Self, Self) -> Bool
+pub fn WebGLRenderTargetKind::not_equal(Self, Self) -> Bool
+
+pub(all) enum WebGLRenderbufferSlot {
+  Renderbuffer(GLRenderbuffer)
+  CubeFaces(Array[GLRenderbuffer?])
+}
+
+pub(all) struct WebGLRenderer {
+  dom_element : HTMLCanvasElement
+  debug : WebGLDebug
+  mut auto_clear : Bool
+  mut auto_clear_color : Bool
+  mut auto_clear_depth : Bool
+  mut auto_clear_stencil : Bool
+  mut sort_objects : Bool
+  mut clipping_planes : Array[@math.Plane]
+  mut local_clipping_enabled : Bool
+  mut tone_mapping : Int32
+  mut tone_mapping_exposure : Double
+  mut transmission_resolution_scale : Double
+  mut _output_color_space : String
+  mut xr : WebXRManager
+  mut capabilities : WebGLCapabilities
+  mut extensions : WebGLExtensions
+  mut properties : WebGLProperties
+  mut render_lists : WebGLRenderLists
+  mut shadow_map : WebGLShadowMap
+  mut state : WebGLState
+  mut info : WebGLInfo
+  depth : Bool
+  stencil : Bool
+  alpha : Bool
+  antialias : Bool
+  premultiplied_alpha : Bool
+  preserve_drawing_buffer : Bool
+  power_preference : String
+  fail_if_major_performance_caveat : Bool
+  reversed_depth_buffer : Bool
+  capabilities_parameters : WebGLCapabilitiesParameters
+  _output_buffer_type : Int32
+  uint_clear_color : @core.TypedArray
+  int_clear_color : @core.TypedArray
+  light_probe_grid_uniforms : LightProbeGridUniforms
+  mut current_render_list : WebGLRenderList?
+  mut current_render_state : WebGLRenderState?
+  render_list_stack : Array[WebGLRenderList]
+  render_state_stack : Array[WebGLRenderState]
+  mut output : WebGLOutput?
+  mut _is_context_lost : Bool
+  mut _nodes_handler : &WebGLNodesHandler?
+  mut _scratch_framebuffer : GLFramebuffer
+  mut _src_framebuffer : GLFramebuffer
+  mut _dst_framebuffer : GLFramebuffer
+  mut _current_active_cube_face : Int32
+  mut _current_active_mipmap_level : Int32
+  mut _current_render_target : @core.RenderTarget?
+  mut _current_material_id : Int32
+  mut _current_camera : @core.Object3D?
+  _current_viewport : @math.Vector4
+  _current_scissor : @math.Vector4
+  mut _current_scissor_test : Bool?
+  _current_clear_color : @math.Color
+  mut _current_clear_alpha : Double
+  mut _width : Double
+  mut _height : Double
+  mut _pixel_ratio : Double
+  mut _opaque_sort : ((RenderItem, RenderItem) -> Double)?
+  mut _transparent_sort : ((RenderItem, RenderItem) -> Double)?
+  _viewport : @math.Vector4
+  _scissor : @math.Vector4
+  mut _scissor_test : Bool
+  _frustum : @math.Frustum
+  _frustum_array : @math.FrustumArray
+  mut _clipping_enabled : Bool
+  mut _local_clipping_enabled : Bool
+  _proj_screen_matrix : @math.Matrix4
+  _vector3 : @math.Vector3
+  _vector4 : @math.Vector4
+  _empty_scene : @core.Object3D
+  mut _render_background : Bool
+  mut _gl : WebGL2RenderingContext
+  mut utils : WebGLUtils
+  mut textures : WebGLTextures
+  mut environments : WebGLEnvironments
+  mut attributes : WebGLAttributes
+  mut binding_states : WebGLBindingStates
+  mut geometries : WebGLGeometries
+  mut objects : WebGLObjects
+  mut morphtargets : WebGLMorphtargets
+  mut clipping : WebGLClipping
+  mut program_cache : WebGLPrograms
+  mut materials : WebGLMaterials
+  mut render_states : WebGLRenderStates
+  mut background : WebGLBackground
+  mut uniforms_groups : WebGLUniformsGroups
+  mut buffer_renderer : WebGLBufferRenderer
+  mut indexed_buffer_renderer : WebGLIndexedBufferRenderer
+  animation : WebGLAnimation
+  mut on_animation_frame_callback : ((Double, @core.JsValue) -> Unit)?
+  mut on_context_lost : (@core.JsValue) -> Unit
+  mut on_context_restore : (@core.JsValue) -> Unit
+  mut on_context_creation_error : (@core.JsValue) -> Unit
+  mut on_material_dispose : (@core.Event) -> Unit
+  mut on_xr_session_start : (@core.Event) -> Unit
+  mut on_xr_session_end : (@core.Event) -> Unit
+}
+#deprecated
+pub fn WebGLRenderer::auto_clear(Self) -> Bool
+pub fn WebGLRenderer::clear(Self, color? : Bool, depth? : Bool, stencil? : Bool) -> Unit
+pub fn WebGLRenderer::clear_color(Self) -> Unit
+pub fn WebGLRenderer::clear_depth(Self) -> Unit
+pub fn WebGLRenderer::clear_stencil(Self) -> Unit
+pub fn WebGLRenderer::compile(Self, @core.Object3D, @core.Object3D, target_scene? : @core.Object3D) -> Array[@core.Material]
+pub fn WebGLRenderer::compile_async(Self, @core.Object3D, @core.Object3D, (@core.Object3D) -> Unit, target_scene? : @core.Object3D) -> Unit
+pub fn WebGLRenderer::coordinate_system(Self) -> Int32
+pub fn WebGLRenderer::copy_framebuffer_to_texture(Self, @core.Texture, position? : @math.Vector2, level? : Int32) -> Unit
+pub fn WebGLRenderer::copy_texture_to_texture(Self, @core.Texture, @core.Texture, src_region? : TextureCopyRegion, dst_position? : TextureCopyPosition, src_level? : Int32, dst_level? : Int32) -> Unit
+pub fn WebGLRenderer::dispose(Self) -> Unit
+pub fn WebGLRenderer::force_context_loss(Self) -> Unit
+pub fn WebGLRenderer::force_context_restore(Self) -> Unit
+pub fn WebGLRenderer::get_active_cube_face(Self) -> Int32
+pub fn WebGLRenderer::get_active_mipmap_level(Self) -> Int32
+pub fn WebGLRenderer::get_clear_alpha(Self) -> Double
+pub fn WebGLRenderer::get_clear_color(Self, @math.Color) -> @math.Color
+pub fn WebGLRenderer::get_context(Self) -> WebGL2RenderingContext
+pub fn WebGLRenderer::get_context_attributes(Self) -> @core.JsValue
+pub fn WebGLRenderer::get_current_viewport(Self, @math.Vector4) -> @math.Vector4
+pub fn WebGLRenderer::get_drawing_buffer_size(Self, @math.Vector2) -> @math.Vector2
+pub fn WebGLRenderer::get_pixel_ratio(Self) -> Double
+pub fn WebGLRenderer::get_render_target(Self) -> @core.RenderTarget?
+pub fn WebGLRenderer::get_scissor(Self, @math.Vector4) -> @math.Vector4
+pub fn WebGLRenderer::get_scissor_test(Self) -> Bool
+pub fn WebGLRenderer::get_size(Self, @math.Vector2) -> @math.Vector2
+pub fn WebGLRenderer::get_viewport(Self, @math.Vector4) -> @math.Vector4
+pub fn WebGLRenderer::init_gl_context(Self) -> Unit
+pub fn WebGLRenderer::init_render_target(Self, @core.RenderTarget) -> Unit
+pub fn WebGLRenderer::init_texture(Self, @core.Texture) -> Unit
+pub fn WebGLRenderer::new(canvas? : HTMLCanvasElement, context? : WebGL2RenderingContext, depth? : Bool, stencil? : Bool, alpha? : Bool, antialias? : Bool, premultiplied_alpha? : Bool, preserve_drawing_buffer? : Bool, power_preference? : String, fail_if_major_performance_caveat? : Bool, reversed_depth_buffer? : Bool, output_buffer_type? : Int32, precision? : String, logarithmic_depth_buffer? : Bool) -> Self
+pub fn WebGLRenderer::output_color_space(Self) -> String
+pub fn WebGLRenderer::read_render_target_pixels(Self, @core.RenderTarget, Int32, Int32, Int32, Int32, @core.TypedArray, active_cube_face_index? : Int32, texture_index? : Int32) -> Unit
+pub fn WebGLRenderer::read_render_target_pixels_async(Self, @core.RenderTarget, Int32, Int32, Int32, Int32, @core.TypedArray, (@core.TypedArray) -> Unit, on_error? : () -> Unit, active_cube_face_index? : Int32, texture_index? : Int32) -> Unit
+pub fn WebGLRenderer::render(Self, @core.Object3D, @core.Object3D) -> Unit
+pub fn WebGLRenderer::render_buffer_direct(Self, @core.Object3D, @core.Object3D?, @core.BufferGeometry, @core.Material, @core.Object3D, @core.GeometryGroup?) -> Unit
+pub fn WebGLRenderer::reset_state(Self) -> Unit
+#deprecated
+pub fn WebGLRenderer::reversed_depth_buffer(Self) -> Bool
+pub fn WebGLRenderer::set_animation_loop(Self, ((Double, @core.JsValue) -> Unit)?) -> Unit
+pub fn WebGLRenderer::set_clear_alpha(Self, Double) -> Unit
+pub fn WebGLRenderer::set_clear_color(Self, @math.Color, alpha? : Double) -> Unit
+pub fn WebGLRenderer::set_clear_color_hex(Self, Int32, alpha? : Double) -> Unit
+pub fn WebGLRenderer::set_drawing_buffer_size(Self, Double, Double, Double) -> Unit
+pub fn WebGLRenderer::set_effects(Self, Array[&WebGLOutputEffect]?) -> Unit
+pub fn WebGLRenderer::set_nodes_handler(Self, &WebGLNodesHandler) -> Unit
+pub fn WebGLRenderer::set_opaque_sort(Self, ((RenderItem, RenderItem) -> Double)?) -> Unit
+pub fn WebGLRenderer::set_output_color_space(Self, String) -> Unit
+pub fn WebGLRenderer::set_pixel_ratio(Self, Double) -> Unit
+pub fn WebGLRenderer::set_render_target(Self, @core.RenderTarget?, active_cube_face? : Int32, active_mipmap_level? : Int32) -> Unit
+pub fn WebGLRenderer::set_render_target_framebuffer(Self, @core.RenderTarget, GLFramebuffer?) -> Unit
+pub fn WebGLRenderer::set_render_target_textures(Self, @core.RenderTarget, GLTexture?, GLTexture?) -> Unit
+pub fn WebGLRenderer::set_scissor(Self, Double, Double, Double, Double) -> Unit
+pub fn WebGLRenderer::set_scissor_test(Self, Bool) -> Unit
+pub fn WebGLRenderer::set_scissor_vector(Self, @math.Vector4) -> Unit
+pub fn WebGLRenderer::set_size(Self, Double, Double, update_style? : Bool) -> Unit
+pub fn WebGLRenderer::set_transparent_sort(Self, ((RenderItem, RenderItem) -> Double)?) -> Unit
+pub fn WebGLRenderer::set_viewport(Self, Double, Double, Double, Double) -> Unit
+pub fn WebGLRenderer::set_viewport_vector(Self, @math.Vector4) -> Unit
+#deprecated
+pub fn WebGLRenderer::set_xr_enabled(Self, Bool) -> Unit
+#deprecated
+pub fn WebGLRenderer::xr_enabled(Self) -> Bool
+pub impl @core.CubeCameraRenderer for WebGLRenderer
+
+pub struct WebGLShaderCache {
+  shader_cache : Map[String, WebGLShaderStage]
+  material_cache : Map[Int32, Map[Int32, WebGLShaderStage]]
+}
+pub fn WebGLShaderCache::dispose(Self) -> Unit
+pub fn WebGLShaderCache::get_fragment_shader_stage(Self, @core.Material) -> WebGLShaderStage
+pub fn WebGLShaderCache::get_vertex_shader_stage(Self, @core.Material) -> WebGLShaderStage
+pub fn WebGLShaderCache::new() -> Self
+pub fn WebGLShaderCache::remove(Self, @core.Material) -> Self
+pub fn WebGLShaderCache::update(Self, @core.Material, WebGLShaderStage, WebGLShaderStage) -> Self
+
+pub(all) struct WebGLShaderStage {
+  id : Int32
+  code : String
+  mut used_times : Int32
+}
+pub fn WebGLShaderStage::new(String) -> Self
+
+pub(all) struct WebGLShadowMap {
+  renderer : WebGLRenderer
+  objects : WebGLObjects
+  capabilities : WebGLCapabilities
+  mut _frustum : @math.Frustum
+  _shadow_map_size : @math.Vector2
+  _viewport_size : @math.Vector2
+  _viewport : @math.Vector4
+  _depth_material : @core.Material
+  _distance_material : @core.Material
+  _material_cache : Map[String, Map[String, @core.Material]]
+  _max_texture_size : Int32
+  shadow_side : Map[Int32, Int32]
+  shadow_material_vertical : @core.Material
+  shadow_material_horizontal : @core.Material
+  full_screen_tri : @core.BufferGeometry
+  full_screen_mesh : @core.Object3D
+  mut enabled : Bool
+  mut auto_update : Bool
+  mut needs_update : Bool
+  mut type_ : Int32
+  mut _previous_type : Int32
+  mut on_material_dispose : (@core.Event) -> Unit
+}
+pub fn WebGLShadowMap::new(WebGLRenderer, WebGLObjects, WebGLCapabilities) -> Self
+pub fn WebGLShadowMap::render(Self, Array[@core.Object3D], @core.Object3D, @core.Object3D) -> Unit
+
+pub(all) struct WebGLState {
+  gl : WebGL2RenderingContext
+  extensions : WebGLExtensions
+  buffers : WebGLStateBuffers
+  mut ubo_bindings : Map[Int32, GLBuffer?]
+  ubo_program_map : WeakMap[GLProgram, Map[Int32, Int32]]
+  mut enabled_capabilities : Map[Int32, Bool]
+  mut parameters : Map[Int32, @core.JsValue]
+  mut current_bound_framebuffers : Map[Int32, GLFramebuffer?]
+  mut current_drawbuffers : WeakMap[GLFramebuffer, Array[Int32]]
+  mut default_drawbuffers : Array[Int32]
+  mut current_program : GLProgram?
+  mut current_blending_enabled : Bool
+  mut current_blending : Int32?
+  mut current_blend_equation : Int32?
+  mut current_blend_src : Int32?
+  mut current_blend_dst : Int32?
+  mut current_blend_equation_alpha : Int32?
+  mut current_blend_src_alpha : Int32?
+  mut current_blend_dst_alpha : Int32?
+  mut current_blend_color : @math.Color
+  mut current_blend_alpha : Double
+  mut current_premultipled_alpha : Bool
+  mut current_flip_sided : Bool?
+  mut current_cull_face : Int32?
+  mut current_line_width : Double?
+  mut current_polygon_offset_factor : Double?
+  mut current_polygon_offset_units : Double?
+  max_textures : Int32
+  line_width_available : Bool
+  version : Double
+  mut current_texture_slot : Int32?
+  mut current_bound_textures : Map[Int32, BoundTexture]
+  current_scissor : @math.Vector4
+  current_viewport : @math.Vector4
+  empty_textures : Map[Int32, GLTexture]
+  equation_to_gl : Map[Int32, Int32]
+  factor_to_gl : Map[Int32, Int32]
+}
+pub fn WebGLState::active_texture(Self, webgl_slot? : Int32) -> Unit
+pub fn WebGLState::bind_framebuffer(Self, Int32, GLFramebuffer?) -> Bool
+pub fn WebGLState::bind_texture(Self, Int32, GLTexture?, webgl_slot? : Int32) -> Unit
+pub fn[D : GLData] WebGLState::compressed_tex_image2d(Self, Int32, Int32, Int32, Int32, Int32, Int32, D) -> Unit
+pub fn[D : GLData] WebGLState::compressed_tex_image3d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, D, Int32, Int32) -> Unit
+pub fn[D : GLData] WebGLState::compressed_tex_sub_image2d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, D) -> Unit
+pub fn[D : GLData] WebGLState::compressed_tex_sub_image3d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, D) -> Unit
+pub fn WebGLState::disable(Self, Int32) -> Unit
+pub fn WebGLState::draw_buffers(Self, @core.RenderTarget?, GLFramebuffer?) -> Unit
+pub fn WebGLState::enable(Self, Int32) -> Unit
+pub fn WebGLState::get_parameter(Self, Int32) -> @core.JsValue
+pub fn WebGLState::new(WebGL2RenderingContext, WebGLExtensions) -> Self
+pub fn WebGLState::pixel_storei(Self, Int32, Int32) -> Unit
+pub fn WebGLState::pixel_storei_bool(Self, Int32, Bool) -> Unit
+pub fn WebGLState::reset(Self) -> Unit
+pub fn WebGLState::scissor(Self, @math.Vector4) -> Unit
+pub fn WebGLState::set_blending(Self, Int32, blend_equation? : Int32, blend_src? : Int32, blend_dst? : Int32, blend_equation_alpha? : Int32, blend_src_alpha? : Int32, blend_dst_alpha? : Int32, blend_color? : @math.Color, blend_alpha? : Double, premultiplied_alpha? : Bool) -> Unit
+pub fn WebGLState::set_cull_face(Self, Int32) -> Unit
+pub fn WebGLState::set_flip_sided(Self, Bool) -> Unit
+pub fn WebGLState::set_line_width(Self, Double) -> Unit
+pub fn WebGLState::set_material(Self, @core.Material, Bool) -> Unit
+pub fn WebGLState::set_polygon_offset(Self, Bool, factor? : Double, units? : Double) -> Unit
+pub fn WebGLState::set_scissor_test(Self, Bool) -> Unit
+pub fn[D : GLData] WebGLState::tex_image2d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, D) -> Unit
+pub fn WebGLState::tex_image2d_source(Self, Int32, Int32, Int32, Int32, Int32, @core.JsValue) -> Unit
+pub fn[D : GLData] WebGLState::tex_image3d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, D) -> Unit
+pub fn WebGLState::tex_storage2d(Self, Int32, Int32, Int32, Int32, Int32) -> Unit
+pub fn WebGLState::tex_storage3d(Self, Int32, Int32, Int32, Int32, Int32, Int32) -> Unit
+pub fn[D : GLData] WebGLState::tex_sub_image2d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, D) -> Unit
+pub fn WebGLState::tex_sub_image2d_source(Self, Int32, Int32, Int32, Int32, Int32, Int32, @core.JsValue) -> Unit
+pub fn[D : GLData] WebGLState::tex_sub_image3d(Self, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, Int32, D) -> Unit
+pub fn WebGLState::unbind_texture(Self) -> Unit
+pub fn WebGLState::uniform_block_binding(Self, @core.UniformsGroup, GLProgram, GLBuffer?) -> Unit
+pub fn WebGLState::update_ubo_mapping(Self, @core.UniformsGroup, GLProgram) -> Unit
+pub fn WebGLState::use_program(Self, GLProgram?) -> Bool
+pub fn WebGLState::viewport(Self, @math.Vector4) -> Unit
+
+pub(all) struct WebGLStateBuffers {
+  color : ColorBuffer
+  depth : DepthBuffer
+  stencil : StencilBuffer
+}
+
+pub struct WebGLTextures {
+  gl : WebGL2RenderingContext
+  extensions : WebGLExtensions
+  state : WebGLState
+  properties : WebGLProperties
+  capabilities : WebGLCapabilities
+  utils : WebGLUtils
+  info : WebGLInfo
+  multisampled_rtt_ext : GLExtension?
+  supports_invalidate_framebuffer : Bool
+  _image_dimensions : @math.Vector2
+  _video_textures : WeakMap[@core.Texture, Int32]
+  _html_textures : Map[Int32, @core.Texture]
+  mut _canvas : HTMLCanvasElement?
+  _sources : WeakMap[@core.TextureSource, Map[String, TextureCacheEntry]]
+  _tracked : Array[TrackedRef]
+  _registry : FinalizationRegistry[TrackedRef]
+  use_offscreen_canvas : Bool
+  mut texture_units : Int32
+  wrapping_to_gl : Map[Int32, Int32]
+  filter_to_gl : Map[Int32, Int32]
+  compare_to_gl : Map[Int32, Int32]
+  invalidation_array_read : Array[Int32]
+  mut on_texture_dispose : (@core.Event) -> Unit
+  mut on_render_target_dispose : (@core.Event) -> Unit
+}
+pub fn WebGLTextures::allocate_texture_unit(Self) -> Int32
+pub fn WebGLTextures::dispose(Self) -> Unit
+pub fn WebGLTextures::get_texture_units(Self) -> Int32
+pub fn WebGLTextures::new(WebGL2RenderingContext, WebGLExtensions, WebGLState, WebGLProperties, WebGLCapabilities, WebGLUtils, WebGLInfo) -> Self
+pub fn WebGLTextures::rebind_textures(Self, @core.RenderTarget, GLTexture?, GLTexture?) -> Unit
+pub fn WebGLTextures::reset_texture_units(Self) -> Unit
+pub fn WebGLTextures::set_texture2d(Self, @core.Texture, Int32) -> Unit
+pub fn WebGLTextures::set_texture2d_array(Self, @core.Texture, Int32) -> Unit
+pub fn WebGLTextures::set_texture3d(Self, @core.Texture, Int32) -> Unit
+pub fn WebGLTextures::set_texture_cube(Self, @core.Texture, Int32) -> Unit
+pub fn WebGLTextures::set_texture_units(Self, Int32) -> Unit
+pub fn WebGLTextures::setup_depth_renderbuffer(Self, @core.RenderTarget) -> Unit
+pub fn WebGLTextures::setup_frame_buffer_texture(Self, GLFramebuffer?, @core.RenderTarget, @core.Texture, Int32, Int32, Int32) -> Unit
+pub fn WebGLTextures::setup_render_target(Self, @core.RenderTarget) -> Unit
+pub fn WebGLTextures::update_multisample_render_target(Self, @core.RenderTarget) -> Unit
+pub fn WebGLTextures::update_render_target_mipmap(Self, @core.RenderTarget) -> Unit
+pub fn WebGLTextures::use_multisampled_rtt(Self, @core.RenderTarget) -> Bool
+
+pub(all) enum WebGLUniformSetter {
+  Single(SingleUniform)
+  PureArray(PureArrayUniform)
+  Structured(StructuredUniform)
+}
+pub fn WebGLUniformSetter::id(Self) -> UniformId
+pub fn WebGLUniformSetter::set_value(Self, WebGL2RenderingContext, @core.UniformValue, textures? : WebGLTextures) -> Unit
+pub fn WebGLUniformSetter::type_(Self) -> Int32?
+
+pub(all) struct WebGLUniforms {
+  mut seq : Array[WebGLUniformSetter]
+  map : Map[String, WebGLUniformSetter]
+}
+pub fn WebGLUniforms::new(WebGL2RenderingContext, GLProgram) -> Self
+pub fn WebGLUniforms::seq_with_value(Array[WebGLUniformSetter], Map[String, @core.Uniform]) -> Array[WebGLUniformSetter]
+pub fn WebGLUniforms::set_optional(Self, WebGL2RenderingContext, @core.Object3D, String) -> Unit
+pub fn WebGLUniforms::set_value(Self, WebGL2RenderingContext, String, @core.UniformValue, textures? : WebGLTextures) -> Unit
+pub fn WebGLUniforms::upload(WebGL2RenderingContext, Array[WebGLUniformSetter], Map[String, @core.Uniform], WebGLTextures) -> Unit
+
+pub struct WebGLUniformsGroups {
+  gl : WebGL2RenderingContext
+  info : WebGLInfo
+  capabilities : WebGLCapabilities
+  state : WebGLState
+  mut buffers : Map[Int32, GLBuffer]
+  mut update_list : Map[Int32, Int32]
+  layouts : WeakMap[@core.UniformsGroup, UniformsGroupLayout]
+  uniform_data : WeakMap[@core.Uniform, UniformBufferData]
+  mut on_uniforms_group_dispose : (@core.Event) -> Unit
+}
+pub fn WebGLUniformsGroups::bind(Self, @core.UniformsGroup, WebGLProgram) -> Unit
+pub fn WebGLUniformsGroups::dispose(Self) -> Unit
+pub fn WebGLUniformsGroups::new(WebGL2RenderingContext, WebGLInfo, WebGLCapabilities, WebGLState) -> Self
+pub fn WebGLUniformsGroups::update(Self, @core.UniformsGroup, WebGLProgram) -> Unit
+
+pub struct WebGLUtils {
+  gl : WebGL2RenderingContext
+  extensions : WebGLExtensions
+}
+pub fn WebGLUtils::convert(Self, Int32, color_space? : String) -> Int32?
+pub fn WebGLUtils::new(WebGL2RenderingContext, WebGLExtensions) -> Self
+
+pub(all) enum WebXRBaseLayer {
+  ProjectionLayer(XRProjectionLayer)
+  WebGLLayer(XRWebGLLayer)
+}
+
+pub struct WebXRController {
+  mut _target_ray : @core.Object3D?
+  mut _grip : @core.Object3D?
+  mut _hand : @core.Object3D?
+}
+pub fn WebXRController::connect(Self, XRInputSource) -> Self
+pub fn WebXRController::disconnect(Self, XRInputSource?) -> Self
+pub fn WebXRController::dispatch_event(Self, @core.Event) -> Self
+pub fn WebXRController::get_grip_space(Self) -> @core.Object3D
+pub fn WebXRController::get_hand_space(Self) -> @core.Object3D
+pub fn WebXRController::get_target_ray_space(Self) -> @core.Object3D
+pub fn WebXRController::new() -> Self
+pub fn WebXRController::update(Self, XRInputSource?, XRFrame, XRReferenceSpace?) -> Self
+
+pub struct WebXRDepthSensing {
+  mut texture : @core.Texture?
+  mut mesh : @core.Object3D?
+  mut depth_near : Double
+  mut depth_far : Double
+}
+pub fn WebXRDepthSensing::get_depth_texture(Self) -> @core.Texture?
+pub fn WebXRDepthSensing::get_mesh(Self, @core.Object3D) -> @core.Object3D?
+pub fn WebXRDepthSensing::init(Self, XRWebGLDepthInformation, XRRenderState) -> Unit
+pub fn WebXRDepthSensing::new() -> Self
+pub fn WebXRDepthSensing::reset(Self) -> Unit
+
+pub struct WebXRManager {
+  renderer : WebGLRenderer
+  gl : WebGL2RenderingContext
+  dispatcher : @core.EventDispatcher
+  mut enabled : Bool
+  mut is_presenting : Bool
+  mut camera_auto_update : Bool
+  // private fields
+}
+pub fn WebXRManager::add_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn WebXRManager::dispatch_event(Self, @core.Event) -> Unit
+pub fn WebXRManager::dispose(Self) -> Unit
+pub fn WebXRManager::event_dispatcher(Self) -> @core.EventDispatcher
+pub fn WebXRManager::event_target(Self) -> @core.EventTarget
+pub fn WebXRManager::get_base_layer(Self) -> WebXRBaseLayer?
+pub fn WebXRManager::get_binding(Self) -> XRWebGLBinding?
+pub fn WebXRManager::get_camera(Self) -> @core.Object3D
+pub fn WebXRManager::get_camera_texture(Self, XRCamera) -> @core.Texture?
+pub fn WebXRManager::get_controller(Self, Int32) -> @core.Object3D
+pub fn WebXRManager::get_controller_grip(Self, Int32) -> @core.Object3D
+pub fn WebXRManager::get_depth_sensing_mesh(Self) -> @core.Object3D?
+pub fn WebXRManager::get_depth_texture(Self) -> @core.Texture?
+pub fn WebXRManager::get_environment_blend_mode(Self) -> String?
+pub fn WebXRManager::get_foveation(Self) -> Double?
+pub fn WebXRManager::get_frame(Self) -> XRFrame?
+pub fn WebXRManager::get_hand(Self, Int32) -> @core.Object3D
+pub fn WebXRManager::get_reference_space(Self) -> XRReferenceSpace?
+pub fn WebXRManager::get_session(Self) -> XRSession?
+pub fn WebXRManager::has_depth_sensing(Self) -> Bool
+pub fn WebXRManager::has_event_listener(Self, String, (@core.Event) -> Unit) -> Bool
+pub fn WebXRManager::new(WebGLRenderer, WebGL2RenderingContext) -> Self
+pub fn WebXRManager::remove_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn WebXRManager::set_animation_loop(Self, ((Double, @core.JsValue) -> Unit)?) -> Unit
+pub fn WebXRManager::set_camera_auto_update(Self, Bool) -> Unit
+pub fn WebXRManager::set_enabled(Self, Bool) -> Unit
+pub fn WebXRManager::set_foveation(Self, Double) -> Unit
+pub fn WebXRManager::set_framebuffer_scale_factor(Self, Double) -> Unit
+pub fn WebXRManager::set_reference_space(Self, XRReferenceSpace?) -> Unit
+pub fn WebXRManager::set_reference_space_type(Self, String) -> Unit
+pub fn WebXRManager::set_session(Self, XRSession?, on_done? : () -> Unit) -> Unit
+pub fn WebXRManager::update_camera(Self, @core.Object3D) -> Unit
+pub impl @core.EventSource for WebXRManager
+
+#external
+pub type XRCamera
+
+pub(all) struct XRControllerSpace {
+  mut has_linear_velocity : Bool
+  linear_velocity : @math.Vector3
+  mut has_angular_velocity : Bool
+  angular_velocity : @math.Vector3
+  mut events_enabled : Bool
+}
+
+#external
+pub type XRFrame
+pub fn XRFrame::get_joint_pose(Self, XRJointSpace, XRReferenceSpace?) -> XRJointPose?
+pub fn XRFrame::get_pose(Self, XRSpace, XRReferenceSpace?) -> XRPose?
+pub fn XRFrame::get_viewer_pose(Self, XRReferenceSpace?) -> XRViewerPose?
+pub fn XRFrame::has_detected_planes(Self) -> Bool
+pub fn XRFrame::session(Self) -> XRSession
+
+#external
+pub type XRHand
+pub fn XRHand::values(Self) -> Array[XRJointSpace]
+
+pub(all) struct XRHandInputState {
+  mut pinching : Bool
+}
+
+pub(all) struct XRHandSpace {
+  joints : Map[String, @core.Object3D]
+  input_state : XRHandInputState
+}
+
+#external
+pub type XRInputSource
+pub fn XRInputSource::grip_space(Self) -> XRSpace?
+pub fn XRInputSource::hand(Self) -> XRHand?
+pub fn XRInputSource::handedness(Self) -> String
+pub fn XRInputSource::target_ray_space(Self) -> XRSpace
+
+#external
+pub type XRInputSourceEvent
+pub fn XRInputSourceEvent::frame(Self) -> XRFrame
+pub fn XRInputSourceEvent::input_source(Self) -> XRInputSource
+pub fn XRInputSourceEvent::type_(Self) -> String
+
+#external
+pub type XRInputSourcesChangeEvent
+pub fn XRInputSourcesChangeEvent::added(Self) -> Array[XRInputSource]
+pub fn XRInputSourcesChangeEvent::removed(Self) -> Array[XRInputSource]
+
+#external
+pub type XRJointPose
+pub fn XRJointPose::radius(Self) -> Double
+pub fn XRJointPose::transform(Self) -> XRRigidTransform
+
+#external
+pub type XRJointSpace
+pub fn XRJointSpace::joint_name(Self) -> String
+
+#external
+pub type XRPose
+pub fn XRPose::angular_velocity(Self) -> DOMPointReadOnly?
+pub fn XRPose::linear_velocity(Self) -> DOMPointReadOnly?
+pub fn XRPose::transform(Self) -> XRRigidTransform
+
+#external
+pub type XRProjectionLayer
+pub fn XRProjectionLayer::keeps_depth_values(Self) -> Bool
+pub fn XRProjectionLayer::set_fixed_foveation(Self, Double) -> Unit
+pub fn XRProjectionLayer::texture_height(Self) -> Int32
+pub fn XRProjectionLayer::texture_width(Self) -> Int32
+
+#external
+pub type XRReferenceSpace
+
+#external
+pub type XRRenderState
+pub fn XRRenderState::depth_far(Self) -> Double
+pub fn XRRenderState::depth_near(Self) -> Double
+
+#external
+pub type XRRigidTransform
+pub fn XRRigidTransform::matrix(Self) -> Array[Double]
+
+#external
+pub type XRSession
+pub fn XRSession::add_event_listener(Self, String, (@core.JsValue) -> Unit) -> Unit
+pub fn XRSession::as_animation_frame_provider(Self) -> AnimationFrameProvider
+pub fn XRSession::depth_usage_is(Self, String) -> Bool
+pub fn XRSession::enabled_features(Self) -> Array[String]?
+pub fn XRSession::environment_blend_mode(Self) -> String
+pub fn XRSession::remove_event_listener(Self, String, (@core.JsValue) -> Unit) -> Unit
+pub fn XRSession::render_state(Self) -> XRRenderState
+pub fn XRSession::request_reference_space(Self, String, (XRReferenceSpace) -> Unit) -> Unit
+pub fn XRSession::update_render_state_base_layer(Self, XRWebGLLayer) -> Unit
+pub fn XRSession::update_render_state_depth(Self, Double, Double) -> Unit
+pub fn XRSession::update_render_state_layers(Self, FixedArray[XRProjectionLayer]) -> Unit
+pub fn XRSession::visibility_state(Self) -> String
+
+#external
+pub type XRSpace
+
+#external
+pub type XRView
+pub fn XRView::camera(Self) -> XRCamera?
+pub fn XRView::projection_matrix(Self) -> Array[Double]
+pub fn XRView::transform(Self) -> XRRigidTransform
+
+#external
+pub type XRViewerPose
+pub fn XRViewerPose::views(Self) -> Array[XRView]
+
+#external
+pub type XRViewport
+pub fn XRViewport::height(Self) -> Double
+pub fn XRViewport::width(Self) -> Double
+pub fn XRViewport::x(Self) -> Double
+pub fn XRViewport::y(Self) -> Double
+
+#external
+pub type XRWebGLBinding
+pub fn XRWebGLBinding::create_projection_layer(Self, Int32, Int32?, Double) -> XRProjectionLayer
+pub fn XRWebGLBinding::get_camera_image(Self, XRCamera) -> GLTexture?
+pub fn XRWebGLBinding::get_depth_information(Self, XRView) -> XRWebGLDepthInformation?
+pub fn XRWebGLBinding::get_view_sub_image(Self, XRProjectionLayer, XRView) -> XRWebGLSubImage
+pub fn XRWebGLBinding::new(XRSession, WebGL2RenderingContext) -> Self
+
+#external
+pub type XRWebGLDepthInformation
+pub fn XRWebGLDepthInformation::depth_far(Self) -> Double
+pub fn XRWebGLDepthInformation::depth_near(Self) -> Double
+pub fn XRWebGLDepthInformation::is_valid(Self) -> Bool
+pub fn XRWebGLDepthInformation::texture(Self) -> GLTexture?
+
+#external
+pub type XRWebGLLayer
+pub fn XRWebGLLayer::framebuffer(Self) -> GLFramebuffer?
+pub fn XRWebGLLayer::framebuffer_height(Self) -> Int32
+pub fn XRWebGLLayer::framebuffer_width(Self) -> Int32
+pub fn XRWebGLLayer::get_viewport(Self, XRView) -> XRViewport
+pub fn XRWebGLLayer::has_fixed_foveation(Self) -> Bool
+pub fn XRWebGLLayer::keeps_depth_values(Self) -> Bool
+pub fn XRWebGLLayer::new(XRSession, WebGL2RenderingContext, @core.JsValue, Bool, @core.JsValue, @core.JsValue, Double) -> Self
+pub fn XRWebGLLayer::set_fixed_foveation(Self, Double) -> Unit
+
+#external
+pub type XRWebGLSubImage
+pub fn XRWebGLSubImage::color_texture(Self) -> GLTexture?
+pub fn XRWebGLSubImage::depth_stencil_texture(Self) -> GLTexture?
+pub fn XRWebGLSubImage::viewport(Self) -> XRViewport
+
+// Type aliases
+
+// Traits
+pub(open) trait GLData {
+  fn to_gl_data(Self) -> @core.JsValue
+}
+pub impl[T : GLData] GLData for T?
+pub impl[T] GLData for FixedArray[T]
+pub impl GLData for @core.JsValue
+pub impl GLData for @core.TypedArray
+pub impl[T] GLData for Array[T]
+
+pub(open) trait LightProbeGridSource {
+  fn texture(Self) -> @core.Texture?
+  fn bounding_box(Self) -> @math.Box3
+  fn resolution(Self) -> @math.Vector3
+  fn priority(Self) -> Double
+}
+
+pub(open) trait SunLightShadowSource {
+  fn get_matrix(Self, Int32) -> @math.Matrix4
+  fn cascade_data(Self, Int32) -> @core.UniformValue
+  fn get_camera(Self, @core.LightShadow, Int32) -> @core.Object3D = _
+  fn get_frustum(Self, @core.LightShadow, Int32) -> @math.Frustum = _
+  fn get_viewport(Self, @core.LightShadow, Int32) -> @math.Vector4 = _
+  fn update_matrices(Self, @core.LightShadow, @core.Object3D, @core.Object3D) -> Unit = _
+}
+
+pub(open) trait WebGLNodesHandler {
+  fn set_renderer(Self, WebGLRenderer) -> Unit
+  fn set_object(Self, @core.Object3D, @core.Material) -> Unit
+  fn render_start(Self, @core.Object3D, @core.Object3D, @core.Object3D?) -> Unit
+  fn render_end(Self) -> Unit
+  fn update_lights(Self, Array[@core.Object3D]) -> Unit
+  fn build(Self, @core.Material, @core.Object3D, WebGLProgramParameters) -> Unit
+  fn on_update_program(Self, @core.Material, WebGLProgram, MaterialProperties) -> Unit
+}
+
+pub(open) trait WebGLOutputEffect {
+  fn render(Self, WebGLRenderer, @core.RenderTarget?, @core.RenderTarget, Double?) -> Unit
+  fn enabled(Self) -> Bool = _
+  fn needs_swap(Self) -> Bool = _
+  fn is_render_pass(Self) -> Bool = _
+  fn is_output_pass(Self) -> Bool = _
+  fn needs_depth_texture(Self) -> Bool = _
+  fn set_size(Self, Int32, Int32) -> Unit = _
+  fn set_depth_texture(Self, @core.Texture) -> Unit = _
+}

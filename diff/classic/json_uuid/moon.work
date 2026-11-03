@@ -1,0 +1,5 @@
+// Builds against the port in the repository root through this workspace.
+members = [
+  ".",
+  "../../..",
+]

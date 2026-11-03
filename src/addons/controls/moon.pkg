@@ -1,0 +1,11 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/extras",
+  "bobzhang/three/geometries",
+  "bobzhang/three/helpers",
+  "bobzhang/three/renderers/webgl",
+  "moonbitlang/core/double",
+}
+
+warnings = "-79"

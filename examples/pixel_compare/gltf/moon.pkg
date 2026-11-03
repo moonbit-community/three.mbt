@@ -1,0 +1,14 @@
+import {
+  "bobzhang/three/webgpu" @three,
+  "bobzhang/three/addons/loaders" @gltf,
+}
+
+options(
+  "is-main": true,
+  link: {
+    "js": {
+      "exports": [ "scene_names", "render_scene" ],
+      "format": "esm",
+    },
+  },
+)

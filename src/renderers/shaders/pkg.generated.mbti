@@ -1,0 +1,35 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/renderers/shaders"
+
+import {
+  "bobzhang/three/core",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub fn get_dfg_lut() -> @core.Texture
+
+pub let shader_chunk : Map[String, String]
+
+pub let shader_lib : Map[String, ShaderLibEntry]
+
+pub let uniforms_lib : Map[String, Map[String, @core.Uniform]]
+
+pub let uniforms_lib_properties : Map[String, @json.Json]
+
+pub let vsm_fragment : String
+
+pub let vsm_vertex : String
+
+// Errors
+
+// Types and methods
+pub(all) struct ShaderLibEntry {
+  mut uniforms : Map[String, @core.Uniform]
+  mut vertex_shader : String
+  mut fragment_shader : String
+}
+
+// Type aliases
+
+// Traits

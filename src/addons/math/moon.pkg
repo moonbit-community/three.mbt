@@ -1,0 +1,12 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/renderers/webgl",
+}
+
+import {
+  "bobzhang/three/addons/math" @addon_math,
+  "bobzhang/three/math" @three_math,
+} for "test"
+
+warnings = "-79"

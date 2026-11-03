@@ -1,0 +1,129 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/geometries"
+
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/extras",
+  "bobzhang/three/math",
+  "moonbitlang/core/json",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+#external
+pub type BoxGeometry
+pub fn BoxGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn BoxGeometry::new(width? : Double, height? : Double, depth? : Double, width_segments? : Double, height_segments? : Double, depth_segments? : Double) -> @core.BufferGeometry
+
+#external
+pub type CapsuleGeometry
+pub fn CapsuleGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn CapsuleGeometry::new(radius? : Double, height? : Double, cap_segments? : Double, radial_segments? : Double, height_segments? : Double) -> @core.BufferGeometry
+
+#external
+pub type CircleGeometry
+pub fn CircleGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn CircleGeometry::new(radius? : Double, segments? : Double, theta_start? : Double, theta_length? : Double) -> @core.BufferGeometry
+
+#external
+pub type ConeGeometry
+pub fn ConeGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn ConeGeometry::new(radius? : Double, height? : Double, radial_segments? : Double, height_segments? : Double, open_ended? : Bool, theta_start? : Double, theta_length? : Double) -> @core.BufferGeometry
+
+#external
+pub type CylinderGeometry
+pub fn CylinderGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn CylinderGeometry::new(radius_top? : Double, radius_bottom? : Double, height? : Double, radial_segments? : Double, height_segments? : Double, open_ended? : Bool, theta_start? : Double, theta_length? : Double) -> @core.BufferGeometry
+
+#external
+pub type DodecahedronGeometry
+pub fn DodecahedronGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn DodecahedronGeometry::new(radius? : Double, detail? : Double) -> @core.BufferGeometry
+
+#external
+pub type EdgesGeometry
+pub fn EdgesGeometry::new(geometry? : @core.BufferGeometry, threshold_angle? : Double) -> @core.BufferGeometry
+
+#external
+pub type ExtrudeGeometry
+pub fn ExtrudeGeometry::from_json(@json.Json, Map[String, @extras.Shape]) -> @core.BufferGeometry
+pub fn ExtrudeGeometry::new(shapes? : Array[@extras.Shape], curve_segments? : Int32, steps? : Double, depth? : Double, bevel_enabled? : Bool, bevel_thickness? : Double, bevel_size? : Double, bevel_offset? : Double, bevel_segments? : Double, extrude_path? : @extras.Curve[@math.Vector3], uv_generator? : ExtrudeUVGenerator) -> @core.BufferGeometry
+
+pub(all) struct ExtrudeUVGenerator {
+  generate_top_uv : (@core.BufferGeometry, Array[Double], Int32, Int32, Int32) -> Array[@math.Vector2]
+  generate_side_wall_uv : (@core.BufferGeometry, Array[Double], Int32, Int32, Int32, Int32) -> Array[@math.Vector2]
+}
+
+#external
+pub type IcosahedronGeometry
+pub fn IcosahedronGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn IcosahedronGeometry::new(radius? : Double, detail? : Double) -> @core.BufferGeometry
+
+#external
+pub type LatheGeometry
+pub fn LatheGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn LatheGeometry::new(points? : Array[@math.Vector2], segments? : Double, phi_start? : Double, phi_length? : Double) -> @core.BufferGeometry
+pub fn LatheGeometry::new_vector3(Array[@math.Vector3], segments? : Double, phi_start? : Double, phi_length? : Double) -> @core.BufferGeometry
+
+#external
+pub type OctahedronGeometry
+pub fn OctahedronGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn OctahedronGeometry::new(radius? : Double, detail? : Double) -> @core.BufferGeometry
+
+#external
+pub type PlaneGeometry
+pub fn PlaneGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn PlaneGeometry::new(width? : Double, height? : Double, width_segments? : Double, height_segments? : Double) -> @core.BufferGeometry
+
+#external
+pub type PolyhedronGeometry
+pub fn PolyhedronGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn PolyhedronGeometry::new(vertices? : Array[Double], indices? : Array[Double], radius? : Double, detail? : Double) -> @core.BufferGeometry
+
+#external
+pub type RingGeometry
+pub fn RingGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn RingGeometry::new(inner_radius? : Double, outer_radius? : Double, theta_segments? : Double, phi_segments? : Double, theta_start? : Double, theta_length? : Double) -> @core.BufferGeometry
+
+#external
+pub type ShapeGeometry
+pub fn ShapeGeometry::from_json(@json.Json, Map[String, @extras.Shape]) -> @core.BufferGeometry
+pub fn ShapeGeometry::new(shapes? : @extras.Shape, curve_segments? : Int32) -> @core.BufferGeometry
+pub fn ShapeGeometry::new_shapes(Array[@extras.Shape], curve_segments? : Int32) -> @core.BufferGeometry
+
+#external
+pub type SphereGeometry
+pub fn SphereGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn SphereGeometry::new(radius? : Double, width_segments? : Double, height_segments? : Double, phi_start? : Double, phi_length? : Double, theta_start? : Double, theta_length? : Double) -> @core.BufferGeometry
+
+#external
+pub type TetrahedronGeometry
+pub fn TetrahedronGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn TetrahedronGeometry::new(radius? : Double, detail? : Double) -> @core.BufferGeometry
+
+#external
+pub type TorusGeometry
+pub fn TorusGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn TorusGeometry::new(radius? : Double, tube? : Double, radial_segments? : Double, tubular_segments? : Double, arc? : Double, theta_start? : Double, theta_length? : Double) -> @core.BufferGeometry
+
+#external
+pub type TorusKnotGeometry
+pub fn TorusKnotGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn TorusKnotGeometry::new(radius? : Double, tube? : Double, tubular_segments? : Double, radial_segments? : Double, p? : Double, q? : Double) -> @core.BufferGeometry
+
+#external
+pub type TubeGeometry
+pub fn TubeGeometry::frames(@core.BufferGeometry) -> @extras.FrenetFrames?
+pub fn TubeGeometry::from_json(@json.Json) -> @core.BufferGeometry
+pub fn TubeGeometry::new(path? : @extras.Curve[@math.Vector3], tubular_segments? : Double, radius? : Double, radial_segments? : Double, closed? : Bool) -> @core.BufferGeometry
+
+#external
+pub type WireframeGeometry
+pub fn WireframeGeometry::new(geometry? : @core.BufferGeometry) -> @core.BufferGeometry
+
+// Type aliases
+
+// Traits

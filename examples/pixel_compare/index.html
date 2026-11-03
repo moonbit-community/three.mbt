@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pixel Compare</title>
+<style>
+	:root {
+		--bg: #f6f6f4; --fg: #1d1d1b; --muted: #6b6b66; --line: #d9d9d4;
+		--pass: #1f7a3d; --fail: #b3261e; --cell: #ffffff;
+	}
+	@media (prefers-color-scheme: dark) {
+		:root:not([data-theme="light"]) {
+			--bg: #161615; --fg: #ecece8; --muted: #9a9a94; --line: #34342f;
+			--pass: #5fc27e; --fail: #ff7a70; --cell: #20201e;
+		}
+	}
+	:root[data-theme="dark"] {
+		--bg: #161615; --fg: #ecece8; --muted: #9a9a94; --line: #34342f;
+		--pass: #5fc27e; --fail: #ff7a70; --cell: #20201e;
+	}
+	body { margin: 0; padding: 16px; background: var(--bg); color: var(--fg); font: 14px/1.45 system-ui, sans-serif; }
+	h1 { font-size: 20px; margin: 0 0 4px; }
+	p { margin: 4px 0 12px; color: var(--muted); max-width: 72ch; }
+	#summary { font-weight: 600; margin: 8px 0 16px; }
+	.table { overflow-x: auto; }
+	table { border-collapse: collapse; background: var(--cell); }
+	th, td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: middle; white-space: nowrap; }
+	th { font-weight: 600; font-size: 12px; color: var(--muted); }
+	td.num { font-variant-numeric: tabular-nums; text-align: right; }
+	canvas.img { display: block; width: 128px; height: 96px; image-rendering: pixelated; }
+	.pass { color: var(--pass); font-weight: 700; }
+	.fail { color: var(--fail); font-weight: 700; }
+	.err { color: var(--fail); font-size: 12px; white-space: normal; max-width: 40ch; }
+	pre { background: var(--cell); border: 1px solid var(--line); padding: 8px; overflow-x: auto; font-size: 12px; }
+</style>
+</head>
+<body>
+<h1>three.js vs three.mbt: pixel comparison</h1>
+<p>Each scene is rendered twice at 128&times;96, pixel ratio 1, no antialiasing, <code>preserveDrawingBuffer</code>:
+by upstream three.js (r187, loaded from <code>.repos/three.js/src/Three.js</code>) and by the MoonBit port
+(<code>main/main.mbt</code>). Both are read back with <code>readPixels</code> and compared channel by channel.
+A scene passes when the mean absolute channel difference is at most <span id="t-mean"></span> and at most
+<span id="t-bad"></span> of its pixels have a channel off by more than <span id="t-tol"></span>.
+Results are also in <code>window.__pixelResults</code>.</p>
+<div id="summary">Running&hellip;</div>
+<div class="table">
+<table>
+	<thead><tr><th>scene</th><th>three.js</th><th>three.mbt</th><th>|diff| &times;8</th><th>max</th><th>mean</th><th>pixels &gt; tol</th><th>result</th></tr></thead>
+	<tbody id="rows"></tbody>
+</table>
+</div>
+<pre id="json"></pre>
+<!-- the objects add-on scenes' modules import 'three' -->
+<script type="importmap">
+{ "imports": {
+	"three": "../../.repos/three.js/src/Three.js"
+} }
+</script>
+<script type="module">
+import * as THREE from '../../.repos/three.js/src/Three.js';
+import { SCENE_NAMES, WIDTH, HEIGHT, build } from './scenes.js';
+
+// Thresholds. Both sides compile the same GLSL (the mock-GL differential tests check the
+// shader sources and every uniform upload byte for byte), so on one GPU the frames should
+// be identical. What can still differ is CPU-side double math in the port's own math
+// library (e.g. trigonometry in geometry generators), which can move a vertex by an ulp
+// and flip the coverage of an isolated edge pixel. Such a pixel can differ by a full
+// 255 in one channel, so `max` alone is not a usable criterion. A real porting bug (a
+// wrong uniform, blend state, or draw order) changes whole regions: thousands of pixels
+// and a mean well above 0.1.
+const TOLERANCE = 2; // per-channel difference treated as equal (unorm rounding)
+const MAX_BAD_FRACTION = 0.001; // 0.1% of 12288 pixels = 12 isolated pixels
+const MAX_MEAN = 0.1; // mean |diff| over all channels
+
+document.getElementById( 't-mean' ).textContent = MAX_MEAN;
+document.getElementById( 't-bad' ).textContent = ( MAX_BAD_FRACTION * 100 ) + '%';
+document.getElementById( 't-tol' ).textContent = TOLERANCE;
+
+function makeCanvas() {
+
+	const canvas = document.createElement( 'canvas' );
+	canvas.width = WIDTH;
+	canvas.height = HEIGHT;
+	return canvas;
+
+}
+
+// RGBA bytes of the default framebuffer of `canvas`'s WebGL 2 context (bottom row first).
+function readBack( canvas ) {
+
+	const gl = canvas.getContext( 'webgl2' );
+	const pixels = new Uint8Array( WIDTH * HEIGHT * 4 );
+	gl.bindFramebuffer( gl.FRAMEBUFFER, null );
+	gl.readPixels( 0, 0, WIDTH, HEIGHT, gl.RGBA, gl.UNSIGNED_BYTE, pixels );
+	return pixels;
+
+}
+
+// A 2D canvas showing `pixels` (flipped to top row first), optionally scaled.
+function image( pixels, scale = 1 ) {
+
+	const canvas = makeCanvas();
+	canvas.className = 'img';
+	const context = canvas.getContext( '2d' );
+	const data = context.createImageData( WIDTH, HEIGHT );
+	for ( let y = 0; y < HEIGHT; y ++ ) {
+
+		for ( let x = 0; x < WIDTH * 4; x ++ ) {
+
+			const v = pixels[ ( HEIGHT - 1 - y ) * WIDTH * 4 + x ];
+			data.data[ y * WIDTH * 4 + x ] = ( x % 4 === 3 ) ? 255 : Math.min( 255, v * scale );
+
+		}
+
+	}
+
+	context.putImageData( data, 0, 0 );
+	return canvas;
+
+}
+
+function renderUpstream( name ) {
+
+	const canvas = makeCanvas();
+	const renderer = new THREE.WebGLRenderer( { canvas, antialias: false, preserveDrawingBuffer: true } );
+	renderer.setPixelRatio( 1 );
+	renderer.setSize( WIDTH, HEIGHT, false );
+	const built = build( THREE, name, renderer );
+	if ( built === null ) throw new Error( 'unknown scene ' + name );
+	renderer.render( built.scene, built.camera );
+	const pixels = readBack( canvas );
+	renderer.dispose();
+	renderer.forceContextLoss();
+	return pixels;
+
+}
+
+function renderPort( port, name ) {
+
+	const canvas = makeCanvas();
+	try {
+
+		if ( ! port.render_scene( name, canvas ) ) throw new Error( 'unknown scene ' + name );
+		return readBack( canvas );
+
+	} finally {
+
+		port.release_scene();
+
+	}
+
+}
+
+function compare( a, b ) {
+
+	const diff = new Uint8Array( a.length );
+	let max = 0;
+	let sum = 0;
+	let bad = 0;
+	for ( let p = 0; p < a.length; p += 4 ) {
+
+		let pixelBad = false;
+		for ( let c = 0; c < 4; c ++ ) {
+
+			const d = Math.abs( a[ p + c ] - b[ p + c ] );
+			diff[ p + c ] = d;
+			if ( d > max ) max = d;
+			sum += d;
+			if ( d > TOLERANCE ) pixelBad = true;
+
+		}
+
+		if ( pixelBad ) bad ++;
+
+	}
+
+	return { diff, max, mean: sum / a.length, bad };
+
+}
+
+function cell( row, content, className ) {
+
+	const td = document.createElement( 'td' );
+	if ( className ) td.className = className;
+	if ( content instanceof Node ) td.appendChild( content ); else td.textContent = content;
+	row.appendChild( td );
+	return td;
+
+}
+
+async function loadPort() {
+
+	const paths = [
+		'./_build/js/debug/build/bobzhang/three-pixel-compare/main/main.js',
+		'./_build/js/release/build/bobzhang/three-pixel-compare/main/main.js',
+	];
+	let lastError = null;
+	for ( const path of paths ) {
+
+		try {
+
+			return await import( path );
+
+		} catch ( e ) {
+
+			lastError = e;
+
+		}
+
+	}
+
+	throw new Error( 'MoonBit build not found; run `moon build --target js` in examples/pixel_compare (' + lastError + ')' );
+
+}
+
+const results = {
+	width: WIDTH, height: HEIGHT, pixelRatio: 1,
+	threshold: { tolerance: TOLERANCE, maxBadFraction: MAX_BAD_FRACTION, maxMean: MAX_MEAN },
+	scenes: [], allPass: false, done: false, error: null,
+};
+window.__pixelResults = results;
+
+const rows = document.getElementById( 'rows' );
+try {
+
+	const port = await loadPort();
+	const names = Array.from( port.scene_names() );
+	if ( names.join() !== SCENE_NAMES.join() ) throw new Error( 'scene lists differ: ' + names.join() + ' vs ' + SCENE_NAMES.join() );
+	for ( const name of SCENE_NAMES ) {
+
+		const row = document.createElement( 'tr' );
+		rows.appendChild( row );
+		cell( row, name );
+		const entry = { name, max: null, mean: null, badPixels: null, badFraction: null, pass: false, error: null };
+		results.scenes.push( entry );
+		try {
+
+			const upstream = renderUpstream( name );
+			const ported = renderPort( port, name );
+			const { diff, max, mean, bad } = compare( upstream, ported );
+			entry.max = max;
+			entry.mean = mean;
+			entry.badPixels = bad;
+			entry.badFraction = bad / ( WIDTH * HEIGHT );
+			entry.pass = mean <= MAX_MEAN && entry.badFraction <= MAX_BAD_FRACTION;
+			cell( row, image( upstream ) );
+			cell( row, image( ported ) );
+			cell( row, image( diff, 8 ) );
+			cell( row, String( max ), 'num' );
+			cell( row, mean.toFixed( 4 ), 'num' );
+			cell( row, bad + ' (' + ( entry.badFraction * 100 ).toFixed( 2 ) + '%)', 'num' );
+			cell( row, entry.pass ? 'PASS' : 'FAIL', entry.pass ? 'pass' : 'fail' );
+
+		} catch ( e ) {
+
+			entry.error = String( e && e.stack || e );
+			const td = cell( row, String( e ), 'err' );
+			td.colSpan = 6;
+			cell( row, 'FAIL', 'fail' );
+
+		}
+
+		// let the page paint between scenes
+		await new Promise( ( resolve ) => setTimeout( resolve, 0 ) );
+
+	}
+
+	results.allPass = results.scenes.every( ( s ) => s.pass );
+
+} catch ( e ) {
+
+	results.error = String( e && e.stack || e );
+
+}
+
+results.done = true;
+const passed = results.scenes.filter( ( s ) => s.pass ).length;
+document.getElementById( 'summary' ).textContent = results.error
+	? 'Error: ' + results.error
+	: passed + ' / ' + results.scenes.length + ' scenes pass' + ( results.allPass ? '' : ' (see FAIL rows)' );
+document.getElementById( 'summary' ).className = results.allPass ? 'pass' : 'fail';
+document.getElementById( 'json' ).textContent = JSON.stringify( results, null, 2 );
+</script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/audio"
+
+import {
+  "bobzhang/three/core",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+#external
+pub type AnalyserNode
+pub fn AnalyserNode::as_node(Self) -> AudioNode
+pub fn AnalyserNode::frequency_bin_count(Self) -> Int32
+pub fn AnalyserNode::get_byte_frequency_data(Self, @core.TypedArray) -> Unit
+pub fn AnalyserNode::set_fft_size(Self, Int32) -> Unit
+
+pub(all) struct Audio {
+  object : @core.Object3D
+  listener : AudioListener
+  context : AudioContext
+  gain : GainNode
+  mut autoplay : Bool
+  mut buffer : AudioBuffer?
+  mut detune : Double
+  mut loop_ : Bool
+  mut loop_start : Double
+  mut loop_end : Double
+  mut offset : Double
+  mut duration : Double?
+  mut playback_rate : Double
+  mut is_playing : Bool
+  mut has_playback_control : Bool
+  mut source : AudioNode?
+  mut source_type : String
+  mut _started_at : Double
+  mut _progress : Double
+  mut _connected : Bool
+  mut filters : Array[AudioNode]
+  panner : PannerNode?
+}
+pub fn Audio::clone(Self, recursive? : Bool) -> Self
+pub fn Audio::connect(Self) -> Self
+pub fn Audio::copy(Self, Self, recursive? : Bool) -> Self
+pub fn Audio::disconnect(Self) -> Self
+pub fn Audio::from_object(@core.Object3D) -> Self?
+pub fn Audio::get_detune(Self) -> Double
+pub fn Audio::get_distance_model(Self) -> String
+pub fn Audio::get_filter(Self) -> AudioNode?
+pub fn Audio::get_filters(Self) -> Array[AudioNode]
+pub fn Audio::get_loop(Self) -> Bool
+pub fn Audio::get_max_distance(Self) -> Double
+pub fn Audio::get_output(Self) -> AudioNode
+pub fn Audio::get_playback_rate(Self) -> Double
+pub fn Audio::get_ref_distance(Self) -> Double
+pub fn Audio::get_rolloff_factor(Self) -> Double
+pub fn Audio::get_volume(Self) -> Double
+pub fn Audio::new(AudioListener) -> Self
+pub fn Audio::on_ended(Self) -> Unit
+pub fn Audio::pause(Self) -> Self
+pub fn Audio::play(Self, delay? : Double) -> Self
+pub fn Audio::set_buffer(Self, AudioBuffer) -> Self
+pub fn Audio::set_detune(Self, Double) -> Self
+pub fn Audio::set_directional_cone(Self, Double, Double, Double) -> Self
+pub fn Audio::set_distance_model(Self, String) -> Self
+pub fn Audio::set_filter(Self, filter? : AudioNode) -> Self
+pub fn Audio::set_filters(Self, value? : Array[AudioNode]) -> Self
+pub fn Audio::set_loop(Self, Bool) -> Self
+pub fn Audio::set_loop_end(Self, Double) -> Self
+pub fn Audio::set_loop_start(Self, Double) -> Self
+pub fn Audio::set_max_distance(Self, Double) -> Self
+pub fn Audio::set_media_element_source(Self, @core.JsValue) -> Self
+pub fn Audio::set_media_stream_source(Self, @core.JsValue) -> Self
+pub fn Audio::set_node_source(Self, AudioNode) -> Self
+pub fn Audio::set_playback_rate(Self, Double) -> Self
+pub fn Audio::set_ref_distance(Self, Double) -> Self
+pub fn Audio::set_rolloff_factor(Self, Double) -> Self
+pub fn Audio::set_volume(Self, Double) -> Self
+pub fn Audio::stop(Self, delay? : Double) -> Self
+pub fn Audio::update_matrix_world(Self, force? : Bool) -> Unit
+
+pub(all) struct AudioAnalyser {
+  analyser : AnalyserNode
+  mut data : @core.TypedArray
+}
+pub fn AudioAnalyser::get_average_frequency(Self) -> Double
+pub fn AudioAnalyser::get_frequency_data(Self) -> @core.TypedArray
+pub fn AudioAnalyser::new(Audio, fft_size? : Int32) -> Self
+
+#external
+pub type AudioBuffer
+pub fn AudioBuffer::duration(Self) -> Double
+pub fn AudioBuffer::of_js(@core.JsValue) -> Self
+pub fn AudioBuffer::to_js(Self) -> @core.JsValue
+
+#external
+pub type AudioBufferSourceNode
+pub fn AudioBufferSourceNode::as_node(Self) -> AudioNode
+pub fn AudioBufferSourceNode::clear_onended(Self) -> Unit
+pub fn AudioBufferSourceNode::detune(Self) -> AudioParam
+pub fn AudioBufferSourceNode::has_detune(Self) -> Bool
+pub fn AudioBufferSourceNode::playback_rate(Self) -> AudioParam
+pub fn AudioBufferSourceNode::set_buffer(Self, AudioBuffer?) -> Unit
+pub fn AudioBufferSourceNode::set_loop(Self, Bool) -> Unit
+pub fn AudioBufferSourceNode::set_loop_end(Self, Double) -> Unit
+pub fn AudioBufferSourceNode::set_loop_start(Self, Double) -> Unit
+pub fn AudioBufferSourceNode::set_onended(Self, () -> Unit) -> Unit
+pub fn AudioBufferSourceNode::start(Self, Double, Double, duration? : Double) -> Unit
+pub fn AudioBufferSourceNode::stop(Self, when_? : Double) -> Unit
+
+#external
+pub type AudioContext
+pub fn AudioContext::create_analyser(Self) -> AnalyserNode
+pub fn AudioContext::create_buffer_source(Self) -> AudioBufferSourceNode
+pub fn AudioContext::create_gain(Self) -> GainNode
+pub fn AudioContext::create_media_element_source(Self, @core.JsValue) -> AudioNode
+pub fn AudioContext::create_media_stream_source(Self, @core.JsValue) -> AudioNode
+pub fn AudioContext::create_panner(Self) -> PannerNode
+pub fn AudioContext::current_time(Self) -> Double
+pub fn AudioContext::destination(Self) -> AudioNode
+pub fn AudioContext::get_context() -> Self
+pub fn AudioContext::listener(Self) -> WebAudioListener
+pub fn AudioContext::of_js(@core.JsValue) -> Self
+pub fn AudioContext::set_context(Self) -> Unit
+pub fn AudioContext::to_js(Self) -> @core.JsValue
+
+pub(all) struct AudioListener {
+  object : @core.Object3D
+  context : AudioContext
+  gain : GainNode
+  mut filter : AudioNode?
+  mut time_delta : Double
+  _timer : @core.Timer
+}
+pub fn AudioListener::from_object(@core.Object3D) -> Self?
+pub fn AudioListener::get_filter(Self) -> AudioNode?
+pub fn AudioListener::get_input(Self) -> GainNode
+pub fn AudioListener::get_master_volume(Self) -> Double
+pub fn AudioListener::new() -> Self
+pub fn AudioListener::remove_filter(Self) -> Self
+pub fn AudioListener::set_filter(Self, AudioNode) -> Self
+pub fn AudioListener::set_master_volume(Self, Double) -> Self
+pub fn AudioListener::update_matrix_world(Self, force? : Bool) -> Unit
+
+#external
+pub type AudioNode
+pub fn AudioNode::as_buffer_source(Self) -> AudioBufferSourceNode
+pub fn AudioNode::connect(Self, Self) -> Unit
+pub fn AudioNode::disconnect(Self, Self) -> Unit
+pub fn AudioNode::of_js(@core.JsValue) -> Self
+pub fn AudioNode::to_js(Self) -> @core.JsValue
+
+#external
+pub type AudioParam
+pub fn AudioParam::linear_ramp_to_value_at_time(Self, Double, Double) -> Unit
+pub fn AudioParam::set_target_at_time(Self, Double, Double, Double) -> Unit
+pub fn AudioParam::to_js(Self) -> @core.JsValue
+pub fn AudioParam::value(Self) -> Double
+
+#external
+pub type GainNode
+pub fn GainNode::as_node(Self) -> AudioNode
+pub fn GainNode::gain(Self) -> AudioParam
+
+#external
+pub type PannerNode
+pub fn PannerNode::as_node(Self) -> AudioNode
+pub fn PannerNode::distance_model(Self) -> String
+pub fn PannerNode::has_position_x(Self) -> Bool
+pub fn PannerNode::max_distance(Self) -> Double
+pub fn PannerNode::orientation_x(Self) -> AudioParam
+pub fn PannerNode::orientation_y(Self) -> AudioParam
+pub fn PannerNode::orientation_z(Self) -> AudioParam
+pub fn PannerNode::position_x(Self) -> AudioParam
+pub fn PannerNode::position_y(Self) -> AudioParam
+pub fn PannerNode::position_z(Self) -> AudioParam
+pub fn PannerNode::ref_distance(Self) -> Double
+pub fn PannerNode::rolloff_factor(Self) -> Double
+pub fn PannerNode::set_cone_inner_angle(Self, Double) -> Unit
+pub fn PannerNode::set_cone_outer_angle(Self, Double) -> Unit
+pub fn PannerNode::set_cone_outer_gain(Self, Double) -> Unit
+pub fn PannerNode::set_distance_model(Self, String) -> Unit
+pub fn PannerNode::set_max_distance(Self, Double) -> Unit
+pub fn PannerNode::set_orientation(Self, Double, Double, Double) -> Unit
+pub fn PannerNode::set_panning_model(Self, String) -> Unit
+pub fn PannerNode::set_position(Self, Double, Double, Double) -> Unit
+pub fn PannerNode::set_ref_distance(Self, Double) -> Unit
+pub fn PannerNode::set_rolloff_factor(Self, Double) -> Unit
+
+#external
+pub type PositionalAudio
+pub fn PositionalAudio::new(AudioListener) -> Audio
+
+#external
+pub type WebAudioListener
+pub fn WebAudioListener::forward_x(Self) -> AudioParam
+pub fn WebAudioListener::forward_y(Self) -> AudioParam
+pub fn WebAudioListener::forward_z(Self) -> AudioParam
+pub fn WebAudioListener::has_position_x(Self) -> Bool
+pub fn WebAudioListener::position_x(Self) -> AudioParam
+pub fn WebAudioListener::position_y(Self) -> AudioParam
+pub fn WebAudioListener::position_z(Self) -> AudioParam
+pub fn WebAudioListener::set_orientation(Self, Double, Double, Double, Double, Double, Double) -> Unit
+pub fn WebAudioListener::set_position(Self, Double, Double, Double) -> Unit
+pub fn WebAudioListener::up_x(Self) -> AudioParam
+pub fn WebAudioListener::up_y(Self) -> AudioParam
+pub fn WebAudioListener::up_z(Self) -> AudioParam
+
+// Type aliases
+
+// Traits

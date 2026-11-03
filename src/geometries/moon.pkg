@@ -1,0 +1,7 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/extras",
+  "bobzhang/three/math",
+  "moonbitlang/core/double",
+  "moonbitlang/core/math" @cmath,
+}

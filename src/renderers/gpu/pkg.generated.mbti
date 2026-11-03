@@ -1,0 +1,930 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/renderers/gpu"
+
+import {
+  "bobzhang/three/core",
+}
+
+// Values
+pub const GPU_BUFFER_USAGE_COPY_DST : Int32 = 0x0008
+
+pub const GPU_BUFFER_USAGE_COPY_SRC : Int32 = 0x0004
+
+pub const GPU_BUFFER_USAGE_INDEX : Int32 = 0x0010
+
+pub const GPU_BUFFER_USAGE_INDIRECT : Int32 = 0x0100
+
+pub const GPU_BUFFER_USAGE_MAP_READ : Int32 = 0x0001
+
+pub const GPU_BUFFER_USAGE_MAP_WRITE : Int32 = 0x0002
+
+pub const GPU_BUFFER_USAGE_QUERY_RESOLVE : Int32 = 0x0200
+
+pub const GPU_BUFFER_USAGE_STORAGE : Int32 = 0x0080
+
+pub const GPU_BUFFER_USAGE_UNIFORM : Int32 = 0x0040
+
+pub const GPU_BUFFER_USAGE_VERTEX : Int32 = 0x0020
+
+pub const GPU_COLOR_WRITE_ALL : Int32 = 0x000F
+
+pub const GPU_COLOR_WRITE_ALPHA : Int32 = 0x0008
+
+pub const GPU_COLOR_WRITE_BLUE : Int32 = 0x0004
+
+pub const GPU_COLOR_WRITE_GREEN : Int32 = 0x0002
+
+pub const GPU_COLOR_WRITE_RED : Int32 = 0x0001
+
+pub const GPU_MAP_MODE_READ : Int32 = 0x0001
+
+pub const GPU_MAP_MODE_WRITE : Int32 = 0x0002
+
+pub const GPU_SHADER_STAGE_COMPUTE : Int32 = 0x0004
+
+pub const GPU_SHADER_STAGE_FRAGMENT : Int32 = 0x0002
+
+pub const GPU_SHADER_STAGE_VERTEX : Int32 = 0x0001
+
+pub const GPU_TEXTURE_USAGE_COPY_DST : Int32 = 0x0002
+
+pub const GPU_TEXTURE_USAGE_COPY_SRC : Int32 = 0x0001
+
+pub const GPU_TEXTURE_USAGE_RENDER_ATTACHMENT : Int32 = 0x0010
+
+pub const GPU_TEXTURE_USAGE_STORAGE_BINDING : Int32 = 0x0008
+
+pub const GPU_TEXTURE_USAGE_TEXTURE_BINDING : Int32 = 0x0004
+
+pub const GPU_TEXTURE_USAGE_TRANSIENT_ATTACHMENT : Int32 = 0x0020
+
+pub fn big_uint64_difference(@core.ArrayBuffer, Int32, Int32) -> Double
+
+pub fn big_uint64_is_zero(@core.ArrayBuffer, Int32) -> Bool
+
+pub fn error_message(@core.JsValue) -> String?
+
+pub fn get_webgpu_context(@core.JsValue) -> GPUCanvasContext?
+
+pub fn gpu() -> GPU?
+
+pub fn has_set_blend_constant(@core.JsValue) -> Bool
+
+pub fn has_texture_usage_transient_attachment() -> Bool
+
+pub fn is_render_bundle_encoder(@core.JsValue) -> Bool
+
+pub fn json_stringify(@core.JsValue) -> String
+
+pub fn promise_then(@core.JsValue, (@core.JsValue) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+
+pub fn[T] same_handle(T?, T?) -> Bool
+
+// Errors
+
+// Types and methods
+#external
+pub type GPU
+pub fn GPU::get_preferred_canvas_format(Self) -> String
+pub fn GPU::request_adapter(Self, (GPUAdapter?) -> Unit, options? : GPURequestAdapterOptions, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn GPU::request_adapter_promise(Self, options? : GPURequestAdapterOptions) -> @core.JsValue
+pub fn GPU::wgsl_language_features(Self) -> WGSLLanguageFeatures?
+
+#external
+pub type GPUAdapter
+pub fn GPUAdapter::features(Self) -> GPUSupportedFeatures
+pub fn GPUAdapter::info(Self) -> GPUAdapterInfo
+pub fn GPUAdapter::limits(Self) -> GPUSupportedLimits
+pub fn GPUAdapter::request_device(Self, (GPUDevice) -> Unit, descriptor? : GPUDeviceDescriptor, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn GPUAdapter::request_device_promise(Self, descriptor? : GPUDeviceDescriptor) -> @core.JsValue
+
+#external
+pub type GPUAdapterInfo
+pub fn GPUAdapterInfo::architecture(Self) -> String
+pub fn GPUAdapterInfo::description(Self) -> String
+pub fn GPUAdapterInfo::device(Self) -> String
+pub fn GPUAdapterInfo::vendor(Self) -> String
+
+#external
+pub type GPUBindGroup
+
+pub(all) struct GPUBindGroupDescriptor {
+  mut label : String?
+  mut layout : GPUBindGroupLayout?
+  mut entries : Array[GPUBindGroupEntry]
+}
+pub fn GPUBindGroupDescriptor::copy(Self) -> Self
+pub fn GPUBindGroupDescriptor::default() -> Self
+pub fn GPUBindGroupDescriptor::new(label? : String, layout? : GPUBindGroupLayout, entries~ : Array[GPUBindGroupEntry]) -> Self
+pub fn GPUBindGroupDescriptor::reset(Self) -> Unit
+pub fn GPUBindGroupDescriptor::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUBindGroupEntry {
+  mut binding : Int32
+  mut resource : GPUBindingResource
+}
+pub fn GPUBindGroupEntry::new(binding~ : Int32, resource~ : GPUBindingResource) -> Self
+pub fn GPUBindGroupEntry::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUBindGroupLayout
+
+pub(all) struct GPUBindGroupLayoutDescriptor {
+  mut entries : Array[GPUBindGroupLayoutEntry]
+  mut label : String?
+}
+pub fn GPUBindGroupLayoutDescriptor::new(entries~ : Array[GPUBindGroupLayoutEntry], label? : String) -> Self
+pub fn GPUBindGroupLayoutDescriptor::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUBindGroupLayoutEntry {
+  mut binding : Int32
+  mut visibility : Int32
+  mut buffer : GPUBufferBindingLayout?
+  mut storage_texture : GPUStorageTextureBindingLayout?
+  mut texture : GPUTextureBindingLayout?
+  mut sampler : GPUSamplerBindingLayout?
+  mut external_texture : GPUExternalTextureBindingLayout?
+}
+pub fn GPUBindGroupLayoutEntry::new(binding~ : Int32, visibility~ : Int32, buffer? : GPUBufferBindingLayout, storage_texture? : GPUStorageTextureBindingLayout, texture? : GPUTextureBindingLayout, sampler? : GPUSamplerBindingLayout, external_texture? : GPUExternalTextureBindingLayout) -> Self
+pub fn GPUBindGroupLayoutEntry::to_js(Self) -> @core.JsValue
+
+pub(all) enum GPUBindingResource {
+  Sampler(GPUSampler)
+  TextureView(GPUTextureView)
+  BufferBinding(GPUBufferBinding)
+  ExternalTexture(GPUExternalTexture)
+  Texture(GPUTexture)
+  Buffer(GPUBuffer)
+}
+pub fn GPUBindingResource::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUBlendComponent {
+  mut src_factor : String?
+  mut dst_factor : String?
+  mut operation : String?
+}
+pub fn GPUBlendComponent::new(src_factor? : String, dst_factor? : String, operation? : String) -> Self
+pub fn GPUBlendComponent::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUBlendState {
+  mut color : GPUBlendComponent
+  mut alpha : GPUBlendComponent
+}
+pub fn GPUBlendState::new(color~ : GPUBlendComponent, alpha~ : GPUBlendComponent) -> Self
+pub fn GPUBlendState::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUBuffer
+pub fn GPUBuffer::destroy(Self) -> Unit
+pub fn GPUBuffer::get_mapped_range(Self, offset? : Int32, size? : Int32) -> @core.ArrayBuffer
+pub fn GPUBuffer::label(Self) -> String
+pub fn GPUBuffer::map_async(Self, Int32, () -> Unit, offset? : Int32, size? : Int32, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn GPUBuffer::map_async_promise(Self, Int32, offset? : Int32, size? : Int32) -> @core.JsValue
+pub fn GPUBuffer::map_state(Self) -> String
+pub fn GPUBuffer::set_label(Self, String) -> Unit
+pub fn GPUBuffer::size(Self) -> Int32
+pub fn GPUBuffer::unmap(Self) -> Unit
+pub fn GPUBuffer::usage(Self) -> Int32
+
+pub(all) struct GPUBufferBinding {
+  mut buffer : GPUBuffer
+  mut offset : Int32?
+  mut size : Int32?
+}
+pub fn GPUBufferBinding::new(buffer~ : GPUBuffer, offset? : Int32, size? : Int32) -> Self
+pub fn GPUBufferBinding::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUBufferBindingLayout {
+  mut type_ : String?
+  mut has_dynamic_offset : Bool?
+  mut min_binding_size : Int32?
+}
+pub fn GPUBufferBindingLayout::new(type_? : String, has_dynamic_offset? : Bool, min_binding_size? : Int32) -> Self
+pub fn GPUBufferBindingLayout::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUBufferDescriptor {
+  mut label : String?
+  mut size : Int32
+  mut usage : Int32
+  mut mapped_at_creation : Bool?
+}
+pub fn GPUBufferDescriptor::copy(Self) -> Self
+pub fn GPUBufferDescriptor::default() -> Self
+pub fn GPUBufferDescriptor::new(label? : String, size~ : Int32, usage~ : Int32, mapped_at_creation? : Bool) -> Self
+pub fn GPUBufferDescriptor::reset(Self) -> Unit
+pub fn GPUBufferDescriptor::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUCanvasConfiguration {
+  mut device : GPUDevice
+  mut format : String
+  mut usage : Int32?
+  mut alpha_mode : String?
+  mut tone_mapping : GPUCanvasToneMapping?
+  mut view_formats : Array[String]?
+  mut color_space : String?
+}
+pub fn GPUCanvasConfiguration::new(device~ : GPUDevice, format~ : String, usage? : Int32, alpha_mode? : String, tone_mapping? : GPUCanvasToneMapping, view_formats? : Array[String], color_space? : String) -> Self
+pub fn GPUCanvasConfiguration::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUCanvasContext
+pub fn GPUCanvasContext::canvas(Self) -> @core.JsValue
+pub fn GPUCanvasContext::configure(Self, GPUCanvasConfiguration) -> Unit
+pub fn GPUCanvasContext::get_current_texture(Self) -> GPUTexture
+pub fn GPUCanvasContext::unconfigure(Self) -> Unit
+
+pub(all) struct GPUCanvasToneMapping {
+  mut mode : String?
+}
+pub fn GPUCanvasToneMapping::new(mode? : String) -> Self
+pub fn GPUCanvasToneMapping::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUColor {
+  mut r : Double
+  mut g : Double
+  mut b : Double
+  mut a : Double
+}
+pub fn GPUColor::new(r~ : Double, g~ : Double, b~ : Double, a~ : Double) -> Self
+pub fn GPUColor::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUColorTargetState {
+  mut format : String
+  mut blend : GPUBlendState?
+  mut write_mask : Int32?
+}
+pub fn GPUColorTargetState::new(format~ : String, blend? : GPUBlendState, write_mask? : Int32) -> Self
+pub fn GPUColorTargetState::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUCommandBuffer
+
+pub(all) struct GPUCommandBufferDescriptor {
+  mut label : String?
+}
+pub fn GPUCommandBufferDescriptor::new(label? : String) -> Self
+pub fn GPUCommandBufferDescriptor::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUCommandEncoder
+pub fn GPUCommandEncoder::begin_compute_pass(Self, descriptor? : GPUComputePassDescriptor) -> GPUComputePassEncoder
+pub fn GPUCommandEncoder::begin_render_pass(Self, GPURenderPassDescriptor) -> GPURenderPassEncoder
+pub fn GPUCommandEncoder::clear_buffer(Self, GPUBuffer, offset? : Int32, size? : Int32) -> Unit
+pub fn GPUCommandEncoder::copy_buffer_to_buffer(Self, GPUBuffer, Int32, GPUBuffer, Int32, Int32) -> Unit
+pub fn GPUCommandEncoder::copy_buffer_to_texture(Self, GPUTexelCopyBufferInfo, GPUTexelCopyTextureInfo, GPUExtent3D) -> Unit
+pub fn GPUCommandEncoder::copy_texture_to_buffer(Self, GPUTexelCopyTextureInfo, GPUTexelCopyBufferInfo, GPUExtent3D) -> Unit
+pub fn GPUCommandEncoder::copy_texture_to_texture(Self, GPUTexelCopyTextureInfo, GPUTexelCopyTextureInfo, GPUExtent3D) -> Unit
+pub fn GPUCommandEncoder::finish(Self, descriptor? : GPUCommandBufferDescriptor) -> GPUCommandBuffer
+pub fn GPUCommandEncoder::resolve_query_set(Self, GPUQuerySet, Int32, Int32, GPUBuffer, Int32) -> Unit
+
+pub(all) struct GPUCommandEncoderDescriptor {
+  mut label : String?
+}
+pub fn GPUCommandEncoderDescriptor::copy(Self) -> Self
+pub fn GPUCommandEncoderDescriptor::default() -> Self
+pub fn GPUCommandEncoderDescriptor::new(label? : String) -> Self
+pub fn GPUCommandEncoderDescriptor::reset(Self) -> Unit
+pub fn GPUCommandEncoderDescriptor::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUCompilationInfo
+pub fn GPUCompilationInfo::messages(Self) -> Array[GPUCompilationMessage]
+
+#external
+pub type GPUCompilationMessage
+pub fn GPUCompilationMessage::length(Self) -> Int32
+pub fn GPUCompilationMessage::line_num(Self) -> Int32
+pub fn GPUCompilationMessage::line_pos(Self) -> Int32
+pub fn GPUCompilationMessage::message(Self) -> String
+pub fn GPUCompilationMessage::offset(Self) -> Int32
+pub fn GPUCompilationMessage::type_(Self) -> String
+
+pub(all) struct GPUComputePassDescriptor {
+  mut label : String?
+  mut timestamp_writes : GPURenderPassTimestampWrites?
+}
+pub fn GPUComputePassDescriptor::copy(Self) -> Self
+pub fn GPUComputePassDescriptor::default() -> Self
+pub fn GPUComputePassDescriptor::new(label? : String, timestamp_writes? : GPURenderPassTimestampWrites) -> Self
+pub fn GPUComputePassDescriptor::reset(Self) -> Unit
+pub fn GPUComputePassDescriptor::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUComputePassEncoder
+pub fn GPUComputePassEncoder::dispatch_workgroups(Self, Int32, workgroup_count_y? : Int32, workgroup_count_z? : Int32) -> Unit
+pub fn GPUComputePassEncoder::dispatch_workgroups_indirect(Self, GPUBuffer, Int32) -> Unit
+pub fn GPUComputePassEncoder::end(Self) -> Unit
+pub fn GPUComputePassEncoder::set_bind_group(Self, Int32, GPUBindGroup) -> Unit
+pub fn GPUComputePassEncoder::set_pipeline(Self, GPUComputePipeline) -> Unit
+
+#external
+pub type GPUComputePipeline
+pub fn GPUComputePipeline::get_bind_group_layout(Self, Int32) -> GPUBindGroupLayout
+
+pub(all) struct GPUComputePipelineDescriptor {
+  mut label : String?
+  mut layout : GPUPipelineLayoutOrAuto?
+  mut compute : GPUProgrammableStage?
+}
+pub fn GPUComputePipelineDescriptor::copy(Self) -> Self
+pub fn GPUComputePipelineDescriptor::default() -> Self
+pub fn GPUComputePipelineDescriptor::new(label? : String, layout? : GPUPipelineLayoutOrAuto, compute? : GPUProgrammableStage) -> Self
+pub fn GPUComputePipelineDescriptor::reset(Self) -> Unit
+pub fn GPUComputePipelineDescriptor::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUCopyExternalImageDestInfo {
+  mut texture : GPUTexture?
+  mut mip_level : Int32?
+  mut origin : GPUOrigin3D?
+  mut aspect : String?
+  mut color_space : String?
+  mut premultiplied_alpha : Bool?
+}
+pub fn GPUCopyExternalImageDestInfo::copy(Self) -> Self
+pub fn GPUCopyExternalImageDestInfo::default() -> Self
+pub fn GPUCopyExternalImageDestInfo::new(texture? : GPUTexture, mip_level? : Int32, origin? : GPUOrigin3D, aspect? : String, color_space? : String, premultiplied_alpha? : Bool) -> Self
+pub fn GPUCopyExternalImageDestInfo::reset(Self) -> Unit
+pub fn GPUCopyExternalImageDestInfo::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUCopyExternalImageSourceInfo {
+  mut source : @core.JsValue?
+  mut origin : GPUOrigin2D?
+  mut flip_y : Bool?
+}
+pub fn GPUCopyExternalImageSourceInfo::copy(Self) -> Self
+pub fn GPUCopyExternalImageSourceInfo::default() -> Self
+pub fn GPUCopyExternalImageSourceInfo::new(source? : @core.JsValue, origin? : GPUOrigin2D, flip_y? : Bool) -> Self
+pub fn GPUCopyExternalImageSourceInfo::reset(Self) -> Unit
+pub fn GPUCopyExternalImageSourceInfo::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUDepthStencilState {
+  mut format : String?
+  mut depth_write_enabled : Bool?
+  mut depth_compare : String?
+  mut stencil_front : GPUStencilFaceState?
+  mut stencil_back : GPUStencilFaceState?
+  mut stencil_read_mask : Int32?
+  mut stencil_write_mask : Int32?
+  mut depth_bias : Int32?
+  mut depth_bias_slope_scale : Double?
+  mut depth_bias_clamp : Double?
+}
+pub fn GPUDepthStencilState::new(format? : String, depth_write_enabled? : Bool, depth_compare? : String, stencil_front? : GPUStencilFaceState, stencil_back? : GPUStencilFaceState, stencil_read_mask? : Int32, stencil_write_mask? : Int32, depth_bias? : Int32, depth_bias_slope_scale? : Double, depth_bias_clamp? : Double) -> Self
+pub fn GPUDepthStencilState::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUDevice
+pub fn GPUDevice::create_bind_group(Self, GPUBindGroupDescriptor) -> GPUBindGroup
+pub fn GPUDevice::create_bind_group_layout(Self, GPUBindGroupLayoutDescriptor) -> GPUBindGroupLayout
+pub fn GPUDevice::create_buffer(Self, GPUBufferDescriptor) -> GPUBuffer
+pub fn GPUDevice::create_command_encoder(Self, descriptor? : GPUCommandEncoderDescriptor) -> GPUCommandEncoder
+pub fn GPUDevice::create_compute_pipeline(Self, GPUComputePipelineDescriptor) -> GPUComputePipeline
+pub fn GPUDevice::create_compute_pipeline_async(Self, GPUComputePipelineDescriptor, (GPUComputePipeline) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn GPUDevice::create_compute_pipeline_async_promise(Self, GPUComputePipelineDescriptor) -> @core.JsValue
+pub fn GPUDevice::create_pipeline_layout(Self, GPUPipelineLayoutDescriptor) -> GPUPipelineLayout
+pub fn GPUDevice::create_query_set(Self, GPUQuerySetDescriptor) -> GPUQuerySet
+pub fn GPUDevice::create_render_bundle_encoder(Self, GPURenderBundleEncoderDescriptor) -> GPURenderBundleEncoder
+pub fn GPUDevice::create_render_pipeline(Self, GPURenderPipelineDescriptor) -> GPURenderPipeline
+pub fn GPUDevice::create_render_pipeline_async(Self, GPURenderPipelineDescriptor, (GPURenderPipeline) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn GPUDevice::create_render_pipeline_async_promise(Self, GPURenderPipelineDescriptor) -> @core.JsValue
+pub fn GPUDevice::create_sampler(Self, descriptor? : GPUSamplerDescriptor) -> GPUSampler
+pub fn GPUDevice::create_shader_module(Self, GPUShaderModuleDescriptor) -> GPUShaderModule
+pub fn GPUDevice::create_texture(Self, GPUTextureDescriptor) -> GPUTexture
+pub fn GPUDevice::destroy(Self) -> Unit
+pub fn GPUDevice::features(Self) -> GPUSupportedFeatures
+pub fn GPUDevice::import_external_texture(Self, GPUExternalTextureDescriptor) -> GPUExternalTexture
+pub fn GPUDevice::label(Self) -> String
+pub fn GPUDevice::limits(Self) -> GPUSupportedLimits
+pub fn GPUDevice::lost(Self, (GPUDeviceLostInfo) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn GPUDevice::lost_promise(Self) -> @core.JsValue
+pub fn GPUDevice::pop_error_scope(Self, (GPUError?) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn GPUDevice::pop_error_scope_promise(Self) -> @core.JsValue
+pub fn GPUDevice::push_error_scope(Self, String) -> Unit
+pub fn GPUDevice::queue(Self) -> GPUQueue
+pub fn GPUDevice::set_label(Self, String) -> Unit
+pub fn GPUDevice::set_onuncapturederror(Self, (GPUUncapturedErrorEvent) -> Unit) -> Unit
+
+pub(all) struct GPUDeviceDescriptor {
+  mut required_features : Array[String]?
+  mut required_limits : @core.JsValue?
+  mut label : String?
+}
+pub fn GPUDeviceDescriptor::new(required_features? : Array[String], required_limits? : @core.JsValue, label? : String) -> Self
+pub fn GPUDeviceDescriptor::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUDeviceLostInfo
+pub fn GPUDeviceLostInfo::message(Self) -> String
+pub fn GPUDeviceLostInfo::reason(Self) -> String
+
+#external
+pub type GPUError
+pub fn GPUError::message(Self) -> String
+pub fn GPUError::type_name(Self) -> String
+
+pub(all) struct GPUExtent3D {
+  mut width : Int32
+  mut height : Int32?
+  mut depth_or_array_layers : Int32?
+}
+pub fn GPUExtent3D::copy(Self) -> Self
+pub fn GPUExtent3D::default() -> Self
+pub fn GPUExtent3D::new(width~ : Int32, height? : Int32, depth_or_array_layers? : Int32) -> Self
+pub fn GPUExtent3D::reset(Self) -> Unit
+pub fn GPUExtent3D::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUExternalTexture
+
+pub(all) struct GPUExternalTextureBindingLayout {
+}
+pub fn GPUExternalTextureBindingLayout::new() -> Self
+pub fn GPUExternalTextureBindingLayout::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUExternalTextureDescriptor {
+  mut source : @core.JsValue
+  mut label : String?
+  mut color_space : String?
+}
+pub fn GPUExternalTextureDescriptor::new(source~ : @core.JsValue, label? : String, color_space? : String) -> Self
+pub fn GPUExternalTextureDescriptor::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUFragmentState {
+  mut module_ : GPUShaderModule
+  mut entry_point : String?
+  mut constants : @core.JsValue?
+  mut targets : Array[GPUColorTargetState]
+}
+pub fn GPUFragmentState::new(module_~ : GPUShaderModule, entry_point? : String, constants? : @core.JsValue, targets~ : Array[GPUColorTargetState]) -> Self
+pub fn GPUFragmentState::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUMultisampleState {
+  mut count : Int32?
+  mut mask : Int32?
+  mut alpha_to_coverage_enabled : Bool?
+}
+pub fn GPUMultisampleState::copy(Self) -> Self
+pub fn GPUMultisampleState::default() -> Self
+pub fn GPUMultisampleState::new(count? : Int32, mask? : Int32, alpha_to_coverage_enabled? : Bool) -> Self
+pub fn GPUMultisampleState::reset(Self) -> Unit
+pub fn GPUMultisampleState::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUOrigin2D {
+  mut x : Int32?
+  mut y : Int32?
+}
+pub fn GPUOrigin2D::new(x? : Int32, y? : Int32) -> Self
+pub fn GPUOrigin2D::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUOrigin3D {
+  mut x : Int32?
+  mut y : Int32?
+  mut z : Int32?
+}
+pub fn GPUOrigin3D::new(x? : Int32, y? : Int32, z? : Int32) -> Self
+pub fn GPUOrigin3D::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUPipelineLayout
+
+pub(all) struct GPUPipelineLayoutDescriptor {
+  mut label : String?
+  mut bind_group_layouts : Array[GPUBindGroupLayout]?
+}
+pub fn GPUPipelineLayoutDescriptor::copy(Self) -> Self
+pub fn GPUPipelineLayoutDescriptor::default() -> Self
+pub fn GPUPipelineLayoutDescriptor::new(label? : String, bind_group_layouts? : Array[GPUBindGroupLayout]) -> Self
+pub fn GPUPipelineLayoutDescriptor::reset(Self) -> Unit
+pub fn GPUPipelineLayoutDescriptor::to_js(Self) -> @core.JsValue
+
+pub(all) enum GPUPipelineLayoutOrAuto {
+  Layout(GPUPipelineLayout)
+  Auto
+}
+pub fn GPUPipelineLayoutOrAuto::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUPrimitiveState {
+  mut topology : String?
+  mut strip_index_format : String?
+  mut front_face : String?
+  mut cull_mode : String?
+  mut unclipped_depth : Bool?
+}
+pub fn GPUPrimitiveState::new(topology? : String, strip_index_format? : String, front_face? : String, cull_mode? : String, unclipped_depth? : Bool) -> Self
+pub fn GPUPrimitiveState::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUProgrammableStage {
+  mut module_ : GPUShaderModule
+  mut entry_point : String?
+  mut constants : @core.JsValue?
+}
+pub fn GPUProgrammableStage::new(module_~ : GPUShaderModule, entry_point? : String, constants? : @core.JsValue) -> Self
+pub fn GPUProgrammableStage::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUQuerySet
+pub fn GPUQuerySet::count(Self) -> Int32
+pub fn GPUQuerySet::destroy(Self) -> Unit
+pub fn GPUQuerySet::type_(Self) -> String
+
+pub(all) struct GPUQuerySetDescriptor {
+  mut label : String?
+  mut type_ : String?
+  mut count : Int32
+}
+pub fn GPUQuerySetDescriptor::copy(Self) -> Self
+pub fn GPUQuerySetDescriptor::default() -> Self
+pub fn GPUQuerySetDescriptor::new(label? : String, type_? : String, count~ : Int32) -> Self
+pub fn GPUQuerySetDescriptor::reset(Self) -> Unit
+pub fn GPUQuerySetDescriptor::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUQueue
+pub fn GPUQueue::copy_element_image_to_texture(Self, @core.JsValue, @core.JsValue) -> Unit
+pub fn GPUQueue::copy_element_image_to_texture_length(Self) -> Int32
+pub fn GPUQueue::copy_element_image_to_texture_sized(Self, @core.JsValue, Int32, Int32, @core.JsValue) -> Unit
+pub fn GPUQueue::copy_external_image_to_texture(Self, GPUCopyExternalImageSourceInfo, GPUCopyExternalImageDestInfo, GPUExtent3D) -> Unit
+pub fn GPUQueue::has_copy_element_image_to_texture(Self) -> Bool
+pub fn GPUQueue::on_submitted_work_done(Self, () -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn GPUQueue::on_submitted_work_done_promise(Self) -> @core.JsValue
+pub fn GPUQueue::submit(Self, Array[GPUCommandBuffer]) -> Unit
+pub fn[D0 : GPUBufferSource] GPUQueue::write_buffer(Self, GPUBuffer, Int32, D0, data_offset? : Int32, size? : Int32) -> Unit
+pub fn[D0 : GPUBufferSource] GPUQueue::write_texture(Self, GPUTexelCopyTextureInfo, D0, GPUTexelCopyBufferLayout, GPUExtent3D) -> Unit
+
+#external
+pub type GPURenderBundle
+
+pub(all) struct GPURenderBundleDescriptor {
+  mut label : String?
+}
+pub fn GPURenderBundleDescriptor::new(label? : String) -> Self
+pub fn GPURenderBundleDescriptor::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPURenderBundleEncoder
+pub fn GPURenderBundleEncoder::draw(Self, Int32, instance_count? : Int32, first_vertex? : Int32, first_instance? : Int32) -> Unit
+pub fn GPURenderBundleEncoder::draw_indexed(Self, Int32, instance_count? : Int32, first_index? : Int32, base_vertex? : Int32, first_instance? : Int32) -> Unit
+pub fn GPURenderBundleEncoder::draw_indexed_indirect(Self, GPUBuffer, Int32) -> Unit
+pub fn GPURenderBundleEncoder::draw_indirect(Self, GPUBuffer, Int32) -> Unit
+pub fn GPURenderBundleEncoder::finish(Self, descriptor? : GPURenderBundleDescriptor) -> GPURenderBundle
+pub fn GPURenderBundleEncoder::set_bind_group(Self, Int32, GPUBindGroup) -> Unit
+pub fn GPURenderBundleEncoder::set_index_buffer(Self, GPUBuffer, String, offset? : Int32, size? : Int32) -> Unit
+pub fn GPURenderBundleEncoder::set_pipeline(Self, GPURenderPipeline) -> Unit
+pub fn GPURenderBundleEncoder::set_vertex_buffer(Self, Int32, GPUBuffer, offset? : Int32, size? : Int32) -> Unit
+
+pub(all) struct GPURenderBundleEncoderDescriptor {
+  mut label : String?
+  mut color_formats : Array[String]?
+  mut depth_stencil_format : String?
+  mut sample_count : Int32?
+  mut depth_read_only : Bool?
+  mut stencil_read_only : Bool?
+}
+pub fn GPURenderBundleEncoderDescriptor::copy(Self) -> Self
+pub fn GPURenderBundleEncoderDescriptor::default() -> Self
+pub fn GPURenderBundleEncoderDescriptor::new(label? : String, color_formats? : Array[String], depth_stencil_format? : String, sample_count? : Int32, depth_read_only? : Bool, stencil_read_only? : Bool) -> Self
+pub fn GPURenderBundleEncoderDescriptor::reset(Self) -> Unit
+pub fn GPURenderBundleEncoderDescriptor::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPURenderPassColorAttachment {
+  mut view : GPUTextureView?
+  mut depth_slice : Int32?
+  mut resolve_target : GPUTextureView?
+  mut clear_value : GPUColor?
+  mut load_op : String?
+  mut store_op : String?
+}
+pub fn GPURenderPassColorAttachment::copy(Self) -> Self
+pub fn GPURenderPassColorAttachment::default() -> Self
+pub fn GPURenderPassColorAttachment::new(view? : GPUTextureView, depth_slice? : Int32, resolve_target? : GPUTextureView, clear_value? : GPUColor, load_op? : String, store_op? : String) -> Self
+pub fn GPURenderPassColorAttachment::reset(Self) -> Unit
+pub fn GPURenderPassColorAttachment::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPURenderPassDepthStencilAttachment {
+  mut view : GPUTextureView?
+  mut depth_load_op : String?
+  mut depth_store_op : String?
+  mut depth_clear_value : Double?
+  mut depth_read_only : Bool?
+  mut stencil_load_op : String?
+  mut stencil_store_op : String?
+  mut stencil_clear_value : Int32?
+  mut stencil_read_only : Bool?
+}
+pub fn GPURenderPassDepthStencilAttachment::copy(Self) -> Self
+pub fn GPURenderPassDepthStencilAttachment::default() -> Self
+pub fn GPURenderPassDepthStencilAttachment::new(view? : GPUTextureView, depth_load_op? : String, depth_store_op? : String, depth_clear_value? : Double, depth_read_only? : Bool, stencil_load_op? : String, stencil_store_op? : String, stencil_clear_value? : Int32, stencil_read_only? : Bool) -> Self
+pub fn GPURenderPassDepthStencilAttachment::reset(Self) -> Unit
+pub fn GPURenderPassDepthStencilAttachment::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPURenderPassDescriptor {
+  mut label : String?
+  mut color_attachments : Array[GPURenderPassColorAttachment]
+  mut depth_stencil_attachment : GPURenderPassDepthStencilAttachment?
+  mut occlusion_query_set : GPUQuerySet?
+  mut timestamp_writes : GPURenderPassTimestampWrites?
+  mut max_draw_count : Int32?
+}
+pub fn GPURenderPassDescriptor::copy(Self) -> Self
+pub fn GPURenderPassDescriptor::default() -> Self
+pub fn GPURenderPassDescriptor::new(label? : String, color_attachments~ : Array[GPURenderPassColorAttachment], depth_stencil_attachment? : GPURenderPassDepthStencilAttachment, occlusion_query_set? : GPUQuerySet, timestamp_writes? : GPURenderPassTimestampWrites, max_draw_count? : Int32) -> Self
+pub fn GPURenderPassDescriptor::reset(Self) -> Unit
+pub fn GPURenderPassDescriptor::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPURenderPassEncoder
+pub fn GPURenderPassEncoder::begin_occlusion_query(Self, Int32) -> Unit
+pub fn GPURenderPassEncoder::draw(Self, Int32, instance_count? : Int32, first_vertex? : Int32, first_instance? : Int32) -> Unit
+pub fn GPURenderPassEncoder::draw_indexed(Self, Int32, instance_count? : Int32, first_index? : Int32, base_vertex? : Int32, first_instance? : Int32) -> Unit
+pub fn GPURenderPassEncoder::draw_indexed_indirect(Self, GPUBuffer, Int32) -> Unit
+pub fn GPURenderPassEncoder::draw_indirect(Self, GPUBuffer, Int32) -> Unit
+pub fn GPURenderPassEncoder::end(Self) -> Unit
+pub fn GPURenderPassEncoder::end_occlusion_query(Self) -> Unit
+pub fn GPURenderPassEncoder::execute_bundles(Self, Array[GPURenderBundle]) -> Unit
+pub fn GPURenderPassEncoder::set_bind_group(Self, Int32, GPUBindGroup) -> Unit
+pub fn GPURenderPassEncoder::set_blend_constant(Self, GPUColor) -> Unit
+pub fn GPURenderPassEncoder::set_index_buffer(Self, GPUBuffer, String, offset? : Int32, size? : Int32) -> Unit
+pub fn GPURenderPassEncoder::set_pipeline(Self, GPURenderPipeline) -> Unit
+pub fn GPURenderPassEncoder::set_scissor_rect(Self, Int32, Int32, Int32, Int32) -> Unit
+pub fn GPURenderPassEncoder::set_stencil_reference(Self, Int32) -> Unit
+pub fn GPURenderPassEncoder::set_vertex_buffer(Self, Int32, GPUBuffer, offset? : Int32, size? : Int32) -> Unit
+pub fn GPURenderPassEncoder::set_viewport(Self, Double, Double, Double, Double, Double, Double) -> Unit
+
+pub(all) struct GPURenderPassTimestampWrites {
+  mut query_set : GPUQuerySet?
+  mut beginning_of_pass_write_index : Int32?
+  mut end_of_pass_write_index : Int32?
+}
+pub fn GPURenderPassTimestampWrites::copy(Self) -> Self
+pub fn GPURenderPassTimestampWrites::default() -> Self
+pub fn GPURenderPassTimestampWrites::new(query_set? : GPUQuerySet, beginning_of_pass_write_index? : Int32, end_of_pass_write_index? : Int32) -> Self
+pub fn GPURenderPassTimestampWrites::reset(Self) -> Unit
+pub fn GPURenderPassTimestampWrites::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPURenderPipeline
+pub fn GPURenderPipeline::get_bind_group_layout(Self, Int32) -> GPUBindGroupLayout
+
+pub(all) struct GPURenderPipelineDescriptor {
+  mut label : String?
+  mut layout : GPUPipelineLayoutOrAuto?
+  mut vertex : GPUVertexState?
+  mut primitive : GPUPrimitiveState?
+  mut depth_stencil : GPUDepthStencilState?
+  mut multisample : GPUMultisampleState?
+  mut fragment : GPUFragmentState?
+}
+pub fn GPURenderPipelineDescriptor::copy(Self) -> Self
+pub fn GPURenderPipelineDescriptor::default() -> Self
+pub fn GPURenderPipelineDescriptor::new(label? : String, layout? : GPUPipelineLayoutOrAuto, vertex? : GPUVertexState, primitive? : GPUPrimitiveState, depth_stencil? : GPUDepthStencilState, multisample? : GPUMultisampleState, fragment? : GPUFragmentState) -> Self
+pub fn GPURenderPipelineDescriptor::reset(Self) -> Unit
+pub fn GPURenderPipelineDescriptor::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPURequestAdapterOptions {
+  mut power_preference : String?
+  mut feature_level : String?
+  mut xr_compatible : Bool?
+  mut force_fallback_adapter : Bool?
+}
+pub fn GPURequestAdapterOptions::new(power_preference? : String, feature_level? : String, xr_compatible? : Bool, force_fallback_adapter? : Bool) -> Self
+pub fn GPURequestAdapterOptions::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUSampler
+
+pub(all) struct GPUSamplerBindingLayout {
+  mut type_ : String?
+}
+pub fn GPUSamplerBindingLayout::new(type_? : String) -> Self
+pub fn GPUSamplerBindingLayout::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUSamplerDescriptor {
+  mut label : String?
+  mut address_mode_u : String?
+  mut address_mode_v : String?
+  mut address_mode_w : String?
+  mut mag_filter : String?
+  mut min_filter : String?
+  mut mipmap_filter : String?
+  mut lod_min_clamp : Double?
+  mut lod_max_clamp : Double?
+  mut compare : String?
+  mut max_anisotropy : Int32?
+}
+pub fn GPUSamplerDescriptor::copy(Self) -> Self
+pub fn GPUSamplerDescriptor::default() -> Self
+pub fn GPUSamplerDescriptor::new(label? : String, address_mode_u? : String, address_mode_v? : String, address_mode_w? : String, mag_filter? : String, min_filter? : String, mipmap_filter? : String, lod_min_clamp? : Double, lod_max_clamp? : Double, compare? : String, max_anisotropy? : Int32) -> Self
+pub fn GPUSamplerDescriptor::reset(Self) -> Unit
+pub fn GPUSamplerDescriptor::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUShaderModule
+pub fn GPUShaderModule::get_compilation_info(Self, (GPUCompilationInfo) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn GPUShaderModule::get_compilation_info_promise(Self) -> @core.JsValue
+
+pub(all) struct GPUShaderModuleDescriptor {
+  mut label : String?
+  mut code : String
+  mut compilation_hints : Array[@core.JsValue]?
+}
+pub fn GPUShaderModuleDescriptor::copy(Self) -> Self
+pub fn GPUShaderModuleDescriptor::default() -> Self
+pub fn GPUShaderModuleDescriptor::new(label? : String, code~ : String, compilation_hints? : Array[@core.JsValue]) -> Self
+pub fn GPUShaderModuleDescriptor::reset(Self) -> Unit
+pub fn GPUShaderModuleDescriptor::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUStencilFaceState {
+  mut compare : String?
+  mut fail_op : String?
+  mut depth_fail_op : String?
+  mut pass_op : String?
+}
+pub fn GPUStencilFaceState::new(compare? : String, fail_op? : String, depth_fail_op? : String, pass_op? : String) -> Self
+pub fn GPUStencilFaceState::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUStorageTextureBindingLayout {
+  mut format : String?
+  mut access : String?
+  mut view_dimension : String?
+}
+pub fn GPUStorageTextureBindingLayout::new(format? : String, access? : String, view_dimension? : String) -> Self
+pub fn GPUStorageTextureBindingLayout::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUSupportedFeatures
+pub fn GPUSupportedFeatures::has(Self, String) -> Bool
+
+#external
+pub type GPUSupportedLimits
+pub fn GPUSupportedLimits::max_bind_groups(Self) -> Double
+pub fn GPUSupportedLimits::max_bind_groups_plus_vertex_buffers(Self) -> Double
+pub fn GPUSupportedLimits::max_bindings_per_bind_group(Self) -> Double
+pub fn GPUSupportedLimits::max_buffer_size(Self) -> Double
+pub fn GPUSupportedLimits::max_color_attachment_bytes_per_sample(Self) -> Double
+pub fn GPUSupportedLimits::max_color_attachments(Self) -> Double
+pub fn GPUSupportedLimits::max_compute_invocations_per_workgroup(Self) -> Double
+pub fn GPUSupportedLimits::max_compute_workgroup_size_x(Self) -> Double
+pub fn GPUSupportedLimits::max_compute_workgroup_size_y(Self) -> Double
+pub fn GPUSupportedLimits::max_compute_workgroup_size_z(Self) -> Double
+pub fn GPUSupportedLimits::max_compute_workgroup_storage_size(Self) -> Double
+pub fn GPUSupportedLimits::max_compute_workgroups_per_dimension(Self) -> Double
+pub fn GPUSupportedLimits::max_dynamic_storage_buffers_per_pipeline_layout(Self) -> Double
+pub fn GPUSupportedLimits::max_dynamic_uniform_buffers_per_pipeline_layout(Self) -> Double
+pub fn GPUSupportedLimits::max_inter_stage_shader_variables(Self) -> Double
+pub fn GPUSupportedLimits::max_sampled_textures_per_shader_stage(Self) -> Double
+pub fn GPUSupportedLimits::max_samplers_per_shader_stage(Self) -> Double
+pub fn GPUSupportedLimits::max_storage_buffer_binding_size(Self) -> Double
+pub fn GPUSupportedLimits::max_storage_buffers_per_shader_stage(Self) -> Double
+pub fn GPUSupportedLimits::max_storage_textures_per_shader_stage(Self) -> Double
+pub fn GPUSupportedLimits::max_texture_array_layers(Self) -> Double
+pub fn GPUSupportedLimits::max_texture_dimension1d(Self) -> Double
+pub fn GPUSupportedLimits::max_texture_dimension2d(Self) -> Double
+pub fn GPUSupportedLimits::max_texture_dimension3d(Self) -> Double
+pub fn GPUSupportedLimits::max_uniform_buffer_binding_size(Self) -> Double
+pub fn GPUSupportedLimits::max_uniform_buffers_per_shader_stage(Self) -> Double
+pub fn GPUSupportedLimits::max_vertex_attributes(Self) -> Double
+pub fn GPUSupportedLimits::max_vertex_buffer_array_stride(Self) -> Double
+pub fn GPUSupportedLimits::max_vertex_buffers(Self) -> Double
+pub fn GPUSupportedLimits::min_storage_buffer_offset_alignment(Self) -> Double
+pub fn GPUSupportedLimits::min_uniform_buffer_offset_alignment(Self) -> Double
+
+pub(all) struct GPUTexelCopyBufferInfo {
+  mut buffer : GPUBuffer?
+  mut offset : Int32?
+  mut bytes_per_row : Int32?
+  mut rows_per_image : Int32?
+}
+pub fn GPUTexelCopyBufferInfo::copy(Self) -> Self
+pub fn GPUTexelCopyBufferInfo::default() -> Self
+pub fn GPUTexelCopyBufferInfo::new(buffer? : GPUBuffer, offset? : Int32, bytes_per_row? : Int32, rows_per_image? : Int32) -> Self
+pub fn GPUTexelCopyBufferInfo::reset(Self) -> Unit
+pub fn GPUTexelCopyBufferInfo::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUTexelCopyBufferLayout {
+  mut offset : Int32?
+  mut bytes_per_row : Int32?
+  mut rows_per_image : Int32?
+}
+pub fn GPUTexelCopyBufferLayout::copy(Self) -> Self
+pub fn GPUTexelCopyBufferLayout::default() -> Self
+pub fn GPUTexelCopyBufferLayout::new(offset? : Int32, bytes_per_row? : Int32, rows_per_image? : Int32) -> Self
+pub fn GPUTexelCopyBufferLayout::reset(Self) -> Unit
+pub fn GPUTexelCopyBufferLayout::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUTexelCopyTextureInfo {
+  mut texture : GPUTexture?
+  mut mip_level : Int32?
+  mut origin : GPUOrigin3D?
+  mut aspect : String?
+}
+pub fn GPUTexelCopyTextureInfo::copy(Self) -> Self
+pub fn GPUTexelCopyTextureInfo::default() -> Self
+pub fn GPUTexelCopyTextureInfo::new(texture? : GPUTexture, mip_level? : Int32, origin? : GPUOrigin3D, aspect? : String) -> Self
+pub fn GPUTexelCopyTextureInfo::reset(Self) -> Unit
+pub fn GPUTexelCopyTextureInfo::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUTexture
+pub fn GPUTexture::create_view(Self, descriptor? : GPUTextureViewDescriptor) -> GPUTextureView
+pub fn GPUTexture::create_view_js(Self, @core.JsValue) -> GPUTextureView
+pub fn GPUTexture::depth_or_array_layers(Self) -> Int32
+pub fn GPUTexture::destroy(Self) -> Unit
+pub fn GPUTexture::dimension(Self) -> String
+pub fn GPUTexture::format(Self) -> String
+pub fn GPUTexture::height(Self) -> Int32
+pub fn GPUTexture::label(Self) -> String
+pub fn GPUTexture::mip_level_count(Self) -> Int32
+pub fn GPUTexture::sample_count(Self) -> Int32
+pub fn GPUTexture::set_label(Self, String) -> Unit
+pub fn GPUTexture::texture_binding_view_dimension(Self) -> String?
+pub fn GPUTexture::usage(Self) -> Int32
+pub fn GPUTexture::width(Self) -> Int32
+
+pub(all) struct GPUTextureBindingLayout {
+  mut multisampled : Bool?
+  mut sample_type : String?
+  mut view_dimension : String?
+}
+pub fn GPUTextureBindingLayout::new(multisampled? : Bool, sample_type? : String, view_dimension? : String) -> Self
+pub fn GPUTextureBindingLayout::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUTextureDescriptor {
+  mut label : String?
+  mut size : GPUExtent3D
+  mut mip_level_count : Int32?
+  mut sample_count : Int32?
+  mut dimension : String?
+  mut format : String?
+  mut usage : Int32?
+  mut view_formats : Array[String]?
+  mut texture_binding_view_dimension : String?
+}
+pub fn GPUTextureDescriptor::copy(Self) -> Self
+pub fn GPUTextureDescriptor::default() -> Self
+pub fn GPUTextureDescriptor::new(label? : String, size~ : GPUExtent3D, mip_level_count? : Int32, sample_count? : Int32, dimension? : String, format? : String, usage? : Int32, view_formats? : Array[String], texture_binding_view_dimension? : String) -> Self
+pub fn GPUTextureDescriptor::reset(Self) -> Unit
+pub fn GPUTextureDescriptor::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUTextureView
+
+pub(all) struct GPUTextureViewDescriptor {
+  mut label : String?
+  mut format : String?
+  mut dimension : String?
+  mut usage : Int32?
+  mut aspect : String?
+  mut base_mip_level : Int32?
+  mut mip_level_count : Int32?
+  mut base_array_layer : Int32?
+  mut array_layer_count : Int32?
+  mut swizzle : String?
+}
+pub fn GPUTextureViewDescriptor::copy(Self) -> Self
+pub fn GPUTextureViewDescriptor::default() -> Self
+pub fn GPUTextureViewDescriptor::new(label? : String, format? : String, dimension? : String, usage? : Int32, aspect? : String, base_mip_level? : Int32, mip_level_count? : Int32, base_array_layer? : Int32, array_layer_count? : Int32, swizzle? : String) -> Self
+pub fn GPUTextureViewDescriptor::reset(Self) -> Unit
+pub fn GPUTextureViewDescriptor::to_js(Self) -> @core.JsValue
+
+#external
+pub type GPUUncapturedErrorEvent
+pub fn GPUUncapturedErrorEvent::error(Self) -> GPUError
+
+pub(all) struct GPUVertexAttribute {
+  mut shader_location : Int32
+  mut offset : Int32
+  mut format : String
+}
+pub fn GPUVertexAttribute::new(shader_location~ : Int32, offset~ : Int32, format~ : String) -> Self
+pub fn GPUVertexAttribute::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUVertexBufferLayout {
+  mut array_stride : Int32
+  mut attributes : Array[GPUVertexAttribute]
+  mut step_mode : String?
+}
+pub fn GPUVertexBufferLayout::new(array_stride~ : Int32, attributes~ : Array[GPUVertexAttribute], step_mode? : String) -> Self
+pub fn GPUVertexBufferLayout::to_js(Self) -> @core.JsValue
+
+pub(all) struct GPUVertexState {
+  mut module_ : GPUShaderModule
+  mut entry_point : String?
+  mut constants : @core.JsValue?
+  mut buffers : Array[GPUVertexBufferLayout]?
+}
+pub fn GPUVertexState::new(module_~ : GPUShaderModule, entry_point? : String, constants? : @core.JsValue, buffers? : Array[GPUVertexBufferLayout]) -> Self
+pub fn GPUVertexState::to_js(Self) -> @core.JsValue
+
+#external
+pub type WGSLLanguageFeatures
+pub fn WGSLLanguageFeatures::has(Self, String) -> Bool
+
+// Type aliases
+
+// Traits
+pub(open) trait GPUBufferSource {
+  fn to_buffer_source(Self) -> @core.JsValue
+}
+pub impl GPUBufferSource for @core.ArrayBuffer
+pub impl GPUBufferSource for @core.JsValue
+pub impl GPUBufferSource for @core.TypedArray

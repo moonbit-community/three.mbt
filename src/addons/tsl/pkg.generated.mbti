@@ -1,0 +1,1432 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/addons/tsl"
+
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/nodes",
+  "bobzhang/three/renderers/webgl",
+  "moonbitlang/core/ref",
+}
+
+// Values
+pub const ADDON_PI : Double = 3.141592653589793
+
+pub const ATLAS_PADDING : Int32 = 1
+
+pub const ENV_RAY_LENGTH : Double = 10000.0
+
+pub const ENV_RAY_LENGTH_THRESHOLD : Double = 1000.0
+
+pub fn addon_arg(@nodes.FnInputs, Int32) -> @nodes.Node
+
+pub fn[T] addon_class_of(@nodes.Node, String) -> T?
+
+pub fn addon_js_pow(Double, Double) -> Double
+
+pub fn addon_node_object(&@nodes.IntoTsl) -> @nodes.Node
+
+pub fn addon_node_or_uniform(&@nodes.IntoTsl) -> @nodes.Node
+
+pub fn addon_object3d_arg(@nodes.FnInputs, Int32) -> @core.Object3D
+
+pub fn addon_option(@nodes.TslValue, String) -> @nodes.TslValue
+
+pub fn addon_options(Array[(String, &@nodes.IntoTsl)]) -> @nodes.TslValue
+
+pub fn addon_short_layout(Array[(String, String)], String) -> @nodes.FnLayoutArg
+
+pub fn addon_texture_uv_node(@nodes.Node) -> @nodes.Node?
+
+pub fn addon_truthy(@nodes.TslValue) -> Bool
+
+pub fn after_image(@nodes.Node, damp? : &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn anaglyph_pass(@core.Object3D, @core.Object3D) -> @nodes.Node
+
+pub fn ao(&@nodes.IntoTsl, &@nodes.IntoTsl?, @core.Object3D) -> @nodes.Node
+
+pub fn barrel_mask() -> @nodes.Node
+
+pub fn barrel_uv() -> @nodes.Node
+
+pub fn bayer16() -> @nodes.Node
+
+pub fn bayer_dither() -> @nodes.Node
+
+pub fn bilateral_blur(@nodes.Node, direction_node? : &@nodes.IntoTsl, sigma? : Double, sigma_color? : Double) -> @nodes.Node
+
+pub fn bind_analytic_noise(&@nodes.IntoTsl, seed? : &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn bleach() -> @nodes.Node
+
+pub fn bloom(&@nodes.IntoTsl, strength? : &@nodes.IntoTsl, radius? : &@nodes.IntoTsl, threshold? : &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn box_blur() -> @nodes.Node
+
+pub fn chromatic_aberration(@nodes.Node, strength? : &@nodes.IntoTsl, center? : &@nodes.IntoTsl, scale? : &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn circle() -> @nodes.Node
+
+pub fn clip_aabb() -> @nodes.Node
+
+pub fn clustered_lights(max_lights? : Int32, tile_size? : Int32, z_slices? : Int32, max_lights_per_cluster? : Int32) -> @nodes.Node
+
+pub fn color_bleeding() -> @nodes.Node
+
+pub fn compute_halton_offsets(Int32) -> Array[(Double, Double)]
+
+pub fn curl_noise() -> @nodes.Node
+
+pub fn d_gtr() -> @nodes.Node
+
+pub fn denoise(@nodes.Node, &@nodes.IntoTsl, @nodes.Node?, @core.Object3D) -> @nodes.Node
+
+pub fn depth_aware_blend() -> @nodes.Node
+
+pub fn depth_aware_blur() -> @nodes.Node
+
+pub fn dof(@nodes.Node, &@nodes.IntoTsl, focus_distance? : &@nodes.IntoTsl, focal_length? : &@nodes.IntoTsl, bokeh_scale? : &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn dot_screen(&@nodes.IntoTsl, angle? : &@nodes.IntoTsl, scale? : &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn dynamic_lights(max_directional_lights? : Int32, max_point_lights? : Int32, max_spot_lights? : Int32, max_hemisphere_lights? : Int32) -> @nodes.Node
+
+pub fn equirect_dir_pdf() -> @nodes.Node
+
+pub fn equirect_uv_to_dir() -> @nodes.Node
+
+pub fn f_schlick() -> @nodes.Node
+
+pub fn film(&@nodes.IntoTsl, intensity_node? : &@nodes.IntoTsl, uv_node? : &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn flicker_reduction() -> @nodes.Node
+
+pub fn fsr1(@nodes.Node, sharpness? : &@nodes.IntoTsl, denoise? : &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn fxaa(@nodes.Node) -> @nodes.Node
+
+pub fn gaussian_blur(@nodes.Node, direction_node? : &@nodes.IntoTsl, sigma? : Double, resolution_scale? : Double, premultiplied_alpha? : Bool) -> @nodes.Node
+
+pub fn geometry_term() -> @nodes.Node
+
+pub fn get_ground_projected_normal() -> @nodes.Node
+
+pub fn get_specular_dominant_factor() -> @nodes.Node
+
+pub fn ggx_reflection_sample(&@nodes.IntoTsl, &@nodes.IntoTsl, &@nodes.IntoTsl, &@nodes.IntoTsl, &@nodes.IntoTsl, &@nodes.IntoTsl, f0? : &@nodes.IntoTsl, f90? : &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn godrays(@nodes.Node, @core.Object3D, @core.Object3D) -> @nodes.Node
+
+pub fn hash2d() -> @nodes.Node
+
+pub fn hash3d() -> @nodes.Node
+
+pub fn hash_blur() -> @nodes.Node
+
+pub fn lens_dirt() -> @nodes.Node
+
+pub fn lensflare(@nodes.Node, ghost_tint? : &@nodes.IntoTsl, threshold? : &@nodes.IntoTsl, ghost_samples? : &@nodes.IntoTsl, ghost_spacing? : &@nodes.IntoTsl, ghost_attenuation_factor? : &@nodes.IntoTsl, down_sample_ratio? : Double) -> @nodes.Node
+
+pub fn light_probe_grid_irradiance(@core.Object3D, &@nodes.IntoTsl, &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn load_display_after_image_node() -> Unit
+
+pub fn load_display_anaglyph_pass_node() -> Unit
+
+pub fn load_display_bilateral_blur_node() -> Unit
+
+pub fn load_display_bleach_bypass() -> Unit
+
+pub fn load_display_bloom_node() -> Unit
+
+pub fn load_display_box_blur() -> Unit
+
+pub fn load_display_crt() -> Unit
+
+pub fn load_display_depth_aware_blend() -> Unit
+
+pub fn load_display_depth_aware_blur() -> Unit
+
+pub fn load_display_depth_of_field_node() -> Unit
+
+pub fn load_display_fsr1_node() -> Unit
+
+pub fn load_display_gaussian_blur_node() -> Unit
+
+pub fn load_display_godrays_node() -> Unit
+
+pub fn load_display_gtao_node() -> Unit
+
+pub fn load_display_hash_blur() -> Unit
+
+pub fn load_display_importance_sampled_environment() -> Unit
+
+pub fn load_display_lens_dirt() -> Unit
+
+pub fn load_display_lensflare_node() -> Unit
+
+pub fn load_display_motion_blur() -> Unit
+
+pub fn load_display_oit_pass_node() -> Unit
+
+pub fn load_display_outline_node() -> Unit
+
+pub fn load_display_parallax_barrier_pass_node() -> Unit
+
+pub fn load_display_radial_blur() -> Unit
+
+pub fn load_display_recurrent_denoise_node() -> Unit
+
+pub fn load_display_retro_pass_node() -> Unit
+
+pub fn load_display_sepia() -> Unit
+
+pub fn load_display_shape() -> Unit
+
+pub fn load_display_sharpen_node() -> Unit
+
+pub fn load_display_smaa_node() -> Unit
+
+pub fn load_display_ssao_node() -> Unit
+
+pub fn load_display_ssgi_node() -> Unit
+
+pub fn load_display_ssr_node() -> Unit
+
+pub fn load_display_sss_node() -> Unit
+
+pub fn load_display_stereo_composite_pass_node() -> Unit
+
+pub fn load_display_taau_node() -> Unit
+
+pub fn load_display_temporal_reproject_node() -> Unit
+
+pub fn load_display_traa_node() -> Unit
+
+pub fn load_math_bayer() -> Unit
+
+pub fn load_math_curl_noise() -> Unit
+
+pub fn load_math_voronoi_noise() -> Unit
+
+pub fn load_utils_grounded_skybox() -> Unit
+
+pub fn load_utils_raymarching() -> Unit
+
+pub fn load_utils_soft_particles() -> Unit
+
+pub fn load_utils_specular_helpers() -> Unit
+
+pub fn load_utils_taa_utils() -> Unit
+
+pub fn lut3_d(&@nodes.IntoTsl, &@nodes.IntoTsl, &@nodes.IntoTsl, &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn mis_power_heuristic() -> @nodes.Node
+
+pub fn motion_blur() -> @nodes.Node
+
+pub fn oit_pass(@core.Object3D, @core.Object3D, options? : @nodes.PassNodeOptions) -> @nodes.Node
+
+pub fn outline(@core.Object3D, @core.Object3D, selected_objects? : Array[@core.Object3D], edge_thickness? : &@nodes.IntoTsl, edge_glow? : &@nodes.IntoTsl, down_sample_ratio? : Double) -> @nodes.Node
+
+pub fn parallax_barrier_pass(@core.Object3D, @core.Object3D) -> @nodes.Node
+
+pub fn permute() -> @nodes.Node
+
+pub fn pixelation_pass(@core.Object3D, @core.Object3D, pixel_size? : Double, normal_edge_strength? : &@nodes.IntoTsl, depth_edge_strength? : &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn premultiplied_gaussian_blur(@nodes.Node, direction_node? : &@nodes.IntoTsl, sigma? : Double) -> @nodes.Node
+
+pub fn radial_blur() -> @nodes.Node
+
+pub fn raymarching_box(&@nodes.IntoTsl, (@nodes.Node, @nodes.Node) -> Unit) -> Unit
+
+pub fn recurrent_denoise(&@nodes.IntoTsl, @core.Object3D, depth? : &@nodes.IntoTsl, normal? : &@nodes.IntoTsl, metal_roughness? : &@nodes.IntoTsl, diffuse? : &@nodes.IntoTsl, raw? : &@nodes.IntoTsl, mode? : String, accumulate? : Bool) -> @nodes.Node
+
+pub fn retro_pass(@core.Object3D, @core.Object3D, affine_distortion? : @nodes.Node, filter_textures? : Bool) -> @nodes.Node
+
+pub fn rgb_shift(@nodes.Node, amount? : &@nodes.IntoTsl, angle? : &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn sample_current_depth() -> @nodes.Node
+
+pub fn sample_previous_depth() -> @nodes.Node
+
+pub fn scanlines() -> @nodes.Node
+
+pub fn sepia() -> @nodes.Node
+
+pub fn sharpen(@nodes.Node, sharpness? : &@nodes.IntoTsl, denoise? : &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn smaa(@nodes.Node) -> @nodes.Node
+
+pub fn smith_g() -> @nodes.Node
+
+pub fn snoise() -> @nodes.Node
+
+pub fn snoise_vec3() -> @nodes.Node
+
+pub fn sobel(@nodes.Node) -> @nodes.Node
+
+pub fn soft_particles(opacity? : @nodes.Node, distance? : &@nodes.IntoTsl, contrast? : &@nodes.IntoTsl, viewport_depth? : @nodes.Node) -> @nodes.Node
+
+pub fn ssaa_pass(@core.Object3D, @core.Object3D) -> @nodes.Node
+
+pub fn ssao(&@nodes.IntoTsl, &@nodes.IntoTsl, @core.Object3D) -> @nodes.Node
+
+pub fn ssgi(@nodes.Node, @nodes.Node, @nodes.Node?, @core.Object3D) -> @nodes.Node
+
+pub fn ssr(&@nodes.IntoTsl, &@nodes.IntoTsl, &@nodes.IntoTsl, stochastic? : Bool, metalness_node? : @nodes.Node, specular_node? : @nodes.Node, specular_f90_node? : @nodes.Node, roughness_node? : @nodes.Node, reflect_non_metals? : Bool, environment_node? : @core.Texture, env_importance_sampling? : Bool, diffuse_node? : &@nodes.IntoTsl, binary_refine? : Bool, camera? : @core.Object3D) -> @nodes.Node
+
+pub fn sss(@nodes.Node, @core.Object3D, @core.Object3D) -> @nodes.Node
+
+pub fn stereo_pass(@core.Object3D, @core.Object3D) -> @nodes.Node
+
+pub fn taau(@nodes.Node, @nodes.Node, @nodes.Node, @core.Object3D) -> @nodes.Node
+
+pub fn temporal_reproject(@nodes.Node, &@nodes.IntoTsl, &@nodes.IntoTsl, &@nodes.IntoTsl, @core.Object3D, mode? : String, hit_point_reprojection? : Bool, accumulate? : Bool) -> @nodes.Node
+
+pub fn traa(@nodes.Node, @nodes.Node, @nodes.Node, @core.Object3D) -> @nodes.Node
+
+pub fn transition(@nodes.Node, @nodes.Node, @nodes.Node, &@nodes.IntoTsl, &@nodes.IntoTsl, &@nodes.IntoTsl) -> @nodes.Node
+
+pub fn vignette() -> @nodes.Node
+
+pub fn voronoi2d() -> @nodes.Node
+
+pub fn voronoi3d() -> @nodes.Node
+
+// Errors
+
+// Types and methods
+pub struct AddonModule[T] {
+  // private fields
+}
+pub fn[T] AddonModule::get(Self[T]) -> T
+pub fn[T] AddonModule::is_loaded(Self[T]) -> Bool
+pub fn[T] AddonModule::new(() -> T) -> Self[T]
+
+pub(all) struct AfterImageNode {
+  mut texture_node : @nodes.Node
+  mut damp : @nodes.Node
+  mut _comp_rt : @core.RenderTarget
+  mut _old_rt : @core.RenderTarget
+  _texture_node : @nodes.Node
+  _texture_node_old : @nodes.Node
+  mut _material_composed : @core.Material?
+}
+pub fn AfterImageNode::get_texture_node(Self) -> @nodes.Node
+pub fn AfterImageNode::new(@nodes.Node, damp? : @nodes.Node) -> @nodes.Node
+pub fn AfterImageNode::of(@nodes.Node) -> Self?
+pub fn AfterImageNode::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for AfterImageNode
+
+pub(all) struct AmbientLightDataNode {
+  _color : @math.Color
+  mut _lights : Array[@core.Object3D]
+  mut color_node : @nodes.Node
+}
+pub fn AmbientLightDataNode::construct(@nodes.Node) -> Self
+pub fn AmbientLightDataNode::new() -> @nodes.Node
+pub fn AmbientLightDataNode::of(@nodes.Node) -> Self?
+pub fn AmbientLightDataNode::set_lights(@nodes.Node, Array[@core.Object3D]) -> @nodes.Node
+pub impl @nodes.NodeClass for AmbientLightDataNode
+
+#derive(Eq)
+pub(all) enum AnaglyphAlgorithm {
+  True_
+  Grey
+  Colour
+  HalfColour
+  Dubois
+  Optimised
+  Compromise
+}
+
+#derive(Eq)
+pub(all) enum AnaglyphColorMode {
+  RedCyan
+  MagentaCyan
+  MagentaGreen
+}
+
+pub(all) struct AnaglyphPassNode {
+  stereo : StereoCompositePassNode
+  mut eye_sep : Double
+  mut plane_distance : Double
+  mut _algorithm : AnaglyphAlgorithm
+  mut _color_mode : AnaglyphColorMode
+  _color_matrix_left : @nodes.Node
+  _color_matrix_right : @nodes.Node
+}
+pub fn AnaglyphPassNode::algorithm(Self) -> AnaglyphAlgorithm
+pub fn AnaglyphPassNode::color_mode(Self) -> AnaglyphColorMode
+pub fn AnaglyphPassNode::new(@core.Object3D, @core.Object3D) -> @nodes.Node
+pub fn AnaglyphPassNode::of(@nodes.Node) -> Self?
+pub fn AnaglyphPassNode::set_algorithm(Self, AnaglyphAlgorithm) -> Unit
+pub fn AnaglyphPassNode::set_color_mode(Self, AnaglyphColorMode) -> Unit
+pub impl StereoCompositePassNodeClass for AnaglyphPassNode
+pub impl @nodes.NodeClass for AnaglyphPassNode
+pub impl @nodes.PassNodeClass for AnaglyphPassNode
+
+pub(all) struct BilateralBlurNode {
+  mut texture_node : @nodes.Node
+  mut direction_node : @nodes.TslValue
+  mut sigma : Double
+  mut sigma_color : Double
+  _inv_size : @nodes.Node
+  _pass_direction : @nodes.Node
+  _horizontal_rt : @core.RenderTarget
+  _vertical_rt : @core.RenderTarget
+  _texture_node : @nodes.Node
+  mut _material : @core.Material?
+  mut resolution_scale : Double
+}
+pub fn BilateralBlurNode::get_texture_node(Self) -> @nodes.Node
+pub fn BilateralBlurNode::new(@nodes.Node, direction_node? : &@nodes.IntoTsl, sigma? : Double, sigma_color? : Double) -> @nodes.Node
+pub fn BilateralBlurNode::of(@nodes.Node) -> Self?
+pub fn BilateralBlurNode::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for BilateralBlurNode
+
+pub(all) struct BloomNode {
+  mut input_node : @nodes.Node
+  mut strength : @nodes.Node
+  mut radius : @nodes.Node
+  mut threshold : @nodes.Node
+  mut smooth_width : @nodes.Node
+  bloom_tint_colors : Array[@math.Vector3]
+  mut _resolution_scale : Double
+  mut high_pass_fn : @nodes.Node
+  _render_targets_horizontal : Array[@core.RenderTarget]
+  _render_targets_vertical : Array[@core.RenderTarget]
+  _n_mips : Int32
+  _render_target_bright : @core.RenderTarget
+  mut _composite_material : @core.Material?
+  mut _high_pass_filter_material : @core.Material?
+  _separable_blur_materials : Array[BloomSeparableBlurMaterial]
+  _texture_node_bright : @nodes.Node
+  _texture_node_blur0 : @nodes.Node
+  _texture_node_blur1 : @nodes.Node
+  _texture_node_blur2 : @nodes.Node
+  _texture_node_blur3 : @nodes.Node
+  _texture_node_blur4 : @nodes.Node
+  _texture_output : @nodes.Node
+}
+pub fn BloomNode::get_resolution_scale(Self) -> Double
+pub fn BloomNode::get_texture_node(Self) -> @nodes.Node
+pub fn BloomNode::new(@nodes.Node, strength? : &@nodes.IntoTsl, radius? : &@nodes.IntoTsl, threshold? : &@nodes.IntoTsl) -> @nodes.Node
+pub fn BloomNode::of(@nodes.Node) -> Self?
+pub fn BloomNode::set_resolution_scale(Self, Double) -> Self
+pub fn BloomNode::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for BloomNode
+
+pub(all) struct BloomSeparableBlurMaterial {
+  material : @core.Material
+  color_texture : @nodes.Node
+  direction : @nodes.Node
+  inv_size : @nodes.Node
+}
+
+pub(all) struct ChromaticAberrationNode {
+  mut texture_node : @nodes.Node
+  mut strength_node : @nodes.Node
+  mut center_node : @nodes.Node?
+  mut scale_node : @nodes.Node
+}
+pub fn ChromaticAberrationNode::new(@nodes.Node, @nodes.Node, @nodes.Node?, @nodes.Node) -> @nodes.Node
+pub fn ChromaticAberrationNode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for ChromaticAberrationNode
+
+pub(all) struct ClusteredLightsNode {
+  lights : @nodes.LightsNode
+  material_lights : Array[@core.Object3D]
+  clustered_lights : Array[@core.Object3D]
+  max_lights : Int32
+  tile_size : Int32
+  z_slices : Int32
+  max_lights_per_cluster : Int32
+  _chunks_per_cluster : Int32
+  mut _buffer_size : @math.Vector2?
+  mut _is_webgl_backend : Bool
+  mut _needs_rebuild : Bool
+  mut _invocations_per_cluster : Int32
+  mut _light_indexes : @nodes.Node?
+  mut _renderer : @nodes.Renderer?
+  mut _screen_cluster_index : @nodes.Node?
+  mut _compute : @nodes.Node?
+  _lights_texture : @core.Texture
+  _z_slice_ranges_data : @core.TypedArray
+  _z_slice_ranges_texture : @core.Texture
+  _light_view_z : @core.TypedArray
+  _light_sort_order : Array[Int32]
+  _lights_count : @nodes.Node
+  _camera_near : @nodes.Node
+  _camera_far : @nodes.Node
+  _camera_view_matrix : @nodes.Node
+  _camera_projection_matrix : @nodes.Node
+  _grid_dimensions : @nodes.Node
+}
+pub fn ClusteredLightsNode::_init_grid(Self, @nodes.Node, @nodes.Renderer) -> Unit
+pub fn ClusteredLightsNode::_update_lights_texture(Self, @core.Object3D) -> Unit
+pub fn ClusteredLightsNode::construct(@nodes.Node, Int32, Int32, Int32, Int32) -> Self
+pub fn ClusteredLightsNode::get_cluster_light_count(@nodes.Node, &@nodes.IntoTsl) -> @nodes.Node
+pub fn ClusteredLightsNode::new(max_lights? : Int32, tile_size? : Int32, z_slices? : Int32, max_lights_per_cluster? : Int32) -> @nodes.Node
+pub fn ClusteredLightsNode::of(@nodes.Node) -> Self?
+pub fn ClusteredLightsNode::set_size(@nodes.Node, Double, Double) -> @nodes.Node
+pub fn ClusteredLightsNode::update_size(@nodes.Node) -> Unit
+pub impl @nodes.LightsNodeClass for ClusteredLightsNode
+pub impl @nodes.NodeClass for ClusteredLightsNode
+
+pub(all) struct DenoiseNode {
+  mut texture_node : @nodes.Node
+  mut depth_node : @nodes.Node
+  mut normal_node : @nodes.Node?
+  _noise_texture : @core.Texture
+  mut noise_node : @nodes.Node
+  luma_phi : @nodes.Node
+  depth_phi : @nodes.Node
+  normal_phi : @nodes.Node
+  radius : @nodes.Node
+  index : @nodes.Node
+  _resolution : @nodes.Node
+  _sample_vectors : @nodes.Node
+  _camera_projection_matrix_inverse : @nodes.Node
+}
+pub fn DenoiseNode::new(@nodes.Node, @nodes.Node, @nodes.Node?, @core.Object3D) -> @nodes.Node
+pub fn DenoiseNode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for DenoiseNode
+
+pub(all) struct DepthOfFieldNode {
+  mut texture_node : @nodes.Node
+  mut view_z_node : @nodes.Node
+  mut focus_distance_node : @nodes.Node
+  mut focal_length_node : @nodes.Node
+  mut bokeh_scale_node : @nodes.Node
+  _inv_size : @nodes.Node
+  _coc_rt : @core.RenderTarget
+  _coc_blurred_rt : @core.RenderTarget
+  _blur64_rt : @core.RenderTarget
+  _blur16_near_rt : @core.RenderTarget
+  _blur16_far_rt : @core.RenderTarget
+  _composite_rt : @core.RenderTarget
+  _coc_material : @core.Material
+  _coc_blurred_material : @core.Material
+  _blur64_material : @core.Material
+  _blur16_material : @core.Material
+  _composite_material : @core.Material
+  _texture_node : @nodes.Node
+  _coc_texture_node : @nodes.Node
+  _coc_blur_node : @nodes.Node
+  _blur64_texture_node : @nodes.Node
+  _blur16_near_texture_node : @nodes.Node
+  _blur16_far_texture_node : @nodes.Node
+}
+pub fn DepthOfFieldNode::get_texture_node(Self) -> @nodes.Node
+pub fn DepthOfFieldNode::new(@nodes.Node, @nodes.Node, @nodes.Node, @nodes.Node, @nodes.Node) -> @nodes.Node
+pub fn DepthOfFieldNode::of(@nodes.Node) -> Self?
+pub fn DepthOfFieldNode::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for DepthOfFieldNode
+
+pub(all) struct DirectionalLightDataNode {
+  max_count : Int32
+  mut _lights : Array[@core.Object3D]
+  _colors : Array[@math.Color]
+  _directions : Array[@math.Vector3]
+  mut colors_node : @nodes.Node
+  mut directions_node : @nodes.Node
+  mut count_node : @nodes.Node
+}
+pub fn DirectionalLightDataNode::construct(@nodes.Node, Int32) -> Self
+pub fn DirectionalLightDataNode::new(max_count? : Int32) -> @nodes.Node
+pub fn DirectionalLightDataNode::of(@nodes.Node) -> Self?
+pub fn DirectionalLightDataNode::set_lights(@nodes.Node, Array[@core.Object3D]) -> @nodes.Node
+pub impl @nodes.NodeClass for DirectionalLightDataNode
+
+pub(all) struct DotScreenNode {
+  mut input_node : @nodes.Node
+  mut angle : @nodes.Node
+  mut scale : @nodes.Node
+}
+pub fn DotScreenNode::new(@nodes.Node, angle? : &@nodes.IntoTsl, scale? : &@nodes.IntoTsl) -> @nodes.Node
+pub fn DotScreenNode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for DotScreenNode
+
+pub(all) struct DynamicLightsNode {
+  lights : @nodes.LightsNode
+  mut max_directional_lights : Int32
+  mut max_point_lights : Int32
+  mut max_spot_lights : Int32
+  mut max_hemisphere_lights : Int32
+  _builtin_lights : Array[@core.Object3D]
+  _data_nodes : Map[String, @nodes.Node]
+}
+pub fn DynamicLightsNode::construct(@nodes.Node, Int32, Int32, Int32, Int32) -> Self
+pub fn DynamicLightsNode::data_node(@nodes.Node, String) -> @nodes.Node?
+pub fn DynamicLightsNode::new(max_directional_lights? : Int32, max_point_lights? : Int32, max_spot_lights? : Int32, max_hemisphere_lights? : Int32) -> @nodes.Node
+pub fn DynamicLightsNode::of(@nodes.Node) -> Self?
+pub impl @nodes.LightsNodeClass for DynamicLightsNode
+pub impl @nodes.NodeClass for DynamicLightsNode
+
+pub(all) struct FSR1Node {
+  mut texture_node : @nodes.Node
+  mut sharpness : @nodes.Node
+  mut denoise : @nodes.Node
+  _easu_rt : @core.RenderTarget
+  _rcas_rt : @core.RenderTarget
+  _texture_node : @nodes.Node
+  mut _easu_material : @core.Material?
+  mut _rcas_material : @core.Material?
+}
+pub fn FSR1Node::get_texture_node(Self) -> @nodes.Node
+pub fn FSR1Node::new(@nodes.Node, sharpness? : &@nodes.IntoTsl, denoise? : &@nodes.IntoTsl) -> @nodes.Node
+pub fn FSR1Node::of(@nodes.Node) -> Self?
+pub fn FSR1Node::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for FSR1Node
+
+pub(all) struct FXAANode {
+  mut texture_node : @nodes.Node
+  _inv_size : @nodes.Node
+}
+pub fn FXAANode::new(@nodes.Node) -> @nodes.Node
+pub fn FXAANode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for FXAANode
+
+pub(all) struct FilmNode {
+  mut input_node : @nodes.Node
+  mut intensity_node : @nodes.Node?
+  mut uv_node : @nodes.Node?
+}
+pub fn FilmNode::new(@nodes.Node, intensity_node? : @nodes.Node, uv_node? : @nodes.Node) -> @nodes.Node
+pub fn FilmNode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for FilmNode
+
+pub(all) struct GTAONode {
+  mut depth_node : @nodes.Node
+  mut normal_node : @nodes.Node?
+  mut resolution_scale : Double
+  _ao_render_target : @core.RenderTarget
+  radius : @nodes.Node
+  thickness : @nodes.Node
+  distance_exponent : @nodes.Node
+  distance_fall_off : @nodes.Node
+  scale : @nodes.Node
+  samples : @nodes.Node
+  mut use_temporal_filtering : Bool
+  _resolution : @nodes.Node
+  _noise_texture : @core.Texture
+  _noise_node : @nodes.Node
+  _camera_projection_matrix : @nodes.Node
+  _camera_projection_matrix_inverse : @nodes.Node
+  _camera_near : @nodes.Node
+  _camera_far : @nodes.Node
+  _camera : @core.Object3D
+  _temporal_direction : @nodes.Node
+  _temporal_offset : @nodes.Node
+  _resolution_scale : @nodes.Node
+  mut _ao : @nodes.Node?
+  mut _current_samples : Double
+  mut _shared_context : @nodes.NodeContext?
+  _material : @core.Material
+  mut _texture_node : @nodes.Node
+}
+pub fn GTAONode::get_texture_node(Self) -> @nodes.Node
+pub fn GTAONode::new(@nodes.Node, @nodes.Node?, @core.Object3D) -> @nodes.Node
+pub fn GTAONode::of(@nodes.Node) -> Self?
+pub fn GTAONode::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for GTAONode
+
+pub(all) struct GaussianBlurNode {
+  mut texture_node : @nodes.Node
+  mut direction_node : @nodes.TslValue
+  mut sigma : Double
+  _inv_size : @nodes.Node
+  _horizontal_rt : @core.RenderTarget
+  _vertical_rt : @core.RenderTarget
+  _texture_node : @nodes.Node
+  mut _h_material : @core.Material?
+  mut _v_material : @core.Material?
+  mut resolution_scale : Double
+  mut premultiplied_alpha : Bool
+}
+pub fn GaussianBlurNode::get_texture_node(Self) -> @nodes.Node
+pub fn GaussianBlurNode::new(@nodes.Node, direction_node? : &@nodes.IntoTsl, sigma? : Double, resolution_scale? : Double, premultiplied_alpha? : Bool) -> @nodes.Node
+pub fn GaussianBlurNode::of(@nodes.Node) -> Self?
+pub fn GaussianBlurNode::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for GaussianBlurNode
+
+pub(all) struct GodraysNode {
+  mut depth_node : @nodes.Node
+  raymarch_steps : @nodes.Node
+  density : @nodes.Node
+  max_density : @nodes.Node
+  distance_attenuation : @nodes.Node
+  mut resolution_scale : Double
+  _camera_matrix_world : @nodes.Node
+  _camera_projection_matrix_inverse : @nodes.Node
+  _premultiplied_light_camera_matrix : @nodes.Node
+  _camera_position : @nodes.Node
+  _camera_near : @nodes.Node
+  _camera_far : @nodes.Node
+  _shadow_camera_near : @nodes.Node
+  _shadow_camera_far : @nodes.Node
+  _f_normals : @nodes.Node
+  _f_constants : @nodes.Node
+  _light : @core.Object3D
+  _camera : @core.Object3D
+  _godrays_render_target : @core.RenderTarget
+  _material : @core.Material
+  mut _texture_node : @nodes.Node
+}
+pub fn GodraysNode::get_texture_node(Self) -> @nodes.Node
+pub fn GodraysNode::new(@nodes.Node, @core.Object3D, @core.Object3D) -> @nodes.Node
+pub fn GodraysNode::of(@nodes.Node) -> Self?
+pub fn GodraysNode::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for GodraysNode
+
+pub(all) struct HemisphereLightDataNode {
+  max_count : Int32
+  mut _lights : Array[@core.Object3D]
+  _sky_colors : Array[@math.Color]
+  _ground_colors : Array[@math.Color]
+  _directions : Array[@math.Vector3]
+  mut sky_colors_node : @nodes.Node
+  mut ground_colors_node : @nodes.Node
+  mut directions_node : @nodes.Node
+  mut count_node : @nodes.Node
+}
+pub fn HemisphereLightDataNode::construct(@nodes.Node, Int32) -> Self
+pub fn HemisphereLightDataNode::new(max_count? : Int32) -> @nodes.Node
+pub fn HemisphereLightDataNode::of(@nodes.Node) -> Self?
+pub fn HemisphereLightDataNode::set_lights(@nodes.Node, Array[@core.Object3D]) -> @nodes.Node
+pub impl @nodes.NodeClass for HemisphereLightDataNode
+
+pub struct ImportanceSampledEnvironment {
+  intensity : @nodes.Node
+  // private fields
+}
+pub fn ImportanceSampledEnvironment::clear(Self) -> Unit
+pub fn ImportanceSampledEnvironment::dispose(Self) -> Unit
+pub fn ImportanceSampledEnvironment::new(importance_sampling? : Bool) -> Self
+pub fn ImportanceSampledEnvironment::sample_environment_brdf(Self, camera_world_matrix~ : @nodes.Node, view_reflect_dir~ : @nodes.Node, n~ : @nodes.Node, v~ : @nodes.Node, alpha~ : @nodes.Node, f0~ : @nodes.Node, f90? : @nodes.Node) -> @nodes.Node
+pub fn ImportanceSampledEnvironment::sample_environment_mis(Self, camera_world_matrix~ : @nodes.Node, view_reflect_dir~ : @nodes.Node, n~ : @nodes.Node, v~ : @nodes.Node, alpha~ : @nodes.Node, f0~ : @nodes.Node, f90? : @nodes.Node, xi2~ : @nodes.Node) -> @nodes.Node
+pub fn ImportanceSampledEnvironment::sample_reflect(Self, camera_world_matrix~ : @nodes.Node, view_reflect_dir~ : @nodes.Node, sample_weight? : @nodes.Node) -> @nodes.Node
+pub fn ImportanceSampledEnvironment::update_from(Self, @core.Texture) -> Unit
+
+pub(all) struct LensflareNode {
+  mut texture_node : @nodes.Node
+  mut ghost_tint_node : @nodes.Node
+  mut threshold_node : @nodes.Node
+  mut ghost_samples_node : @nodes.Node
+  mut ghost_spacing_node : @nodes.Node
+  mut ghost_attenuation_factor_node : @nodes.Node
+  mut down_sample_ratio : Double
+  _render_target : @core.RenderTarget
+  _material : @core.Material
+  _texture_node : @nodes.Node
+}
+pub fn LensflareNode::get_texture_node(Self) -> @nodes.Node
+pub fn LensflareNode::new(@nodes.Node, ghost_tint? : &@nodes.IntoTsl, threshold? : &@nodes.IntoTsl, ghost_samples? : &@nodes.IntoTsl, ghost_spacing? : &@nodes.IntoTsl, ghost_attenuation_factor? : &@nodes.IntoTsl, down_sample_ratio? : Double) -> @nodes.Node
+pub fn LensflareNode::of(@nodes.Node) -> Self?
+pub fn LensflareNode::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for LensflareNode
+
+pub(all) struct LightProbeGridNode {
+  analytic : @nodes.AnalyticLightNode
+  _min : @nodes.Node
+  _max : @nodes.Node
+  _resolution : @nodes.Node
+  _intensity : @nodes.Node
+  _priority : @nodes.Node
+}
+pub fn LightProbeGridNode::construct(@nodes.Node, @core.Object3D?) -> Self
+pub fn LightProbeGridNode::new(light? : @core.Object3D) -> @nodes.Node
+pub fn LightProbeGridNode::node_class() -> @core.JsValue
+pub fn LightProbeGridNode::of(@nodes.Node) -> Self?
+pub impl @nodes.AnalyticLightNodeClass for LightProbeGridNode
+pub impl @nodes.NodeClass for LightProbeGridNode
+
+pub(all) struct Lut3DNode {
+  mut input_node : @nodes.Node
+  mut lut_node : @nodes.Node
+  mut size : @nodes.Node
+  mut intensity_node : @nodes.Node
+}
+pub fn Lut3DNode::new(@nodes.Node, @nodes.Node, &@nodes.IntoTsl, @nodes.Node) -> @nodes.Node
+pub fn Lut3DNode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for Lut3DNode
+
+pub(all) struct OITPassNode {
+  pass : @nodes.PassNode
+  mut weight_node : @nodes.Node?
+  _oit_render_target : @core.RenderTarget
+  mut _oit_mrt_node : @nodes.Node?
+  _renderer : @ref.Ref[@nodes.Renderer?]
+  _default_render_object_function : @nodes.RenderObjectFunction
+  _oit_render_object_function : @nodes.RenderObjectFunction
+}
+pub fn OITPassNode::_get_mrt_node(Self) -> @nodes.Node
+pub fn OITPassNode::construct(@nodes.Node, @core.Object3D, @core.Object3D, @nodes.PassNodeOptions) -> Self
+pub fn OITPassNode::new(@core.Object3D, @core.Object3D, options? : @nodes.PassNodeOptions) -> @nodes.Node
+pub fn OITPassNode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for OITPassNode
+pub impl @nodes.PassNodeClass for OITPassNode
+
+pub(all) struct OutlineNode {
+  mut scene : @core.Object3D
+  mut camera : @core.Object3D
+  mut selected_objects : Array[@core.Object3D]
+  mut edge_thickness_node : @nodes.Node
+  mut edge_glow_node : @nodes.Node
+  mut down_sample_ratio : Double
+  _render_target_depth_buffer : @core.RenderTarget
+  _render_target_mask_buffer : @core.RenderTarget
+  _render_target_mask_down_sample_buffer : @core.RenderTarget
+  _render_target_edge_buffer1 : @core.RenderTarget
+  _render_target_edge_buffer2 : @core.RenderTarget
+  _render_target_blur_buffer1 : @core.RenderTarget
+  _render_target_blur_buffer2 : @core.RenderTarget
+  _render_target_composite : @core.RenderTarget
+  _camera_near : @nodes.Node
+  _camera_far : @nodes.Node
+  _blur_direction : @nodes.Node
+  _depth_texture_uniform : @nodes.Node
+  _mask_texture_uniform : @nodes.Node
+  _mask_textures_down_sample_uniform : @nodes.Node
+  _edge1_texture_uniform : @nodes.Node
+  _edge2_texture_uniform : @nodes.Node
+  _blur_color_texture_uniform : @nodes.Node
+  _visible_edge_color : @nodes.Node
+  _hidden_edge_color : @nodes.Node
+  _depth_material : @core.Material
+  _depth_sprite_material : @core.Material
+  _prepare_mask_material : @core.Material
+  _prepare_mask_sprite_material : @core.Material
+  _material_copy : @core.Material
+  _edge_detection_material : @core.Material
+  _separable_blur_material : @core.Material
+  _separable_blur_material2 : @core.Material
+  _composite_material : @core.Material
+  _depth_material_cache : Map[Int32, (@core.Material, @core.Material)]
+  _prepare_mask_material_cache : Map[Int32, (@core.Material, @core.Material)]
+  _on_material_dispose : (@core.Event) -> Unit
+  _selection_cache : Map[Int32, @core.Object3D]
+  mut _last_selection_count : Int32
+  _texture_node : @nodes.Node
+}
+pub fn OutlineNode::get_texture_node(Self) -> @nodes.Node
+pub fn OutlineNode::hidden_edge(@nodes.Node) -> @nodes.Node
+pub fn OutlineNode::new(@core.Object3D, @core.Object3D, selected_objects? : Array[@core.Object3D], edge_thickness? : &@nodes.IntoTsl, edge_glow? : &@nodes.IntoTsl, down_sample_ratio? : Double) -> @nodes.Node
+pub fn OutlineNode::of(@nodes.Node) -> Self?
+pub fn OutlineNode::set_size(Self, Double, Double) -> Unit
+pub fn OutlineNode::visible_edge(@nodes.Node) -> @nodes.Node
+pub impl @nodes.NodeClass for OutlineNode
+
+pub(all) struct ParallaxBarrierPassNode {
+  stereo : StereoCompositePassNode
+}
+pub fn ParallaxBarrierPassNode::new(@core.Object3D, @core.Object3D) -> @nodes.Node
+pub fn ParallaxBarrierPassNode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for ParallaxBarrierPassNode
+
+pub(all) struct PixelationPassNode {
+  pass : @nodes.PassNode
+  mut pixel_size : Double
+  mut normal_edge_strength : @nodes.Node
+  mut depth_edge_strength : @nodes.Node
+}
+pub fn PixelationPassNode::new(@core.Object3D, @core.Object3D, pixel_size? : Double, normal_edge_strength? : &@nodes.IntoTsl, depth_edge_strength? : &@nodes.IntoTsl) -> @nodes.Node
+pub fn PixelationPassNode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for PixelationPassNode
+pub impl @nodes.PassNodeClass for PixelationPassNode
+
+pub(all) struct PointLightDataNode {
+  max_count : Int32
+  mut _lights : Array[@core.Object3D]
+  _colors : Array[@math.Color]
+  _positions_and_cutoff : Array[@math.Vector4]
+  _decays : Array[@math.Vector4]
+  mut colors_node : @nodes.Node
+  mut positions_and_cutoff_node : @nodes.Node
+  mut decays_node : @nodes.Node
+  mut count_node : @nodes.Node
+}
+pub fn PointLightDataNode::construct(@nodes.Node, Int32) -> Self
+pub fn PointLightDataNode::new(max_count? : Int32) -> @nodes.Node
+pub fn PointLightDataNode::of(@nodes.Node) -> Self?
+pub fn PointLightDataNode::set_lights(@nodes.Node, Array[@core.Object3D]) -> @nodes.Node
+pub impl @nodes.NodeClass for PointLightDataNode
+
+pub(all) struct RGBShiftNode {
+  mut texture_node : @nodes.Node
+  mut amount : @nodes.Node
+  mut angle : @nodes.Node
+}
+pub fn RGBShiftNode::new(@nodes.Node, amount? : &@nodes.IntoTsl, angle? : &@nodes.IntoTsl) -> @nodes.Node
+pub fn RGBShiftNode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for RGBShiftNode
+
+pub(all) struct RecurrentDenoiseNode {
+  mut camera : @core.Object3D
+  mut mode : String
+  mut accumulate : Bool
+  mut texture_node : @nodes.Node
+  mut depth_node : @nodes.Node?
+  mut normal_node : @nodes.Node?
+  mut raw_node : @nodes.Node?
+  mut roughness_metalness_node : @nodes.Node?
+  mut diffuse_node : @nodes.Node?
+  _noise_index : @nodes.Node
+  luma_phi : @nodes.Node
+  depth_phi : @nodes.Node
+  normal_phi : @nodes.Node
+  radius : @nodes.Node
+  alpha_phi : @nodes.Node
+  roughness_phi : @nodes.Node
+  diffuse_phi : @nodes.Node
+  adapt : @nodes.Node
+  smooth_disocclusions : @nodes.Node
+  strength : @nodes.Node
+  max_frames : @nodes.Node
+  mut alpha_source : String
+  flicker_suppression : @nodes.Node
+  adaptive_trust : @nodes.Node
+  _resolution : @nodes.Node
+  _fov_y : @nodes.Node
+  _camera_projection_matrix_inverse : @nodes.Node
+  _camera_projection_matrix : @nodes.Node
+  _view_matrix : @nodes.Node
+  _render_target : @core.RenderTarget
+  _material : @core.Material
+  mut _texture_node : @nodes.Node
+}
+pub fn RecurrentDenoiseNode::get_render_target(Self) -> @core.RenderTarget
+pub fn RecurrentDenoiseNode::get_texture_node(Self) -> @nodes.Node
+pub fn RecurrentDenoiseNode::new(@nodes.Node, @core.Object3D, depth? : &@nodes.IntoTsl, normal? : &@nodes.IntoTsl, metal_roughness? : &@nodes.IntoTsl, diffuse? : &@nodes.IntoTsl, raw? : &@nodes.IntoTsl, mode? : String, accumulate? : Bool) -> @nodes.Node
+pub fn RecurrentDenoiseNode::of(@nodes.Node) -> Self?
+pub fn RecurrentDenoiseNode::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for RecurrentDenoiseNode
+
+pub(all) struct RetroPassNode {
+  pass : @nodes.PassNode
+  mut affine_distortion_node : @nodes.Node?
+  mut filter_textures : Bool
+  // private fields
+}
+pub fn RetroPassNode::new(@core.Object3D, @core.Object3D, affine_distortion? : @nodes.Node, filter_textures? : Bool) -> @nodes.Node
+pub fn RetroPassNode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for RetroPassNode
+pub impl @nodes.PassNodeClass for RetroPassNode
+
+pub(all) struct SMAANode {
+  mut texture_node : @nodes.Node
+  _render_target_edges : @core.RenderTarget
+  _render_target_weights : @core.RenderTarget
+  _render_target_blend : @core.RenderTarget
+  _area_texture : @core.Texture
+  _search_texture : @core.Texture
+  _inv_size : @nodes.Node
+  _area_texture_uniform : @nodes.Node
+  _search_texture_uniform : @nodes.Node
+  _edges_texture_uniform : @nodes.Node
+  _weights_texture_uniform : @nodes.Node
+  _material_edges : @core.Material
+  _material_weights : @core.Material
+  _material_blend : @core.Material
+  _texture_node : @nodes.Node
+}
+pub fn SMAANode::get_texture_node(Self) -> @nodes.Node
+pub fn SMAANode::new(@nodes.Node) -> @nodes.Node
+pub fn SMAANode::of(@nodes.Node) -> Self?
+pub fn SMAANode::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for SMAANode
+
+pub(all) struct SSAAPassNode {
+  pass : @nodes.PassNode
+  mut sample_level : Int32
+  mut unbiased : Bool
+  sample_weight : @nodes.Node
+  mut _sample_render_target : @core.RenderTarget?
+  _quad_mesh : @nodes.QuadMesh
+}
+pub fn SSAAPassNode::new(@core.Object3D, @core.Object3D) -> @nodes.Node
+pub fn SSAAPassNode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for SSAAPassNode
+pub impl @nodes.PassNodeClass for SSAAPassNode
+
+pub(all) struct SSAONode {
+  mut depth_node : @nodes.Node
+  mut normal_node : @nodes.Node
+  mut resolution_scale : Double
+  mut radius : @nodes.Node
+  mut intensity : @nodes.Node
+  mut bias : @nodes.Node
+  mut samples : @nodes.Node
+  mut blur_enabled : Bool
+  mut blur_sharpness : @nodes.Node
+  resolution : @math.Vector2
+  _ao_render_target : @core.RenderTarget
+  _blur_render_target : @core.RenderTarget
+  _camera_projection_matrix : @nodes.Node
+  _camera_projection_matrix_inverse : @nodes.Node
+  _camera_near : @nodes.Node
+  _camera_far : @nodes.Node
+  _camera : @core.Object3D
+  _blur_input : @nodes.Node
+  _blur_direction : @nodes.Node
+  _ao_material : @core.Material
+  _blur_material : @core.Material
+  _texture_node : @nodes.Node
+}
+pub fn SSAONode::get_texture_node(Self) -> @nodes.Node
+pub fn SSAONode::new(@nodes.Node, @nodes.Node, @core.Object3D) -> @nodes.Node
+pub fn SSAONode::of(@nodes.Node) -> Self?
+pub fn SSAONode::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for SSAONode
+
+pub(all) struct SSGINode {
+  mut beauty_node : @nodes.Node
+  mut depth_node : @nodes.Node
+  mut normal_node : @nodes.Node?
+  mut resolution_scale : Double
+  slice_count : @nodes.Node
+  step_count : @nodes.Node
+  ao_intensity : @nodes.Node
+  gi_intensity : @nodes.Node
+  radius : @nodes.Node
+  use_screen_space_sampling : @nodes.Node
+  exp_factor : @nodes.Node
+  thickness : @nodes.Node
+  use_linear_thickness : @nodes.Node
+  backface_lighting : @nodes.Node
+  mut use_temporal_filtering : Bool
+  _resolution : @nodes.Node
+  _half_proj_scale : @nodes.Node
+  _temporal_direction : @nodes.Node
+  _temporal_offset : @nodes.Node
+  _resolution_scale : @nodes.Node
+  _camera_projection_matrix : @nodes.Node
+  _camera_projection_matrix_inverse : @nodes.Node
+  _camera_near : @nodes.Node
+  _camera_far : @nodes.Node
+  _camera : @core.Object3D
+  _ssgi_render_target : @core.RenderTarget
+  _material : @core.Material
+  mut _ao_node : @nodes.Node
+  mut _gi_node : @nodes.Node
+}
+pub fn SSGINode::get_ao_node(Self) -> @nodes.Node
+pub fn SSGINode::get_gi_node(Self) -> @nodes.Node
+pub fn SSGINode::new(@nodes.Node, @nodes.Node, @nodes.Node?, @core.Object3D) -> @nodes.Node
+pub fn SSGINode::of(@nodes.Node) -> Self?
+pub fn SSGINode::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for SSGINode
+
+pub(all) struct SSRNode {
+  stochastic : Bool
+  env_importance_sampling : Bool
+  mut color_node : @nodes.Node
+  mut diffuse_node : @nodes.Node?
+  mut depth_node : @nodes.Node
+  mut normal_node : @nodes.Node
+  mut metalness_node : @nodes.Node?
+  mut specular_node : @nodes.Node?
+  mut specular_f90_node : @nodes.Node?
+  mut roughness_node : @nodes.Node?
+  mut _reflect_non_metals : Bool
+  mut resolution_scale : Double
+  max_distance : @nodes.Node
+  thickness : @nodes.Node
+  intensity : @nodes.Node
+  screen_edge_fade : @nodes.Node
+  mut _screen_edge_fade_black : Bool
+  max_luminance : @nodes.Node
+  quality : @nodes.Node
+  mirror_bias : @nodes.Node
+  mut _blur_quality : Int32
+  mut _binary_refine : Bool
+  mut _step_exponent : Double
+  mut environment_node : @core.Texture?
+  mut history_texture : @core.Texture?
+  mut velocity_texture : @nodes.Node?
+  camera : @core.Object3D
+  _blur_spread : @nodes.Node
+  _camera_projection_matrix : @nodes.Node
+  _camera_projection_matrix_inverse : @nodes.Node
+  _camera_near : @nodes.Node
+  _camera_far : @nodes.Node
+  _camera_world_matrix : @nodes.Node
+  _camera_world_position : @nodes.Node
+  _camera_view_matrix : @nodes.Node
+  _camera_view_matrix_inverse : @nodes.Node
+  _resolution : @nodes.Node
+  _noise_index : @nodes.Node
+  mut _importance_environment : ImportanceSampledEnvironment?
+  environment_intensity : @nodes.Node
+  _ssr_render_target : @core.RenderTarget
+  _blur_render_target : @core.RenderTarget
+  _ssr_material : @core.Material
+  mut _ssr_fn : @nodes.Node?
+  mut _shared_context : @nodes.NodeContext?
+  _blur_material : @core.Material
+  _copy_material : @core.Material
+  mut _texture_node : @nodes.Node
+  mut _blurred_texture_node : @nodes.Node?
+}
+pub fn SSRNode::binary_refine(Self) -> Bool
+pub fn SSRNode::blur_quality(Self) -> Int32
+pub fn SSRNode::env_map_intensity(Self) -> @nodes.Node?
+pub fn SSRNode::get_render_target(Self) -> @core.RenderTarget
+pub fn SSRNode::get_texture_node(Self) -> @nodes.Node
+pub fn SSRNode::new(@nodes.Node, @nodes.Node, @nodes.Node, stochastic? : Bool, metalness_node? : @nodes.Node, specular_node? : @nodes.Node, specular_f90_node? : @nodes.Node, roughness_node? : @nodes.Node, reflect_non_metals? : Bool, environment_node? : @core.Texture, env_importance_sampling? : Bool, diffuse_node? : &@nodes.IntoTsl, binary_refine? : Bool, camera? : @core.Object3D) -> @nodes.Node
+pub fn SSRNode::of(@nodes.Node) -> Self?
+pub fn SSRNode::reflect_non_metals(Self) -> Bool
+pub fn SSRNode::screen_edge_fade_black(Self) -> Bool
+pub fn SSRNode::set_binary_refine(Self, Bool) -> Unit
+pub fn SSRNode::set_blur_quality(Self, Int32) -> Unit
+pub fn SSRNode::set_env_map(Self, @core.Texture?) -> Unit
+pub fn SSRNode::set_history(Self, &@nodes.IntoTsl?, @nodes.Node?) -> Unit
+pub fn SSRNode::set_reflect_non_metals(Self, Bool) -> Unit
+pub fn SSRNode::set_screen_edge_fade_black(Self, Bool) -> Unit
+pub fn SSRNode::set_size(Self, Double, Double) -> Unit
+pub fn SSRNode::set_step_exponent(Self, Double) -> Unit
+pub fn SSRNode::step_exponent(Self) -> Double
+pub impl @nodes.NodeClass for SSRNode
+
+pub(all) struct SSSNode {
+  mut depth_node : @nodes.Node
+  max_distance : @nodes.Node
+  thickness : @nodes.Node
+  shadow_intensity : @nodes.Node
+  quality : @nodes.Node
+  mut resolution_scale : Double
+  mut use_temporal_filtering : Bool
+  _camera_view_matrix : @nodes.Node
+  _camera_projection_matrix : @nodes.Node
+  _camera_projection_matrix_inverse : @nodes.Node
+  _camera_near : @nodes.Node
+  _camera_far : @nodes.Node
+  _resolution : @nodes.Node
+  _temporal_offset : @nodes.Node
+  mut _frame_id : @nodes.TslValue
+  _main_light : @core.Object3D
+  _camera : @core.Object3D
+  _sss_render_target : @core.RenderTarget
+  _material : @core.Material
+  mut _texture_node : @nodes.Node
+}
+pub fn SSSNode::get_texture_node(Self) -> @nodes.Node
+pub fn SSSNode::new(@nodes.Node, @core.Object3D, @core.Object3D) -> @nodes.Node
+pub fn SSSNode::of(@nodes.Node) -> Self?
+pub fn SSSNode::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for SSSNode
+
+pub(all) struct SharpenNode {
+  mut texture_node : @nodes.Node
+  mut sharpness : @nodes.Node
+  mut denoise : @nodes.Node
+  _render_target : @core.RenderTarget
+  _texture_node : @nodes.Node
+  mut _material : @core.Material?
+}
+pub fn SharpenNode::get_texture_node(Self) -> @nodes.Node
+pub fn SharpenNode::new(@nodes.Node, sharpness? : &@nodes.IntoTsl, denoise? : &@nodes.IntoTsl) -> @nodes.Node
+pub fn SharpenNode::of(@nodes.Node) -> Self?
+pub fn SharpenNode::set_size(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for SharpenNode
+
+pub(all) struct SobelOperatorNode {
+  mut texture_node : @nodes.Node
+  _inv_size : @nodes.Node
+}
+pub fn SobelOperatorNode::new(@nodes.Node) -> @nodes.Node
+pub fn SobelOperatorNode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for SobelOperatorNode
+
+pub(all) struct SpotLightDataNode {
+  max_count : Int32
+  mut _lights : Array[@core.Object3D]
+  _colors : Array[@math.Color]
+  _positions_and_cutoff : Array[@math.Vector4]
+  _directions_and_decay : Array[@math.Vector4]
+  _cones : Array[@math.Vector4]
+  mut colors_node : @nodes.Node
+  mut positions_and_cutoff_node : @nodes.Node
+  mut directions_and_decay_node : @nodes.Node
+  mut cones_node : @nodes.Node
+  mut count_node : @nodes.Node
+}
+pub fn SpotLightDataNode::construct(@nodes.Node, Int32) -> Self
+pub fn SpotLightDataNode::new(max_count? : Int32) -> @nodes.Node
+pub fn SpotLightDataNode::of(@nodes.Node) -> Self?
+pub fn SpotLightDataNode::set_lights(@nodes.Node, Array[@core.Object3D]) -> @nodes.Node
+pub impl @nodes.NodeClass for SpotLightDataNode
+
+pub(all) struct StereoCompositePassNode {
+  pass : @nodes.PassNode
+  stereo : @core.StereoCamera
+  _render_target_l : @core.RenderTarget
+  _render_target_r : @core.RenderTarget
+  _map_left : @nodes.Node
+  _map_right : @nodes.Node
+  mut _material : @core.Material?
+  mut stereo_class : &StereoCompositePassNodeClass
+}
+pub fn StereoCompositePassNode::construct(@nodes.Node, @core.Object3D, @core.Object3D) -> Self
+pub fn StereoCompositePassNode::new(@core.Object3D, @core.Object3D) -> @nodes.Node
+pub fn StereoCompositePassNode::of(@nodes.Node) -> Self?
+pub fn StereoCompositePassNode::update_stereo_camera_base(Self, Int32) -> Unit
+pub impl StereoCompositePassNodeClass for StereoCompositePassNode
+pub impl @nodes.NodeClass for StereoCompositePassNode
+pub impl @nodes.PassNodeClass for StereoCompositePassNode
+
+pub(all) struct StereoPassNode {
+  pass : @nodes.PassNode
+  stereo : @core.StereoCamera
+}
+pub fn StereoPassNode::new(@core.Object3D, @core.Object3D) -> @nodes.Node
+pub fn StereoPassNode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for StereoPassNode
+pub impl @nodes.PassNodeClass for StereoPassNode
+
+pub(all) struct TAAUNode {
+  mut beauty_node : @nodes.Node
+  mut depth_node : @nodes.Node
+  mut velocity_node : @nodes.Node
+  mut camera : @core.Object3D
+  mut depth_threshold : Double
+  mut edge_depth_diff : Double
+  mut max_velocity_length : Double
+  mut current_frame_weight : Double
+  mut _jitter_index : Int32
+  _jitter_offset : @nodes.Node
+  _history_render_target : @core.RenderTarget
+  _resolve_render_target : @core.RenderTarget
+  _previous_depth_render_target : @core.RenderTarget
+  _resolve_material : @core.Material
+  _seed_material : @core.Material
+  _texture_node : @nodes.Node
+  _original_projection_matrix : @math.Matrix4
+  _camera_near_far : @nodes.Node
+  _camera_world_matrix : @nodes.Node
+  _camera_world_matrix_inverse : @nodes.Node
+  _camera_projection_matrix_inverse : @nodes.Node
+  _previous_camera_world_matrix : @nodes.Node
+  _previous_camera_projection_matrix_inverse : @nodes.Node
+  _previous_depth_node : @nodes.Node
+}
+pub fn TAAUNode::clear_view_offset(Self) -> Unit
+pub fn TAAUNode::construct(@nodes.Node, @nodes.Node, @nodes.Node, @nodes.Node, @core.Object3D) -> Self
+pub fn TAAUNode::get_texture_node(Self) -> @nodes.Node
+pub fn TAAUNode::new(@nodes.Node, @nodes.Node, @nodes.Node, @core.Object3D) -> @nodes.Node
+pub fn TAAUNode::of(@nodes.Node) -> Self?
+pub fn TAAUNode::set_size(Self, Double, Double) -> Unit
+pub fn TAAUNode::set_view_offset(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for TAAUNode
+
+pub(all) struct TRAANode {
+  mut beauty_node : @nodes.Node
+  mut depth_node : @nodes.Node
+  mut velocity_node : @nodes.Node
+  mut camera : @core.Object3D
+  mut depth_threshold : Double
+  mut edge_depth_diff : Double
+  mut max_velocity_length : Double
+  mut use_subpixel_correction : Bool
+  mut _jitter_index : Int32
+  _inv_size : @nodes.Node
+  mut _history_render_target : @core.RenderTarget
+  mut _resolve_render_target : @core.RenderTarget
+  _previous_depth_render_target : @core.RenderTarget
+  _resolve_material : @core.Material
+  _texture_node : @nodes.Node
+  _original_projection_matrix : @math.Matrix4
+  _camera_near_far : @nodes.Node
+  _camera_world_matrix : @nodes.Node
+  _camera_world_matrix_inverse : @nodes.Node
+  _camera_projection_matrix_inverse : @nodes.Node
+  _previous_camera_world_matrix : @nodes.Node
+  _previous_camera_projection_matrix_inverse : @nodes.Node
+  _history_texture_node : @nodes.Node
+  _previous_depth_node : @nodes.Node
+  mut _velocity_node : @nodes.Node?
+}
+pub fn TRAANode::clear_view_offset(Self) -> Unit
+pub fn TRAANode::construct(@nodes.Node, @nodes.Node, @nodes.Node, @nodes.Node, @core.Object3D) -> Self
+pub fn TRAANode::get_texture_node(Self) -> @nodes.Node
+pub fn TRAANode::new(@nodes.Node, @nodes.Node, @nodes.Node, @core.Object3D) -> @nodes.Node
+pub fn TRAANode::of(@nodes.Node) -> Self?
+pub fn TRAANode::set_size(Self, Double, Double) -> Unit
+pub fn TRAANode::set_view_offset(Self, Double, Double) -> Unit
+pub impl @nodes.NodeClass for TRAANode
+
+pub(all) struct TemporalReprojectCameraUniforms {
+  world_matrix : @nodes.Node
+  view_matrix : @nodes.Node
+  projection_matrix : @nodes.Node
+  projection_matrix_inverse : @nodes.Node
+  world_position : @nodes.Node
+  previous_world_matrix : @nodes.Node
+  previous_view_matrix : @nodes.Node
+  previous_projection_matrix : @nodes.Node
+  previous_projection_matrix_inverse : @nodes.Node
+}
+pub fn TemporalReprojectCameraUniforms::update_from_camera(Self, @core.Object3D) -> Unit
+
+pub(all) enum TemporalReprojectHistorySource {
+  Texture(@core.Texture)
+  RenderTargetSource(() -> @core.RenderTarget)
+}
+
+pub(all) struct TemporalReprojectNode {
+  mut beauty_node : @nodes.Node
+  mut depth_node : @nodes.Node
+  mut normal_node : @nodes.Node
+  mut velocity_node : @nodes.Node
+  mut camera : @core.Object3D
+  mut mode : String
+  mut accumulate : Bool
+  mut max_velocity_length : Double
+  _resolution : @nodes.Node
+  _camera_uniforms : TemporalReprojectCameraUniforms
+  max_frames : @nodes.Node
+  hit_point_reprojection : @nodes.Node
+  clamp_intensity : @nodes.Node
+  flicker_suppression : @nodes.Node
+  _history_render_target : @core.RenderTarget
+  _history_texture_node : @nodes.Node
+  _resolve_render_target : @core.RenderTarget
+  _resolve_material : @core.Material
+  _seed_material : @core.Material
+  _texture_node : @nodes.Node
+  _original_projection_matrix : @math.Matrix4
+  _placeholder_previous_depth_texture : @core.Texture
+  _previous_depth_node : @nodes.Node
+  mut _previous_normal_texture : @core.Texture
+  _previous_normal_node : @nodes.Node
+  mut _needs_post_processing_sync : Bool
+  mut _external_history_texture : @core.Texture?
+}
+pub fn TemporalReprojectNode::clear_view_offset(Self) -> Unit
+pub fn TemporalReprojectNode::construct(@nodes.Node, @nodes.Node, @nodes.Node, @nodes.Node, @nodes.Node, @core.Object3D, mode? : String, hit_point_reprojection? : Bool, accumulate? : Bool) -> Self
+pub fn TemporalReprojectNode::get_texture_node(Self) -> @nodes.Node
+pub fn TemporalReprojectNode::new(@nodes.Node, @nodes.Node, @nodes.Node, @nodes.Node, @core.Object3D, mode? : String, hit_point_reprojection? : Bool, accumulate? : Bool) -> @nodes.Node
+pub fn TemporalReprojectNode::of(@nodes.Node) -> Self?
+pub fn TemporalReprojectNode::set_history_texture(Self, TemporalReprojectHistorySource?) -> Unit
+pub fn TemporalReprojectNode::set_size(Self, Double, Double) -> Unit
+pub fn TemporalReprojectNode::set_view_offset(Self) -> Unit
+pub impl @nodes.NodeClass for TemporalReprojectNode
+
+pub(all) struct TileShadowNode {
+  base : @nodes.ShadowBaseNode
+  config : TileShadowNodeConfig
+  mut debug : Bool
+  original_light : @core.Object3D
+  light_plane : @math.Plane
+  line : @math.Line3
+  initial_light_direction : @math.Vector3
+  mut _camera_frame_id : Int32?
+  shadow_size : TileShadowNodeShadowSize
+  mut lights : Array[@core.Object3D]
+  mut _shadow_nodes : Array[@nodes.Node]
+  tiles : Array[TileShadowNodeTile]
+  mut shadow_map : @core.RenderTarget?
+  mut camera_array : @core.Object3D?
+}
+pub fn TileShadowNode::construct(@nodes.Node, @core.Object3D, Int32?, Int32?, @math.Vector2?, Int32?, Bool?) -> Self
+pub fn TileShadowNode::dispose_lights_and_nodes(@nodes.Node) -> Unit
+pub fn TileShadowNode::generate_tiles(Int32, Int32) -> Array[TileShadowNodeTile]
+pub fn TileShadowNode::init(@nodes.Node, @nodes.NodeBuilder) -> Unit
+pub fn TileShadowNode::new(@core.Object3D, tiles_x? : Int32, tiles_y? : Int32, resolution? : @math.Vector2, depth_type? : Int32, debug? : Bool) -> @nodes.Node
+pub fn TileShadowNode::of(@nodes.Node) -> Self?
+pub fn TileShadowNode::shadow_nodes(@nodes.Node) -> Array[@nodes.Node]
+pub fn TileShadowNode::sync_light_transformation(@core.Object3D, @core.Object3D) -> Unit
+pub fn TileShadowNode::update_light_direction(Self) -> Unit
+pub fn TileShadowNode::update_shadow(@nodes.Node, @nodes.NodeFrame) -> Unit
+pub fn TileShadowNode::update_tiles(Self, @nodes.Node) -> Unit
+pub impl @nodes.NodeClass for TileShadowNode
+
+pub(all) struct TileShadowNodeConfig {
+  tiles_x : Int32
+  tiles_y : Int32
+  resolution : @math.Vector2
+  depth_type : Int32
+  debug : Bool
+}
+
+pub(all) struct TileShadowNodeHelper {
+  tile_shadow_node : @nodes.Node
+  config : TileShadowNodeConfig
+  tiles : Array[TileShadowNodeTile]
+  mut _debug_meshes : Array[@core.Object3D]
+  mut _shadow_cam_helpers : Array[@core.Object3D?]
+  mut initialized : Bool
+  mut scene : @core.Object3D?
+}
+pub fn TileShadowNodeHelper::debug_meshes(@core.Object3D) -> Array[@core.Object3D]
+pub fn TileShadowNodeHelper::dispose(@core.Object3D) -> Unit
+pub fn TileShadowNodeHelper::init(@core.Object3D) -> Unit
+pub fn TileShadowNodeHelper::new(@nodes.Node) -> @core.Object3D
+pub fn TileShadowNodeHelper::of(@core.Object3D) -> Self?
+pub fn TileShadowNodeHelper::update(@core.Object3D) -> Unit
+pub impl @core.Object3DExtension for TileShadowNodeHelper
+
+pub(all) struct TileShadowNodeLwLight {
+  mut target : @core.Object3D
+  mut shadow : @core.LightShadow?
+}
+pub fn TileShadowNodeLwLight::new() -> @core.Object3D
+pub fn TileShadowNodeLwLight::of(@core.Object3D) -> Self?
+pub impl @core.Object3DExtension for TileShadowNodeLwLight
+
+pub(all) struct TileShadowNodeShadowSize {
+  top : Double
+  bottom : Double
+  left : Double
+  right : Double
+}
+
+pub(all) struct TileShadowNodeTile {
+  x : (Double, Double)
+  y : (Double, Double)
+  index : Int32
+}
+
+pub(all) struct TransitionNode {
+  mut texture_node_a : @nodes.Node
+  mut texture_node_b : @nodes.Node
+  mut mix_texture_node : @nodes.Node
+  mut mix_ratio_node : @nodes.Node
+  mut threshold_node : @nodes.Node
+  mut use_texture_node : @nodes.Node
+}
+pub fn TransitionNode::new(@nodes.Node, @nodes.Node, @nodes.Node, @nodes.Node, @nodes.Node, @nodes.Node) -> @nodes.Node
+pub fn TransitionNode::of(@nodes.Node) -> Self?
+pub impl @nodes.NodeClass for TransitionNode
+
+pub(all) struct WebGLNodesHandler {
+  mut renderer : @nodes.Renderer?
+  node_frame : @nodes.NodeFrame
+  mut on_dispose_material_callback : (@core.Event) -> Unit
+  mut get_output_callback : (@nodes.Node, @nodes.NodeBuilder) -> @nodes.Node
+  // private fields
+}
+pub fn WebGLNodesHandler::build(Self, @core.Material, @core.Object3D, @webgl.WebGLProgramParameters) -> Unit
+pub fn WebGLNodesHandler::collect_uniforms_groups(Self, @nodes.NodeBuilder) -> Array[@core.UniformsGroup]
+pub fn WebGLNodesHandler::new() -> Self
+pub fn WebGLNodesHandler::on_update_program(Self, @core.Material, @webgl.WebGLProgram, @webgl.MaterialProperties) -> Unit
+pub fn WebGLNodesHandler::render_end(Self) -> Unit
+pub fn WebGLNodesHandler::render_start(Self, @core.Object3D, @core.Object3D, target_scene? : @core.Object3D) -> Unit
+pub fn WebGLNodesHandler::set_object(Self, @core.Object3D, @core.Material) -> Unit
+pub fn WebGLNodesHandler::set_renderer(Self, @webgl.WebGLRenderer) -> Unit
+pub fn WebGLNodesHandler::update_geometry_attributes(Self, @nodes.NodeBuilder, @core.BufferGeometry) -> Unit
+pub fn WebGLNodesHandler::update_lights(Self, Array[@core.Object3D]) -> Unit
+pub fn WebGLNodesHandler::update_nodes(Self, Array[@nodes.Node]) -> Unit
+pub fn WebGLNodesHandler::update_shader_parameters(Self, @nodes.NodeBuilder, @webgl.WebGLProgramParameters) -> Unit
+pub impl @webgl.WebGLNodesHandler for WebGLNodesHandler
+
+// Type aliases
+
+// Traits
+pub(open) trait StereoCompositePassNodeClass {
+  fn update_stereo_camera(Self, @nodes.Node, Int32) -> Unit
+}

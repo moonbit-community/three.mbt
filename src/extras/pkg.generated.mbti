@@ -1,0 +1,429 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/extras"
+
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub fn catmull_rom(Double, Double, Double, Double, Double) -> Double
+
+pub fn contain(@core.Texture, Double) -> @core.Texture
+
+pub fn cover(@core.Texture, Double) -> @core.Texture
+
+pub fn cubic_bezier(Double, Double, Double, Double, Double) -> Double
+
+pub fn earcut(Array[Double], Array[Int32], dim? : Int32) -> Array[Int32]
+
+pub fn earcut_deviation(Array[Double], Array[Int32], Int32, Array[Int32]) -> Double
+
+pub fn earcut_flatten(Array[Array[Array[Double]]]) -> EarcutFlatten
+
+pub fn fill(@core.Texture) -> @core.Texture
+
+pub fn from_half_float(Double) -> Double
+
+pub fn get_byte_length(Int32, Int32, Int32, Int32) -> Double
+
+pub fn quadratic_bezier(Double, Double, Double, Double) -> Double
+
+pub fn to_half_float(Double) -> Double
+
+// Errors
+
+// Types and methods
+#external
+pub type ArcCurve
+pub fn ArcCurve::new(a_x? : Double, a_y? : Double, a_radius? : Double, a_start_angle? : Double, a_end_angle? : Double, a_clockwise? : Bool) -> Curve[@math.Vector2]
+
+#external
+pub type CatmullRomCurve3
+pub fn CatmullRomCurve3::new(points? : Array[@math.Vector3], closed? : Bool, curve_type? : String, tension? : Double) -> Curve[@math.Vector3]
+
+pub(all) struct CatmullRomCurve3Data {
+  mut points : Array[@math.Vector3]
+  mut closed : Bool
+  mut curve_type : String
+  mut tension : Double
+}
+
+pub(all) struct Controls {
+  dispatcher : @core.EventDispatcher
+  mut object : @core.Object3D
+  mut dom_element : @core.JsValue?
+  mut enabled : Bool
+  mut state : Int32
+  mut keys : @core.JsValue
+  mut mouse_buttons : ControlsMouseButtons
+  mut touches : ControlsTouches
+  mut extension : &ControlsExtension?
+}
+pub fn Controls::add_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn Controls::connect(Self, @core.JsValue) -> Unit
+pub fn Controls::disconnect(Self) -> Unit
+pub fn Controls::dispatch_event(Self, @core.Event) -> Unit
+pub fn Controls::dispose(Self) -> Unit
+pub fn Controls::event_dispatcher(Self) -> @core.EventDispatcher
+pub fn Controls::event_target(Self) -> @core.EventTarget
+pub fn Controls::has_event_listener(Self, String, (@core.Event) -> Unit) -> Bool
+pub fn Controls::new(@core.Object3D, dom_element? : @core.JsValue) -> Self
+pub fn Controls::remove_event_listener(Self, String, (@core.Event) -> Unit) -> Unit
+pub fn Controls::update(Self, delta? : Double) -> Unit
+pub impl @core.EventSource for Controls
+
+pub(all) struct ControlsMouseButtons {
+  mut left : Int32?
+  mut middle : Int32?
+  mut right : Int32?
+}
+
+pub(all) struct ControlsTouches {
+  mut one : Int32?
+  mut two : Int32?
+}
+
+#external
+pub type CubicBezierCurve
+pub fn CubicBezierCurve::new(v0? : @math.Vector2, v1? : @math.Vector2, v2? : @math.Vector2, v3? : @math.Vector2) -> Curve[@math.Vector2]
+
+#external
+pub type CubicBezierCurve3
+pub fn CubicBezierCurve3::new(v0? : @math.Vector3, v1? : @math.Vector3, v2? : @math.Vector3, v3? : @math.Vector3) -> Curve[@math.Vector3]
+
+pub(all) struct CubicBezierCurveData[V] {
+  mut v0 : V
+  mut v1 : V
+  mut v2 : V
+  mut v3 : V
+}
+
+pub(all) struct Curve[V] {
+  mut type_ : String
+  mut arc_length_divisions : Int32
+  mut needs_update : Bool
+  mut cache_arc_lengths : Array[Double]?
+  kind : CurveKind[V]
+}
+pub fn[V] Curve::add(Self[V], Self[V]) -> Unit
+pub fn[V] Curve::auto_close(Self[V]) -> Bool
+pub fn[V : CurveVector] Curve::clone(Self[V]) -> Self[V]
+pub fn[V : CurveVector] Curve::close_path(Self[V]) -> Self[V]
+pub fn[V : CurveVector] Curve::compute_frenet_frames(Self[V], Int32, closed? : Bool) -> FrenetFrames
+pub fn[V : CurveVector] Curve::copy(Self[V], Self[V]) -> Self[V]
+pub fn[V] Curve::curves(Self[V]) -> Array[Self[V]]
+pub fn[V] Curve::extended(String, (Self[V], Double, V) -> V, get_tangent? : (Self[V], Double, V) -> V, construct? : () -> Self[V], copy? : (Self[V], Self[V]) -> Unit, to_json? : (Self[V], Map[String, @json.Json]) -> Unit, from_json? : (Self[V], @json.Json) -> Unit) -> Self[V]
+pub fn[V : CurveVector] Curve::from_json(Self[V], @json.Json) -> Self[V]
+pub fn[V : CurveVector] Curve::get_curve_lengths(Self[V]) -> Array[Double]
+pub fn[V : CurveVector] Curve::get_length(Self[V]) -> Double
+pub fn[V : CurveVector] Curve::get_lengths(Self[V], divisions? : Int32) -> Array[Double]
+pub fn[V : CurveVector] Curve::get_point(Self[V], Double, optional_target? : V) -> V
+pub fn[V : CurveVector] Curve::get_point_at(Self[V], Double, optional_target? : V) -> V
+pub fn[V : CurveVector] Curve::get_point_at_or_null(Self[V], Double, optional_target? : V) -> V?
+pub fn[V : CurveVector] Curve::get_point_or_null(Self[V], Double, optional_target? : V) -> V?
+pub fn[V : CurveVector] Curve::get_points(Self[V], divisions? : Int32) -> Array[V]
+pub fn[V : CurveVector] Curve::get_spaced_points(Self[V], divisions? : Int32) -> Array[V]
+pub fn[V : CurveVector] Curve::get_tangent(Self[V], Double, optional_target? : V) -> V
+pub fn[V : CurveVector] Curve::get_tangent_at(Self[V], Double, optional_target? : V) -> V
+pub fn[V : CurveVector] Curve::get_uto_tmapping(Self[V], Double, distance? : Double) -> Double
+pub fn[V] Curve::new() -> Self[V]
+pub fn[V] Curve::set_auto_close(Self[V], Bool) -> Unit
+pub fn[V] Curve::set_curves(Self[V], Array[Self[V]]) -> Unit
+pub fn[V : CurveVector] Curve::to_json(Self[V]) -> @json.Json
+pub fn[V : CurveVector] Curve::update_arc_lengths(Self[V]) -> Unit
+
+pub(all) struct CurveExtension[V] {
+  get_point : (Curve[V], Double, V) -> V
+  get_tangent : ((Curve[V], Double, V) -> V)?
+  construct : (() -> Curve[V])?
+  copy : ((Curve[V], Curve[V]) -> Unit)?
+  to_json : ((Curve[V], Map[String, @json.Json]) -> Unit)?
+  from_json : ((Curve[V], @json.Json) -> Unit)?
+}
+
+pub(all) enum CurveKind[V] {
+  Abstract
+  Custom(CurveExtension[V])
+  Line(LineCurveData[V])
+  QuadraticBezier(QuadraticBezierCurveData[V])
+  CubicBezier(CubicBezierCurveData[V])
+  Ellipse(EllipseCurveData)
+  Spline(SplineCurveData[V])
+  CatmullRom(CatmullRomCurve3Data)
+  CurvePath(CurvePathData[V])
+  Path(CurvePathData[V], PathData[V])
+  Shape(CurvePathData[V], PathData[V], ShapeData)
+}
+
+#external
+pub type CurvePath
+pub fn[V] CurvePath::new() -> Curve[V]
+
+pub(all) struct CurvePathData[V] {
+  mut curves : Array[Curve[V]]
+  mut auto_close : Bool
+  mut cache_lengths : Array[Double]?
+}
+
+#external
+pub type DataUtils
+pub fn DataUtils::from_half_float(Double) -> Double
+pub fn DataUtils::to_half_float(Double) -> Double
+
+#external
+pub type Earcut
+pub fn Earcut::triangulate(Array[Double], Array[Int32], dim? : Int32) -> Array[Int32]
+
+pub(all) struct EarcutFlatten {
+  vertices : Array[Double]
+  holes : Array[Int32]
+  dimensions : Int32
+}
+
+#external
+pub type EllipseCurve
+pub fn EllipseCurve::new(a_x? : Double, a_y? : Double, x_radius? : Double, y_radius? : Double, a_start_angle? : Double, a_end_angle? : Double, a_clockwise? : Bool, a_rotation? : Double) -> Curve[@math.Vector2]
+
+pub(all) struct EllipseCurveData {
+  mut a_x : Double
+  mut a_y : Double
+  mut x_radius : Double
+  mut y_radius : Double
+  mut a_start_angle : Double
+  mut a_end_angle : Double
+  mut a_clockwise : Bool
+  mut a_rotation : Double
+}
+
+pub(all) struct FrenetFrames {
+  tangents : Array[@math.Vector3]
+  normals : Array[@math.Vector3]
+  binormals : Array[@math.Vector3]
+}
+
+#external
+pub type ImageUtils
+pub fn ImageUtils::get_data_url(@core.JsValue, type_? : String) -> String
+pub fn ImageUtils::srgb_to_linear(@core.JsValue) -> @core.JsValue
+
+#external
+pub type LineCurve
+pub fn LineCurve::new(v1? : @math.Vector2, v2? : @math.Vector2) -> Curve[@math.Vector2]
+
+#external
+pub type LineCurve3
+pub fn LineCurve3::new(v1? : @math.Vector3, v2? : @math.Vector3) -> Curve[@math.Vector3]
+
+pub(all) struct LineCurveData[V] {
+  mut v1 : V
+  mut v2 : V
+}
+
+pub(all) struct Path {
+  curve : Curve[@math.Vector2]
+}
+pub fn Path::absarc(Self, Double, Double, Double, Double, Double, a_clockwise? : Bool) -> Self
+pub fn Path::absellipse(Self, Double, Double, Double, Double, Double, Double, a_clockwise? : Bool, a_rotation? : Double) -> Self
+pub fn Path::add(Self, Curve[@math.Vector2]) -> Unit
+pub fn Path::arc(Self, Double, Double, Double, Double, Double, a_clockwise? : Bool) -> Self
+pub fn Path::auto_close(Self) -> Bool
+pub fn Path::bezier_curve_to(Self, Double, Double, Double, Double, Double, Double) -> Self
+pub fn Path::clone(Self) -> Self
+pub fn Path::close_path(Self) -> Self
+pub fn Path::compute_frenet_frames(Self, Int32, closed? : Bool) -> FrenetFrames
+pub fn Path::copy(Self, Self) -> Self
+pub fn Path::current_point(Self) -> @math.Vector2
+pub fn Path::curves(Self) -> Array[Curve[@math.Vector2]]
+pub fn Path::ellipse(Self, Double, Double, Double, Double, Double, Double, a_clockwise? : Bool, a_rotation? : Double) -> Self
+pub fn Path::from_json(Self, @json.Json) -> Self
+pub fn Path::get_curve_lengths(Self) -> Array[Double]
+pub fn Path::get_length(Self) -> Double
+pub fn Path::get_lengths(Self, divisions? : Int32) -> Array[Double]
+pub fn Path::get_point(Self, Double, optional_target? : @math.Vector2) -> @math.Vector2
+pub fn Path::get_point_at(Self, Double, optional_target? : @math.Vector2) -> @math.Vector2
+pub fn Path::get_point_or_null(Self, Double, optional_target? : @math.Vector2) -> @math.Vector2?
+pub fn Path::get_points(Self, divisions? : Int32) -> Array[@math.Vector2]
+pub fn Path::get_spaced_points(Self, divisions? : Int32) -> Array[@math.Vector2]
+pub fn Path::get_tangent(Self, Double, optional_target? : @math.Vector2) -> @math.Vector2
+pub fn Path::get_tangent_at(Self, Double, optional_target? : @math.Vector2) -> @math.Vector2
+pub fn Path::get_uto_tmapping(Self, Double, distance? : Double) -> Double
+pub fn Path::line_to(Self, Double, Double) -> Self
+pub fn Path::move_to(Self, Double, Double) -> Self
+pub fn Path::new(points? : Array[@math.Vector2]) -> Self
+pub fn Path::path_curve(Self) -> Curve[@math.Vector2]
+pub fn Path::quadratic_curve_to(Self, Double, Double, Double, Double) -> Self
+pub fn Path::set_auto_close(Self, Bool) -> Unit
+pub fn Path::set_curves(Self, Array[Curve[@math.Vector2]]) -> Unit
+pub fn Path::set_from_points(Self, Array[@math.Vector2]) -> Self
+pub fn Path::spline_thru(Self, Array[@math.Vector2]) -> Self
+pub fn Path::to_json(Self) -> @json.Json
+pub fn Path::update_arc_lengths(Self) -> Unit
+pub impl PathLike for Path
+
+pub(all) struct PathData[V] {
+  current_point : V
+}
+
+#external
+pub type QuadraticBezierCurve
+pub fn QuadraticBezierCurve::new(v0? : @math.Vector2, v1? : @math.Vector2, v2? : @math.Vector2) -> Curve[@math.Vector2]
+
+#external
+pub type QuadraticBezierCurve3
+pub fn QuadraticBezierCurve3::new(v0? : @math.Vector3, v1? : @math.Vector3, v2? : @math.Vector3) -> Curve[@math.Vector3]
+
+pub(all) struct QuadraticBezierCurveData[V] {
+  mut v0 : V
+  mut v1 : V
+  mut v2 : V
+}
+
+pub(all) struct Shape {
+  curve : Curve[@math.Vector2]
+}
+pub fn Shape::absarc(Self, Double, Double, Double, Double, Double, a_clockwise? : Bool) -> Self
+pub fn Shape::absellipse(Self, Double, Double, Double, Double, Double, Double, a_clockwise? : Bool, a_rotation? : Double) -> Self
+pub fn Shape::add(Self, Curve[@math.Vector2]) -> Unit
+pub fn Shape::arc(Self, Double, Double, Double, Double, Double, a_clockwise? : Bool) -> Self
+pub fn Shape::auto_close(Self) -> Bool
+pub fn Shape::bezier_curve_to(Self, Double, Double, Double, Double, Double, Double) -> Self
+pub fn Shape::clone(Self) -> Self
+pub fn Shape::close_path(Self) -> Self
+pub fn Shape::compute_frenet_frames(Self, Int32, closed? : Bool) -> FrenetFrames
+pub fn Shape::copy(Self, Self) -> Self
+pub fn Shape::current_point(Self) -> @math.Vector2
+pub fn Shape::curves(Self) -> Array[Curve[@math.Vector2]]
+pub fn Shape::ellipse(Self, Double, Double, Double, Double, Double, Double, a_clockwise? : Bool, a_rotation? : Double) -> Self
+pub fn Shape::extract_points(Self, Int32) -> ShapePoints
+pub fn Shape::from_json(Self, @json.Json) -> Self
+pub fn Shape::get_curve_lengths(Self) -> Array[Double]
+pub fn Shape::get_length(Self) -> Double
+pub fn Shape::get_lengths(Self, divisions? : Int32) -> Array[Double]
+pub fn Shape::get_point(Self, Double, optional_target? : @math.Vector2) -> @math.Vector2
+pub fn Shape::get_point_at(Self, Double, optional_target? : @math.Vector2) -> @math.Vector2
+pub fn Shape::get_point_or_null(Self, Double, optional_target? : @math.Vector2) -> @math.Vector2?
+pub fn Shape::get_points(Self, divisions? : Int32) -> Array[@math.Vector2]
+pub fn Shape::get_points_holes(Self, Int32) -> Array[Array[@math.Vector2]]
+pub fn Shape::get_spaced_points(Self, divisions? : Int32) -> Array[@math.Vector2]
+pub fn Shape::get_tangent(Self, Double, optional_target? : @math.Vector2) -> @math.Vector2
+pub fn Shape::get_tangent_at(Self, Double, optional_target? : @math.Vector2) -> @math.Vector2
+pub fn Shape::get_uto_tmapping(Self, Double, distance? : Double) -> Double
+pub fn Shape::holes(Self) -> Array[Path]
+pub fn Shape::line_to(Self, Double, Double) -> Self
+pub fn Shape::move_to(Self, Double, Double) -> Self
+pub fn Shape::new(points? : Array[@math.Vector2]) -> Self
+pub fn Shape::path_curve(Self) -> Curve[@math.Vector2]
+pub fn Shape::payload(Self) -> @core.JsValue
+pub fn Shape::quadratic_curve_to(Self, Double, Double, Double, Double) -> Self
+pub fn Shape::set_auto_close(Self, Bool) -> Unit
+pub fn Shape::set_curves(Self, Array[Curve[@math.Vector2]]) -> Unit
+pub fn Shape::set_from_points(Self, Array[@math.Vector2]) -> Self
+pub fn Shape::set_holes(Self, Array[Path]) -> Unit
+pub fn Shape::spline_thru(Self, Array[@math.Vector2]) -> Self
+pub fn Shape::to_json(Self) -> @json.Json
+pub fn Shape::to_path(Self) -> Path
+pub fn Shape::update_arc_lengths(Self) -> Unit
+pub fn Shape::uuid(Self) -> String
+pub impl @core.SerializableResource for Shape
+pub impl PathLike for Shape
+
+pub(all) struct ShapeData {
+  mut uuid : String
+  mut holes : Array[Path]
+}
+
+pub(all) struct ShapePath {
+  mut type_ : String
+  mut color : @math.Color
+  mut sub_paths : Array[Path]
+  mut current_path : Path?
+  mut user_data : @core.JsValue
+}
+pub fn ShapePath::bezier_curve_to(Self, Double, Double, Double, Double, Double, Double) -> Self
+pub fn ShapePath::line_to(Self, Double, Double) -> Self
+pub fn ShapePath::move_to(Self, Double, Double) -> Self
+pub fn ShapePath::new() -> Self
+pub fn ShapePath::quadratic_curve_to(Self, Double, Double, Double, Double) -> Self
+pub fn ShapePath::spline_thru(Self, Array[@math.Vector2]) -> Self
+pub fn ShapePath::to_shapes(Self) -> Array[Shape]
+
+pub(all) struct ShapePoints {
+  shape : Array[@math.Vector2]
+  holes : Array[Array[@math.Vector2]]
+}
+
+#external
+pub type ShapeUtils
+pub fn ShapeUtils::area(Array[@math.Vector2]) -> Double
+pub fn ShapeUtils::is_clock_wise(Array[@math.Vector2]) -> Bool
+pub fn ShapeUtils::triangulate_shape(Array[@math.Vector2], Array[Array[@math.Vector2]]) -> Array[Array[Int32]]
+
+#external
+pub type SplineCurve
+pub fn SplineCurve::new(points? : Array[@math.Vector2]) -> Curve[@math.Vector2]
+
+pub(all) struct SplineCurveData[V] {
+  mut points : Array[V]
+}
+
+#external
+pub type TextureUtils
+pub fn TextureUtils::contain(@core.Texture, Double) -> @core.Texture
+pub fn TextureUtils::cover(@core.Texture, Double) -> @core.Texture
+pub fn TextureUtils::fill(@core.Texture) -> @core.Texture
+pub fn TextureUtils::get_byte_length(Int32, Int32, Int32, Int32) -> Double
+
+// Type aliases
+
+// Traits
+pub(open) trait ControlsExtension {
+  fn connect(Self, Controls, @core.JsValue) -> Unit = _
+  fn disconnect(Self, Controls) -> Unit = _
+  fn dispose(Self, Controls) -> Unit = _
+  fn update(Self, Controls, Double?) -> Unit = _
+}
+
+pub trait CurveVector {
+  fn zero() -> Self
+  fn clone(Self) -> Self
+  fn copy(Self, Self) -> Self
+  fn add(Self, Self) -> Self
+  fn sub(Self, Self) -> Self
+  fn sub_vectors(Self, Self, Self) -> Self
+  fn multiply_scalar(Self, Double) -> Self
+  fn normalize(Self) -> Self
+  fn distance_to(Self, Self) -> Double
+  fn equals(Self, Self) -> Bool
+  fn component(Self, Int32) -> Double
+  fn set_xy(Self, Double, Double) -> Self
+  fn set_by_axis(Self, (Int32) -> Double) -> Self
+  fn to_array(Self) -> Array[Double]
+  fn from_array(Self, Array[Double]) -> Self
+  fn line_curve(Self, Self) -> Curve[Self]
+  fn curve_from_type(String) -> Curve[Self]
+  fn frenet_tangent_at(Curve[Self], Double) -> @math.Vector3
+}
+pub impl CurveVector for @math.Vector2
+pub impl CurveVector for @math.Vector3
+
+pub trait PathLike {
+  fn path_curve(Self) -> Curve[@math.Vector2]
+  fn curves(Self) -> Array[Curve[@math.Vector2]]
+  fn set_curves(Self, Array[Curve[@math.Vector2]]) -> Unit
+  fn auto_close(Self) -> Bool
+  fn set_auto_close(Self, Bool) -> Unit
+  fn add(Self, Curve[@math.Vector2]) -> Unit
+  fn close_path(Self) -> Self
+  fn get_length(Self) -> Double
+  fn get_curve_lengths(Self) -> Array[Double]
+  fn update_arc_lengths(Self) -> Unit
+  fn current_point(Self) -> @math.Vector2
+  fn set_from_points(Self, Array[@math.Vector2]) -> Self
+  fn move_to(Self, Double, Double) -> Self
+  fn line_to(Self, Double, Double) -> Self
+  fn quadratic_curve_to(Self, Double, Double, Double, Double) -> Self
+  fn bezier_curve_to(Self, Double, Double, Double, Double, Double, Double) -> Self
+  fn spline_thru(Self, Array[@math.Vector2]) -> Self
+}

@@ -1,0 +1,38 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/addons/math"
+
+// Values
+pub const DisplayP3ColorSpace : String = "display-p3"
+
+pub const ExtendedSRGBColorSpace : String = "extended-srgb"
+
+pub const LinearDisplayP3ColorSpace : String = "display-p3-linear"
+
+pub const LinearRec2020ColorSpace : String = "rec2020-linear"
+
+pub let display_p3_color_space_impl : @bobzhang/three/math.ColorSpaceDefinition
+
+pub let extended_srgb_color_space_impl : @bobzhang/three/math.ColorSpaceDefinition
+
+pub let linear_display_p3_color_space_impl : @bobzhang/three/math.ColorSpaceDefinition
+
+pub let linear_rec2020_color_space_impl : @bobzhang/three/math.ColorSpaceDefinition
+
+// Errors
+
+// Types and methods
+pub struct SimplexNoise {
+  grad3 : Array[Array[Double]]
+  grad4 : Array[Array[Double]]
+  p : Array[Int32]
+  perm : Array[Int32]
+  simplex : Array[Array[Int32]]
+}
+pub fn SimplexNoise::new(random? : () -> Double) -> Self
+pub fn SimplexNoise::noise(Self, Double, Double) -> Double
+pub fn SimplexNoise::noise3d(Self, Double, Double, Double) -> Double
+pub fn SimplexNoise::noise4d(Self, Double, Double, Double, Double) -> Double
+
+// Type aliases
+
+// Traits

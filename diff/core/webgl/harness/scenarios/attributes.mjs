@@ -1,0 +1,57 @@
+export async function run({ src, createMockGL }) {
+  const { WebGLAttributes } = await import(src + '/renderers/webgl/WebGLAttributes.js');
+  const T = await import(src + '/Three.Core.js');
+  const gl = createMockGL({});
+  const attrs = new WebGLAttributes(gl);
+  const note = (label, a) => { const d = attrs.get(a); gl.__note(label, d === undefined ? 'undefined' : [d.buffer, d.type, d.bytesPerElement, d.version, d.size === undefined ? 'undefined' : d.size]); };
+  const a = new T.BufferAttribute(new Float32Array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]), 3);
+  attrs.update(a, gl.ARRAY_BUFFER);
+  note('a', a);
+  attrs.update(a, gl.ARRAY_BUFFER);
+  a.needsUpdate = true;
+  attrs.update(a, gl.ARRAY_BUFFER);
+  note('a', a);
+  a.addUpdateRange(6, 3);
+  a.addUpdateRange(0, 2);
+  a.addUpdateRange(2, 1);
+  a.addUpdateRange(10, 2);
+  a.needsUpdate = true;
+  attrs.update(a, gl.ARRAY_BUFFER);
+  gl.__note('ranges', a.updateRanges.length);
+  note('a', a);
+  const index = new T.Uint16BufferAttribute([0, 1, 2, 2, 3, 0], 1);
+  attrs.update(index, gl.ELEMENT_ARRAY_BUFFER);
+  note('index', index);
+  const half = new T.Float16BufferAttribute([1, 2], 1);
+  attrs.update(half, gl.ARRAY_BUFFER);
+  note('half', half);
+  for (const [ctor, v] of [[Int8Array, 1], [Uint8Array, 2], [Uint8ClampedArray, 3], [Int16Array, 4], [Int32Array, 5], [Uint32Array, 6]]) {
+    const b = new T.BufferAttribute(new ctor([v, v]), 1);
+    b.setUsage(T.DynamicDrawUsage);
+    attrs.update(b, gl.ARRAY_BUFFER);
+    note(ctor.name, b);
+  }
+  const ib = new T.InterleavedBuffer(new Float32Array(12), 4);
+  const p = new T.InterleavedBufferAttribute(ib, 3, 0);
+  const w = new T.InterleavedBufferAttribute(ib, 1, 3);
+  attrs.update(p, gl.ARRAY_BUFFER);
+  attrs.update(w, gl.ARRAY_BUFFER);
+  note('interleaved p', p);
+  note('interleaved w', w);
+  ib.needsUpdate = true;
+  attrs.update(w, gl.ARRAY_BUFFER);
+  note('interleaved w', w);
+  const glBuffer = gl.createBuffer();
+  const g = new T.GLBufferAttribute(glBuffer, gl.FLOAT, 3, 4, 3);
+  attrs.update(g, gl.ARRAY_BUFFER);
+  note('gl', g);
+  g.needsUpdate = true;
+  attrs.update(g, gl.ARRAY_BUFFER);
+  note('gl', g);
+  attrs.remove(a);
+  note('a removed', a);
+  attrs.remove(a);
+  attrs.remove(w);
+  note('interleaved p removed', p);
+  return gl.__log;
+}

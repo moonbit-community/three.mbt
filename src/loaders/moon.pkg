@@ -1,0 +1,21 @@
+import {
+  "bobzhang/three/animation",
+  "bobzhang/three/audio",
+  "bobzhang/three/core",
+  "bobzhang/three/extras",
+  "bobzhang/three/geometries",
+  "bobzhang/three/math",
+  "moonbitlang/core/async/js_async",
+}
+
+import {
+  "moonbitlang/core/async",
+  "moonbitlang/core/json",
+} for "test"
+
+options(
+  "allow-experimental-packages": [
+    "moonbitlang/core/async",
+    "moonbitlang/core/async/js_async",
+  ],
+)

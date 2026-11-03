@@ -1,0 +1,60 @@
+// WebGLTextures: dispose() of everything tracked, in tracking order (group 1).
+export async function run({ src, createMockGL }) {
+  const { WebGLExtensions } = await import(src + '/renderers/webgl/WebGLExtensions.js');
+  const { WebGLUtils } = await import(src + '/renderers/webgl/WebGLUtils.js');
+  const { WebGLCapabilities } = await import(src + '/renderers/webgl/WebGLCapabilities.js');
+  const { WebGLState } = await import(src + '/renderers/webgl/WebGLState.js');
+  const { WebGLProperties } = await import(src + '/renderers/webgl/WebGLProperties.js');
+  const { WebGLInfo } = await import(src + '/renderers/webgl/WebGLInfo.js');
+  const { WebGLTextures } = await import(src + '/renderers/webgl/WebGLTextures.js');
+  const T = await import(src + '/Three.Core.js');
+  const gl = createMockGL({});
+  const extensions = new WebGLExtensions(gl);
+  const utils = new WebGLUtils(gl, extensions);
+  const capabilities = new WebGLCapabilities(gl, extensions, {}, utils);
+  const state = new WebGLState(gl, extensions);
+  const properties = new WebGLProperties();
+  const info = new WebGLInfo(gl);
+  const textures = new WebGLTextures(gl, extensions, state, properties, capabilities, utils, info);
+  gl.__clear();
+  const t1 = new T.DataTexture(new Uint8Array(4), 1, 1);
+  t1.needsUpdate = true;
+  textures.setTexture2D(t1, 0);
+  const r1 = new T.WebGLRenderTarget(2, 2, { depthTexture: new T.DepthTexture(2, 2) });
+  textures.setupRenderTarget(r1);
+  const t2 = t1.clone();
+  textures.setTexture2D(t2, 1);
+  const t3 = new T.DataTexture(new Uint8Array(4), 1, 1);
+  t3.needsUpdate = true;
+  textures.setTexture2D(t3, 2);
+  t3.dispose();
+  // a depth texture another target owns
+  const shared = new T.DepthTexture(2, 2);
+  const r2 = new T.WebGLRenderTarget(2, 2, { depthTexture: shared });
+  const r3 = new T.WebGLRenderTarget(2, 2, { depthTexture: shared });
+  textures.setupRenderTarget(r2);
+  textures.setupRenderTarget(r3);
+  const r4 = new T.WebGLRenderTarget(2, 2, { count: 2, samples: 4 });
+  textures.setupRenderTarget(r4);
+  // set up twice: tracked twice, the older entry is removed while dispose runs
+  const r5 = new T.WebGLRenderTarget(2, 2, { depthBuffer: false });
+  textures.setupRenderTarget(r5);
+  textures.setupRenderTarget(r5);
+  gl.__note('memory', info.memory.textures);
+  gl.__note('step', 'dispose');
+  textures.dispose();
+  gl.__note('memory', info.memory.textures);
+  gl.__note('step', 'dispose again');
+  textures.dispose();
+  t1.dispose();
+  r1.dispose();
+  gl.__note('step', 'reuse');
+  t1.needsUpdate = true;
+  textures.setTexture2D(t1, 0);
+  textures.setupRenderTarget(r1);
+  gl.__note('memory', info.memory.textures);
+  t1.dispose();
+  r1.dispose();
+  gl.__note('memory', info.memory.textures);
+  return gl.__log;
+}

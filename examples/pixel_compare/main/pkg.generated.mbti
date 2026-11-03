@@ -1,0 +1,21 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three-pixel-compare/main"
+
+import {
+  "bobzhang/three/renderers/webgl",
+}
+
+// Values
+pub fn release_scene() -> Unit
+
+pub fn render_scene(String, @webgl.HTMLCanvasElement) -> Bool
+
+pub fn scene_names() -> Array[String]
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits

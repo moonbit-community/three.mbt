@@ -1,0 +1,36 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/addons/environments"
+
+import {
+  "bobzhang/three/core",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub(all) struct ColorEnvironment {
+}
+pub fn ColorEnvironment::dispose(@core.Object3D) -> Unit
+pub fn ColorEnvironment::new(color? : Int32) -> @core.Object3D
+pub fn ColorEnvironment::of(@core.Object3D) -> Self?
+pub impl @core.Object3DExtension for ColorEnvironment
+
+pub(all) struct DebugEnvironment {
+}
+pub fn DebugEnvironment::dispose(@core.Object3D) -> Unit
+pub fn DebugEnvironment::new() -> @core.Object3D
+pub fn DebugEnvironment::of(@core.Object3D) -> Self?
+pub impl @core.Object3DExtension for DebugEnvironment
+
+pub(all) struct RoomEnvironment {
+}
+pub fn RoomEnvironment::dispose(@core.Object3D) -> Unit
+pub fn RoomEnvironment::new() -> @core.Object3D
+pub fn RoomEnvironment::of(@core.Object3D) -> Self?
+pub impl @core.Object3DExtension for RoomEnvironment
+
+// Type aliases
+
+// Traits

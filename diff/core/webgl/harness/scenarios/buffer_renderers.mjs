@@ -1,0 +1,35 @@
+export async function run({ src, createMockGL }) {
+  const { WebGLInfo } = await import(src + '/renderers/webgl/WebGLInfo.js');
+  const { WebGLExtensions } = await import(src + '/renderers/webgl/WebGLExtensions.js');
+  const { WebGLBufferRenderer } = await import(src + '/renderers/webgl/WebGLBufferRenderer.js');
+  const { WebGLIndexedBufferRenderer } = await import(src + '/renderers/webgl/WebGLIndexedBufferRenderer.js');
+  const gl = createMockGL({});
+  const info = new WebGLInfo(gl);
+  const ext = new WebGLExtensions(gl);
+  const noteInfo = () => gl.__note('render', [info.render.frame, info.render.calls, info.render.triangles, info.render.lines, info.render.points]);
+  const br = new WebGLBufferRenderer(gl, ext, info);
+  br.setMode(gl.TRIANGLES);
+  br.render(0, 6);
+  br.renderInstances(0, 6, 3);
+  br.renderInstances(0, 6, 0);
+  br.renderMultiDraw(new Int32Array([0, 3]), new Int32Array([3, 3]), 2);
+  br.renderMultiDraw(new Int32Array([0]), new Int32Array([3]), 0);
+  noteInfo();
+  const ibr = new WebGLIndexedBufferRenderer(gl, ext, info);
+  ibr.setMode(gl.LINES);
+  gl.createBuffer();
+  ibr.setIndex({ type: gl.UNSIGNED_SHORT, bytesPerElement: 2 });
+  ibr.render(3, 6);
+  ibr.renderInstances(1, 4, 2);
+  ibr.renderInstances(1, 4, 0);
+  ibr.renderMultiDraw(new Int32Array([0, 6]), new Int32Array([4, 2]), 2);
+  noteInfo();
+  info.update(5, gl.LINE_STRIP, 2);
+  info.update(4, gl.LINE_LOOP, 1);
+  info.update(7, gl.POINTS, 3);
+  info.update(4, gl.TRIANGLES, 1);
+  noteInfo();
+  info.reset();
+  noteInfo();
+  return gl.__log;
+}

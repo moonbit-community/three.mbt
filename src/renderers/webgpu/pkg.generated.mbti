@@ -1,0 +1,776 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/renderers/webgpu"
+
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/nodes",
+  "bobzhang/three/renderers/gpu",
+}
+
+// Values
+pub const GPUAddressMode_ClampToEdge : String = "clamp-to-edge"
+
+pub const GPUAddressMode_MirrorRepeat : String = "mirror-repeat"
+
+pub const GPUAddressMode_Repeat : String = "repeat"
+
+pub const GPUBlendFactor_Constant : String = "constant"
+
+pub const GPUBlendFactor_Dst : String = "dst"
+
+pub const GPUBlendFactor_DstAlpha : String = "dst-alpha"
+
+pub const GPUBlendFactor_One : String = "one"
+
+pub const GPUBlendFactor_OneMinusConstant : String = "one-minus-constant"
+
+pub const GPUBlendFactor_OneMinusDst : String = "one-minus-dst"
+
+pub const GPUBlendFactor_OneMinusDstAlpha : String = "one-minus-dst-alpha"
+
+pub const GPUBlendFactor_OneMinusSrc : String = "one-minus-src"
+
+pub const GPUBlendFactor_OneMinusSrcAlpha : String = "one-minus-src-alpha"
+
+pub const GPUBlendFactor_Src : String = "src"
+
+pub const GPUBlendFactor_SrcAlpha : String = "src-alpha"
+
+pub const GPUBlendFactor_SrcAlphaSaturated : String = "src-alpha-saturated"
+
+pub const GPUBlendFactor_Zero : String = "zero"
+
+pub const GPUBlendOperation_Add : String = "add"
+
+pub const GPUBlendOperation_Max : String = "max"
+
+pub const GPUBlendOperation_Min : String = "min"
+
+pub const GPUBlendOperation_ReverseSubtract : String = "reverse-subtract"
+
+pub const GPUBlendOperation_Subtract : String = "subtract"
+
+pub const GPUBufferBindingType_ReadOnlyStorage : String = "read-only-storage"
+
+pub const GPUBufferBindingType_Storage : String = "storage"
+
+pub const GPUBufferBindingType_Uniform : String = "uniform"
+
+pub const GPUColorWriteFlags_All : Int32 = 15
+
+pub const GPUColorWriteFlags_Alpha : Int32 = 8
+
+pub const GPUColorWriteFlags_Blue : Int32 = 4
+
+pub const GPUColorWriteFlags_Green : Int32 = 2
+
+pub const GPUColorWriteFlags_None : Int32 = 0
+
+pub const GPUColorWriteFlags_Red : Int32 = 1
+
+pub const GPUCompareFunction_Always : String = "always"
+
+pub const GPUCompareFunction_Equal : String = "equal"
+
+pub const GPUCompareFunction_Greater : String = "greater"
+
+pub const GPUCompareFunction_GreaterEqual : String = "greater-equal"
+
+pub const GPUCompareFunction_Less : String = "less"
+
+pub const GPUCompareFunction_LessEqual : String = "less-equal"
+
+pub const GPUCompareFunction_Never : String = "never"
+
+pub const GPUCompareFunction_NotEqual : String = "not-equal"
+
+pub const GPUCullMode_Back : String = "back"
+
+pub const GPUCullMode_Front : String = "front"
+
+pub const GPUCullMode_None : String = "none"
+
+pub const GPUFeatureName_BGRA8UNormStorage : String = "bgra8unorm-storage"
+
+pub const GPUFeatureName_ClipDistances : String = "clip-distances"
+
+pub const GPUFeatureName_CoreFeaturesAndLimits : String = "core-features-and-limits"
+
+pub const GPUFeatureName_Depth32FloatStencil8 : String = "depth32float-stencil8"
+
+pub const GPUFeatureName_DepthClipControl : String = "depth-clip-control"
+
+pub const GPUFeatureName_DualSourceBlending : String = "dual-source-blending"
+
+pub const GPUFeatureName_Float32Blendable : String = "float32-blendable"
+
+pub const GPUFeatureName_Float32Filterable : String = "float32-filterable"
+
+pub const GPUFeatureName_IndirectFirstInstance : String = "indirect-first-instance"
+
+pub const GPUFeatureName_RG11B10UFloat : String = "rg11b10ufloat-renderable"
+
+pub const GPUFeatureName_ShaderF16 : String = "shader-f16"
+
+pub const GPUFeatureName_Subgroups : String = "subgroups"
+
+pub const GPUFeatureName_TextureCompressionASTC : String = "texture-compression-astc"
+
+pub const GPUFeatureName_TextureCompressionASTCSliced3D : String = "texture-compression-astc-sliced-3d"
+
+pub const GPUFeatureName_TextureCompressionBC : String = "texture-compression-bc"
+
+pub const GPUFeatureName_TextureCompressionBCSliced3D : String = "texture-compression-bc-sliced-3d"
+
+pub const GPUFeatureName_TextureCompressionETC2 : String = "texture-compression-etc2"
+
+pub const GPUFeatureName_TextureFormatsTier1 : String = "texture-formats-tier1"
+
+pub const GPUFeatureName_TextureFormatsTier2 : String = "texture-formats-tier2"
+
+pub const GPUFeatureName_TimestampQuery : String = "timestamp-query"
+
+pub const GPUFilterMode_Linear : String = "linear"
+
+pub const GPUFilterMode_Nearest : String = "nearest"
+
+pub const GPUFrontFace_CCW : String = "ccw"
+
+pub const GPUFrontFace_CW : String = "cw"
+
+pub const GPUIndexFormat_Uint16 : String = "uint16"
+
+pub const GPUIndexFormat_Uint32 : String = "uint32"
+
+pub const GPUInputStepMode_Instance : String = "instance"
+
+pub const GPUInputStepMode_Vertex : String = "vertex"
+
+pub const GPULoadOp_Clear : String = "clear"
+
+pub const GPULoadOp_Load : String = "load"
+
+pub const GPUPrimitiveTopology_LineList : String = "line-list"
+
+pub const GPUPrimitiveTopology_LineStrip : String = "line-strip"
+
+pub const GPUPrimitiveTopology_PointList : String = "point-list"
+
+pub const GPUPrimitiveTopology_TriangleList : String = "triangle-list"
+
+pub const GPUPrimitiveTopology_TriangleStrip : String = "triangle-strip"
+
+pub const GPUSamplerBindingType_Comparison : String = "comparison"
+
+pub const GPUSamplerBindingType_Filtering : String = "filtering"
+
+pub const GPUSamplerBindingType_NonFiltering : String = "non-filtering"
+
+pub const GPUShaderStage_COMPUTE : Int32 = 4
+
+pub const GPUShaderStage_FRAGMENT : Int32 = 2
+
+pub const GPUShaderStage_VERTEX : Int32 = 1
+
+pub const GPUStencilOperation_DecrementClamp : String = "decrement-clamp"
+
+pub const GPUStencilOperation_DecrementWrap : String = "decrement-wrap"
+
+pub const GPUStencilOperation_IncrementClamp : String = "increment-clamp"
+
+pub const GPUStencilOperation_IncrementWrap : String = "increment-wrap"
+
+pub const GPUStencilOperation_Invert : String = "invert"
+
+pub const GPUStencilOperation_Keep : String = "keep"
+
+pub const GPUStencilOperation_Replace : String = "replace"
+
+pub const GPUStencilOperation_Zero : String = "zero"
+
+pub const GPUStorageTextureAccess_ReadOnly : String = "read-only"
+
+pub const GPUStorageTextureAccess_ReadWrite : String = "read-write"
+
+pub const GPUStorageTextureAccess_WriteOnly : String = "write-only"
+
+pub const GPUStoreOp_Discard : String = "discard"
+
+pub const GPUStoreOp_Store : String = "store"
+
+pub const GPUTextureAspect_All : String = "all"
+
+pub const GPUTextureAspect_DepthOnly : String = "depth-only"
+
+pub const GPUTextureAspect_StencilOnly : String = "stencil-only"
+
+pub const GPUTextureDimension_OneD : String = "1d"
+
+pub const GPUTextureDimension_ThreeD : String = "3d"
+
+pub const GPUTextureDimension_TwoD : String = "2d"
+
+pub const GPUTextureFormat_ASTC10x10Unorm : String = "astc-10x10-unorm"
+
+pub const GPUTextureFormat_ASTC10x10UnormSRGB : String = "astc-10x10-unorm-srgb"
+
+pub const GPUTextureFormat_ASTC10x5Unorm : String = "astc-10x5-unorm"
+
+pub const GPUTextureFormat_ASTC10x5UnormSRGB : String = "astc-10x5-unorm-srgb"
+
+pub const GPUTextureFormat_ASTC10x6Unorm : String = "astc-10x6-unorm"
+
+pub const GPUTextureFormat_ASTC10x6UnormSRGB : String = "astc-10x6-unorm-srgb"
+
+pub const GPUTextureFormat_ASTC10x8Unorm : String = "astc-10x8-unorm"
+
+pub const GPUTextureFormat_ASTC10x8UnormSRGB : String = "astc-10x8-unorm-srgb"
+
+pub const GPUTextureFormat_ASTC12x10Unorm : String = "astc-12x10-unorm"
+
+pub const GPUTextureFormat_ASTC12x10UnormSRGB : String = "astc-12x10-unorm-srgb"
+
+pub const GPUTextureFormat_ASTC12x12Unorm : String = "astc-12x12-unorm"
+
+pub const GPUTextureFormat_ASTC12x12UnormSRGB : String = "astc-12x12-unorm-srgb"
+
+pub const GPUTextureFormat_ASTC4x4Unorm : String = "astc-4x4-unorm"
+
+pub const GPUTextureFormat_ASTC4x4UnormSRGB : String = "astc-4x4-unorm-srgb"
+
+pub const GPUTextureFormat_ASTC5x4Unorm : String = "astc-5x4-unorm"
+
+pub const GPUTextureFormat_ASTC5x4UnormSRGB : String = "astc-5x4-unorm-srgb"
+
+pub const GPUTextureFormat_ASTC5x5Unorm : String = "astc-5x5-unorm"
+
+pub const GPUTextureFormat_ASTC5x5UnormSRGB : String = "astc-5x5-unorm-srgb"
+
+pub const GPUTextureFormat_ASTC6x5Unorm : String = "astc-6x5-unorm"
+
+pub const GPUTextureFormat_ASTC6x5UnormSRGB : String = "astc-6x5-unorm-srgb"
+
+pub const GPUTextureFormat_ASTC6x6Unorm : String = "astc-6x6-unorm"
+
+pub const GPUTextureFormat_ASTC6x6UnormSRGB : String = "astc-6x6-unorm-srgb"
+
+pub const GPUTextureFormat_ASTC8x5Unorm : String = "astc-8x5-unorm"
+
+pub const GPUTextureFormat_ASTC8x5UnormSRGB : String = "astc-8x5-unorm-srgb"
+
+pub const GPUTextureFormat_ASTC8x6Unorm : String = "astc-8x6-unorm"
+
+pub const GPUTextureFormat_ASTC8x6UnormSRGB : String = "astc-8x6-unorm-srgb"
+
+pub const GPUTextureFormat_ASTC8x8Unorm : String = "astc-8x8-unorm"
+
+pub const GPUTextureFormat_ASTC8x8UnormSRGB : String = "astc-8x8-unorm-srgb"
+
+pub const GPUTextureFormat_BC1RGBAUnorm : String = "bc1-rgba-unorm"
+
+pub const GPUTextureFormat_BC1RGBAUnormSRGB : String = "bc1-rgba-unorm-srgb"
+
+pub const GPUTextureFormat_BC2RGBAUnorm : String = "bc2-rgba-unorm"
+
+pub const GPUTextureFormat_BC2RGBAUnormSRGB : String = "bc2-rgba-unorm-srgb"
+
+pub const GPUTextureFormat_BC3RGBAUnorm : String = "bc3-rgba-unorm"
+
+pub const GPUTextureFormat_BC3RGBAUnormSRGB : String = "bc3-rgba-unorm-srgb"
+
+pub const GPUTextureFormat_BC4RSnorm : String = "bc4-r-snorm"
+
+pub const GPUTextureFormat_BC4RUnorm : String = "bc4-r-unorm"
+
+pub const GPUTextureFormat_BC5RGSnorm : String = "bc5-rg-snorm"
+
+pub const GPUTextureFormat_BC5RGUnorm : String = "bc5-rg-unorm"
+
+pub const GPUTextureFormat_BC6HRGBFloat : String = "bc6h-rgb-float"
+
+pub const GPUTextureFormat_BC6HRGBUFloat : String = "bc6h-rgb-ufloat"
+
+pub const GPUTextureFormat_BC7RGBAUnorm : String = "bc7-rgba-unorm"
+
+pub const GPUTextureFormat_BC7RGBAUnormSRGB : String = "bc7-rgba-unorm-srgb"
+
+pub const GPUTextureFormat_BGRA8Unorm : String = "bgra8unorm"
+
+pub const GPUTextureFormat_BGRA8UnormSRGB : String = "bgra8unorm-srgb"
+
+pub const GPUTextureFormat_Depth16Unorm : String = "depth16unorm"
+
+pub const GPUTextureFormat_Depth24Plus : String = "depth24plus"
+
+pub const GPUTextureFormat_Depth24PlusStencil8 : String = "depth24plus-stencil8"
+
+pub const GPUTextureFormat_Depth32Float : String = "depth32float"
+
+pub const GPUTextureFormat_Depth32FloatStencil8 : String = "depth32float-stencil8"
+
+pub const GPUTextureFormat_EACR11Snorm : String = "eac-r11snorm"
+
+pub const GPUTextureFormat_EACR11Unorm : String = "eac-r11unorm"
+
+pub const GPUTextureFormat_EACRG11Snorm : String = "eac-rg11snorm"
+
+pub const GPUTextureFormat_EACRG11Unorm : String = "eac-rg11unorm"
+
+pub const GPUTextureFormat_ETC2RGB8A1Unorm : String = "etc2-rgb8a1unorm"
+
+pub const GPUTextureFormat_ETC2RGB8A1UnormSRGB : String = "etc2-rgb8a1unorm-srgb"
+
+pub const GPUTextureFormat_ETC2RGB8Unorm : String = "etc2-rgb8unorm"
+
+pub const GPUTextureFormat_ETC2RGB8UnormSRGB : String = "etc2-rgb8unorm-srgb"
+
+pub const GPUTextureFormat_ETC2RGBA8Unorm : String = "etc2-rgba8unorm"
+
+pub const GPUTextureFormat_ETC2RGBA8UnormSRGB : String = "etc2-rgba8unorm-srgb"
+
+pub const GPUTextureFormat_R16Float : String = "r16float"
+
+pub const GPUTextureFormat_R16Sint : String = "r16sint"
+
+pub const GPUTextureFormat_R16Snorm : String = "r16snorm"
+
+pub const GPUTextureFormat_R16Uint : String = "r16uint"
+
+pub const GPUTextureFormat_R16Unorm : String = "r16unorm"
+
+pub const GPUTextureFormat_R32Float : String = "r32float"
+
+pub const GPUTextureFormat_R32Sint : String = "r32sint"
+
+pub const GPUTextureFormat_R32Uint : String = "r32uint"
+
+pub const GPUTextureFormat_R8Sint : String = "r8sint"
+
+pub const GPUTextureFormat_R8Snorm : String = "r8snorm"
+
+pub const GPUTextureFormat_R8Uint : String = "r8uint"
+
+pub const GPUTextureFormat_R8Unorm : String = "r8unorm"
+
+pub const GPUTextureFormat_RG11B10UFloat : String = "rg11b10ufloat"
+
+pub const GPUTextureFormat_RG16Float : String = "rg16float"
+
+pub const GPUTextureFormat_RG16Sint : String = "rg16sint"
+
+pub const GPUTextureFormat_RG16Snorm : String = "rg16snorm"
+
+pub const GPUTextureFormat_RG16Uint : String = "rg16uint"
+
+pub const GPUTextureFormat_RG16Unorm : String = "rg16unorm"
+
+pub const GPUTextureFormat_RG32Float : String = "rg32float"
+
+pub const GPUTextureFormat_RG32Sint : String = "rg32sint"
+
+pub const GPUTextureFormat_RG32Uint : String = "rg32uint"
+
+pub const GPUTextureFormat_RG8Sint : String = "rg8sint"
+
+pub const GPUTextureFormat_RG8Snorm : String = "rg8snorm"
+
+pub const GPUTextureFormat_RG8Uint : String = "rg8uint"
+
+pub const GPUTextureFormat_RG8Unorm : String = "rg8unorm"
+
+pub const GPUTextureFormat_RGB10A2Unorm : String = "rgb10a2unorm"
+
+pub const GPUTextureFormat_RGB9E5UFloat : String = "rgb9e5ufloat"
+
+pub const GPUTextureFormat_RGBA16Float : String = "rgba16float"
+
+pub const GPUTextureFormat_RGBA16Sint : String = "rgba16sint"
+
+pub const GPUTextureFormat_RGBA16Snorm : String = "rgba16snorm"
+
+pub const GPUTextureFormat_RGBA16Uint : String = "rgba16uint"
+
+pub const GPUTextureFormat_RGBA16Unorm : String = "rgba16unorm"
+
+pub const GPUTextureFormat_RGBA32Float : String = "rgba32float"
+
+pub const GPUTextureFormat_RGBA32Sint : String = "rgba32sint"
+
+pub const GPUTextureFormat_RGBA32Uint : String = "rgba32uint"
+
+pub const GPUTextureFormat_RGBA8Sint : String = "rgba8sint"
+
+pub const GPUTextureFormat_RGBA8Snorm : String = "rgba8snorm"
+
+pub const GPUTextureFormat_RGBA8Uint : String = "rgba8uint"
+
+pub const GPUTextureFormat_RGBA8Unorm : String = "rgba8unorm"
+
+pub const GPUTextureFormat_RGBA8UnormSRGB : String = "rgba8unorm-srgb"
+
+pub const GPUTextureFormat_Stencil8 : String = "stencil8"
+
+pub const GPUTextureSampleType_Depth : String = "depth"
+
+pub const GPUTextureSampleType_Float : String = "float"
+
+pub const GPUTextureSampleType_SInt : String = "sint"
+
+pub const GPUTextureSampleType_UInt : String = "uint"
+
+pub const GPUTextureSampleType_UnfilterableFloat : String = "unfilterable-float"
+
+pub const GPUTextureViewDimension_Cube : String = "cube"
+
+pub const GPUTextureViewDimension_CubeArray : String = "cube-array"
+
+pub const GPUTextureViewDimension_OneD : String = "1d"
+
+pub const GPUTextureViewDimension_ThreeD : String = "3d"
+
+pub const GPUTextureViewDimension_TwoD : String = "2d"
+
+pub const GPUTextureViewDimension_TwoDArray : String = "2d-array"
+
+pub const GPUVertexFormat_Float16x2 : String = "float16x2"
+
+pub const GPUVertexFormat_Float16x4 : String = "float16x4"
+
+pub const GPUVertexFormat_Float32 : String = "float32"
+
+pub const GPUVertexFormat_Float32x2 : String = "float32x2"
+
+pub const GPUVertexFormat_Float32x3 : String = "float32x3"
+
+pub const GPUVertexFormat_Float32x4 : String = "float32x4"
+
+pub const GPUVertexFormat_Sint16x2 : String = "sint16x2"
+
+pub const GPUVertexFormat_Sint16x4 : String = "sint16x4"
+
+pub const GPUVertexFormat_Sint32 : String = "sint32"
+
+pub const GPUVertexFormat_Sint32x2 : String = "sint32x2"
+
+pub const GPUVertexFormat_Sint32x3 : String = "sint32x3"
+
+pub const GPUVertexFormat_Sint32x4 : String = "sint32x4"
+
+pub const GPUVertexFormat_Sint8x2 : String = "sint8x2"
+
+pub const GPUVertexFormat_Sint8x4 : String = "sint8x4"
+
+pub const GPUVertexFormat_Snorm16x2 : String = "snorm16x2"
+
+pub const GPUVertexFormat_Snorm16x4 : String = "snorm16x4"
+
+pub const GPUVertexFormat_Snorm8x2 : String = "snorm8x2"
+
+pub const GPUVertexFormat_Snorm8x4 : String = "snorm8x4"
+
+pub const GPUVertexFormat_Uint16x2 : String = "uint16x2"
+
+pub const GPUVertexFormat_Uint16x4 : String = "uint16x4"
+
+pub const GPUVertexFormat_Uint32 : String = "uint32"
+
+pub const GPUVertexFormat_Uint32x2 : String = "uint32x2"
+
+pub const GPUVertexFormat_Uint32x3 : String = "uint32x3"
+
+pub const GPUVertexFormat_Uint32x4 : String = "uint32x4"
+
+pub const GPUVertexFormat_Uint8x2 : String = "uint8x2"
+
+pub const GPUVertexFormat_Uint8x4 : String = "uint8x4"
+
+pub const GPUVertexFormat_Unorm16x2 : String = "unorm16x2"
+
+pub const GPUVertexFormat_Unorm16x4 : String = "unorm16x4"
+
+pub const GPUVertexFormat_Unorm8x2 : String = "unorm8x2"
+
+pub const GPUVertexFormat_Unorm8x4 : String = "unorm8x4"
+
+pub fn gpu_feature_map(String) -> String?
+
+pub let gpu_feature_names : Array[String]
+
+pub fn is_web_gpu_renderer(@nodes.Renderer) -> Bool
+
+pub fn wgpu_get_format_device(@core.Texture, @gpu.GPUDevice?) -> String?
+
+pub fn wgpu_submit(@gpu.GPUDevice, @gpu.GPUCommandBuffer) -> Unit
+
+pub fn wgsl_backend_compatibility_mode(@nodes.Renderer) -> Bool
+
+pub fn wgsl_backend_state(@nodes.Backend) -> WGSLBackendState
+
+pub fn wgsl_get_format(@nodes.Renderer, @core.Texture) -> String
+
+pub fn wgsl_get_texture_sample_data(@nodes.Renderer, @core.Texture) -> WGSLTextureSampleData
+
+pub fn wgsl_gpu_feature_name(String) -> String
+
+pub fn wgsl_renderer_has_feature(@nodes.Renderer, String) -> Bool
+
+// Errors
+
+// Types and methods
+#external
+pub type BasicNodeLibrary
+pub fn BasicNodeLibrary::new() -> @nodes.NodeLibrary
+
+#external
+pub type StandardNodeLibrary
+pub fn StandardNodeLibrary::new() -> @nodes.NodeLibrary
+
+pub(all) struct WGSLBackendState {
+  features : Array[String]
+  mut compatibility_mode : Bool
+}
+
+pub(all) struct WGSLBuiltin {
+  name : String
+  property : String
+  type_ : String
+}
+
+pub(all) struct WGSLNodeBuilder {
+  uniform_groups : Map[String, @nodes.Binding]
+  uniform_groups_bindings : Map[String, (Int32, Int32)]
+  builtins : Map[String, Map[String, WGSLBuiltin]]
+  directives : Map[String, Array[String]]
+  scoped_arrays : Map[String, WGSLScopedArray]
+  texture_data : Map[Int32, Map[Int32, Map[String, WGSLTextureData]]]
+  varying_vars : Array[(@nodes.NodeVarying, @nodes.NodeVar)]
+}
+pub fn WGSLNodeBuilder::enable_clip_distances(Self, @nodes.NodeBuilder) -> Unit
+pub fn WGSLNodeBuilder::enable_directive(Self, @nodes.NodeBuilder, String, shader_stage? : String) -> Unit
+pub fn WGSLNodeBuilder::generate_filtered_texture(Self, @nodes.NodeBuilder, @core.Texture, String, String, String?, String, String?) -> String
+pub fn WGSLNodeBuilder::generate_texture_dimension(Self, @nodes.NodeBuilder, @core.Texture, String, String) -> String
+pub fn WGSLNodeBuilder::generate_texture_sample_level(Self, @nodes.NodeBuilder, @core.Texture, String, String, String, String?, String?) -> String
+pub fn WGSLNodeBuilder::generate_wrap_function(Self, @nodes.NodeBuilder, @core.Texture) -> String
+pub fn WGSLNodeBuilder::get_builtin(Self, @nodes.NodeBuilder, String, String, String, shader_stage? : String) -> String
+pub fn WGSLNodeBuilder::get_builtins(Self, @nodes.NodeBuilder, String) -> String
+pub fn WGSLNodeBuilder::get_directives(Self, String) -> String
+pub fn WGSLNodeBuilder::get_node_access(Self, @nodes.Node, String) -> String?
+pub fn WGSLNodeBuilder::get_scoped_arrays(Self, @nodes.NodeBuilder, String) -> String?
+pub fn WGSLNodeBuilder::get_storage_access(Self, @nodes.Node, String) -> String
+pub fn WGSLNodeBuilder::get_struct_members(Self, @nodes.NodeBuilder, @nodes.StructType) -> String
+pub fn WGSLNodeBuilder::get_structs(Self, @nodes.NodeBuilder, String) -> String
+pub fn WGSLNodeBuilder::is_sample_compare(Self, @nodes.NodeBuilder, @core.Texture) -> Bool
+pub fn WGSLNodeBuilder::is_unfilterable(Self, @nodes.NodeBuilder, @core.Texture) -> Bool
+pub fn WGSLNodeBuilder::new(@nodes.BuilderObject, @nodes.Renderer) -> @nodes.NodeBuilder
+pub fn WGSLNodeBuilder::of(@nodes.NodeBuilder) -> Self?
+pub fn WGSLNodeBuilder::uniform_gpu(@nodes.NodeBuilder, @nodes.Node, String) -> WGSLUniformGPU?
+pub impl @nodes.NodeBuilderClass for WGSLNodeBuilder
+
+pub(all) struct WGSLNodeFunction {
+  mut inputs_code : String
+  mut block_code : String
+  mut output_type : String
+}
+pub fn WGSLNodeFunction::new(String) -> @nodes.NodeFunction
+pub fn WGSLNodeFunction::of(@nodes.NodeFunction) -> Self
+
+#external
+pub type WGSLNodeParser
+pub fn WGSLNodeParser::new() -> @nodes.NodeParser
+
+pub(all) struct WGSLScopedArray {
+  name : String
+  scope : String
+  buffer_type : String
+  buffer_count : Int32
+  is_atomic : Bool
+}
+
+pub(all) struct WGSLTextureData {
+  mut dimensions_snippet : Map[String, @nodes.Node]?
+  mut array_layer_count : @nodes.Node?
+  mut cube_face_count : @nodes.Node?
+}
+
+pub(all) struct WGSLTextureSampleData {
+  samples : Int32
+  primary_samples : Int32
+  is_msaa : Bool
+}
+
+pub(all) enum WGSLUniformGPU {
+  Textures(Array[@nodes.Binding])
+  Buffer(@nodes.Binding)
+  Uniform(@nodes.Uniform)
+}
+
+pub(all) struct WebGPUAttributeUtils {
+  mut backend_ : WebGPUBackend?
+}
+pub fn WebGPUAttributeUtils::create_attribute(Self, @nodes.AttributeBuffer, Int32) -> Unit
+pub fn WebGPUAttributeUtils::destroy_attribute(Self, @nodes.AttributeBuffer) -> Unit
+pub fn WebGPUAttributeUtils::get_array_buffer_async(Self, @nodes.AttributeBuffer, @nodes.ReadbackBuffer?, Int32, Int32, (@core.JsValue) -> Unit) -> Unit
+pub fn WebGPUAttributeUtils::get_vertex_buffer_layout(Self, @nodes.RenderObject) -> Array[@gpu.GPUVertexBufferLayout]
+pub fn WebGPUAttributeUtils::get_vertex_buffer_layout_cache_key(Self, @nodes.RenderObject) -> String
+pub fn WebGPUAttributeUtils::update_attribute(Self, @nodes.AttributeBuffer) -> Unit
+
+pub(all) struct WebGPUBackend {
+  mut base_ : @nodes.Backend?
+  mut compatibility_mode : Bool?
+  mut device : @gpu.GPUDevice?
+  utils : WebGPUUtils
+  attribute_utils : WebGPUAttributeUtils
+  binding_utils : WebGPUBindingUtils
+  capabilities : WebGPUCapabilities
+  pipeline_utils : WebGPUPipelineUtils
+  texture_utils : WebGPUTextureUtils
+  occluded_resolve_cache : Map[Int32, @gpu.GPUBuffer]
+  _compatibility : Map[String, Bool]
+}
+pub fn WebGPUBackend::base(Self) -> @nodes.Backend
+pub fn WebGPUBackend::context(Self) -> @gpu.GPUCanvasContext
+pub fn WebGPUBackend::delete(Self, @core.JsValue) -> Unit
+pub fn WebGPUBackend::get(Self, @core.JsValue) -> @core.JsValue
+pub fn WebGPUBackend::get_clear_color(Self) -> @nodes.Color4
+pub fn WebGPUBackend::gpu_device(Self) -> @gpu.GPUDevice
+pub fn WebGPUBackend::has_feature_(Self, String) -> Bool
+pub fn WebGPUBackend::init_timestamp_query(Self, String, String?, (@gpu.GPURenderPassTimestampWrites?) -> Unit) -> Unit
+pub fn WebGPUBackend::new(parameters? : @core.JsValue) -> @nodes.Backend
+pub fn WebGPUBackend::of(@nodes.Backend) -> Self?
+pub fn WebGPUBackend::renderer(Self) -> @nodes.Renderer
+pub fn WebGPUBackend::resolve_occluded_async(Self, @nodes.RenderContext, @nodes.Backend) -> Unit
+pub fn WebGPUBackend::update_scissor(Self, @nodes.RenderContext) -> Unit
+pub impl @nodes.BackendClass for WebGPUBackend
+
+pub(all) struct WebGPUBindGroupLayout {
+  layout_gpu : @gpu.GPUBindGroupLayout
+  mut used_times : Int32
+}
+
+pub(all) struct WebGPUBindingUtils {
+  mut backend_ : WebGPUBackend?
+  _bind_group_layout_cache : Map[String, WebGPUBindGroupLayout]
+}
+pub fn WebGPUBindingUtils::create_bind_group(Self, @nodes.BindGroup, @gpu.GPUBindGroupLayout) -> @gpu.GPUBindGroup
+pub fn WebGPUBindingUtils::create_bind_group_index(Self, @core.TypedArray, @gpu.GPUBindGroupLayout) -> @gpu.GPUBindGroup
+pub fn WebGPUBindingUtils::create_bindings(Self, @nodes.BindGroup, Array[@nodes.BindGroup], String, Int32) -> Unit
+pub fn WebGPUBindingUtils::create_bindings_layout(Self, @nodes.BindGroup) -> @gpu.GPUBindGroupLayout
+pub fn WebGPUBindingUtils::delete_bind_group_data(Self, @nodes.BindGroup) -> Unit
+pub fn WebGPUBindingUtils::dispose(Self) -> Unit
+pub fn WebGPUBindingUtils::update_binding(Self, @nodes.Binding) -> Unit
+
+pub(all) struct WebGPUCapabilities {
+  mut backend_ : WebGPUBackend?
+}
+pub fn WebGPUCapabilities::get_max_anisotropy(Self) -> Int32
+pub fn WebGPUCapabilities::get_uniform_buffer_limit(Self) -> Int32
+
+pub(all) struct WebGPUCurrentSets {
+  attributes : Map[Int32, @nodes.AttributeBuffer]
+  binding_groups : Map[Int32, @gpu.GPUBindGroup]
+  mut pipeline : @gpu.GPURenderPipeline?
+  mut index : @core.JsValue?
+}
+
+pub(all) enum WebGPUPassEncoder {
+  Pass(@gpu.GPURenderPassEncoder)
+  Bundle(@gpu.GPURenderBundleEncoder)
+}
+
+pub(all) struct WebGPUPipelineUtils {
+  mut backend_ : WebGPUBackend?
+}
+pub fn WebGPUPipelineUtils::create_bundle_encoder(Self, @nodes.RenderContext, label? : String) -> @gpu.GPURenderBundleEncoder
+pub fn WebGPUPipelineUtils::create_compute_pipeline(Self, @nodes.Pipeline, Array[@nodes.BindGroup], Array[@core.JsValue]?) -> Unit
+pub fn WebGPUPipelineUtils::create_render_pipeline(Self, @nodes.RenderObject, Array[@core.JsValue]?) -> Unit
+
+pub(all) struct WebGPUProgramModule {
+  module_ : @gpu.GPUShaderModule
+  entry_point : String
+}
+
+#external
+pub type WebGPURenderer
+pub fn WebGPURenderer::from_parameters(@core.JsValue, library? : () -> @nodes.NodeLibrary) -> @nodes.Renderer
+pub fn WebGPURenderer::new(canvas? : @core.JsValue, context? : @gpu.GPUCanvasContext, logarithmic_depth_buffer? : Bool, reversed_depth_buffer? : Bool, alpha? : Bool, depth? : Bool, stencil? : Bool, antialias? : Bool, samples? : Int32, force_webgl? : Bool, multiview? : Bool, output_type? : Int32, output_buffer_type? : Int32, track_timestamp? : Bool, power_preference? : String, required_limits? : @core.JsValue, device? : @gpu.GPUDevice) -> @nodes.Renderer
+
+#external
+pub type WebGPURendererNodes
+pub fn WebGPURendererNodes::from_parameters(@core.JsValue) -> @nodes.Renderer
+
+pub(all) struct WebGPUTexturePassUtils {
+  device : @gpu.GPUDevice
+  mipmap_sampler : @gpu.GPUSampler
+  flip_y_sampler : @gpu.GPUSampler
+  flip_uniform_buffer : @gpu.GPUBuffer
+  no_flip_uniform_buffer : @gpu.GPUBuffer
+  transfer_pipelines : Map[String, @gpu.GPURenderPipeline]
+  mipmap_shader_module : @gpu.GPUShaderModule
+  // private fields
+}
+pub fn WebGPUTexturePassUtils::flip_y(Self, @gpu.GPUTexture, @gpu.GPUTextureDescriptor, base_array_layer? : Int32) -> Unit
+pub fn WebGPUTexturePassUtils::generate_mipmaps(Self, @gpu.GPUTexture, encoder? : @gpu.GPUCommandEncoder) -> Unit
+pub fn WebGPUTexturePassUtils::get_transfer_pipeline(Self, String, String?) -> @gpu.GPURenderPipeline
+pub fn WebGPUTexturePassUtils::new(@gpu.GPUDevice) -> Self
+
+pub(all) struct WebGPUTextureSampleData {
+  samples : Int32
+  primary_samples : Int32
+  is_msaa : Bool
+}
+
+pub(all) struct WebGPUTextureUtils {
+  mut backend_ : WebGPUBackend?
+  mut _pass_utils : WebGPUTexturePassUtils?
+  default_texture : Map[String, @core.Texture]
+  default_cube_texture : Map[String, @core.Texture]
+  mut default_video_frame : @core.JsValue?
+  // private fields
+}
+pub fn WebGPUTextureUtils::copy_texture_to_buffer(Self, @core.Texture, Int32, Int32, Int32, Int32, Int32, (@core.TypedArray) -> Unit) -> Unit
+pub fn WebGPUTextureUtils::create_default_texture(Self, @core.Texture) -> Unit
+pub fn WebGPUTextureUtils::create_texture(Self, @core.Texture, @nodes.TextureOptions) -> Unit
+pub fn WebGPUTextureUtils::destroy_sampler(Self, @nodes.Binding) -> Unit
+pub fn WebGPUTextureUtils::destroy_texture(Self, @core.Texture, is_default_texture? : Bool) -> Unit
+pub fn WebGPUTextureUtils::dispose(Self) -> Unit
+pub fn WebGPUTextureUtils::generate_mipmaps(Self, @core.Texture, encoder? : @gpu.GPUCommandEncoder) -> Unit
+pub fn WebGPUTextureUtils::get_color_buffer(Self) -> @gpu.GPUTexture
+pub fn WebGPUTextureUtils::get_depth_buffer(Self, depth? : Bool, stencil? : Bool) -> @gpu.GPUTexture
+pub fn WebGPUTextureUtils::update_sampler(Self, @nodes.Binding) -> String
+pub fn WebGPUTextureUtils::update_texture(Self, @core.Texture, @nodes.TextureOptions) -> Unit
+
+pub(all) struct WebGPUTimestampQueryPool {
+  mut pool_ : @nodes.TimestampQueryPool?
+  device : @gpu.GPUDevice
+  type_ : String
+  mut query_set : @gpu.GPUQuerySet?
+  mut resolve_buffer : @gpu.GPUBuffer?
+  mut result_buffer : @gpu.GPUBuffer?
+  mut _pending : Array[(Double?) -> Unit]?
+}
+pub fn WebGPUTimestampQueryPool::new(@gpu.GPUDevice, String, max_queries? : Int32) -> @nodes.TimestampQueryPool
+pub fn WebGPUTimestampQueryPool::of(@nodes.TimestampQueryPool) -> Self
+pub impl @nodes.TimestampQueryPoolClass for WebGPUTimestampQueryPool
+
+pub(all) struct WebGPUUtils {
+  mut backend_ : WebGPUBackend?
+  mut _preferred_canvas_format : String?
+}
+pub fn WebGPUUtils::backend(Self) -> WebGPUBackend
+pub fn WebGPUUtils::get_current_color_format(Self, @nodes.RenderContext) -> String?
+pub fn WebGPUUtils::get_current_color_format_render_target(Self, @core.RenderTarget) -> String?
+pub fn WebGPUUtils::get_current_color_formats(Self, @nodes.RenderContext) -> Array[String?]
+pub fn WebGPUUtils::get_current_color_space(Self, @nodes.RenderContext) -> String?
+pub fn WebGPUUtils::get_current_depth_stencil_format(Self, @nodes.RenderContext) -> String?
+pub fn WebGPUUtils::get_preferred_canvas_format(Self) -> String
+pub fn WebGPUUtils::get_primitive_topology(Self, @core.Object3D, @core.Material) -> String?
+pub fn WebGPUUtils::get_sample_count(Self, Int32) -> Int32
+pub fn WebGPUUtils::get_sample_count_render_context(Self, @nodes.RenderContext) -> Int32
+pub fn WebGPUUtils::get_strip_index_format(Self, @core.Object3D, @core.BufferGeometry) -> String?
+pub fn WebGPUUtils::get_texture_format_gpu(Self, @core.Texture) -> String?
+pub fn WebGPUUtils::get_texture_sample_data(Self, @core.Texture) -> WebGPUTextureSampleData
+
+// Type aliases
+
+// Traits

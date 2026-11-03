@@ -1,0 +1,13 @@
+.repos/
+_build/
+target/
+.mooncakes/
+.claude/
+node_modules/
+.moon-lock
+.moon_db
+
+# Differential harnesses (diff/): generated outputs, logs and scratch.
+diff/.out/
+__pycache__/
+*.pyc

@@ -1,0 +1,943 @@
+// Upstream side of the G10 (GLSLNodeBuilder) shader scenarios. The MoonBit side is
+// src/renderers/webgl_fallback/g10_shader_diff_test.mbt; scenario names start with `g10_`.
+//
+// Every scenario builds with upstream's real `GLSLNodeBuilder` on a
+// `WebGPURenderer( { forceWebGL: true } )` (a `WebGLBackend`) with a stub canvas and
+// `renderer._bindings = undefined`, marked initialized, whose backend has the recording
+// mock WebGL 2 context of diff/core/webgl as `gl` and a real
+// `WebGLExtensions` over it (what `getDrawIndex`, `getExtensions` and `isAvailable` read).
+// Renderers: `a` (the mock's default extensions: WEBGL_multi_draw, OES_texture_float_linear,
+// ...), `b` (no extensions), `c` (default + WEBGL_clip_cull_distance).
+//
+// Kinds of scenario, as upstream_g8.mjs:
+// - flow: `builder.flowStagesNode( node )` in one stage, with `decl` = the declarations
+//   (getUniforms, getAttributes, both getVaryings, getStructs, the stage's extensions,
+//   getTransforms, global getVars of the stage and of 'vertex') joined by `\n@@\n`, and
+//   `codes` (getCodes).
+// - compute: `builder.compute = computeNode; builder.build()`: `shader` is computeShader
+//   (+ the transforms).
+// - material: the steps of `build()` with a stand-in for `NodeMaterial.build`, then
+//   `buildCode()`: `shader` is vertexShader + fragmentShader.
+// - whole materials (`g10_mat_*`): every node material class through `builder.build()`.
+
+import { createRequire } from 'node:module';
+import { spawnSync } from 'node:child_process';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+// The scenarios run in a child process: run.mjs loads every upstream_*.mjs into one process,
+// and these builds would otherwise advance the module-level counters (node ids, uniform
+// buffer ids, `fn` ids) that the scenarios of the files after this one depend on. The
+// MoonBit side runs in its own `moon test` too.
+export async function runUpstream( src ) {
+
+	const r = spawnSync( process.execPath, [ fileURLToPath( import.meta.url ), src ], { encoding: 'utf8', maxBuffer: 1 << 28 } );
+	const lines = ( r.stdout || '' ).trim().split( '\n' );
+	try {
+
+		return JSON.parse( lines[ lines.length - 1 ] );
+
+	} catch ( e ) {
+
+		throw new Error( 'upstream_g10.mjs child failed:\n' + ( r.stderr || '' ).slice( - 2000 ) );
+
+	}
+
+}
+
+if ( process.argv[ 1 ] === fileURLToPath( import.meta.url ) ) {
+
+	const records = await runUpstreamInProcess( process.argv[ 2 ] );
+	fs.writeSync( 1, '\n' + JSON.stringify( records ) + '\n' );
+	process.exit( 0 );
+
+}
+
+export async function runUpstreamInProcess( src ) {
+
+	const T = await import( src + '/Three.TSL.js' );
+	const THREE = await import( src + '/Three.WebGPU.js' );
+	const { default: GLSLNodeBuilder } = await import( src + '/renderers/webgl-fallback/nodes/GLSLNodeBuilder.js' );
+	const { default: WebGLExtensions } = await import( src + '/renderers/webgl-fallback/utils/WebGLExtensions.js' );
+	const N = await import( src + '/nodes/Nodes.js' );
+	const { default: ClippingContext } = await import( src + '/renderers/common/ClippingContext.js' );
+	const { WebGPURenderer } = THREE;
+	if ( typeof globalThis.ImageBitmap === 'undefined' ) globalThis.ImageBitmap = class ImageBitmap {};
+	const require = createRequire( import.meta.url );
+	const { createMockGL } = require( '../../webgl/harness/mock_gl.cjs' );
+
+	const canvas = { style: {}, width: 300, height: 150, addEventListener() {}, removeEventListener() {}, getContext() { return null; } };
+	const DEFAULT_EXTENSIONS = [ 'EXT_color_buffer_float', 'EXT_color_buffer_half_float', 'OES_texture_float_linear', 'EXT_texture_filter_anisotropic', 'WEBGL_multi_draw', 'KHR_parallel_shader_compile', 'WEBGL_lose_context', 'EXT_clip_control', 'WEBGL_compressed_texture_s3tc', 'WEBGL_compressed_texture_astc', 'WEBGL_compressed_texture_etc' ];
+	const makeRenderer = ( extensions ) => {
+
+		const r = new WebGPURenderer( { canvas, forceWebGL: true } );
+		r._bindings = undefined;
+		r._initialized = true;
+		r.backend.renderer = r;
+		r.backend.gl = createMockGL( { extensions } );
+		r.backend.extensions = new WebGLExtensions( r.backend );
+		return r;
+
+	};
+
+	const renderers = { a: makeRenderer( DEFAULT_EXTENSIONS ), b: makeRenderer( [] ), c: makeRenderer( [ ...DEFAULT_EXTENSIONS, 'WEBGL_clip_cull_distance' ] ), d: makeRenderer( DEFAULT_EXTENSIONS ) };
+	renderers.d.debug.diagnostics.keywords = true;
+	const bindingsOf = ( builder ) => builder.getBindings().map( ( g ) => g.name + '[' + g.bindings.map( ( b ) => b.name + ':' + b.visibility ).join( ',' ) + ']' ).join( ' ' );
+	const extensionsOf = ( builder, stage ) => [ ...( builder.extensions[ stage ] ? builder.extensions[ stage ].values() : [] ) ].map( ( e ) => e.name + ':' + e.behavior ).join( ',' );
+
+	const { float, int, uint, bool, vec2, vec3, vec4, ivec2, ivec3, uvec2, uvec3, bvec2, mat2, mat3, mat4, color, uniform, Fn, If, Loop, Break, Return, Discard, texture, cubeTexture, texture3D, textureLoad, storageTexture, textureStore, storage, select } = T;
+
+	const fv = ( v ) => float( v ).toVar();
+	const iv = ( v ) => int( v ).toVar();
+	const uv_ = ( v ) => uint( v ).toVar();
+	const v2 = () => vec2( 1, 2 ).toVar();
+	const v3 = () => vec3( 1, 2, 3 ).toVar();
+	const v4 = () => vec4( 1, 2, 3, 4 ).toVar();
+	const m2 = () => mat2( 1, 2, 3, 4 ).toVar();
+	const m3 = () => mat3( 1, 0, 0, 0, 1, 0, 0, 0, 1 ).toVar();
+	const m4 = () => mat4().toVar();
+
+	const tex = () => {
+
+		const t = new THREE.Texture();
+		t.name = 'tex';
+		return t;
+
+	};
+
+	const floatTex = ( filter ) => {
+
+		const t = tex();
+		t.type = THREE.FloatType;
+		if ( filter === 'nearest' ) {
+
+			t.minFilter = THREE.NearestFilter;
+			t.magFilter = THREE.NearestFilter;
+
+		}
+
+		return t;
+
+	};
+
+	const geometry = new THREE.BufferGeometry();
+	for ( const [ name, itemSize ] of [ [ 'position', 3 ], [ 'normal', 3 ], [ 'uv', 2 ] ] ) {
+
+		geometry.setAttribute( name, new THREE.BufferAttribute( new Float32Array( 24 * itemSize ), itemSize ) );
+
+	}
+
+	const floatBuffer = ( n, itemSize ) => new THREE.StorageBufferAttribute( n, itemSize );
+	const uintBuffer = ( n ) => new THREE.StorageBufferAttribute( n, 1, Uint32Array );
+
+	const scenarios = [];
+	// opts: stage, renderer, mesh, pre( builder )
+	const flow = ( name, make, opts = {} ) => scenarios.push( { kind: 'flow', name: 'g10_' + name, make, stage: 'fragment', renderer: 'a', mesh: false, ...opts } );
+	const computeBuild = ( name, make, opts = {} ) => scenarios.push( { kind: 'compute', name: 'g10_' + name, make, renderer: 'a', ...opts } );
+	const materialBuild = ( name, vertex, fragment, opts = {} ) => scenarios.push( { kind: 'material', name: 'g10_' + name, vertex, fragment, renderer: 'a', ...opts } );
+
+	// --- Types, conversions and methods
+	flow( 'vec_types', () => vec4( float( ivec2( 1, 2 ).toVar().x ), float( uvec3( 1, 2, 3 ).toVar().y ), float( bvec2( true, false ).toVar().x ), 1 ) );
+	flow( 'mat_types', () => m2().mul( vec2( 1, 2 ) ).add( m3().mul( vec3( 1 ) ).xy ).add( m4().mul( vec4( 1 ) ).xy ) );
+	flow( 'color_type', () => color( 0xff0000 ).toVar() );
+	flow( 'convert_int_float', () => int( fv( 2.5 ) ).add( int( uv_( 3 ) ) ) );
+	flow( 'convert_vec', () => vec3( ivec3( 1, 2, 3 ).toVar() ).add( vec3( uvec3( 4, 5, 6 ).toVar() ) ) );
+	flow( 'bitcast', () => T.bitcast( fv( 1 ), 'uint' ) );
+	flow( 'bitcast_methods', () => vec2( float( T.floatBitsToInt( fv( 1 ) ) ), T.uintBitsToFloat( uv_( 3 ) ) ) );
+	flow( 'packing', () => vec3( float( T.packSnorm2x16( v2() ) ), T.unpackHalf2x16( uv_( 5 ) ).x, float( T.packUnorm4x8( v4() ) ) ) );
+	flow( 'mod_float', () => fv( 5 ).mod( 2 ) );
+	flow( 'mod_vec2', () => v2().mod( vec2( 2 ) ) );
+	flow( 'mod_vec3', () => v3().mod( fv( 2 ) ) );
+	flow( 'mod_vec4', () => v4().mod( vec4( 3 ) ) );
+	flow( 'mod_int', () => iv( 5 ).mod( iv( 2 ) ) );
+	flow( 'equal_bool', () => bool( true ).toVar().equal( bool( false ).toVar() ) );
+	flow( 'equal_bvec2', () => bvec2( true, false ).toVar().equal( bvec2( false, false ).toVar() ) );
+	flow( 'xor', () => bool( true ).toVar().xor( bool( false ).toVar() ) );
+	flow( 'inverse_mat2', () => m2().inverse() );
+	flow( 'inverse_mat3', () => m3().inverse() );
+	flow( 'inverse_mat4', () => m4().inverse() );
+	flow( 'derivatives', () => fv( 1 ).dFdx().add( fv( 2 ).dFdy() ).add( T.inverseSqrt( fv( 4 ) ) ) );
+	flow( 'faceforward', () => T.faceforward( v3(), v3(), v3() ) );
+	flow( 'select', () => select( fv( 1 ).greaterThan( 0 ), v3(), vec3( 0 ) ) );
+	flow( 'reserved_names', () => float( 1 ).toVar( 'fn' ).add( float( 2 ).toVar( 'main' ) ).add( float( 3 ).toVar( 'let' ) ) );
+	flow( 'reserved_names_checked', () => float( 1 ).toVar( 'fn' ).add( float( 2 ).toVar( 'main' ) ).add( float( 3 ).toVar( 'let' ) ).add( float( 4 ).toVar( 'color' ) ), { renderer: 'd' } );
+	flow( 'declaration_names', () => uniform( 1 ).setName( 'scale' ).add( uniform( 2 ).setName( 'scale' ) ).add( storage( floatBuffer( 4, 1 ), 'float', 4 ).setName( 'buf' ).element( iv( 0 ) ) ).add( storage( floatBuffer( 4, 1 ), 'float', 4 ).setName( 'buf' ).element( iv( 1 ) ) ) );
+	flow( 'array_values', () => T.array( [ float( 1 ), float( 2 ), float( 3 ) ] ).toVar().element( iv( 1 ) ) );
+	flow( 'array_count', () => T.array( 'vec3', 4 ).toVar().element( iv( 2 ) ) );
+	flow( 'const_let', () => vec3( 1, 2, 3 ).toConst( 'k' ).add( fv( 1 ).toConst() ) );
+
+	// --- Functions
+	flow( 'fn_layout', () => Fn( ( [ a, b ] ) => a.mul( b ).add( 1 ) ).setLayout( { name: 'myFn', type: 'float', inputs: [ { name: 'a', type: 'float' }, { name: 'b', type: 'float' } ] } )( fv( 1 ), fv( 2 ) ) );
+	flow( 'fn_layout_early_return', () => Fn( ( [ p ] ) => {
+
+		const r = vec3( 0 ).toVar();
+		If( p.x.greaterThan( 1 ), () => {
+
+			r.assign( p );
+			Return();
+
+		} );
+		r.assign( p.mul( 2 ) );
+		return r;
+
+	} ).setLayout( { name: 'earlyFn', type: 'vec3', inputs: [ { name: 'p', type: 'vec3' } ] } )( v3() ) );
+	flow( 'fn_layout_mod', () => Fn( ( [ x ] ) => x.mod( 2 ).add( x.dFdx() ) ).setLayout( { name: 'modFn', type: 'float', inputs: [ { name: 'x', type: 'float' } ] } )( fv( 3 ) ) );
+	flow( 'wgsl_fn', () => T.wgslFn( 'fn scale( a : f32, b : vec3f ) -> vec3f { return b * a; }' )( fv( 2 ), v3() ) );
+	flow( 'wgsl_fn_comment', () => T.wgslFn( '// scales\n/* by a */\nfn scale2( a : f32, b : vec2<f32> ) -> vec2<f32> { return b * a; }' )( fv( 2 ), v2() ) );
+	flow( 'wgsl_fn_includes', () => {
+
+		const inner = T.wgslFn( 'fn inner( x : f32 ) -> f32 { return x * 2.0; }' );
+		return T.wgslFn( 'fn outer( x : f32 ) -> f32 { return inner( x ) + 1.0; }', [ inner ] )( fv( 3 ) );
+
+	} );
+	flow( 'wgsl_fn_object_args', () => T.wgslFn( 'fn mixer( a : vec3<f32>, b : vec3<f32>, t : f32 ) -> vec3<f32> { return mix( a, b, t ); }' )( { t: fv( 0.5 ), a: v3(), b: vec3( 1 ) } ) );
+	flow( 'loop_break', () => Fn( () => {
+
+		const r = fv( 0 );
+		Loop( 4, ( { i } ) => {
+
+			If( r.greaterThan( 2 ), () => {
+
+				Break();
+
+			} );
+			r.addAssign( float( i ) );
+
+		} );
+		return r;
+
+	} )() );
+	flow( 'early_return_main', () => Fn( () => {
+
+		const r = fv( 1 );
+		If( r.greaterThan( 1 ), () => {
+
+			Return();
+
+		} );
+		return r;
+
+	} )() );
+	flow( 'discard', () => Fn( () => {
+
+		Discard( fv( 1 ).lessThan( 0 ) );
+		return fv( 1 );
+
+	} )() );
+
+	// --- Structs
+	flow( 'struct', () => {
+
+		const S = T.struct( { a: 'float', b: 'vec3' }, 'MyStruct' );
+		return S( fv( 1 ), v3() ).toVar().get( 'b' );
+
+	} );
+	flow( 'output_struct', () => T.outputStruct( vec4( 1 ), vec4( 0.5 ) ) );
+	flow( 'frag_depth', () => Fn( () => {
+
+		T.depth.assign( fv( 0.5 ) );
+		return vec4( 1 );
+
+	} )() );
+
+	// --- Builtins
+	flow( 'front_facing', () => float( T.frontFacing ).toVar(), { mesh: true } );
+	flow( 'frag_coord', () => T.screenCoordinate.toVar() );
+	flow( 'vertex_index', () => float( T.vertexIndex ).add( float( T.instanceIndex ) ), { stage: 'vertex' } );
+	flow( 'instance_index_fragment', () => float( T.instanceIndex ) );
+	flow( 'compute_builtins', () => vec3( T.globalId ).add( vec3( T.localId ) ).add( vec3( T.workgroupId ) ).add( vec3( T.numWorkgroups ) ), { stage: 'compute' } );
+	flow( 'invocation_local_index', () => float( T.invocationLocalIndex ), { stage: 'compute' } );
+	flow( 'subgroups', () => T.subgroupAdd( fv( 1 ) ).add( float( T.subgroupSize ) ).add( float( T.invocationSubgroupIndex ) ).add( float( T.subgroupIndex ) ), { stage: 'compute', renderer: 'b' } );
+	flow( 'subgroups_unsupported', () => float( T.subgroupSize ), { stage: 'compute' } );
+	flow( 'hardware_clipping', () => fv( 1 ), { stage: 'vertex', pre: ( b ) => b.enableHardwareClipping( 3 ) } );
+	flow( 'directives', () => fv( 1 ), { pre: ( b ) => {
+
+		b.enableShaderF16();
+		b.enableDualSourceBlending();
+		b.enableShaderF16();
+
+	} } );
+	flow( 'invariant', () => fv( 1 ), { stage: 'vertex', pre: ( b ) => {
+
+		b.context.invariant = true;
+
+	} } );
+
+	// --- Uniforms
+	flow( 'uniforms_object', () => uniform( 1.5 ).add( uniform( new THREE.Vector3( 1, 2, 3 ) ).x ).add( uniform( new THREE.Color( 1, 0, 0 ) ).r ).add( uniform( new THREE.Matrix4() ).mul( vec4( 1 ) ).x ) );
+	flow( 'uniforms_groups', () => uniform( 1 ).setGroup( T.renderGroup ).add( uniform( 2 ).setGroup( T.frameGroup ) ).add( uniform( 3 ) ).add( uniform( 4 ).setGroup( T.uniformGroup( 'custom' ) ) ) );
+	flow( 'uniforms_vertex', () => uniform( new THREE.Vector2( 1, 2 ) ).add( uniform( int( 3 ) ) ), { stage: 'vertex' } );
+	flow( 'uniform_array', () => T.uniformArray( [ 1, 2, 3, 4 ] ).element( iv( 1 ) ) );
+	flow( 'uniform_array_vec4', () => T.uniformArray( [ new THREE.Vector4( 1, 2, 3, 4 ), new THREE.Vector4() ] ).element( iv( 1 ) ) );
+
+	// --- Textures
+	flow( 'texture_sample', () => texture( tex() ) );
+	flow( 'texture_uv', () => texture( tex(), vec2( 0.25, 0.75 ) ) );
+	flow( 'texture_level', () => texture( tex(), vec2( 0.5 ) ).level( 2 ) );
+	flow( 'texture_bias', () => texture( tex(), vec2( 0.5 ) ).bias( 0.5 ) );
+	flow( 'texture_grad', () => texture( tex(), vec2( 0.5 ) ).grad( vec2( 0.1 ), vec2( 0.2 ) ) );
+	flow( 'texture_offset', () => texture( tex(), vec2( 0.5 ) ).offset( ivec2( 1, 2 ) ) );
+	flow( 'texture_depth_offset', () => texture( new THREE.DataArrayTexture(), vec2( 0.5 ) ).depth( 1 ).offset( ivec2( 1, 0 ) ) );
+	flow( 'texture_gather', () => texture( tex(), vec2( 0.5 ) ).gather() );
+	flow( 'texture_gather_channel', () => texture( tex(), vec2( 0.5 ) ).gather( 2 ) );
+	flow( 'texture_load', () => textureLoad( tex(), ivec2( 1, 2 ) ) );
+	flow( 'texture_load_level', () => textureLoad( tex(), ivec2( 1, 2 ), 1 ) );
+	flow( 'texture_size', () => T.textureSize( texture( tex() ) ) );
+	flow( 'texture_size_level', () => texture( tex() ).size( 2 ) );
+	flow( 'texture_array', () => texture( new THREE.DataArrayTexture(), vec2( 0.5 ) ).depth( 2 ) );
+	flow( 'texture_depth_texture', () => texture( new THREE.DepthTexture( 4, 4 ), vec2( 0.5 ) ) );
+	// the `compare()` scenarios (restored by G6 with `Renderer::has_compatibility`)
+	flow( 'texture_compare', () => texture( new THREE.DepthTexture( 4, 4 ), vec2( 0.5 ) ).compare( 0.25 ) );
+	flow( 'texture_gather_compare', () => texture( new THREE.DepthTexture( 4, 4 ), vec2( 0.5 ) ).gather().compare( 0.25 ) );
+	flow( 'texture_depth_load_compat', () => textureLoad( new THREE.DepthTexture( 4, 4 ), ivec2( 1, 2 ) ), { renderer: 'c' } );
+	flow( 'texture_depth_compat', () => texture( new THREE.DepthTexture( 4, 4 ), vec2( 0.5 ) ), { renderer: 'c' } );
+	flow( 'texture_int', () => {
+
+		const t = tex();
+		t.type = THREE.IntType;
+		return texture( t, vec2( 0.5 ) );
+
+	} );
+	flow( 'texture_uint_red', () => {
+
+		const t = tex();
+		t.type = THREE.UnsignedIntType;
+		t.format = THREE.RedIntegerFormat;
+		return texture( t, vec2( 0.5 ) );
+
+	} );
+	flow( 'texture_cube', () => cubeTexture( new THREE.CubeTexture(), vec3( 0, 1, 0 ) ) );
+	flow( 'texture_cube_level', () => cubeTexture( new THREE.CubeTexture(), vec3( 0, 1, 0 ), 2 ) );
+	flow( 'texture_cube_float', () => {
+
+		const t = new THREE.CubeTexture();
+		t.type = THREE.FloatType;
+		return cubeTexture( t, vec3( 0, 1, 0 ) ).offset( ivec3( 1, 0, 0 ) );
+
+	} );
+	flow( 'texture_3d', () => texture3D( new THREE.Data3DTexture(), vec3( 0.1, 0.2, 0.3 ) ) );
+	flow( 'texture_3d_load', () => T.texture3DLoad( new THREE.Data3DTexture(), ivec3( 1, 2, 3 ) ) );
+	flow( 'texture_3d_float_nearest', () => {
+
+		const t = new THREE.Data3DTexture();
+		t.type = THREE.FloatType;
+		t.minFilter = THREE.NearestFilter;
+		t.magFilter = THREE.NearestFilter;
+		t.wrapR = THREE.MirroredRepeatWrapping;
+		return texture3D( t, vec3( 0.5 ) ).offset( ivec3( 1, 0, 1 ) );
+
+	} );
+	flow( 'texture_float_filtered', () => texture( floatTex(), vec2( 0.5 ) ) );
+	flow( 'texture_float_filtered_offset_level', () => texture( floatTex(), vec2( 0.5 ) ).offset( ivec2( 1, 1 ) ).level( 1 ) );
+	flow( 'texture_float_filtered_array', () => {
+
+		const t = new THREE.DataArrayTexture();
+		t.type = THREE.FloatType;
+		t.minFilter = THREE.LinearFilter;
+		return texture( t, vec2( 0.5 ) ).depth( 1 );
+
+	} );
+	flow( 'texture_float_nearest', () => texture( floatTex( 'nearest' ), vec2( 0.5 ) ) );
+	flow( 'texture_float_nearest_wrap', () => {
+
+		const t = floatTex( 'nearest' );
+		t.wrapS = THREE.RepeatWrapping;
+		t.wrapT = THREE.MirroredRepeatWrapping;
+		return texture( t, vec2( 0.5 ) ).offset( ivec2( 1, 2 ) );
+
+	} );
+	flow( 'texture_float_nearest_shared', () => {
+
+		const t = floatTex( 'nearest' );
+		return texture( t, vec2( 0.5 ) ).add( texture( t, vec2( 0.25 ) ).level( 1 ) );
+
+	} );
+	flow( 'texture_float_grad', () => texture( floatTex( 'nearest' ), vec2( 0.5 ) ).grad( vec2( 0.1 ), vec2( 0.2 ) ) );
+	flow( 'texture_normalized_short', () => {
+
+		const t = tex();
+		t.type = THREE.ShortType;
+		t.normalized = true;
+		return texture( t, vec2( 0.5 ) );
+
+	} );
+	flow( 'texture_vertex', () => texture( tex(), vec2( 0.5 ) ), { stage: 'vertex' } );
+	flow( 'texture_vertex_offset_array', () => texture( new THREE.DataArrayTexture(), vec2( 0.5 ) ).depth( 1 ).offset( ivec2( 1, 1 ) ), { stage: 'vertex' } );
+	flow( 'texture_vertex_float', () => texture( floatTex( 'nearest' ), vec2( 0.5 ) ), { stage: 'vertex' } );
+	flow( 'texture_vertex_bias', () => texture( tex(), vec2( 0.5 ) ).bias( 1 ), { stage: 'vertex' } );
+	flow( 'texture_msaa_depth', () => {
+
+		const rt = new THREE.RenderTarget( 4, 4, { samples: 4, depthTexture: new THREE.DepthTexture( 4, 4 ) } );
+		return texture( rt.depthTexture, vec2( 0.5 ) );
+
+	} );
+	flow( 'texture_msaa_depth_gather', () => {
+
+		const rt = new THREE.RenderTarget( 4, 4, { samples: 4, depthTexture: new THREE.DepthTexture( 4, 4 ) } );
+		return texture( rt.depthTexture, vec2( 0.5 ) ).gather().offset( ivec2( 1, 0 ) );
+
+	} );
+	flow( 'texture_msaa_color', () => {
+
+		const rt = new THREE.RenderTarget( 4, 4, { samples: 4 } );
+		return texture( rt.texture, vec2( 0.5 ) ).add( texture( rt.texture ).size( 0 ) .x );
+
+	} );
+	flow( 'storage_texture_load', () => storageTexture( new THREE.StorageTexture( 4, 4 ), uvec2( 1, 2 ) ), { stage: 'compute' } );
+	flow( 'storage_texture_store', () => textureStore( new THREE.StorageTexture( 4, 4 ), uvec2( 1, 2 ), vec4( 1, 0, 0, 1 ) ), { stage: 'compute' } );
+	flow( 'storage_texture_rw_fragment', () => storageTexture( new THREE.StorageTexture( 4, 4 ), uvec2( 1, 2 ) ).toReadWrite() );
+	flow( 'storage_texture_formats', () => {
+
+		const a = new THREE.StorageTexture( 4, 4 );
+		a.type = THREE.UnsignedByteType;
+		const b = new THREE.StorageTexture( 4, 4 );
+		b.format = THREE.RedFormat;
+		b.type = THREE.HalfFloatType;
+		const c = new THREE.StorageTexture( 4, 4 );
+		c.format = THREE.RGIntegerFormat;
+		c.type = THREE.UnsignedIntType;
+		return storageTexture( a, uvec2( 1, 2 ) ).add( storageTexture( b, uvec2( 1, 2 ) ).x ).add( vec4( storageTexture( c, uvec2( 1, 2 ) ) ) );
+
+	}, { stage: 'compute' } );
+	flow( 'storage_texture_3d', () => T.storageTexture3D( new THREE.Storage3DTexture( 2, 2, 2 ), uvec3( 1, 1, 1 ) ), { stage: 'compute' } );
+	flow( 'storage_texture_array', () => storageTexture( new THREE.StorageArrayTexture( 2, 2, 2 ), uvec2( 1, 1 ) ).depth( 1 ), { stage: 'compute' } );
+
+	// --- Storage buffers, atomics, workgroup memory
+	flow( 'storage_read', () => storage( floatBuffer( 16, 4 ), 'vec4', 16 ).element( T.instanceIndex ), { stage: 'compute' } );
+	flow( 'storage_read_only', () => storage( floatBuffer( 16, 4 ), 'vec4', 16 ).toReadOnly().element( T.instanceIndex ), { stage: 'compute' } );
+	flow( 'storage_vertex', () => storage( floatBuffer( 16, 3 ), 'vec3', 16 ).element( T.instanceIndex ), { stage: 'vertex' } );
+	flow( 'storage_fragment', () => storage( floatBuffer( 16, 1 ), 'float', 16 ).element( iv( 2 ) ) );
+	flow( 'storage_atomic', () => T.atomicAdd( storage( uintBuffer( 4 ), 'uint', 4 ).toAtomic().element( 0 ), 1 ), { stage: 'compute' } );
+	flow( 'storage_atomic_fragment', () => T.atomicAdd( storage( uintBuffer( 4 ), 'uint', 4 ).toAtomic().element( 1 ), 2 ) );
+	flow( 'storage_atomic_vertex', () => T.atomicLoad( storage( uintBuffer( 4 ), 'uint', 4 ).toAtomic().element( 1 ) ), { stage: 'vertex' } );
+	flow( 'workgroup_array', () => T.workgroupArray( 'float', 64 ).setName( 'wgFloats' ).element( T.invocationLocalIndex ), { stage: 'compute' } );
+	flow( 'workgroup_atomic', () => T.atomicAdd( T.workgroupArray( 'uint', 8 ).setName( 'wgCounters' ).toAtomic().element( uint( 0 ) ), 1 ), { stage: 'compute' } );
+	flow( 'barrier', () => Fn( () => {
+
+		const r = fv( 1 );
+		T.workgroupBarrier();
+		return r;
+
+	} )(), { stage: 'compute' } );
+
+	// --- Varyings and attributes (mesh)
+	flow( 'varying', () => T.varying( T.positionLocal.mul( 2 ) ).x, { mesh: true } );
+	flow( 'varying_flat', () => T.varying( T.positionLocal.mul( 3 ), 'vFlat' ).setInterpolation( 'flat', 'first' ), { mesh: true } );
+	flow( 'varying_sampling', () => T.varying( T.positionLocal, 'vPos' ).setInterpolation( 'perspective', 'centroid' ).add( T.varying( T.normalLocal ).setInterpolation( 'linear' ) ), { mesh: true } );
+	flow( 'varying_uint', () => float( T.varying( T.vertexIndex ) ), { mesh: true } );
+	flow( 'attribute', () => T.attribute( 'uv', 'vec2' ).add( T.positionGeometry.xy ), { mesh: true, stage: 'vertex' } );
+	flow( 'uv_fragment', () => T.uv(), { mesh: true } );
+
+	// --- Representative g1/g2 graphs through WGSL
+	flow( 'g1_op_add_variadic', () => T.add( fv( 1 ), 2, fv( 3 ), 4 ) );
+	flow( 'g1_op_div_int_int', () => iv( 4 ).div( iv( 2 ) ) );
+	flow( 'g1_op_mul_uint_negative', () => uv_( 3 ).mul( - 2 ) );
+	flow( 'g1_op_not_equal_vec3', () => v3().notEqual( v3() ) );
+	flow( 'g1_op_and_bvec', () => bvec2( true, false ).toVar().and( bvec2( false, true ).toVar() ) );
+	flow( 'g1_op_bit_not', () => iv( 6 ).bitNot() );
+	flow( 'g1_op_shift_right_uvec', () => uvec3( 8, 16, 32 ).toVar().shiftRight( 2 ) );
+	flow( 'g1_op_mat3_vec3', () => m3().mul( v3() ) );
+	flow( 'g1_op_assign_ops', () => Fn( () => {
+
+		const v = fv( 1 );
+		v.addAssign( 2 );
+		v.mulAssign( 3 );
+		v.modAssign( 5 );
+		const i = iv( 3 );
+		i.bitXorAssign( 7 );
+		i.shiftLeftAssign( 1 );
+		return v.add( float( i ) );
+
+	} )() );
+	flow( 'g1_op_increment', () => Fn( () => {
+
+		const i = iv( 0 );
+		i.increment();
+		i.decrementBefore();
+		return i;
+
+	} )() );
+	flow( 'g1_math_one_vec3', () => v3().normalize().add( v3().fract() ).add( v3().saturate() ).add( v3().oneMinus() ).add( v3().cbrt() ) );
+	flow( 'g1_math_atan2', () => T.atan( fv( 1 ), fv( 2 ) ) );
+	flow( 'g1_math_mix_vec3', () => T.mix( v3(), vec3( 0 ), fv( 0.5 ) ) );
+	flow( 'g1_math_clamp_int', () => iv( 3 ).clamp( iv( 0 ), 2 ) );
+	flow( 'g1_math_transpose_det', () => m3().transpose().mul( m3().determinant() ) );
+	flow( 'g1_math_rand', () => T.rand( v2() ) );
+	flow( 'g1_math_constants', () => vec4( T.PI, T.TWO_PI, T.HALF_PI, T.EPSILON ).add( T.INFINITY ) );
+	flow( 'g1_cond_select_vec', () => T.select( fv( 1 ).greaterThan( 0 ), v3(), vec3( 1 ) ).add( fv( 1 ).greaterThan( 0 ).select( 1, 2 ) ) );
+	flow( 'g1_hash', () => T.hash( uv_( 3 ) ) );
+	flow( 'g1_remap', () => T.remap( fv( 0.5 ), 0, 1, 2, 4 ).add( T.remapClamp( fv( 0.5 ), 0, 1, 2, 4 ) ) );
+	flow( 'g1_rotate', () => T.rotate( v2(), fv( 0.5 ) ) );
+	flow( 'g1_checker', () => T.checker( v2() ) );
+	flow( 'g1_tri_noise', () => T.triNoise3D( v3(), 1, fv( 0 ) ) );
+	flow( 'g1_oscillators', () => T.oscSine( fv( 0.5 ) ).add( T.oscSquare( fv( 0.5 ) ) ).add( T.oscTriangle( fv( 0.5 ) ) ).add( T.oscSawtooth( fv( 0.5 ) ) ) );
+	flow( 'g1_packing_normals', () => T.packNormalToRGB( v3() ).add( T.unpackRGBToNormal( v3() ) ) );
+	flow( 'g2_position_view', () => T.positionView, { mesh: true, ctx: true } );
+	flow( 'g2_normal_view', () => T.normalView, { mesh: true, ctx: true } );
+	flow( 'g2_model_matrices', () => T.modelWorldMatrix.mul( vec4( T.positionLocal, 1 ) ).add( T.modelNormalMatrix.mul( T.normalLocal ).xyzz ), { mesh: true, stage: 'vertex' } );
+	flow( 'g2_camera', () => T.cameraProjectionMatrix.mul( T.cameraViewMatrix ).mul( vec4( T.cameraPosition, 1 ) ), { mesh: true } );
+	flow( 'g2_uv1', () => T.uv( 1 ), { mesh: true } );
+	flow( 'g2_texture_uv_default', () => texture( tex() ).rgb, { mesh: true } );
+
+	// --- Whole compute shaders
+	computeBuild( 'compute_basic', () => {
+
+		const buf = storage( floatBuffer( 64, 1 ), 'float', 64 );
+		return T.compute( Fn( () => {
+
+			buf.element( T.instanceIndex ).assign( float( T.instanceIndex ).mul( 2 ) );
+
+		} )(), 64 );
+
+	} );
+	computeBuild( 'compute_workgroup_2d', () => {
+
+		const buf = storage( floatBuffer( 64, 4 ), 'vec4', 64 );
+		const scale = uniform( 2 );
+		const shared = T.workgroupArray( 'float', 64 ).setName( 'shared' );
+		return T.compute( Fn( () => {
+
+			shared.element( T.invocationLocalIndex ).assign( scale );
+			T.workgroupBarrier();
+			buf.element( T.instanceIndex ).assign( vec4( shared.element( uint( 0 ) ) ) );
+
+		} )(), 64, [ 8, 8 ] );
+
+	} );
+	computeBuild( 'compute_atomic', () => {
+
+		const counter = storage( uintBuffer( 1 ), 'uint', 1 ).toAtomic();
+		return T.compute( Fn( () => {
+
+			T.atomicAdd( counter.element( 0 ), 1 );
+
+		} )(), 16, [ 16 ] );
+
+	} );
+	computeBuild( 'compute_subgroups', () => {
+
+		const buf = storage( floatBuffer( 32, 1 ), 'float', 32 );
+		return T.compute( Fn( () => {
+
+			buf.element( T.instanceIndex ).assign( T.subgroupAdd( float( T.invocationSubgroupIndex ) ) );
+
+		} )(), 32, [ 32 ] );
+
+	}, { renderer: 'b' } );
+	computeBuild( 'compute_texture_store', () => {
+
+		const t = new THREE.StorageTexture( 8, 8 );
+		return T.compute( Fn( () => {
+
+			textureStore( t, T.globalId.xy, vec4( 1, 0, 0, 1 ) ).toWriteOnly();
+
+		} )(), 64, [ 8, 8, 1 ] );
+
+	} );
+	computeBuild( 'compute_uniforms_texture', () => {
+
+		const buf = storage( floatBuffer( 16, 4 ), 'vec4', 16 );
+		const a = uniform( 1 );
+		const b = uniform( new THREE.Vector3( 1, 2, 3 ) ).setGroup( T.renderGroup );
+		return T.compute( Fn( () => {
+
+			const c = texture( tex(), vec2( 0.5 ) ).mul( a ).add( vec4( b, 1 ) );
+			buf.element( T.instanceIndex ).assign( c );
+
+		} )(), 16 );
+
+	} );
+	computeBuild( 'compute_layout_fn', () => {
+
+		const buf = storage( floatBuffer( 16, 1 ), 'float', 16 );
+		const f = Fn( ( [ x ] ) => x.mul( x ).mod( 3 ) ).setLayout( { name: 'sq', type: 'float', inputs: [ { name: 'x', type: 'float' } ] } );
+		return T.compute( Fn( () => {
+
+			buf.element( T.instanceIndex ).assign( f( float( T.instanceIndex ) ) );
+
+		} )(), 16 );
+
+	} );
+	computeBuild( 'compute_local_vars', () => {
+
+		const buf = storage( floatBuffer( 16, 1 ), 'float', 16 );
+		return T.compute( Fn( () => {
+
+			const v = float( 1 ).toVar();
+			T.workgroupBarrier();
+			v.addAssign( 1 );
+			buf.element( T.instanceIndex ).assign( v );
+
+		} )(), 16 );
+
+	} );
+
+	// --- Whole materials (NodeMaterial.build stand-in)
+	const mvp = () => T.cameraProjectionMatrix.mul( T.modelViewMatrix ).mul( vec4( T.positionLocal, 1 ) );
+	materialBuild( 'material_basic', mvp, () => vec4( T.uv(), 0, 1 ) );
+	materialBuild( 'material_vec3_output', mvp, () => vec3( 1, 0, 0 ) );
+	materialBuild( 'material_uniform_texture', mvp, () => texture( tex(), T.uv() ).mul( uniform( new THREE.Color( 0.5, 0.25, 1 ) ) ).add( texture( floatTex( 'nearest' ), T.uv() ) ) );
+	materialBuild( 'material_sampler_comparison', mvp, () => vec4( texture( new THREE.DepthTexture( 4, 4 ), T.uv() ).compare( 0.5 ), 0, 0, 1 ) );
+	materialBuild( 'material_output_struct', mvp, () => T.outputStruct( vec4( 1 ), vec4( T.uv(), 0, 1 ) ) );
+	materialBuild( 'material_frag_depth', mvp, () => Fn( () => {
+
+		T.depth.assign( 0.5 );
+		return vec4( 1 );
+
+	} )() );
+	materialBuild( 'material_varyings', mvp, () => vec4( T.varying( T.positionLocal ).add( T.varying( T.normalLocal, 'vFlat' ).setInterpolation( 'flat' ) ), float( T.frontFacing ) ).add( vec4( T.screenCoordinate, 0, 0 ) ) );
+	materialBuild( 'material_invariant', mvp, () => vec4( 1 ), { pre: ( b ) => {
+
+		b.context.invariant = true;
+
+	} } );
+	materialBuild( 'material_storage_vertex', () => {
+
+		const buf = storage( floatBuffer( 16, 3 ), 'vec3', 16 ).toReadOnly();
+		return T.cameraProjectionMatrix.mul( T.modelViewMatrix ).mul( vec4( T.positionLocal.add( buf.element( T.instanceIndex ) ), 1 ) );
+
+	}, () => vec4( float( T.varying( T.vertexIndex ) ) ) );
+	materialBuild( 'material_layout_fn', mvp, () => {
+
+		const f = Fn( ( [ c ] ) => c.mul( 2 ).mod( 1 ) ).setLayout( { name: 'tint', type: 'vec3', inputs: [ { name: 'c', type: 'vec3' } ] } );
+		return vec4( f( vec3( T.uv(), 1 ) ), 1 );
+
+	} );
+
+	// --- G10 only: GLSL specifics
+	const intGeometry = new THREE.BufferGeometry();
+	intGeometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array( 24 * 3 ), 3 ) );
+	intGeometry.setAttribute( 'ids', new THREE.BufferAttribute( new Int16Array( 24 * 2 ), 2 ) );
+	intGeometry.setAttribute( 'ids32', new THREE.BufferAttribute( new Int32Array( 24 ), 1 ) );
+	const gpuInt = new THREE.BufferAttribute( new Uint16Array( 24 ), 1 );
+	gpuInt.gpuType = THREE.IntType;
+	intGeometry.setAttribute( 'idsGpu', gpuInt );
+	const batched = ( material ) => new THREE.BatchedMesh( 4, 64, 64, material );
+	flow( 'glsl_draw_index_multi_draw', () => float( T.drawIndex ), { stage: 'vertex', mesh: true } );
+	flow( 'glsl_draw_index_uniform', () => float( T.drawIndex ), { stage: 'vertex', mesh: true, renderer: 'b' } );
+	flow( 'glsl_multiview', () => fv( 1 ), { stage: 'vertex', pre: ( b ) => b.enableMultiview() } );
+	flow( 'glsl_multiview_fragment', () => fv( 1 ), { pre: ( b ) => b.enableMultiview() } );
+	flow( 'glsl_hardware_clipping_two', () => fv( 1 ), { stage: 'vertex', renderer: 'c', pre: ( b ) => b.enableHardwareClipping( 2 ) } );
+	flow( 'glsl_vector_select_int', () => select( bvec2( true, false ).toVar(), ivec2( 1, 2 ).toVar(), ivec2( 3, 4 ).toVar() ) );
+	flow( 'glsl_vector_select_bool', () => select( bvec2( true, false ).toVar(), bvec2( false, true ).toVar(), bvec2( true, true ).toVar() ) );
+	flow( 'glsl_vector_select_float', () => select( bvec2( true, false ).toVar(), v2(), vec2( 3, 4 ).toVar() ) );
+	flow( 'glsl_texture_compare_vertex', () => texture( new THREE.DepthTexture( 4, 4 ), vec2( 0.5 ) ).compare( 0.25 ), { stage: 'vertex' } );
+	flow( 'glsl_texture_compare_offset', () => texture( new THREE.DepthTexture( 4, 4 ), vec2( 0.5 ) ).compare( 0.25 ).offset( ivec2( 1, 0 ) ) );
+	flow( 'glsl_ternary_uniform_flow', () => select( fv( 1 ).greaterThan( 0 ), fv( 2 ), fv( 3 ) ), { pre: ( b ) => { b.context.uniformFlow = true; } } );
+	flow( 'glsl_texture_compare_array', () => {
+
+		const t = new THREE.DepthTexture( 4, 4, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, 2 );
+		t.compareFunction = THREE.LessCompare;
+		const s = new THREE.DepthTexture( 4, 4 );
+		s.compareFunction = THREE.LessCompare;
+		return texture( t, vec2( 0.5 ) ).depth( 1 ).compare( 0.25 ).add( texture( s, vec2( 0.5 ) ).compare( 0.5 ) );
+
+	} );
+	flow( 'glsl_texture_gather_array', () => texture( new THREE.DataArrayTexture(), vec2( 0.5 ) ).depth( 1 ).gather() );
+	flow( 'glsl_texture_gather_offset', () => texture( tex(), vec2( 0.5 ) ).gather( 1 ).offset( ivec2( 1, 1 ) ) );
+	flow( 'glsl_texture_gather_depth', () => texture( new THREE.DepthTexture( 4, 4 ), vec2( 0.5 ) ).gather() );
+	flow( 'glsl_texture_load_offset', () => textureLoad( tex(), ivec2( 1, 2 ) ).offset( ivec2( 1, 1 ) ) );
+	flow( 'glsl_texture_load_array', () => textureLoad( new THREE.DataArrayTexture(), ivec2( 1, 2 ) ).depth( 1 ) );
+	flow( 'glsl_texture_load_array_offset', () => textureLoad( new THREE.DataArrayTexture(), ivec2( 1, 2 ) ).depth( 1 ).offset( ivec2( 1, 0 ) ) );
+	flow( 'glsl_texture_load_depth', () => textureLoad( new THREE.DepthTexture( 4, 4 ), ivec2( 1, 2 ) ) );
+	flow( 'glsl_texture_bias_offset', () => texture( tex(), vec2( 0.5 ) ).bias( 0.5 ).offset( ivec2( 1, 1 ) ) );
+	flow( 'glsl_texture_grad_offset', () => texture( tex(), vec2( 0.5 ) ).grad( vec2( 0.1 ), vec2( 0.2 ) ).offset( ivec2( 1, 1 ) ) );
+	flow( 'glsl_texture_grad_array', () => texture( new THREE.DataArrayTexture(), vec2( 0.5 ) ).depth( 1 ).grad( vec2( 0.1 ), vec2( 0.2 ) ) );
+	flow( 'glsl_texture_level_depth', () => texture( new THREE.DepthTexture( 4, 4 ), vec2( 0.5 ) ).level( 1 ) );
+	flow( 'glsl_texture_level_depth_offset', () => texture( new THREE.DepthTexture( 4, 4 ), vec2( 0.5 ) ).level( 1 ).offset( ivec2( 1, 1 ) ) );
+	flow( 'glsl_texture_depth_offset', () => texture( new THREE.DepthTexture( 4, 4 ), vec2( 0.5 ) ).offset( ivec2( 1, 1 ) ) );
+	flow( 'glsl_texture_3d_level', () => texture3D( new THREE.Data3DTexture(), vec3( 0.5 ) ).level( 1 ) );
+	flow( 'glsl_texture_uint_array', () => {
+
+		const t = new THREE.DataArrayTexture();
+		t.type = THREE.UnsignedIntType;
+		t.format = THREE.RGBAIntegerFormat;
+		return texture( t, vec2( 0.5 ) ).depth( 1 );
+
+	} );
+	flow( 'glsl_texture_int_3d', () => {
+
+		const t = new THREE.Data3DTexture();
+		t.type = THREE.IntType;
+		return texture3D( t, vec3( 0.5 ) );
+
+	} );
+	flow( 'glsl_texture_precision', () => texture( tex(), vec2( 0.5 ) ).setPrecision( 'low' ).add( cubeTexture( new THREE.CubeTexture(), vec3( 0, 1, 0 ) ).setPrecision( 'medium' ) ) );
+	flow( 'glsl_uniform_precision', () => uniform( 1 ).setPrecision( 'medium' ).add( uniform( new THREE.Vector3( 1, 2, 3 ) ).setPrecision( 'high' ).x ).add( uniform( 2 ).setPrecision( 'low' ).setGroup( T.renderGroup ) ) );
+	flow( 'glsl_uniforms_shared_stages', () => uniform( 1 ).setName( 'shared' ).add( T.varying( uniform( 2 ).setName( 'vtx' ) ) ), { mesh: true } );
+	flow( 'glsl_uniform_mat3_vec2', () => uniform( new THREE.Matrix3() ).mul( vec3( 1 ) ).xy.add( uniform( new THREE.Vector2( 1, 2 ) ) ).add( uniform( new THREE.Vector4( 1, 2, 3, 4 ) ).xy ) );
+	flow( 'glsl_bitcast_int_uint', () => float( T.bitcast( iv( 1 ), 'uint' ) ).add( float( T.bitcast( uv_( 2 ), 'int' ) ) ) );
+	flow( 'glsl_bitcast_vec', () => T.bitcast( ivec2( 1, 2 ).toVar(), 'vec2' ).add( vec2( T.bitcast( v2(), 'uvec2' ) ) ) );
+	flow( 'glsl_unpacking_4x8', () => T.unpackSnorm4x8( uv_( 5 ) ).add( T.unpackUnorm4x8( uv_( 6 ) ) ).add( float( T.packSnorm4x8( v4() ) ) ) );
+	flow( 'glsl_unpacking_2x16', () => vec4( T.unpackSnorm2x16( uv_( 5 ) ), T.unpackUnorm2x16( uv_( 6 ) ) ).add( float( T.packHalf2x16( v2() ) ) ) );
+	flow( 'glsl_int_attribute', () => vec2( T.attribute( 'ids', 'ivec2' ) ).add( float( T.attribute( 'ids32', 'int' ) ) ).add( float( T.attribute( 'idsGpu', 'int' ) ) ), { stage: 'vertex', mesh: true, geometry: intGeometry } );
+	flow( 'glsl_varying_int_flat', () => float( T.varying( int( T.vertexIndex ) ) ).add( vec2( T.varying( ivec2( 1, 2 ) ) ).x ), { mesh: true } );
+	flow( 'glsl_varying_sampling_compute', () => T.varying( T.positionLocal, 'vPosC' ).setInterpolation( 'linear', 'centroid' ), { mesh: true, decl: 'compute' } );
+	flow( 'glsl_struct_array', () => {
+
+		const S = T.struct( { a: 'float', b: 'vec2', c: 'ivec3' }, 'GStruct' );
+		return S( fv( 1 ), v2(), ivec3( 1, 2, 3 ) ).toVar().get( 'b' );
+
+	} );
+	flow( 'glsl_mrt_output', () => T.outputStruct( vec4( 1 ), vec4( 0.5 ), vec4( 0.25 ) ) );
+	flow( 'glsl_reserved_glsl', () => float( 1 ).toVar( 'input' ).add( float( 2 ).toVar( 'sample' ) ).add( float( 3 ).toVar( 'filter' ) ), { renderer: 'd' } );
+	flow( 'glsl_storage_pbo_vec4', () => storage( floatBuffer( 16, 4 ), 'vec4', 16 ).setPBO( true ).element( iv( 3 ) ) );
+	flow( 'glsl_storage_pbo_uint', () => storage( uintBuffer( 10 ), 'uint', 10 ).setPBO( true ).element( iv( 1 ) ).add( storage( uintBuffer( 10 ), 'uint', 10 ).setPBO( true ).element( iv( 2 ) ) ) );
+	flow( 'glsl_storage_pbo_vec3_vertex', () => storage( floatBuffer( 7, 3 ), 'vec3', 7 ).setPBO( true ).element( T.instanceIndex ), { stage: 'vertex' } );
+	flow( 'glsl_storage_pbo_int16', () => storage( new THREE.StorageBufferAttribute( new Int16Array( 6 ), 2 ), 'ivec2', 3 ).setPBO( true ).element( iv( 1 ) ) );
+	computeBuild( 'glsl_compute_two_buffers', () => {
+
+		const a = storage( floatBuffer( 32, 1 ), 'float', 32 );
+		const b = storage( floatBuffer( 32, 4 ), 'vec4', 32 );
+		const k = uniform( 3 );
+		return T.compute( Fn( () => {
+
+			a.element( T.instanceIndex ).assign( float( T.instanceIndex ).mul( k ) );
+			b.element( T.instanceIndex ).assign( vec4( a.element( T.instanceIndex ) ) );
+
+		} )(), 32 );
+
+	} );
+	computeBuild( 'glsl_compute_local_index', () => {
+
+		const a = storage( floatBuffer( 64, 1 ), 'float', 64 );
+		return T.compute( Fn( () => {
+
+			a.element( T.instanceIndex ).assign( float( T.invocationLocalIndex ) );
+
+		} )(), 64, [ 8, 2 ] );
+
+	} );
+	computeBuild( 'glsl_compute_pbo_read', () => {
+
+		const src = storage( floatBuffer( 16, 1 ), 'float', 16 ).setPBO( true );
+		const dst = storage( floatBuffer( 16, 1 ), 'float', 16 );
+		return T.compute( Fn( () => {
+
+			dst.element( T.instanceIndex ).assign( src.element( T.instanceIndex.add( 1 ) ) );
+
+		} )(), 16 );
+
+	} );
+	materialBuild( 'glsl_material_batched_multi_draw', mvp, () => vec4( float( T.drawIndex ) ), { object: () => batched( new THREE.MeshBasicMaterial() ) } );
+	materialBuild( 'glsl_material_batched_uniform', mvp, () => vec4( float( T.drawIndex ) ), { renderer: 'b', object: () => batched( new THREE.MeshBasicMaterial() ) } );
+	materialBuild( 'glsl_material_mrt', mvp, () => T.outputStruct( vec4( 1 ), vec4( T.uv(), 0, 1 ) ) );
+	materialBuild( 'glsl_material_frag_depth_uniform', mvp, () => Fn( () => {
+
+		T.depth.assign( uniform( 0.5 ) );
+		return texture( tex(), T.uv() );
+
+	} )() );
+	materialBuild( 'glsl_material_multiview', mvp, () => vec4( 1 ), { pre: ( b ) => b.enableMultiview() } );
+	materialBuild( 'glsl_material_hw_clipping', mvp, () => vec4( 1 ), { renderer: 'c', pre: ( b ) => b.enableHardwareClipping( 3 ) } );
+
+	// --- G10 only: whole node materials through `build()`
+	const point = () => new THREE.PointLight( 0xff0000, 2, 10, 2 );
+	const directional = () => new THREE.DirectionalLight( 0x00ff00, 3 );
+	const attr = ( n, itemSize ) => new THREE.BufferAttribute( new Float32Array( n * itemSize ), itemSize );
+	const wgeometry = new THREE.BufferGeometry();
+	for ( const [ name, itemSize ] of [ [ 'position', 3 ], [ 'normal', 3 ], [ 'uv', 2 ], [ 'color', 4 ] ] ) wgeometry.setAttribute( name, attr( 24, itemSize ) );
+	const lineGeometry = new THREE.BufferGeometry();
+	for ( const [ name, itemSize ] of [ [ 'position', 3 ], [ 'lineDistance', 1 ] ] ) lineGeometry.setAttribute( name, attr( 4, itemSize ) );
+	const line2Geometry = new THREE.BufferGeometry();
+	for ( const [ name, itemSize ] of [ [ 'position', 3 ], [ 'uv', 2 ], [ 'instanceStart', 3 ], [ 'instanceEnd', 3 ], [ 'instanceDistanceStart', 1 ], [ 'instanceDistanceEnd', 1 ] ] ) line2Geometry.setAttribute( name, attr( 8, itemSize ) );
+	const wtex = ( name ) => {
+
+		const t = new THREE.Texture();
+		t.name = name;
+		return t;
+
+	};
+
+	const M = THREE;
+	const whole = ( name, material, options = {} ) => scenarios.push( { kind: 'whole', name: 'g10_mat_' + name, material, renderer: 'a', ...options, object: options.object ? options.object : ( m ) => new THREE.Mesh( wgeometry, m ) } );
+	const set = ( make, f ) => () => {
+
+		const m = make();
+		f( m );
+		return m;
+
+	};
+
+	const lit = { lights: () => [ point() ] };
+	whole( 'node_material', () => new M.NodeMaterial() );
+	whole( 'basic', () => new M.MeshBasicNodeMaterial() );
+	whole( 'basic_map_alpha_test', set( () => new M.MeshBasicNodeMaterial(), ( m ) => { m.map = wtex( 'map' ); m.alphaTest = 0.5; } ) );
+	whole( 'basic_transparent_fog', set( () => new M.MeshBasicNodeMaterial(), ( m ) => { m.transparent = true; m.premultipliedAlpha = true; } ), { fog: true } );
+	whole( 'basic_vertex_colors_nodes', set( () => new M.MeshBasicNodeMaterial(), ( m ) => { m.vertexColors = true; m.colorNode = T.vec3( 1, 0.5, 0 ); m.positionNode = T.positionLocal.mul( 2 ); } ) );
+	whole( 'basic_log_depth', () => new M.MeshBasicNodeMaterial(), { logarithmic: true } );
+	whole( 'lambert', () => new M.MeshLambertNodeMaterial(), lit );
+	whole( 'phong', () => new M.MeshPhongNodeMaterial(), lit );
+	whole( 'standard', () => new M.MeshStandardNodeMaterial(), lit );
+	whole( 'standard_maps', set( () => new M.MeshStandardNodeMaterial(), ( m ) => { m.map = wtex( 'map' ); m.roughnessMap = wtex( 'rough' ); m.normalMap = wtex( 'normal' ); } ), { lights: () => [ point(), directional() ] } );
+	whole( 'physical', () => new M.MeshPhysicalNodeMaterial(), lit );
+	whole( 'physical_clearcoat_sheen', set( () => new M.MeshPhysicalNodeMaterial(), ( m ) => { m.clearcoat = 1; m.sheen = 1; m.iridescence = 1; } ), lit );
+	whole( 'sss', set( () => new M.MeshSSSNodeMaterial(), ( m ) => { m.thicknessColorNode = T.vec3( 0.5, 0.1, 0.1 ); } ), lit );
+	whole( 'toon', () => new M.MeshToonNodeMaterial(), lit );
+	whole( 'matcap', () => new M.MeshMatcapNodeMaterial() );
+	whole( 'normal', () => new M.MeshNormalNodeMaterial() );
+	whole( 'shadow', () => new M.ShadowNodeMaterial(), { lights: () => [ directional() ] } );
+	whole( 'volume', () => new M.VolumeNodeMaterial(), lit );
+	whole( 'line_basic', () => new M.LineBasicNodeMaterial(), { object: ( m ) => new THREE.Line( lineGeometry, m ) } );
+	whole( 'line_dashed', () => new M.LineDashedNodeMaterial(), { object: ( m ) => new THREE.Line( lineGeometry, m ) } );
+	whole( 'line2', () => new M.Line2NodeMaterial(), { object: ( m ) => new THREE.Mesh( line2Geometry, m ) } );
+	whole( 'line2_dashed_world_units', set( () => new M.Line2NodeMaterial( { dashed: true } ), ( m ) => { m.worldUnits = true; } ), { object: ( m ) => new THREE.Mesh( line2Geometry, m ) } );
+	whole( 'points', () => new M.PointsNodeMaterial(), { object: ( m ) => new THREE.Points( lineGeometry, m ) } );
+	whole( 'points_sprite', () => new M.PointsNodeMaterial(), { object: ( m ) => new THREE.Mesh( wgeometry, m ) } );
+	whole( 'sprite', () => new M.SpriteNodeMaterial(), { object: ( m ) => new THREE.Sprite( m ) } );
+	whole( 'from_core_standard', () => new M.MeshStandardMaterial(), lit );
+	whole( 'from_core_basic_map', set( () => new M.MeshBasicMaterial(), ( m ) => { m.map = wtex( 'map' ); } ) );
+	whole( 'standard_instanced', () => new M.MeshStandardNodeMaterial(), { ...lit, object: ( m ) => new THREE.InstancedMesh( wgeometry, m, 4 ) } );
+	whole( 'basic_batched', () => new M.MeshBasicNodeMaterial(), { object: batched } );
+	whole( 'basic_batched_no_multi_draw', () => new M.MeshBasicNodeMaterial(), { renderer: 'b', object: batched } );
+	whole( 'basic_batched_float32_unfiltered', () => new M.MeshBasicNodeMaterial(), { renderer: 'b', object: batched } );
+	whole( 'phong_spot_hemi', () => new M.MeshPhongNodeMaterial(), { lights: () => [ new THREE.SpotLight( 0xffffff, 2 ), new THREE.HemisphereLight( 0x8888ff, 0x442200, 1 ) ] } );
+	whole( 'standard_directional_shadow', () => new M.MeshStandardNodeMaterial(), { lights: () => {
+
+		const l = directional();
+		l.castShadow = true;
+		return [ l ];
+
+	} } );
+	whole( 'standard_clipping', () => new M.MeshStandardNodeMaterial(), { ...lit, clipping: 'soft' } );
+	whole( 'basic_clipping_hardware', () => new M.MeshBasicNodeMaterial(), { renderer: 'c', clipping: 'hardware' } );
+	whole( 'basic_clipping_intersection', () => new M.MeshBasicNodeMaterial(), { clipping: 'intersection' } );
+
+	// --- run
+	const records = {};
+	const materialContext = ( builder ) => {
+
+		builder.context.setupPositionView = () => T.modelViewMatrix.mul( T.positionLocal ).xyz;
+		builder.context.setupModelViewProjection = () => T.cameraProjectionMatrix.mul( T.positionView );
+		builder.context.setupNormal = () => T.subBuild( T.normalViewGeometry, 'NORMAL', 'vec3' );
+
+	};
+
+	// Upstream throws on these (WGSL-only nodes); the MoonBit side skips the same names.
+	const skipped = new Set( ['g10_wgsl_fn_comment','g10_invocation_local_index','g10_storage_texture_load','g10_storage_texture_store','g10_storage_texture_rw_fragment','g10_storage_texture_formats','g10_storage_texture_3d','g10_storage_texture_array','g10_workgroup_array','g10_workgroup_atomic','g10_compute_workgroup_2d','g10_compute_texture_store'] );
+	for ( const s of scenarios ) {
+
+		if ( skipped.has( s.name ) ) continue;
+		try {
+
+			runOne( s );
+
+		} catch ( e ) {
+
+			records[ s.name ] = { error: String( e && e.message ) };
+
+		}
+
+	}
+
+	return records;
+
+	function runOne( s ) {
+
+		const renderer = renderers[ s.renderer ];
+		if ( s.kind === 'flow' ) {
+
+			const object = s.mesh ? new THREE.Mesh( s.geometry || geometry, new THREE.MeshBasicMaterial() ) : null;
+			const builder = new GLSLNodeBuilder( object, renderer );
+			if ( s.mesh ) builder.camera = new THREE.PerspectiveCamera();
+			if ( s.ctx ) materialContext( builder );
+			if ( s.pre ) s.pre( builder );
+			builder.setShaderStage( s.stage );
+			const f = builder.flowStagesNode( s.make() );
+			const stage = s.stage;
+			if ( builder.vars.vertex === undefined ) builder.vars.vertex = [];
+			const decl = [
+				builder.getUniforms( stage ),
+				builder.getAttributes( stage ),
+				builder.getVaryings( 'vertex' ),
+				builder.getVaryings( 'fragment' ),
+				s.decl === 'compute' ? builder.getVaryings( 'compute' ) : '',
+				builder.getStructs( stage ),
+				extensionsOf( builder, stage ),
+				builder.getTransforms( stage ),
+				builder.getVars( stage, true ),
+				builder.getVars( 'vertex', true )
+			].join( '\n@@\n' );
+			const uniforms = [];
+			for ( const st of [ 'vertex', 'fragment', 'compute' ] ) {
+
+				for ( const u of builder.uniforms[ st ] ) uniforms.push( `${st}:${u.name}:${u.type}` );
+
+			}
+
+			records[ s.name ] = { code: f.code, result: typeof f.result === 'string' ? f.result : '', vars: f.vars ?? '', uniforms, codes: builder.getCodes( stage ), decl, bindings: bindingsOf( builder ) };
+
+		} else if ( s.kind === 'compute' ) {
+
+			const builder = new GLSLNodeBuilder( null, renderer );
+			builder.compute = s.make();
+			builder.build();
+			records[ s.name ] = { shader: builder.computeShader, transforms: builder.transforms.map( ( t ) => t.varyingName ).join( ',' ), bindings: bindingsOf( builder ) };
+
+		} else if ( s.kind === 'whole' ) {
+
+			const material = s.material();
+			const object = s.object ? s.object( material ) : new THREE.Mesh( geometry, material );
+			renderer.logarithmicDepthBuffer = s.logarithmic === true;
+			const builder = new GLSLNodeBuilder( object, renderer );
+			builder.scene = new THREE.Scene();
+			builder.camera = new THREE.PerspectiveCamera();
+			builder.lightsNode = new N.LightsNode().setLights( s.lights ? s.lights() : [] );
+			if ( s.fog ) builder.fogNode = T.fog( T.color( 0x8899aa ), T.rangeFogFactor( 1, 10 ) );
+			if ( s.clipping ) {
+
+				const group = new THREE.ClippingGroup();
+				group.clippingPlanes = [ new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 1 ), new THREE.Plane( new THREE.Vector3( 0, 1, 0 ), 2 ) ];
+				group.clipIntersection = s.clipping === 'intersection';
+				const context = new ClippingContext();
+				context.update( new ClippingContext(), group );
+				builder.clippingContext = context;
+				builder.hardwareClipping = s.clipping === 'hardware';
+
+			}
+
+			builder.build();
+			renderer.logarithmicDepthBuffer = false;
+			records[ s.name ] = { shader: builder.vertexShader + '\n@@@@\n' + builder.fragmentShader, bindings: bindingsOf( builder ) };
+
+		} else {
+
+			const mesh = s.object ? s.object() : new THREE.Mesh( geometry, new THREE.MeshBasicMaterial() );
+			const builder = new GLSLNodeBuilder( mesh, renderer );
+			builder.scene = new THREE.Scene();
+			builder.camera = new THREE.PerspectiveCamera();
+			if ( s.pre ) s.pre( builder );
+			builder.addContext( renderer.contextNode.getFlowContextData() );
+			builder.addStack();
+			builder.stack.outputNode = s.vertex();
+			builder.addFlow( 'vertex', builder.removeStack() );
+			builder.addStack();
+			builder.stack.outputNode = s.fragment();
+			builder.addFlow( 'fragment', builder.removeStack() );
+			for ( const buildStage of [ 'setup', 'analyze', 'generate' ] ) {
+
+				builder.setBuildStage( buildStage );
+				for ( const shaderStage of [ 'fragment', 'vertex', 'compute' ] ) {
+
+					builder.setShaderStage( shaderStage );
+					for ( const node of builder.flowNodes[ shaderStage ] ) {
+
+						if ( buildStage === 'generate' ) builder.flowNode( node );
+						else node.build( builder );
+
+					}
+
+				}
+
+			}
+
+			builder.setBuildStage( null );
+			builder.setShaderStage( null );
+			builder.buildCode();
+			records[ s.name ] = { shader: builder.vertexShader + '\n@@@@\n' + builder.fragmentShader, bindings: bindingsOf( builder ) };
+
+		}
+
+	}
+
+}

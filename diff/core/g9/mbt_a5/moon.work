@@ -1,0 +1,5 @@
+// The MoonBit side of the A5 mock-GPU scenarios builds against the port in the repository root.
+members = [
+  ".",
+  "../../../..",
+]

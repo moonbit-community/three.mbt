@@ -1,0 +1,18 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/geometries",
+  "bobzhang/three/helpers",
+  "bobzhang/three/math",
+  "bobzhang/three/renderers/webgl",
+  "bobzhang/three/addons/objects",
+}
+
+options(
+  "is-main": true,
+  link: {
+    "js": {
+      "exports": [ "scene_names", "render_scene", "release_scene" ],
+      "format": "esm",
+    },
+  },
+)

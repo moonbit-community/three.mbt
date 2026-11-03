@@ -1,0 +1,54 @@
+G10 differential harness: the WebGL fallback backend (MoonBit src/renderers/webgl_fallback,
+`Renderer::new( WebGLBackend::new( parameters ) )`) against upstream (THREE_UPSTREAM, default .repos/three.js)
+`new WebGPURenderer( { canvas, forceWebGL: true } )`, both rendering on the recording mock
+WebGL 2 context of diff/core/webgl (harness/mock_gl.cjs there; the MoonBit copy is
+src/renderers/webgl_fallback/g10_mock_gl_test.mbt, refreshed by `node tools/gen_g10_mock.mjs` (repo root)
+after diff/core/webgl/tools/gen_mock.mjs; `--check` reports a stale copy).
+From the repository root: `node diff/run_all.mjs --only g10`.
+
+  node run.mjs [--quiet] [--context N] [name ...]   run scenarios, compare logs entry by entry
+  node upstream_one.mjs <name>                     print one upstream scenario's log
+  node summarize.mjs <name ...>                    counts of the interesting calls upstream
+  node shaders.mjs <name>                          first differing shaderSource of a scenario
+  python3 ../inject/inject.py [index ...]          bug injection into src/renderers/webgl_fallback
+                                                   (each bug must be caught; files restored via
+                                                   diff/lib/inject.py; INJECT_DRY_RUN=1 checks the
+                                                   patterns; shader bugs use
+                                                   diff/core/webgpu/shader_diff/run_g10.mjs)
+
+Files
+  common.mjs      upstream modules (Three.TSL.js first, then Three.WebGPU.js, as the bundles
+                  load), id alignment, a fake `self`/requestAnimationFrame, the stub canvas
+                  whose getContext( 'webgl2', attributes ) notes the attributes and returns
+                  the mock, makeRenderer( options, mockOptions ).
+  scenarios.mjs   upstream side of each scenario (returns gl.__log). `known` lists scenarios
+                  whose difference lies outside webgl_fallback (reported as KNOWN).
+  src/renderers/webgl_fallback/g10_diff_test.mbt (repo)   MoonBit side: test "g10diff <name>",
+                  printing `@@G10_LOG <name> <json>` with G10_DIFF=1; the StandardNodeLibrary
+                  and light-node registrations of WebGPURenderer are mirrored in
+                  g10_test_helpers_test.mbt (the package cannot import renderers/webgpu).
+
+Each scenario runs in a fresh process on both sides and starts by advancing the global id
+counters (Node 20000, Object3D/Material/Texture/BufferAttribute/BufferGeometry 1000), which
+aligns the nodes the two harnesses create at run time before the scenario. Module-level nodes
+have upstream's ids on both sides (src/nodes/core_module_node_ids.mbt); the MoonBit side checks
+that the node counter starts at or above upstream's first run-time id (856). The log
+holds every GL call with its arguments (shader sources, uniform/UBO uploads, texture uploads,
+draws) and `# label value` notes for results that are not GL calls.
+
+Mock extensions (diff/core/webgl mock, additive, by G10): getSupportedExtensions(),
+EXT_disjoint_timer_query_webgl2 constants, OVR_multiview2.framebufferTextureMultisampleMultiviewOVR,
+and `options.queries = { available, result }` answers for getQueryParameter (default unchanged).
+
+Scenarios: init_basic, init_options, init_no_extensions, render_basic, materials_unlit,
+materials_lit, shadows, shadows_point, textures_formats, textures_kinds, render_targets
+(depth texture, MSAA resolve, readRenderTargetPixelsAsync), render_targets_mrt, copies
+(copyFramebufferToTexture, copyTextureToTexture), geometry_kinds (instancing, non-indexed +
+draw range, interleaved, groups), batched_mesh (multi-draw extension and the uniform
+fallback), compute_transform_feedback (+ getArrayBufferAsync), compute_then_render,
+compute_pbo_render, queries (occlusion + timestamp), background_environment, fog_tone_mapping,
+post_processing (RenderPipeline + pass()), clear_resize_dispose, cube_render_target,
+compile_async_parallel (KHR_parallel_shader_compile), user_context (parameters.context).
+Known (outside webgl_fallback): none. background_cube (render UBO member order: module-level node
+ids) and environment_cube (the PMREM source cube bound as CubeTextureNode's EmptyTexture) were
+fixed in src/nodes; module-level nodes now have upstream's ids (src/nodes/core_module_node_ids.mbt).

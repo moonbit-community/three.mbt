@@ -1,0 +1,16 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/geometries",
+  "bobzhang/three/helpers",
+  "bobzhang/three/math",
+}
+
+options(
+  "is-main": true,
+  link: {
+    "js": {
+      "exports": [ "run_mbt" ],
+      "format": "esm",
+    },
+  },
+)

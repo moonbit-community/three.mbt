@@ -1,0 +1,2512 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/core"
+
+import {
+  "bobzhang/three/math",
+  "moonbitlang/core/json",
+  "moonbitlang/core/ref",
+}
+
+// Values
+pub const ACESFilmicToneMapping : Int32 = 4
+
+pub const AddEquation : Int32 = 100
+
+pub const AddOperation : Int32 = 2
+
+pub const AdditiveAnimationBlendMode : Int32 = 2501
+
+pub const AdditiveBlending : Int32 = 2
+
+pub const AgXToneMapping : Int32 = 6
+
+pub const AlphaFormat : Int32 = 1021
+
+pub const AlwaysCompare : Int32 = 519
+
+pub const AlwaysDepth : Int32 = 1
+
+pub const AlwaysStencilFunc : Int32 = 519
+
+pub const AttachedBindMode : String = "attached"
+
+pub const BackSide : Int32 = 1
+
+pub const BasicDepthPacking : Int32 = 3200
+
+pub const BasicShadowMap : Int32 = 0
+
+pub const ByteType : Int32 = 1010
+
+pub const CineonToneMapping : Int32 = 3
+
+pub const ClampToEdgeWrapping : Int32 = 1001
+
+pub const Compatibility_TEXTURE_COMPARE : String = "depthTextureCompare"
+
+pub const ConstantAlphaFactor : Int32 = 213
+
+pub const ConstantColorFactor : Int32 = 211
+
+pub const CubeReflectionMapping : Int32 = 301
+
+pub const CubeRefractionMapping : Int32 = 302
+
+pub const CullFaceBack : Int32 = 1
+
+pub const CullFaceFront : Int32 = 2
+
+pub const CullFaceFrontBack : Int32 = 3
+
+pub const CullFaceNone : Int32 = 0
+
+pub const CustomBlending : Int32 = 5
+
+pub const CustomToneMapping : Int32 = 5
+
+pub const DecrementStencilOp : Int32 = 7683
+
+pub const DecrementWrapStencilOp : Int32 = 34056
+
+pub const DepthFormat : Int32 = 1026
+
+pub const DepthStencilFormat : Int32 = 1027
+
+pub const DetachedBindMode : String = "detached"
+
+pub const DoubleSide : Int32 = 2
+
+pub const DstAlphaFactor : Int32 = 206
+
+pub const DstColorFactor : Int32 = 208
+
+pub const DynamicCopyUsage : Int32 = 35050
+
+pub const DynamicDrawUsage : Int32 = 35048
+
+pub const DynamicReadUsage : Int32 = 35049
+
+pub const EqualCompare : Int32 = 514
+
+pub const EqualDepth : Int32 = 4
+
+pub const EqualStencilFunc : Int32 = 514
+
+pub const EquirectangularReflectionMapping : Int32 = 303
+
+pub const EquirectangularRefractionMapping : Int32 = 304
+
+pub const FloatType : Int32 = 1015
+
+pub const FrontSide : Int32 = 0
+
+pub const GLSL1 : String = "100"
+
+pub const GLSL3 : String = "300 es"
+
+pub const GreaterCompare : Int32 = 516
+
+pub const GreaterDepth : Int32 = 6
+
+pub const GreaterEqualCompare : Int32 = 518
+
+pub const GreaterEqualDepth : Int32 = 5
+
+pub const GreaterEqualStencilFunc : Int32 = 518
+
+pub const GreaterStencilFunc : Int32 = 516
+
+pub const HalfFloatType : Int32 = 1016
+
+pub const IncrementStencilOp : Int32 = 7682
+
+pub const IncrementWrapStencilOp : Int32 = 34055
+
+pub const IntType : Int32 = 1013
+
+pub const InterpolateBezier : Int32 = 2303
+
+pub const InterpolateDiscrete : Int32 = 2300
+
+pub const InterpolateLinear : Int32 = 2301
+
+pub const InterpolateSmooth : Int32 = 2302
+
+pub const InterpolationSamplingMode_CENTROID : String = "centroid"
+
+pub const InterpolationSamplingMode_EITHER : String = "either"
+
+pub const InterpolationSamplingMode_FIRST : String = "first"
+
+pub const InterpolationSamplingMode_NORMAL : String = "normal"
+
+pub const InterpolationSamplingMode_SAMPLE : String = "sample"
+
+pub const InterpolationSamplingType_FLAT : String = "flat"
+
+pub const InterpolationSamplingType_LINEAR : String = "linear"
+
+pub const InterpolationSamplingType_PERSPECTIVE : String = "perspective"
+
+pub const InvertStencilOp : Int32 = 5386
+
+pub const KeepStencilOp : Int32 = 7680
+
+pub const LessCompare : Int32 = 513
+
+pub const LessDepth : Int32 = 2
+
+pub const LessEqualCompare : Int32 = 515
+
+pub const LessEqualDepth : Int32 = 3
+
+pub const LessEqualStencilFunc : Int32 = 515
+
+pub const LessStencilFunc : Int32 = 513
+
+pub const LinearFilter : Int32 = 1006
+
+pub const LinearMipMapLinearFilter : Int32 = 1008
+
+pub const LinearMipMapNearestFilter : Int32 = 1007
+
+pub const LinearMipmapLinearFilter : Int32 = 1008
+
+pub const LinearMipmapNearestFilter : Int32 = 1007
+
+pub const LinearSRGBColorSpace : String = "srgb-linear"
+
+pub const LinearToneMapping : Int32 = 1
+
+pub const LinearTransfer : String = "linear"
+
+pub const LoopOnce : Int32 = 2200
+
+pub const LoopPingPong : Int32 = 2202
+
+pub const LoopRepeat : Int32 = 2201
+
+pub const MOUSE_DOLLY : Int32 = 1
+
+pub const MOUSE_LEFT : Int32 = 0
+
+pub const MOUSE_MIDDLE : Int32 = 1
+
+pub const MOUSE_PAN : Int32 = 2
+
+pub const MOUSE_RIGHT : Int32 = 2
+
+pub const MOUSE_ROTATE : Int32 = 0
+
+pub const MaterialBlending : Int32 = 6
+
+pub const MaxEquation : Int32 = 104
+
+pub const MinEquation : Int32 = 103
+
+pub const MirroredRepeatWrapping : Int32 = 1002
+
+pub const MixOperation : Int32 = 1
+
+pub const MultiplyBlending : Int32 = 4
+
+pub const MultiplyOperation : Int32 = 0
+
+pub const NearestFilter : Int32 = 1003
+
+pub const NearestMipMapLinearFilter : Int32 = 1005
+
+pub const NearestMipMapNearestFilter : Int32 = 1004
+
+pub const NearestMipmapLinearFilter : Int32 = 1005
+
+pub const NearestMipmapNearestFilter : Int32 = 1004
+
+pub const NeutralToneMapping : Int32 = 7
+
+pub const NeverCompare : Int32 = 512
+
+pub const NeverDepth : Int32 = 0
+
+pub const NeverStencilFunc : Int32 = 512
+
+pub const NoBlending : Int32 = 0
+
+pub const NoColorSpace : String = ""
+
+pub const NoNormalPacking : String = ""
+
+pub const NoToneMapping : Int32 = 0
+
+pub const NormalAnimationBlendMode : Int32 = 2500
+
+pub const NormalBlending : Int32 = 1
+
+pub const NormalGAPacking : String = "ga"
+
+pub const NormalRGPacking : String = "rg"
+
+pub const NotEqualCompare : Int32 = 517
+
+pub const NotEqualDepth : Int32 = 7
+
+pub const NotEqualStencilFunc : Int32 = 517
+
+pub const ObjectSpaceNormalMap : Int32 = 1
+
+pub const OneFactor : Int32 = 201
+
+pub const OneMinusConstantAlphaFactor : Int32 = 214
+
+pub const OneMinusConstantColorFactor : Int32 = 212
+
+pub const OneMinusDstAlphaFactor : Int32 = 207
+
+pub const OneMinusDstColorFactor : Int32 = 209
+
+pub const OneMinusSrcAlphaFactor : Int32 = 205
+
+pub const OneMinusSrcColorFactor : Int32 = 203
+
+pub const PCFShadowMap : Int32 = 1
+
+pub const PCFSoftShadowMap : Int32 = 2
+
+pub const R11_EAC_Format : Int32 = 37488
+
+pub const RED_GREEN_RGTC2_Format : Int32 = 36285
+
+pub const RED_RGTC1_Format : Int32 = 36283
+
+pub const REVISION : String = "187"
+
+pub const RG11_EAC_Format : Int32 = 37490
+
+pub const RGBADepthPacking : Int32 = 3201
+
+pub const RGBAFormat : Int32 = 1023
+
+pub const RGBAIntegerFormat : Int32 = 1033
+
+pub const RGBA_ASTC_10x10_Format : Int32 = 37819
+
+pub const RGBA_ASTC_10x5_Format : Int32 = 37816
+
+pub const RGBA_ASTC_10x6_Format : Int32 = 37817
+
+pub const RGBA_ASTC_10x8_Format : Int32 = 37818
+
+pub const RGBA_ASTC_12x10_Format : Int32 = 37820
+
+pub const RGBA_ASTC_12x12_Format : Int32 = 37821
+
+pub const RGBA_ASTC_4x4_Format : Int32 = 37808
+
+pub const RGBA_ASTC_5x4_Format : Int32 = 37809
+
+pub const RGBA_ASTC_5x5_Format : Int32 = 37810
+
+pub const RGBA_ASTC_6x5_Format : Int32 = 37811
+
+pub const RGBA_ASTC_6x6_Format : Int32 = 37812
+
+pub const RGBA_ASTC_8x5_Format : Int32 = 37813
+
+pub const RGBA_ASTC_8x6_Format : Int32 = 37814
+
+pub const RGBA_ASTC_8x8_Format : Int32 = 37815
+
+pub const RGBA_BPTC_Format : Int32 = 36492
+
+pub const RGBA_ETC2_EAC_Format : Int32 = 37496
+
+pub const RGBA_PVRTC_2BPPV1_Format : Int32 = 35843
+
+pub const RGBA_PVRTC_4BPPV1_Format : Int32 = 35842
+
+pub const RGBA_S3TC_DXT1_Format : Int32 = 33777
+
+pub const RGBA_S3TC_DXT3_Format : Int32 = 33778
+
+pub const RGBA_S3TC_DXT5_Format : Int32 = 33779
+
+pub const RGBDepthPacking : Int32 = 3202
+
+pub const RGBFormat : Int32 = 1022
+
+pub const RGBIntegerFormat : Int32 = 1032
+
+pub const RGB_BPTC_SIGNED_Format : Int32 = 36494
+
+pub const RGB_BPTC_UNSIGNED_Format : Int32 = 36495
+
+pub const RGB_ETC1_Format : Int32 = 36196
+
+pub const RGB_ETC2_Format : Int32 = 37492
+
+pub const RGB_PVRTC_2BPPV1_Format : Int32 = 35841
+
+pub const RGB_PVRTC_4BPPV1_Format : Int32 = 35840
+
+pub const RGB_S3TC_DXT1_Format : Int32 = 33776
+
+pub const RGDepthPacking : Int32 = 3203
+
+pub const RGFormat : Int32 = 1030
+
+pub const RGIntegerFormat : Int32 = 1031
+
+pub const RedFormat : Int32 = 1028
+
+pub const RedIntegerFormat : Int32 = 1029
+
+pub const ReinhardToneMapping : Int32 = 2
+
+pub const RenderObjectRefreshType_FULL : Int32 = 2
+
+pub const RenderObjectRefreshType_NONE : Int32 = 0
+
+pub const RenderObjectRefreshType_SHARED : Int32 = 1
+
+pub const RepeatWrapping : Int32 = 1000
+
+pub const ReplaceStencilOp : Int32 = 7681
+
+pub const ReverseSubtractEquation : Int32 = 102
+
+pub const SIGNED_R11_EAC_Format : Int32 = 37489
+
+pub const SIGNED_RED_GREEN_RGTC2_Format : Int32 = 36286
+
+pub const SIGNED_RED_RGTC1_Format : Int32 = 36284
+
+pub const SIGNED_RG11_EAC_Format : Int32 = 37491
+
+pub const SRGBColorSpace : String = "srgb"
+
+pub const SRGBTransfer : String = "srgb"
+
+pub const ShortType : Int32 = 1011
+
+pub const SrcAlphaFactor : Int32 = 204
+
+pub const SrcAlphaSaturateFactor : Int32 = 210
+
+pub const SrcColorFactor : Int32 = 202
+
+pub const StaticCopyUsage : Int32 = 35046
+
+pub const StaticDrawUsage : Int32 = 35044
+
+pub const StaticReadUsage : Int32 = 35045
+
+pub const StreamCopyUsage : Int32 = 35042
+
+pub const StreamDrawUsage : Int32 = 35040
+
+pub const StreamReadUsage : Int32 = 35041
+
+pub const SubtractEquation : Int32 = 101
+
+pub const SubtractiveBlending : Int32 = 3
+
+pub const TOUCH_DOLLY_PAN : Int32 = 2
+
+pub const TOUCH_DOLLY_ROTATE : Int32 = 3
+
+pub const TOUCH_PAN : Int32 = 1
+
+pub const TOUCH_ROTATE : Int32 = 0
+
+pub const TangentSpaceNormalMap : Int32 = 0
+
+pub const TimestampQuery_COMPUTE : String = "compute"
+
+pub const TimestampQuery_RENDER : String = "render"
+
+pub const TriangleFanDrawMode : Int32 = 2
+
+pub const TriangleStripDrawMode : Int32 = 1
+
+pub const TrianglesDrawMode : Int32 = 0
+
+pub const UVMapping : Int32 = 300
+
+pub const UnsignedByteType : Int32 = 1009
+
+pub const UnsignedInt101111Type : Int32 = 35899
+
+pub const UnsignedInt248Type : Int32 = 1020
+
+pub const UnsignedInt5999Type : Int32 = 35902
+
+pub const UnsignedIntType : Int32 = 1014
+
+pub const UnsignedShort4444Type : Int32 = 1017
+
+pub const UnsignedShort5551Type : Int32 = 1018
+
+pub const UnsignedShortType : Int32 = 1012
+
+pub const VSMShadowMap : Int32 = 3
+
+pub const WebGLCoordinateSystem : Int32 = 2000
+
+pub const WebGPUCoordinateSystem : Int32 = 2001
+
+pub const WrapAroundEnding : Int32 = 2402
+
+pub const ZeroCurvatureEnding : Int32 = 2400
+
+pub const ZeroFactor : Int32 = 200
+
+pub const ZeroSlopeEnding : Int32 = 2401
+
+pub const ZeroStencilOp : Int32 = 0
+
+pub fn array_needs_uint32(Array[Double]) -> Bool
+
+pub fn box3_expand_by_object(@math.Box3, Object3D, precise? : Bool) -> @math.Box3
+
+pub fn box3_set_from_buffer_attribute(@math.Box3, GeometryAttribute) -> @math.Box3
+
+pub fn box3_set_from_object(@math.Box3, Object3D, precise? : Bool) -> @math.Box3
+
+pub fn clone_uniforms(Map[String, Uniform]) -> Map[String, Uniform]
+
+pub fn clone_uniforms_groups(Array[UniformsGroup]) -> Array[UniformsGroup]
+
+pub let default_fragment : String
+
+pub let default_vertex : String
+
+pub fn error(String) -> Unit
+
+pub fn from_half_float(Double) -> Double
+
+pub fn frustum_array_intersects_object(@math.FrustumArray, Object3D) -> Bool
+
+pub fn frustum_array_intersects_sprite(@math.FrustumArray, Object3D) -> Bool
+
+pub fn frustum_array_set_from_array_camera(@math.FrustumArray, Object3D) -> @math.FrustumArray
+
+pub fn frustum_intersects_object(@math.Frustum, Object3D) -> Bool
+
+pub fn frustum_intersects_sprite(@math.Frustum, Object3D) -> Bool
+
+pub fn get_unlit_uniform_color_space(RenderTarget?, String) -> String
+
+pub fn log(String) -> Unit
+
+pub fn merge_uniforms(Array[Map[String, Uniform]]) -> Map[String, Uniform]
+
+pub let object3d_default_matrix_auto_update : @ref.Ref[Bool]
+
+pub let object3d_default_matrix_world_auto_update : @ref.Ref[Bool]
+
+pub let object3d_default_up : @math.Vector3
+
+pub let texture_default_anisotropy : @ref.Ref[Int32]
+
+pub let texture_default_image : @ref.Ref[TextureImage]
+
+pub let texture_default_mapping : @ref.Ref[Int32]
+
+pub fn to_half_float(Double) -> Double
+
+pub fn[T : InterpolatedAttributeTarget] triangle_get_interpolated_attribute(GeometryAttribute, Int32, Int32, Int32, @math.Vector3, T) -> T
+
+pub fn triangle_set_from_attribute_and_indices(@math.Triangle, GeometryAttribute, Int32, Int32, Int32) -> @math.Triangle
+
+pub fn warn(String) -> Unit
+
+pub fn warn_once(String) -> Unit
+
+// Errors
+
+// Types and methods
+#external
+pub type AmbientLight
+pub fn AmbientLight::new(color? : @math.Color, intensity? : Double) -> Object3D
+
+#external
+pub type ArrayBuffer
+pub fn ArrayBuffer::byte_length(Self) -> Int32
+pub fn ArrayBuffer::new(Int32) -> Self
+pub fn ArrayBuffer::uuid(Self) -> String
+
+pub(all) struct ArrayCamera {
+  mut is_multi_view_camera : Bool
+  mut cameras : Array[Object3D]
+  mut per_camera_frustum_culled : Bool
+}
+pub fn ArrayCamera::new(array? : Array[Object3D]) -> Object3D
+
+pub(all) struct AttributeCloneData {
+  array_buffers : Map[String, ArrayBuffer]
+  interleaved_buffers : Map[String, InterleavedBuffer]
+}
+
+pub(all) struct BatchedGeometryInfo {
+  mut vertex_start : Int32
+  mut vertex_count : Int32
+  mut reserved_vertex_count : Int32
+  mut index_start : Int32
+  mut index_count : Int32
+  mut reserved_index_count : Int32
+  mut start : Int32
+  mut count : Int32
+  mut bounding_box : @math.Box3?
+  mut bounding_sphere : @math.Sphere?
+  mut active : Bool
+}
+
+pub(all) struct BatchedGeometryRange {
+  mut vertex_start : Int32
+  mut vertex_count : Int32
+  mut reserved_vertex_count : Int32
+  mut index_start : Int32
+  mut index_count : Int32
+  mut reserved_index_count : Int32
+  mut start : Int32
+  mut count : Int32
+}
+
+pub(all) struct BatchedInstanceInfo {
+  mut visible : Bool
+  mut active : Bool
+  mut geometry_index : Int32
+}
+
+pub(all) struct BatchedMesh {
+  mut per_object_frustum_culled : Bool
+  mut sort_objects : Bool
+  mut bounding_box : @math.Box3?
+  mut bounding_sphere : @math.Sphere?
+  mut custom_sort : ((Array[MultiDrawItem], Object3D) -> Unit)?
+  mut _instance_info : Array[BatchedInstanceInfo]
+  mut _geometry_info : Array[BatchedGeometryInfo]
+  mut _available_instance_ids : Array[Int32]
+  mut _available_geometry_ids : Array[Int32]
+  mut _next_index_start : Int32
+  mut _next_vertex_start : Int32
+  mut _geometry_count : Int32
+  mut _visibility_changed : Bool
+  mut _geometry_initialized : Bool
+  mut _max_instance_count : Int32
+  mut _max_vertex_count : Int32
+  mut _max_index_count : Int32
+  mut _multi_draw_counts : TypedArray
+  mut _multi_draw_starts : TypedArray
+  mut _multi_draw_count : Int32
+  mut _multi_draw_bytes_per_element : Int32
+  mut _merged_draw_counts : TypedArray
+  mut _merged_draw_starts : TypedArray
+  mut _merged_draw_instance_counts : TypedArray
+  mut _merged_draw_count : Int32
+  mut _matrices_texture : Texture?
+  mut _indirect_texture : Texture?
+  mut _colors_texture : Texture?
+  mut _previous_matrices_texture : Texture?
+}
+pub fn BatchedMesh::new(Int32, Int32, max_index_count? : Int32, material? : MaterialSlot) -> Object3D
+
+#external
+pub type Bone
+pub fn Bone::new() -> Object3D
+
+pub(all) struct BufferAttribute {
+  id : Int32
+  dispatcher : EventDispatcher
+  mut name : String
+  mut array : TypedArray
+  mut item_size : Int32
+  mut count : Int32
+  mut normalized : Bool
+  mut usage : Int32
+  mut update_ranges : Array[UpdateRange]
+  mut gpu_type : Int32
+  mut version : Int32
+  mut on_upload_callback : () -> Unit
+  mut _normalization_scale : Double?
+  mut kind : BufferAttributeKind
+  mut mesh_per_attribute : Int32
+}
+pub fn BufferAttribute::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn BufferAttribute::add_update_range(Self, Int32, Int32) -> Unit
+pub fn BufferAttribute::apply_matrix3(Self, @math.Matrix3) -> Self
+pub fn BufferAttribute::apply_matrix4(Self, @math.Matrix4) -> Self
+pub fn BufferAttribute::apply_normal_matrix(Self, @math.Matrix3) -> Self
+pub fn BufferAttribute::clear_update_ranges(Self) -> Unit
+pub fn BufferAttribute::clone(Self) -> Self
+pub fn BufferAttribute::copy(Self, Self) -> Self
+pub fn[A : TypedArrayInit] BufferAttribute::copy_array(Self, A) -> Self
+pub fn BufferAttribute::copy_at(Self, Int32, Self, Int32) -> Self
+pub fn BufferAttribute::dispatch_event(Self, Event) -> Unit
+pub fn BufferAttribute::dispose(Self) -> Unit
+pub fn BufferAttribute::event_dispatcher(Self) -> EventDispatcher
+pub fn BufferAttribute::event_target(Self) -> EventTarget
+pub fn BufferAttribute::get_component(Self, Int32, Int32) -> Double
+pub fn BufferAttribute::get_w(Self, Int32) -> Double
+pub fn BufferAttribute::get_x(Self, Int32) -> Double
+pub fn BufferAttribute::get_y(Self, Int32) -> Double
+pub fn BufferAttribute::get_z(Self, Int32) -> Double
+pub fn BufferAttribute::has_event_listener(Self, String, (Event) -> Unit) -> Bool
+pub fn BufferAttribute::is_float16_buffer_attribute(Self) -> Bool
+pub fn BufferAttribute::is_instanced_buffer_attribute(Self) -> Bool
+pub fn BufferAttribute::new(TypedArray, Int32, normalized? : Bool) -> Self
+pub fn BufferAttribute::on_upload(Self, () -> Unit) -> Self
+pub fn BufferAttribute::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn[A : TypedArrayInit] BufferAttribute::set(Self, A, offset? : Int32) -> Self
+pub fn BufferAttribute::set_component(Self, Int32, Int32, Double) -> Self
+pub fn BufferAttribute::set_needs_update(Self, Bool) -> Unit
+pub fn BufferAttribute::set_usage(Self, Int32) -> Self
+pub fn BufferAttribute::set_w(Self, Int32, Double) -> Self
+pub fn BufferAttribute::set_x(Self, Int32, Double) -> Self
+pub fn BufferAttribute::set_xy(Self, Int32, Double, Double) -> Self
+pub fn BufferAttribute::set_xyz(Self, Int32, Double, Double, Double) -> Self
+pub fn BufferAttribute::set_xyzw(Self, Int32, Double, Double, Double, Double) -> Self
+pub fn BufferAttribute::set_y(Self, Int32, Double) -> Self
+pub fn BufferAttribute::set_z(Self, Int32, Double) -> Self
+pub fn BufferAttribute::to_geometry_attribute(Self) -> GeometryAttribute
+pub fn BufferAttribute::to_geometry_index(Self) -> GeometryAttribute?
+pub fn BufferAttribute::to_json(Self) -> @json.Json
+pub fn BufferAttribute::transform_direction(Self, @math.Matrix4) -> Self
+pub impl EventSource for BufferAttribute
+pub impl GeometryIndex for BufferAttribute
+pub impl ToGeometryAttribute for BufferAttribute
+pub impl @math.BufferAttributeLike for BufferAttribute
+
+pub(all) enum BufferAttributeKind {
+  PlainAttribute
+  Float16Attribute
+  InstancedAttribute
+  StorageAttribute
+  StorageInstancedAttribute
+}
+
+pub(all) struct BufferGeometry {
+  id : Int32
+  dispatcher : EventDispatcher
+  mut uuid : String
+  mut name : String
+  mut type_ : String
+  mut index : GeometryAttribute?
+  mut indirect : BufferAttribute?
+  mut indirect_offset : Array[Int32]
+  mut attributes : Map[String, GeometryAttribute]
+  mut morph_attributes : Map[String, Array[GeometryAttribute]]
+  mut morph_targets_relative : Bool
+  mut groups : Array[GeometryGroup]
+  mut bounding_box : @math.Box3?
+  mut bounding_sphere : @math.Sphere?
+  draw_range : DrawRange
+  mut user_data : JsValue
+  mut _transformed : Bool
+  mut parameters : GeometryParameters?
+  mut is_instanced_buffer_geometry : Bool
+  mut instance_count : Double
+}
+pub fn BufferGeometry::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn BufferGeometry::add_group(Self, Int32, Double, material_index? : Int32) -> Unit
+pub fn BufferGeometry::apply_matrix4(Self, @math.Matrix4) -> Self
+pub fn BufferGeometry::apply_quaternion(Self, @math.Quaternion) -> Self
+pub fn BufferGeometry::center(Self) -> Self
+pub fn BufferGeometry::clear_groups(Self) -> Unit
+pub fn BufferGeometry::clone(Self) -> Self
+pub fn BufferGeometry::compute_bounding_box(Self) -> Unit
+pub fn BufferGeometry::compute_bounding_sphere(Self) -> Unit
+pub fn BufferGeometry::compute_tangents(Self) -> Unit
+pub fn BufferGeometry::compute_vertex_normals(Self) -> Unit
+pub fn BufferGeometry::copy(Self, Self) -> Self
+pub fn BufferGeometry::delete_attribute(Self, String) -> Self
+pub fn BufferGeometry::dispatch_event(Self, Event) -> Unit
+pub fn BufferGeometry::dispose(Self) -> Unit
+pub fn BufferGeometry::event_dispatcher(Self) -> EventDispatcher
+pub fn BufferGeometry::event_target(Self) -> EventTarget
+pub fn BufferGeometry::get_attribute(Self, String) -> GeometryAttribute?
+pub fn BufferGeometry::get_index(Self) -> GeometryAttribute?
+pub fn BufferGeometry::get_indirect(Self) -> BufferAttribute?
+pub fn BufferGeometry::has_attribute(Self, String) -> Bool
+pub fn BufferGeometry::has_event_listener(Self, String, (Event) -> Unit) -> Bool
+pub fn BufferGeometry::look_at(Self, @math.Vector3) -> Self
+pub fn BufferGeometry::new() -> Self
+pub fn BufferGeometry::normalize_normals(Self) -> Unit
+pub fn BufferGeometry::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn BufferGeometry::rotate_x(Self, Double) -> Self
+pub fn BufferGeometry::rotate_y(Self, Double) -> Self
+pub fn BufferGeometry::rotate_z(Self, Double) -> Self
+pub fn BufferGeometry::scale(Self, Double, Double, Double) -> Self
+pub fn[A : ToGeometryAttribute] BufferGeometry::set_attribute(Self, String, A) -> Self
+pub fn BufferGeometry::set_draw_range(Self, Int32, Double) -> Unit
+pub fn BufferGeometry::set_from_points(Self, Array[@math.Vector3]) -> Self
+pub fn BufferGeometry::set_from_points2(Self, Array[@math.Vector2]) -> Self
+pub fn[I : GeometryIndex] BufferGeometry::set_index(Self, I) -> Self
+pub fn BufferGeometry::set_indirect(Self, BufferAttribute?, indirect_offset? : Array[Int32]) -> Self
+pub fn BufferGeometry::set_to_json_hook(Self, (Self, Map[String, @json.Json]) -> Unit) -> Unit
+pub fn BufferGeometry::to_json(Self) -> @json.Json
+pub fn BufferGeometry::to_non_indexed(Self) -> Self
+pub fn BufferGeometry::translate(Self, Double, Double, Double) -> Self
+pub impl EventSource for BufferGeometry
+
+pub(all) struct Camera {
+  mut matrix_world_inverse : @math.Matrix4
+  mut projection_matrix : @math.Matrix4
+  mut projection_matrix_inverse : @math.Matrix4
+  mut coordinate_system : Int32
+  mut _reversed_depth : Bool
+  mut kind : CameraKind
+}
+pub fn Camera::new() -> Object3D
+
+pub(all) enum CameraKind {
+  BaseCamera
+  PerspectiveCamera(PerspectiveCamera)
+  OrthographicCamera(OrthographicCamera)
+}
+
+pub(all) struct CameraView {
+  mut enabled : Bool
+  mut full_width : Double
+  mut full_height : Double
+  mut offset_x : Double
+  mut offset_y : Double
+  mut width : Double
+  mut height : Double
+}
+pub fn CameraView::clone(Self) -> Self
+
+#external
+pub type CanvasTexture
+pub fn CanvasTexture::new(canvas? : JsValue, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, mag_filter? : Int32, min_filter? : Int32, format? : Int32, type_? : Int32, anisotropy? : Int32) -> Texture
+
+pub(all) struct ClippingGroup {
+  mut clipping_planes : Array[@math.Plane]
+  mut enabled : Bool
+  mut clip_intersection : Bool
+  mut clip_shadows : Bool
+}
+pub fn ClippingGroup::new() -> Object3D
+
+pub(all) struct Clock {
+  mut auto_start : Bool
+  mut start_time : Double
+  mut old_time : Double
+  mut elapsed_time : Double
+  mut running : Bool
+}
+pub fn Clock::get_delta(Self) -> Double
+pub fn Clock::get_elapsed_time(Self) -> Double
+pub fn Clock::new(auto_start? : Bool) -> Self
+pub fn Clock::start(Self) -> Unit
+pub fn Clock::stop(Self) -> Unit
+
+#external
+pub type CompressedArrayTexture
+pub fn CompressedArrayTexture::new(mipmaps? : Array[TextureImage], width? : Int32, height? : Int32, depth? : Int32, format? : Int32, type_? : Int32) -> Texture
+
+#external
+pub type CompressedCubeTexture
+pub fn CompressedCubeTexture::new(Array[TextureImage], format? : Int32, type_? : Int32) -> Texture
+
+#external
+pub type CompressedTexture
+pub fn CompressedTexture::new(mipmaps? : Array[TextureImage], width? : Int32, height? : Int32, format? : Int32, type_? : Int32, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, mag_filter? : Int32, min_filter? : Int32, anisotropy? : Int32, color_space? : String) -> Texture
+
+pub(all) struct CubeCamera {
+  mut render_target : RenderTarget?
+  mut coordinate_system : Int32?
+  mut active_mipmap_level : Int32
+}
+pub fn CubeCamera::new(near? : Double, far? : Double, render_target? : RenderTarget) -> Object3D
+
+#external
+pub type CubeDepthTexture
+pub fn CubeDepthTexture::new(size? : Int32, type_? : Int32, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, mag_filter? : Int32, min_filter? : Int32, anisotropy? : Int32, format? : Int32) -> Texture
+
+#external
+pub type CubeTexture
+pub fn CubeTexture::new(images? : Array[TextureImage], mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, mag_filter? : Int32, min_filter? : Int32, format? : Int32, type_? : Int32, anisotropy? : Int32, color_space? : String) -> Texture
+
+#external
+pub type Data3DTexture
+pub fn Data3DTexture::new(data? : TypedArray, width? : Int32, height? : Int32, depth? : Int32) -> Texture
+
+#external
+pub type DataArrayTexture
+pub fn DataArrayTexture::new(data? : TypedArray, width? : Int32, height? : Int32, depth? : Int32) -> Texture
+
+pub(all) struct DataImage {
+  mut data : TypedArray?
+  mut width : Int32
+  mut height : Int32
+  mut depth : Int32?
+  mut mipmaps : Array[DataImage]?
+}
+pub fn DataImage::new(data? : TypedArray, width? : Int32, height? : Int32, depth? : Int32, mipmaps? : Array[Self]) -> Self
+
+#external
+pub type DataTexture
+pub fn DataTexture::new(data? : TypedArray, width? : Int32, height? : Int32, format? : Int32, type_? : Int32, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, mag_filter? : Int32, min_filter? : Int32, anisotropy? : Int32, color_space? : String) -> Texture
+
+#external
+pub type DepthTexture
+pub fn DepthTexture::new(width? : Int32, height? : Int32, type_? : Int32, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, mag_filter? : Int32, min_filter? : Int32, anisotropy? : Int32, format? : Int32, depth? : Int32) -> Texture
+
+pub(all) struct DirectionalLight {
+  mut target : Object3D
+}
+pub fn DirectionalLight::new(color? : @math.Color, intensity? : Double) -> Object3D
+
+#external
+pub type DirectionalLightShadow
+pub fn DirectionalLightShadow::new() -> LightShadow
+
+pub(all) struct DrawRange {
+  mut start : Int32
+  mut count : Double
+}
+
+pub(all) struct Event {
+  mut type_ : String
+  mut target : EventTarget?
+  mut child : Object3D?
+  mut data : JsValue?
+}
+pub fn Event::new(String, child? : Object3D, data? : JsValue) -> Self
+
+pub(all) struct EventDispatcher {
+  mut _listeners : Map[String, Array[(Event) -> Unit]]?
+}
+pub fn EventDispatcher::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn EventDispatcher::dispatch_event(Self, Event) -> Unit
+pub fn EventDispatcher::event_dispatcher(Self) -> Self
+pub fn EventDispatcher::event_target(Self) -> EventTarget
+pub fn EventDispatcher::has_event_listener(Self, String, (Event) -> Unit) -> Bool
+pub fn EventDispatcher::new() -> Self
+pub fn EventDispatcher::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub impl EventSource for EventDispatcher
+
+pub(all) enum EventTarget {
+  Dispatcher(EventDispatcher)
+  Object3D(Object3D)
+  BufferAttribute(BufferAttribute)
+  BufferGeometry(BufferGeometry)
+  Material(Material)
+  Texture(Texture)
+  RenderTarget(RenderTarget)
+  UniformsGroup(UniformsGroup)
+  Other(JsValue)
+}
+
+#external
+pub type ExternalTexture
+pub fn ExternalTexture::new(source_texture? : Texture, external_source? : JsValue) -> Texture
+
+pub(all) struct Face {
+  mut a : Int32
+  mut b : Int32
+  mut c : Int32
+  mut normal : @math.Vector3
+  mut material_index : Int32
+}
+
+#external
+pub type Float16BufferAttribute
+pub fn[A : TypedArrayInit] Float16BufferAttribute::new(A, Int32, normalized? : Bool) -> BufferAttribute
+
+#external
+pub type Float32BufferAttribute
+pub fn[A : TypedArrayInit] Float32BufferAttribute::new(A, Int32, normalized? : Bool) -> BufferAttribute
+
+pub(all) struct Fog {
+  mut name : String
+  mut color : @math.Color
+  mut near : Double
+  mut far : Double
+}
+pub fn Fog::clone(Self) -> Self
+pub fn Fog::new(color? : @math.Color, near? : Double, far? : Double) -> Self
+pub fn Fog::to_json(Self) -> @json.Json
+
+pub(all) struct FogExp2 {
+  mut name : String
+  mut color : @math.Color
+  mut density : Double
+}
+pub fn FogExp2::clone(Self) -> Self
+pub fn FogExp2::new(color? : @math.Color, density? : Double) -> Self
+pub fn FogExp2::to_json(Self) -> @json.Json
+
+#external
+pub type FramebufferTexture
+pub fn FramebufferTexture::new(width? : Int32, height? : Int32) -> Texture
+
+pub(all) enum FrustumRef {
+  Single(@math.Frustum)
+  Array(@math.FrustumArray)
+}
+
+pub(all) struct GLBufferAttribute {
+  mut name : String
+  mut buffer : JsValue
+  mut type_ : Int32
+  mut item_size : Int32
+  mut element_size : Int32
+  mut count : Int32
+  mut normalized : Bool
+  mut version : Int32
+}
+pub fn GLBufferAttribute::new(JsValue, Int32, Int32, Int32, Int32, normalized? : Bool) -> Self
+pub fn GLBufferAttribute::set_buffer(Self, JsValue) -> Self
+pub fn GLBufferAttribute::set_count(Self, Int32) -> Self
+pub fn GLBufferAttribute::set_item_size(Self, Int32) -> Self
+pub fn GLBufferAttribute::set_needs_update(Self, Bool) -> Unit
+pub fn GLBufferAttribute::set_type(Self, Int32, Int32) -> Self
+pub fn GLBufferAttribute::to_geometry_attribute(Self) -> GeometryAttribute
+pub impl ToGeometryAttribute for GLBufferAttribute
+
+pub(all) enum GeometryAttribute {
+  Buffer(BufferAttribute)
+  Interleaved(InterleavedBufferAttribute)
+  GL(GLBufferAttribute)
+}
+pub fn GeometryAttribute::apply_matrix4(Self, @math.Matrix4) -> Unit
+pub fn GeometryAttribute::apply_normal_matrix(Self, @math.Matrix3) -> Unit
+pub fn GeometryAttribute::array(Self) -> TypedArray
+pub fn GeometryAttribute::clone(Self, data? : AttributeCloneData) -> Self
+pub fn GeometryAttribute::count(Self) -> Int32
+pub fn GeometryAttribute::get_component(Self, Int32, Int32) -> Double
+pub fn GeometryAttribute::get_w(Self, Int32) -> Double
+pub fn GeometryAttribute::get_x(Self, Int32) -> Double
+pub fn GeometryAttribute::get_y(Self, Int32) -> Double
+pub fn GeometryAttribute::get_z(Self, Int32) -> Double
+pub fn GeometryAttribute::item_size(Self) -> Int32
+pub fn GeometryAttribute::name(Self) -> String
+pub fn GeometryAttribute::normalized(Self) -> Bool
+pub fn GeometryAttribute::set_component(Self, Int32, Int32, Double) -> Unit
+pub fn GeometryAttribute::set_needs_update(Self, Bool) -> Unit
+pub fn GeometryAttribute::set_w(Self, Int32, Double) -> Unit
+pub fn GeometryAttribute::set_x(Self, Int32, Double) -> Unit
+pub fn GeometryAttribute::set_xy(Self, Int32, Double, Double) -> Unit
+pub fn GeometryAttribute::set_xyz(Self, Int32, Double, Double, Double) -> Unit
+pub fn GeometryAttribute::set_xyzw(Self, Int32, Double, Double, Double, Double) -> Unit
+pub fn GeometryAttribute::set_y(Self, Int32, Double) -> Unit
+pub fn GeometryAttribute::set_z(Self, Int32, Double) -> Unit
+pub fn GeometryAttribute::to_geometry_attribute(Self) -> Self
+pub fn GeometryAttribute::to_geometry_index(Self) -> Self?
+pub fn GeometryAttribute::to_json(Self, data? : Map[String, @json.Json]) -> @json.Json
+pub fn GeometryAttribute::transform_direction(Self, @math.Matrix4) -> Unit
+pub fn GeometryAttribute::version(Self) -> Int32
+pub impl GeometryIndex for GeometryAttribute
+pub impl ToGeometryAttribute for GeometryAttribute
+pub impl @math.BufferAttributeLike for GeometryAttribute
+
+pub(all) struct GeometryGroup {
+  mut start : Int32
+  mut count : Double
+  mut material_index : Int32
+}
+
+pub(all) struct GeometryParameters {
+  values : Map[String, @json.Json]
+  shapes : Array[&SerializableResource]
+}
+pub fn GeometryParameters::get(Self, String) -> @json.Json?
+pub fn GeometryParameters::resolved_values(Self) -> Map[String, @json.Json]
+pub fn GeometryParameters::set_lazy(Self, String, () -> @json.Json) -> Unit
+
+#external
+pub type Group
+pub fn Group::new() -> Object3D
+
+#external
+pub type HTMLTexture
+pub fn HTMLTexture::new(element? : JsValue, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, mag_filter? : Int32, min_filter? : Int32, format? : Int32, type_? : Int32, anisotropy? : Int32) -> Texture
+
+pub(all) struct HemisphereLight {
+  mut ground_color : @math.Color
+}
+pub fn HemisphereLight::new(sky_color? : @math.Color, ground_color? : @math.Color, intensity? : Double) -> Object3D
+
+#external
+pub type IESSpotLight
+pub fn IESSpotLight::new(color? : @math.Color, intensity? : Double, distance? : Double, angle? : Double, penumbra? : Double, decay? : Double) -> Object3D
+
+#external
+pub type ImageUtils
+pub fn ImageUtils::get_data_url(JsValue, type_? : String) -> String
+
+#external
+pub type InstancedBufferAttribute
+pub fn InstancedBufferAttribute::new(TypedArray, Int32, normalized? : Bool, mesh_per_attribute? : Int32) -> BufferAttribute
+
+#external
+pub type InstancedBufferGeometry
+pub fn InstancedBufferGeometry::new() -> BufferGeometry
+
+#external
+pub type InstancedInterleavedBuffer
+pub fn InstancedInterleavedBuffer::new(TypedArray, Int32, mesh_per_attribute? : Int32) -> InterleavedBuffer
+
+pub(all) struct InstancedMesh {
+  mut instance_matrix : BufferAttribute
+  mut instance_color : BufferAttribute?
+  mut morph_texture : Texture?
+  mut bounding_box : @math.Box3?
+  mut bounding_sphere : @math.Sphere?
+}
+pub fn InstancedMesh::new(geometry? : BufferGeometry, material? : MaterialSlot, Int32) -> Object3D
+
+#external
+pub type Int16BufferAttribute
+pub fn[A : TypedArrayInit] Int16BufferAttribute::new(A, Int32, normalized? : Bool) -> BufferAttribute
+
+#external
+pub type Int32BufferAttribute
+pub fn[A : TypedArrayInit] Int32BufferAttribute::new(A, Int32, normalized? : Bool) -> BufferAttribute
+
+#external
+pub type Int8BufferAttribute
+pub fn[A : TypedArrayInit] Int8BufferAttribute::new(A, Int32, normalized? : Bool) -> BufferAttribute
+
+pub(all) struct InterleavedBuffer {
+  mut array : TypedArray
+  mut stride : Int32
+  mut count : Int32
+  mut usage : Int32
+  mut update_ranges : Array[UpdateRange]
+  mut version : Int32
+  mut uuid : String
+  mut on_upload_callback : () -> Unit
+  mut is_instanced_interleaved_buffer : Bool
+  mut mesh_per_attribute : Int32
+}
+pub fn InterleavedBuffer::add_update_range(Self, Int32, Int32) -> Unit
+pub fn InterleavedBuffer::clear_update_ranges(Self) -> Unit
+pub fn InterleavedBuffer::clone(Self, AttributeCloneData) -> Self
+pub fn InterleavedBuffer::copy(Self, Self) -> Self
+pub fn InterleavedBuffer::copy_at(Self, Int32, Self, Int32) -> Self
+pub fn InterleavedBuffer::new(TypedArray, Int32) -> Self
+pub fn InterleavedBuffer::on_upload(Self, () -> Unit) -> Self
+pub fn[A : TypedArrayInit] InterleavedBuffer::set(Self, A, offset? : Int32) -> Self
+pub fn InterleavedBuffer::set_needs_update(Self, Bool) -> Unit
+pub fn InterleavedBuffer::set_usage(Self, Int32) -> Self
+pub fn InterleavedBuffer::to_json(Self, Map[String, @json.Json]) -> @json.Json
+
+pub(all) struct InterleavedBufferAttribute {
+  mut name : String
+  mut data : InterleavedBuffer
+  mut item_size : Int32
+  mut offset : Int32
+  mut normalized : Bool
+  mut _normalization_scale : Double?
+}
+pub fn InterleavedBufferAttribute::apply_matrix4(Self, @math.Matrix4) -> Self
+pub fn InterleavedBufferAttribute::apply_normal_matrix(Self, @math.Matrix3) -> Self
+pub fn InterleavedBufferAttribute::array(Self) -> TypedArray
+pub fn InterleavedBufferAttribute::clone(Self, data? : AttributeCloneData) -> GeometryAttribute
+pub fn InterleavedBufferAttribute::count(Self) -> Int32
+pub fn InterleavedBufferAttribute::get_component(Self, Int32, Int32) -> Double
+pub fn InterleavedBufferAttribute::get_w(Self, Int32) -> Double
+pub fn InterleavedBufferAttribute::get_x(Self, Int32) -> Double
+pub fn InterleavedBufferAttribute::get_y(Self, Int32) -> Double
+pub fn InterleavedBufferAttribute::get_z(Self, Int32) -> Double
+pub fn InterleavedBufferAttribute::new(InterleavedBuffer, Int32, Int32, normalized? : Bool) -> Self
+pub fn InterleavedBufferAttribute::set_component(Self, Int32, Int32, Double) -> Self
+pub fn InterleavedBufferAttribute::set_needs_update(Self, Bool) -> Unit
+pub fn InterleavedBufferAttribute::set_w(Self, Int32, Double) -> Self
+pub fn InterleavedBufferAttribute::set_x(Self, Int32, Double) -> Self
+pub fn InterleavedBufferAttribute::set_xy(Self, Int32, Double, Double) -> Self
+pub fn InterleavedBufferAttribute::set_xyz(Self, Int32, Double, Double, Double) -> Self
+pub fn InterleavedBufferAttribute::set_xyzw(Self, Int32, Double, Double, Double, Double) -> Self
+pub fn InterleavedBufferAttribute::set_y(Self, Int32, Double) -> Self
+pub fn InterleavedBufferAttribute::set_z(Self, Int32, Double) -> Self
+pub fn InterleavedBufferAttribute::to_geometry_attribute(Self) -> GeometryAttribute
+pub fn InterleavedBufferAttribute::to_json(Self, data? : Map[String, @json.Json]) -> @json.Json
+pub fn InterleavedBufferAttribute::transform_direction(Self, @math.Matrix4) -> Self
+pub impl ToGeometryAttribute for InterleavedBufferAttribute
+pub impl @math.BufferAttributeLike for InterleavedBufferAttribute
+
+pub(all) struct Intersection {
+  mut distance : Double
+  mut distance_to_ray : Double?
+  mut point : @math.Vector3
+  mut index : Int32?
+  mut face : Face?
+  mut face_index : Int32?
+  mut barycoord : @math.Vector3?
+  mut uv : @math.Vector2?
+  mut uv1 : @math.Vector2?
+  mut normal : @math.Vector3?
+  mut instance_id : Int32?
+  mut batch_id : Int32?
+  mut object : Object3D
+}
+
+#external
+pub type JsValue
+pub fn[T] JsValue::cast(Self) -> T
+pub fn JsValue::from_json(@json.Json) -> Self
+pub fn JsValue::get(Self, String) -> Self
+pub fn JsValue::is_null(Self) -> Bool
+pub fn JsValue::is_undefined(Self) -> Bool
+pub fn JsValue::json_clone(Self) -> Self
+pub fn JsValue::key_count(Self) -> Int32
+pub fn JsValue::null() -> Self
+pub fn JsValue::object() -> Self
+pub fn[T] JsValue::of(T) -> Self
+pub fn JsValue::set(Self, String, Self) -> Unit
+pub fn JsValue::strict_equal(Self, Self) -> Bool
+pub fn JsValue::to_json(Self) -> @json.Json
+pub fn JsValue::undefined() -> Self
+
+pub(all) struct LOD {
+  mut _current_level : Int32
+  levels : Array[LODLevel]
+  mut auto_update : Bool
+}
+pub fn LOD::new() -> Object3D
+
+pub(all) struct LODLevel {
+  mut object : Object3D
+  mut distance : Double
+  mut hysteresis : Double
+}
+
+pub(all) struct Layers {
+  mut mask : Double
+}
+pub fn Layers::disable(Self, Int32) -> Unit
+pub fn Layers::disable_all(Self) -> Unit
+pub fn Layers::enable(Self, Int32) -> Unit
+pub fn Layers::enable_all(Self) -> Unit
+pub fn Layers::is_enabled(Self, Int32) -> Bool
+pub fn Layers::new() -> Self
+pub fn Layers::set(Self, Int32) -> Unit
+pub fn Layers::test_(Self, Self) -> Bool
+pub fn Layers::toggle(Self, Int32) -> Unit
+
+pub(all) struct Light {
+  mut color : @math.Color
+  mut intensity : Double
+  mut shadow : LightShadow?
+  mut color_node : JsValue?
+  mut kind : LightKind
+}
+pub fn Light::light_node_of(String) -> JsValue?
+pub fn Light::new(color? : @math.Color, intensity? : Double) -> Object3D
+pub fn Light::register_node(String, JsValue) -> Unit
+
+pub(all) enum LightKind {
+  BaseLight
+  AmbientLight
+  DirectionalLight(DirectionalLight)
+  HemisphereLight(HemisphereLight)
+  LightProbe(LightProbe)
+  PointLight(PointLight)
+  RectAreaLight(RectAreaLight)
+  SpotLight(SpotLight)
+}
+
+pub(all) struct LightProbe {
+  mut sh : @math.SphericalHarmonics3
+}
+pub fn LightProbe::new(sh? : @math.SphericalHarmonics3, intensity? : Double) -> Object3D
+
+pub(all) struct LightShadow {
+  mut camera : Object3D
+  mut intensity : Double
+  mut bias : Double
+  mut bias_node : JsValue?
+  mut shadow_node : JsValue?
+  mut filter_node : JsValue?
+  mut normal_bias : Double
+  mut radius : Double
+  mut blur_samples : Int32
+  mut map_size : @math.Vector2
+  mut map_type : Int32
+  mut map : RenderTarget?
+  mut map_pass : RenderTarget?
+  mut matrix : @math.Matrix4
+  mut auto_update : Bool
+  mut needs_update : Bool
+  mut _frustum : @math.Frustum
+  mut _frame_extents : @math.Vector2
+  mut _viewport_count : Int32
+  mut _viewports : Array[@math.Vector4]
+  mut kind : LightShadowKind
+}
+pub fn LightShadow::_update_matrix(Self, Object3D, @math.Matrix4, @math.Frustum, viewport? : @math.Vector4) -> Unit
+pub fn LightShadow::clone(Self) -> Self
+pub fn LightShadow::copy(Self, Self) -> Self
+pub fn LightShadow::dispose(Self) -> Unit
+pub fn LightShadow::get_camera(Self) -> Object3D
+pub fn LightShadow::get_frame_extents(Self) -> @math.Vector2
+pub fn LightShadow::get_frustum(Self) -> @math.Frustum
+pub fn LightShadow::get_viewport(Self, Int32) -> @math.Vector4
+pub fn LightShadow::get_viewport_count(Self) -> Int32
+pub fn LightShadow::new(Object3D) -> Self
+pub fn LightShadow::to_json(Self) -> @json.Json
+pub fn LightShadow::update_matrices(Self, Object3D) -> Unit
+
+pub(all) enum LightShadowKind {
+  BaseLightShadow
+  DirectionalLightShadow
+  PointLightShadow
+  SpotLightShadow(SpotLightShadow)
+}
+
+pub(all) struct Line {
+  mut geometry : BufferGeometry
+  mut material : MaterialSlot
+  mut morph_target_dictionary : Map[String, Int32]?
+  mut morph_target_influences : Array[Double]?
+  mut kind : LineKind
+}
+pub fn Line::new(geometry? : BufferGeometry, material? : MaterialSlot) -> Object3D
+
+#external
+pub type LineBasicMaterial
+pub fn LineBasicMaterial::new() -> Material
+
+#external
+pub type LineDashedMaterial
+pub fn LineDashedMaterial::new() -> Material
+
+pub(all) enum LineKind {
+  PlainLine
+  LineLoop
+  LineSegments
+}
+
+#external
+pub type LineLoop
+pub fn LineLoop::new(geometry? : BufferGeometry, material? : MaterialSlot) -> Object3D
+
+#external
+pub type LineSegments
+pub fn LineSegments::new(geometry? : BufferGeometry, material? : MaterialSlot) -> Object3D
+
+pub(all) struct Material {
+  id : Int32
+  dispatcher : EventDispatcher
+  mut uuid : String
+  mut name : String
+  mut type_ : String
+  mut material_type : MaterialType
+  mut extension : &MaterialExtension?
+  mut blending : Int32
+  mut side : Int32
+  mut vertex_colors : Bool
+  mut opacity : Double
+  mut transparent : Bool
+  mut alpha_hash : Bool
+  mut blend_src : Int32
+  mut blend_dst : Int32
+  mut blend_equation : Int32
+  mut blend_src_alpha : Int32?
+  mut blend_dst_alpha : Int32?
+  mut blend_equation_alpha : Int32?
+  mut blend_color : @math.Color
+  mut blend_alpha : Double
+  mut depth_func : Int32
+  mut depth_test : Bool
+  mut depth_write : Bool
+  mut stencil_write_mask : Int32
+  mut stencil_func : Int32
+  mut stencil_ref : Int32
+  mut stencil_func_mask : Int32
+  mut stencil_fail : Int32
+  mut stencil_z_fail : Int32
+  mut stencil_z_pass : Int32
+  mut stencil_write : Bool
+  mut clipping_planes : Array[@math.Plane]?
+  mut clip_intersection : Bool
+  mut clip_shadows : Bool
+  mut shadow_side : Int32?
+  mut color_write : Bool
+  mut precision : String?
+  mut polygon_offset : Bool
+  mut polygon_offset_factor : Double
+  mut polygon_offset_units : Double
+  mut dithering : Bool
+  mut alpha_to_coverage : Bool
+  mut premultiplied_alpha : Bool
+  mut force_single_pass : Bool
+  mut allow_override : Bool
+  mut visible : Bool
+  mut tone_mapped : Bool
+  mut user_data : JsValue
+  mut version : Int32
+  mut _alpha_test : Double
+  mut on_before_render : (JsValue, Object3D, Object3D, BufferGeometry, Object3D, GeometryGroup?) -> Unit
+  mut on_before_compile : ((ShaderObject, JsValue) -> Unit)?
+  mut custom_program_cache_key : (() -> String)?
+  mut defines : Map[String, @json.Json]?
+  mut color : @math.Color?
+  mut map : Texture?
+  mut linewidth : Double?
+  mut linecap : String?
+  mut linejoin : String?
+  mut fog : Bool?
+  mut scale : Double?
+  mut dash_size : Double?
+  mut gap_size : Double?
+  mut light_map : Texture?
+  mut light_map_intensity : Double?
+  mut ao_map : Texture?
+  mut ao_map_intensity : Double?
+  mut specular_map : Texture?
+  mut alpha_map : Texture?
+  mut env_map : Texture?
+  mut env_map_rotation : @math.Euler?
+  mut env_map_intensity : Double?
+  mut combine : Int32?
+  mut reflectivity : Double?
+  mut refraction_ratio : Double?
+  mut wireframe : Bool?
+  mut wireframe_linewidth : Double?
+  mut wireframe_linecap : String?
+  mut wireframe_linejoin : String?
+  mut depth_packing : Int32?
+  mut displacement_map : Texture?
+  mut displacement_scale : Double?
+  mut displacement_bias : Double?
+  mut emissive : @math.Color?
+  mut emissive_intensity : Double?
+  mut emissive_map : Texture?
+  mut bump_map : Texture?
+  mut bump_scale : Double?
+  mut normal_map : Texture?
+  mut normal_map_type : Int32?
+  mut normal_scale : @math.Vector2?
+  mut flat_shading : Bool?
+  mut matcap : Texture?
+  mut gradient_map : Texture?
+  mut specular : @math.Color?
+  mut shininess : Double?
+  mut roughness : Double?
+  mut metalness : Double?
+  mut roughness_map : Texture?
+  mut metalness_map : Texture?
+  mut size : Double?
+  mut size_attenuation : Bool?
+  mut rotation : Double?
+  mut uniforms : Map[String, Uniform]?
+  mut uniforms_groups : Array[UniformsGroup]?
+  mut vertex_shader : String?
+  mut fragment_shader : String?
+  mut lights : Bool?
+  mut clipping : Bool?
+  mut extensions : ShaderExtensions?
+  mut default_attribute_values : Map[String, Array[Double]]?
+  mut index0_attribute_name : String?
+  mut uniforms_need_update : Bool?
+  mut glsl_version : String?
+  mut anisotropy_rotation : Double?
+  mut anisotropy_map : Texture?
+  mut clearcoat_map : Texture?
+  mut clearcoat_roughness : Double?
+  mut clearcoat_roughness_map : Texture?
+  mut clearcoat_normal_scale : @math.Vector2?
+  mut clearcoat_normal_map : Texture?
+  mut diffuse_roughness_map : Texture?
+  mut ior : Double?
+  mut iridescence_map : Texture?
+  mut iridescence_ior : Double?
+  mut iridescence_thickness_minimum : Double?
+  mut iridescence_thickness_maximum : Double?
+  mut iridescence_thickness_map : Texture?
+  mut sheen_color : @math.Color?
+  mut sheen_color_map : Texture?
+  mut sheen_roughness : Double?
+  mut sheen_roughness_map : Texture?
+  mut transmission_map : Texture?
+  mut thickness : Double?
+  mut thickness_map : Texture?
+  mut attenuation_distance : Double?
+  mut attenuation_color : @math.Color?
+  mut specular_intensity : Double?
+  mut specular_intensity_map : Texture?
+  mut specular_color : @math.Color?
+  mut specular_color_map : Texture?
+  mut _anisotropy : Double?
+  mut _clearcoat : Double?
+  mut _diffuse_roughness : Double?
+  mut _dispersion : Double?
+  mut _iridescence : Double?
+  mut _retroreflectivity : Double?
+  mut _sheen : Double?
+  mut _transmission : Double?
+}
+pub fn Material::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Material::alpha_test(Self) -> Double
+pub fn Material::anisotropy(Self) -> Double?
+pub fn Material::clearcoat(Self) -> Double?
+pub fn Material::clone(Self) -> Self
+pub fn Material::copy(Self, Self) -> Self
+pub fn Material::copy_base(Self, Self) -> Unit
+pub fn Material::custom_program_cache_key(Self) -> String
+pub fn Material::diffuse_roughness(Self) -> Double?
+pub fn Material::dispatch_event(Self, Event) -> Unit
+pub fn Material::dispersion(Self) -> Double?
+pub fn Material::dispose(Self) -> Unit
+pub fn Material::event_dispatcher(Self) -> EventDispatcher
+pub fn Material::event_target(Self) -> EventTarget
+pub fn Material::from_json(Self, @json.Json, textures? : Map[String, Texture]) -> Self
+pub fn Material::has_event_listener(Self, String, (Event) -> Unit) -> Bool
+pub fn Material::has_extension_flag(Self, String) -> Bool
+pub fn Material::iridescence(Self) -> Double?
+pub fn Material::is_line_basic_material(Self) -> Bool
+pub fn Material::is_line_dashed_material(Self) -> Bool
+pub fn Material::is_mesh_basic_material(Self) -> Bool
+pub fn Material::is_mesh_depth_material(Self) -> Bool
+pub fn Material::is_mesh_distance_material(Self) -> Bool
+pub fn Material::is_mesh_lambert_material(Self) -> Bool
+pub fn Material::is_mesh_matcap_material(Self) -> Bool
+pub fn Material::is_mesh_normal_material(Self) -> Bool
+pub fn Material::is_mesh_phong_material(Self) -> Bool
+pub fn Material::is_mesh_physical_material(Self) -> Bool
+pub fn Material::is_mesh_standard_material(Self) -> Bool
+pub fn Material::is_mesh_toon_material(Self) -> Bool
+pub fn Material::is_node_material(Self) -> Bool
+pub fn Material::is_points_material(Self) -> Bool
+pub fn Material::is_raw_shader_material(Self) -> Bool
+pub fn Material::is_shader_material(Self) -> Bool
+pub fn Material::is_shadow_material(Self) -> Bool
+pub fn Material::is_sprite_material(Self) -> Bool
+pub fn Material::new() -> Self
+pub fn Material::reflectivity(Self) -> Double?
+pub fn Material::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Material::retroreflectivity(Self) -> Double?
+pub fn Material::set_alpha_test(Self, Double) -> Unit
+pub fn Material::set_anisotropy(Self, Double) -> Unit
+pub fn Material::set_clearcoat(Self, Double) -> Unit
+pub fn Material::set_diffuse_roughness(Self, Double) -> Unit
+pub fn Material::set_dispersion(Self, Double) -> Unit
+pub fn Material::set_extension(Self, &MaterialExtension) -> Self
+pub fn Material::set_iridescence(Self, Double) -> Unit
+pub fn Material::set_needs_update(Self, Bool) -> Unit
+pub fn Material::set_reflectivity(Self, Double) -> Unit
+pub fn Material::set_retroreflectivity(Self, Double) -> Unit
+pub fn Material::set_sheen(Self, Double) -> Unit
+pub fn Material::set_transmission(Self, Double) -> Unit
+pub fn Material::set_values(Self, values? : Map[String, MaterialValue]) -> Unit
+pub fn Material::sheen(Self) -> Double?
+pub fn Material::to_json(Self, meta? : ToJsonMeta) -> @json.Json
+pub fn Material::transmission(Self) -> Double?
+pub impl EventSource for Material
+
+pub(all) enum MaterialSlot {
+  Single(Material)
+  Multiple(Array[Material])
+}
+
+pub(all) enum MaterialType {
+  Material
+  LineBasicMaterial
+  LineDashedMaterial
+  MeshBasicMaterial
+  MeshDepthMaterial
+  MeshDistanceMaterial
+  MeshLambertMaterial
+  MeshMatcapMaterial
+  MeshNormalMaterial
+  MeshPhongMaterial
+  MeshPhysicalMaterial
+  MeshStandardMaterial
+  MeshToonMaterial
+  PointsMaterial
+  RawShaderMaterial
+  ShaderMaterial
+  ShadowMaterial
+  SpriteMaterial
+}
+
+pub(all) enum MaterialValue {
+  Undefined
+  Null
+  Bool(Bool)
+  Number(Double)
+  String(String)
+  Color(@math.Color)
+  Vector2(@math.Vector2)
+  Euler(@math.Euler)
+  Texture(Texture)
+  Planes(Array[@math.Plane])
+  Uniforms(Map[String, Uniform])
+  UniformsGroups(Array[UniformsGroup])
+  Defines(Map[String, @json.Json])
+  Extensions(ShaderExtensions)
+  AttributeValues(Map[String, Array[Double]])
+  Object(JsValue)
+  OnBeforeRender((JsValue, Object3D, Object3D, BufferGeometry, Object3D, GeometryGroup?) -> Unit)
+  OnBeforeCompile((ShaderObject, JsValue) -> Unit)
+  CustomProgramCacheKey(() -> String)
+}
+
+pub(all) struct Mesh {
+  mut geometry : BufferGeometry
+  mut material : MaterialSlot
+  mut morph_target_dictionary : Map[String, Int32]?
+  mut morph_target_influences : Array[Double]?
+  mut count : Int32
+  mut kind : MeshKind
+}
+pub fn Mesh::new(geometry? : BufferGeometry, material? : MaterialSlot) -> Object3D
+
+#external
+pub type MeshBasicMaterial
+pub fn MeshBasicMaterial::new() -> Material
+
+#external
+pub type MeshDepthMaterial
+pub fn MeshDepthMaterial::new() -> Material
+
+#external
+pub type MeshDistanceMaterial
+pub fn MeshDistanceMaterial::new() -> Material
+
+pub(all) enum MeshKind {
+  PlainMesh
+  SkinnedMesh(SkinnedMesh)
+  InstancedMesh(InstancedMesh)
+  BatchedMesh(BatchedMesh)
+}
+
+#external
+pub type MeshLambertMaterial
+pub fn MeshLambertMaterial::new() -> Material
+
+#external
+pub type MeshMatcapMaterial
+pub fn MeshMatcapMaterial::new() -> Material
+
+#external
+pub type MeshNormalMaterial
+pub fn MeshNormalMaterial::new() -> Material
+
+#external
+pub type MeshPhongMaterial
+pub fn MeshPhongMaterial::new() -> Material
+
+#external
+pub type MeshPhysicalMaterial
+pub fn MeshPhysicalMaterial::new() -> Material
+
+#external
+pub type MeshStandardMaterial
+pub fn MeshStandardMaterial::new() -> Material
+
+#external
+pub type MeshToonMaterial
+pub fn MeshToonMaterial::new() -> Material
+
+pub(all) struct MultiDrawItem {
+  mut start : Int32
+  mut count : Int32
+  mut z : Double
+  mut index : Int32
+}
+
+pub(all) struct Object3D {
+  id : Int32
+  dispatcher : EventDispatcher
+  mut uuid : String
+  mut name : String
+  mut type_ : String
+  mut parent : Object3D?
+  mut children : Array[Object3D]
+  mut up : @math.Vector3
+  position : @math.Vector3
+  rotation : @math.Euler
+  quaternion : @math.Quaternion
+  scale : @math.Vector3
+  model_view_matrix : @math.Matrix4
+  normal_matrix : @math.Matrix3
+  mut matrix : @math.Matrix4
+  mut matrix_world : @math.Matrix4
+  mut matrix_auto_update : Bool
+  mut matrix_world_auto_update : Bool
+  mut matrix_world_needs_update : Bool
+  mut layers : Layers
+  mut visible : Bool
+  mut cast_shadow : Bool
+  mut receive_shadow : Bool
+  mut frustum_culled : Bool
+  mut render_order : Double
+  mut animations : Array[&SerializableResource]
+  mut custom_depth_material : Material?
+  mut custom_distance_material : Material?
+  mut static_ : Bool
+  mut user_data : JsValue
+  mut pivot : @math.Vector3?
+  mut on_before_shadow : (JsValue, Object3D, Object3D, Object3D, BufferGeometry, Material, GeometryGroup?) -> Unit
+  mut on_after_shadow : (JsValue, Object3D, Object3D, Object3D, BufferGeometry, Material, GeometryGroup?) -> Unit
+  mut on_before_render : (JsValue, Object3D, Object3D, BufferGeometry, Material, GeometryGroup?) -> Unit
+  mut on_after_render : (JsValue, Object3D, Object3D, BufferGeometry, Material, GeometryGroup?) -> Unit
+  mut kind : Object3DKind
+  mut extension : &Object3DExtension?
+}
+pub fn Object3D::_update_draw_parameters(Self, Self, BufferGeometry, Material, draw_format? : String) -> Unit
+pub fn Object3D::add(Self, Self) -> Self
+pub fn Object3D::add_all(Self, Array[Self]) -> Self
+pub fn Object3D::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Object3D::add_geometry(Self, BufferGeometry, reserved_vertex_count? : Int32, reserved_index_count? : Int32) -> Int32
+pub fn Object3D::add_instance(Self, Int32) -> Int32
+pub fn Object3D::add_level(Self, Self, distance? : Double, hysteresis? : Double) -> Self
+pub fn Object3D::apply_bone_transform(Self, Int32, @math.Vector3) -> @math.Vector3
+pub fn Object3D::apply_bone_transform_vector4(Self, Int32, @math.Vector4) -> @math.Vector4
+pub fn Object3D::apply_matrix4(Self, @math.Matrix4) -> Unit
+pub fn Object3D::apply_quaternion(Self, @math.Quaternion) -> Self
+pub fn Object3D::as_camera(Self) -> Camera
+pub fn Object3D::as_cube_camera(Self) -> CubeCamera
+pub fn Object3D::as_light(Self) -> Light
+pub fn Object3D::as_orthographic_camera(Self) -> OrthographicCamera
+pub fn Object3D::as_perspective_camera(Self) -> PerspectiveCamera
+pub fn Object3D::as_scene(Self) -> Scene
+pub fn Object3D::as_spot_light(Self) -> SpotLight
+pub fn Object3D::attach(Self, Self) -> Self
+pub fn Object3D::bind(Self, Skeleton, bind_matrix? : @math.Matrix4) -> Unit
+pub fn Object3D::clear(Self) -> Self
+pub fn Object3D::clear_view_offset(Self) -> Unit
+pub fn Object3D::clone(Self, recursive? : Bool) -> Self
+pub fn Object3D::compute_bounding_box(Self) -> Unit
+pub fn Object3D::compute_bounding_sphere(Self) -> Unit
+pub fn Object3D::compute_line_distances(Self) -> Self
+pub fn Object3D::copy(Self, Self, recursive? : Bool) -> Self
+pub fn Object3D::copy_base(Self, Self, Bool) -> Unit
+pub fn Object3D::copy_kind(Self, Self, Bool) -> Unit
+pub fn Object3D::delete_geometry(Self, Int32) -> Self
+pub fn Object3D::delete_instance(Self, Int32) -> Self
+pub fn Object3D::dispatch_event(Self, Event) -> Unit
+pub fn Object3D::dispose(Self) -> Unit
+pub fn Object3D::dispose_base(Self) -> Unit
+pub fn Object3D::dispose_kind(Self) -> Unit
+pub fn Object3D::event_dispatcher(Self) -> EventDispatcher
+pub fn Object3D::event_target(Self) -> EventTarget
+pub fn Object3D::get_bounding_box(Self) -> @math.Box3?
+pub fn Object3D::get_bounding_box_at(Self, Int32, @math.Box3) -> @math.Box3?
+pub fn Object3D::get_bounding_sphere(Self) -> @math.Sphere?
+pub fn Object3D::get_bounding_sphere_at(Self, Int32, @math.Sphere) -> @math.Sphere?
+pub fn Object3D::get_color_at(Self, Int32, @math.Color) -> @math.Color
+pub fn Object3D::get_color_at_vector4(Self, Int32, @math.Vector4) -> @math.Vector4
+pub fn Object3D::get_current_level(Self) -> Int32
+pub fn Object3D::get_effective_fov(Self) -> Double
+pub fn Object3D::get_film_height(Self) -> Double
+pub fn Object3D::get_film_width(Self) -> Double
+pub fn Object3D::get_focal_length(Self) -> Double
+pub fn Object3D::get_geometry(Self) -> BufferGeometry?
+pub fn Object3D::get_geometry_id_at(Self, Int32) -> Int32
+pub fn Object3D::get_geometry_range_at(Self, Int32, target? : BatchedGeometryRange) -> BatchedGeometryRange
+pub fn Object3D::get_material(Self) -> MaterialSlot?
+pub fn Object3D::get_matrix_at(Self, Int32, @math.Matrix4) -> @math.Matrix4
+pub fn Object3D::get_morph_at(Self, Int32, Self) -> Unit
+pub fn Object3D::get_object_by_id(Self, Int32) -> Self?
+pub fn Object3D::get_object_by_name(Self, String) -> Self?
+pub fn Object3D::get_object_by_property(Self, String, @json.Json) -> Self?
+pub fn Object3D::get_object_for_distance(Self, Double) -> Self?
+pub fn Object3D::get_objects_by_property(Self, String, @json.Json, result? : Array[Self]) -> Array[Self]
+pub fn Object3D::get_vertex_position(Self, Int32, @math.Vector3) -> @math.Vector3
+pub fn Object3D::get_view_bounds(Self, Double, @math.Vector2, @math.Vector2) -> Unit
+pub fn Object3D::get_view_size(Self, Double, @math.Vector2) -> @math.Vector2
+pub fn Object3D::get_visible_at(Self, Int32) -> Bool
+pub fn Object3D::get_world_direction(Self, @math.Vector3) -> @math.Vector3
+pub fn Object3D::get_world_direction_base(Self, @math.Vector3) -> @math.Vector3
+pub fn Object3D::get_world_direction_kind(Self, @math.Vector3) -> @math.Vector3
+pub fn Object3D::get_world_position(Self, @math.Vector3) -> @math.Vector3
+pub fn Object3D::get_world_quaternion(Self, @math.Quaternion) -> @math.Quaternion
+pub fn Object3D::get_world_scale(Self, @math.Vector3) -> @math.Vector3
+pub fn Object3D::has_event_listener(Self, String, (Event) -> Unit) -> Bool
+pub fn Object3D::has_extension_flag(Self, String) -> Bool
+pub fn Object3D::has_object_bounds(Self) -> Bool
+pub fn Object3D::instance_count(Self) -> Int32
+pub fn Object3D::intersects_frustum(Self, FrustumRef) -> Bool
+pub fn Object3D::intersects_frustum_kind(Self, FrustumRef) -> Bool
+pub fn Object3D::is_array_camera(Self) -> Bool
+pub fn Object3D::is_batched_mesh(Self) -> Bool
+pub fn Object3D::is_bone(Self) -> Bool
+pub fn Object3D::is_camera(Self) -> Bool
+pub fn Object3D::is_clipping_group(Self) -> Bool
+pub fn Object3D::is_group(Self) -> Bool
+pub fn Object3D::is_instanced_mesh(Self) -> Bool
+pub fn Object3D::is_light(Self) -> Bool
+pub fn Object3D::is_line(Self) -> Bool
+pub fn Object3D::is_line_loop(Self) -> Bool
+pub fn Object3D::is_line_segments(Self) -> Bool
+pub fn Object3D::is_lod(Self) -> Bool
+pub fn Object3D::is_mesh(Self) -> Bool
+pub fn Object3D::is_orthographic_camera(Self) -> Bool
+pub fn Object3D::is_perspective_camera(Self) -> Bool
+pub fn Object3D::is_points(Self) -> Bool
+pub fn Object3D::is_scene(Self) -> Bool
+pub fn Object3D::is_skinned_mesh(Self) -> Bool
+pub fn Object3D::is_sprite(Self) -> Bool
+pub fn Object3D::light_node(Self) -> JsValue?
+pub fn Object3D::light_target(Self) -> Self
+pub fn Object3D::local_to_world(Self, @math.Vector3) -> @math.Vector3
+pub fn Object3D::look_at(Self, @math.Vector3) -> Unit
+pub fn Object3D::look_at_xyz(Self, Double, Double, Double) -> Unit
+pub fn Object3D::matrix_world(Self) -> @math.Matrix4
+pub fn Object3D::matrix_world_inverse(Self) -> @math.Matrix4
+pub fn Object3D::max_instance_count(Self) -> Int32
+pub fn Object3D::morph_targets(Self) -> (Map[String, Int32]?, Array[Double]?)
+pub fn Object3D::new(kind? : Object3DKind, type_? : String) -> Self
+pub fn Object3D::normalize_skin_weights(Self) -> Unit
+pub fn Object3D::optimize(Self) -> Self
+pub fn Object3D::pose(Self) -> Unit
+pub fn Object3D::power(Self) -> Double
+pub fn Object3D::projection_matrix(Self) -> @math.Matrix4
+pub fn Object3D::projection_matrix_inverse(Self) -> @math.Matrix4
+pub fn Object3D::raycast(Self, Raycaster, Array[Intersection]) -> Unit
+pub fn Object3D::raycast_kind(Self, Raycaster, Array[Intersection]) -> Unit
+pub fn Object3D::remove(Self, Self) -> Self
+pub fn Object3D::remove_all(Self, Array[Self]) -> Self
+pub fn Object3D::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Object3D::remove_from_parent(Self) -> Self
+pub fn Object3D::remove_level(Self, Double) -> Bool
+pub fn Object3D::reversed_depth(Self) -> Bool
+pub fn Object3D::rotate_on_axis(Self, @math.Vector3, Double) -> Self
+pub fn Object3D::rotate_on_world_axis(Self, @math.Vector3, Double) -> Self
+pub fn Object3D::rotate_x(Self, Double) -> Self
+pub fn Object3D::rotate_y(Self, Double) -> Self
+pub fn Object3D::rotate_z(Self, Double) -> Self
+pub fn Object3D::set_color_at(Self, Int32, @math.Color) -> Self
+pub fn Object3D::set_color_at_vector4(Self, Int32, @math.Vector4) -> Self
+pub fn Object3D::set_custom_sort(Self, ((Array[MultiDrawItem], Self) -> Unit)?) -> Self
+pub fn Object3D::set_extension(Self, &Object3DExtension) -> Self
+pub fn Object3D::set_focal_length(Self, Double) -> Unit
+pub fn Object3D::set_geometry_at(Self, Int32, BufferGeometry) -> Int32
+pub fn Object3D::set_geometry_id_at(Self, Int32, Int32) -> Self
+pub fn Object3D::set_geometry_size(Self, Int32, Int32) -> Unit
+pub fn Object3D::set_instance_count(Self, Int32) -> Unit
+pub fn Object3D::set_matrix_at(Self, Int32, @math.Matrix4) -> Self
+pub fn Object3D::set_morph_at(Self, Int32, Self) -> Self
+pub fn Object3D::set_power(Self, Double) -> Unit
+pub fn Object3D::set_rotation_from_axis_angle(Self, @math.Vector3, Double) -> Unit
+pub fn Object3D::set_rotation_from_euler(Self, @math.Euler) -> Unit
+pub fn Object3D::set_rotation_from_matrix(Self, @math.Matrix4) -> Unit
+pub fn Object3D::set_rotation_from_quaternion(Self, @math.Quaternion) -> Unit
+pub fn Object3D::set_scene_on_after_render(Self, (JsValue, Self, Self) -> Unit) -> Unit
+pub fn Object3D::set_scene_on_before_render(Self, (JsValue, Self, Self, RenderTarget?) -> Unit) -> Unit
+pub fn Object3D::set_view_offset(Self, Double, Double, Double, Double, Double, Double) -> Unit
+pub fn Object3D::set_visible_at(Self, Int32, Bool) -> Self
+pub fn Object3D::to_json(Self, meta? : ToJsonMeta) -> @json.Json
+pub fn Object3D::to_json_kind(Self, ToJsonMeta, Map[String, @json.Json]) -> Unit
+pub fn Object3D::translate_on_axis(Self, @math.Vector3, Double) -> Self
+pub fn Object3D::translate_x(Self, Double) -> Self
+pub fn Object3D::translate_y(Self, Double) -> Self
+pub fn Object3D::translate_z(Self, Double) -> Self
+pub fn Object3D::traverse(Self, (Self) -> Unit) -> Unit
+pub fn Object3D::traverse_ancestors(Self, (Self) -> Unit) -> Unit
+pub fn Object3D::traverse_visible(Self, (Self) -> Unit) -> Unit
+pub fn Object3D::unused_index_count(Self) -> Int32
+pub fn Object3D::unused_vertex_count(Self) -> Int32
+pub fn Object3D::update(Self, Self) -> Unit
+pub fn Object3D::update_coordinate_system(Self) -> Unit
+pub fn Object3D::update_cube_camera(Self, &CubeCameraRenderer, Self) -> Unit
+pub fn Object3D::update_matrix(Self) -> Unit
+pub fn Object3D::update_matrix_world(Self, force? : Bool) -> Unit
+pub fn Object3D::update_matrix_world_base(Self, Bool) -> Unit
+pub fn Object3D::update_matrix_world_kind(Self, Bool) -> Unit
+pub fn Object3D::update_morph_targets(Self) -> Unit
+pub fn Object3D::update_projection_matrix(Self) -> Unit
+pub fn Object3D::update_world_matrix(Self, Bool, Bool, force? : Bool) -> Unit
+pub fn Object3D::update_world_matrix_base(Self, Bool, Bool, Bool) -> Unit
+pub fn Object3D::update_world_matrix_kind(Self, Bool, Bool, Bool) -> Unit
+pub fn Object3D::validate_geometry_id(Self, Int32) -> Unit
+pub fn Object3D::validate_instance_id(Self, Int32) -> Unit
+pub fn Object3D::world_to_local(Self, @math.Vector3) -> @math.Vector3
+pub impl EventSource for Object3D
+pub impl @math.CameraMatrices for Object3D
+
+pub(all) enum Object3DKind {
+  Base
+  Group
+  ClippingGroup(ClippingGroup)
+  Bone
+  Mesh(Mesh)
+  Line(Line)
+  Points(Points)
+  Sprite(Sprite)
+  LOD(LOD)
+  Camera(Camera)
+  CubeCamera(CubeCamera)
+  Light(Light)
+  Scene(Scene)
+}
+
+pub(all) struct OrthographicCamera {
+  mut zoom : Double
+  mut view : CameraView?
+  mut left : Double
+  mut right : Double
+  mut top : Double
+  mut bottom : Double
+  mut near : Double
+  mut far : Double
+}
+pub fn OrthographicCamera::new(left? : Double, right? : Double, top? : Double, bottom? : Double, near? : Double, far? : Double) -> Object3D
+
+pub(all) struct PerspectiveCamera {
+  mut fov : Double
+  mut zoom : Double
+  mut near : Double
+  mut far : Double
+  mut focus : Double
+  mut aspect : Double
+  mut view : CameraView?
+  mut film_gauge : Double
+  mut film_offset : Double
+  mut array_camera : ArrayCamera?
+}
+pub fn PerspectiveCamera::new(fov? : Double, aspect? : Double, near? : Double, far? : Double) -> Object3D
+
+pub(all) struct PointLight {
+  mut distance : Double
+  mut decay : Double
+}
+pub fn PointLight::new(color? : @math.Color, intensity? : Double, distance? : Double, decay? : Double) -> Object3D
+
+#external
+pub type PointLightShadow
+pub fn PointLightShadow::new() -> LightShadow
+
+pub(all) struct Points {
+  mut geometry : BufferGeometry
+  mut material : MaterialSlot
+  mut morph_target_dictionary : Map[String, Int32]?
+  mut morph_target_influences : Array[Double]?
+}
+pub fn Points::new(geometry? : BufferGeometry, material? : MaterialSlot) -> Object3D
+
+#external
+pub type PointsMaterial
+pub fn PointsMaterial::new() -> Material
+
+#external
+pub type ProjectorLight
+pub fn ProjectorLight::new(color? : @math.Color, intensity? : Double, distance? : Double, angle? : Double, penumbra? : Double, decay? : Double) -> Object3D
+
+#external
+pub type RawShaderMaterial
+pub fn RawShaderMaterial::new() -> Material
+
+pub(all) struct Raycaster {
+  mut ray : @math.Ray
+  mut near : Double
+  mut far : Double
+  mut camera : Object3D?
+  mut layers : Layers
+  mut params : RaycasterParams
+}
+pub fn Raycaster::intersect_object(Self, Object3D, recursive? : Bool, intersects? : Array[Intersection]) -> Array[Intersection]
+pub fn Raycaster::intersect_objects(Self, Array[Object3D], recursive? : Bool, intersects? : Array[Intersection]) -> Array[Intersection]
+pub fn Raycaster::new(origin? : @math.Vector3, direction? : @math.Vector3, near? : Double, far? : Double) -> Self
+pub fn Raycaster::set(Self, @math.Vector3, @math.Vector3) -> Unit
+pub fn Raycaster::set_from_camera(Self, @math.Vector2, Object3D) -> Unit
+pub fn Raycaster::set_from_xr_controller(Self, Object3D) -> Self
+
+pub(all) struct RaycasterParams {
+  mut mesh : JsValue
+  line : RaycasterThreshold
+  mut lod : JsValue
+  points : RaycasterThreshold
+  mut sprite : JsValue
+}
+
+pub(all) struct RaycasterThreshold {
+  mut threshold : Double
+}
+
+pub(all) struct RectAreaLight {
+  mut width : Double
+  mut height : Double
+}
+pub fn RectAreaLight::new(color? : @math.Color, intensity? : Double, width? : Double, height? : Double) -> Object3D
+
+pub(all) struct RenderTarget {
+  dispatcher : EventDispatcher
+  mut width : Int32
+  mut height : Int32
+  mut depth : Int32
+  scissor : @math.Vector4
+  mut scissor_test : Bool
+  viewport : @math.Vector4
+  mut textures : Array[Texture]
+  mut depth_buffer : Bool
+  mut stencil_buffer : Bool
+  mut resolve_color_buffer : Bool
+  mut resolve_depth_buffer : Bool
+  mut resolve_stencil_buffer : Bool
+  mut store_multisampled_color_buffer : Bool
+  mut store_multisampled_depth_buffer : Bool
+  mut store_multisampled_stencil_buffer : Bool
+  mut _depth_texture : Texture?
+  mut samples : Int32
+  mut multiview : Bool
+  mut use_array_depth_texture : Bool
+  mut render_target_type : RenderTargetType
+  mut extension : &RenderTargetExtension?
+}
+pub fn RenderTarget::_set_texture_options(Self, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, wrap_r? : Int32, mag_filter? : Int32, min_filter? : Int32, format? : Int32, type_? : Int32, anisotropy? : Int32, color_space? : String, flip_y? : Bool, generate_mipmaps? : Bool, mipmaps_auto_update? : Bool, internal_format? : String) -> Unit
+pub fn RenderTarget::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn RenderTarget::clone(Self) -> Self
+pub fn RenderTarget::copy(Self, Self) -> Self
+pub fn RenderTarget::depth_texture(Self) -> Texture?
+pub fn RenderTarget::dispatch_event(Self, Event) -> Unit
+pub fn RenderTarget::dispose(Self) -> Unit
+pub fn RenderTarget::event_dispatcher(Self) -> EventDispatcher
+pub fn RenderTarget::event_target(Self) -> EventTarget
+pub fn RenderTarget::has_event_listener(Self, String, (Event) -> Unit) -> Bool
+pub fn RenderTarget::has_extension_flag(Self, String) -> Bool
+pub fn RenderTarget::new(width? : Int32, height? : Int32, generate_mipmaps? : Bool, internal_format? : String, min_filter? : Int32, depth_buffer? : Bool, stencil_buffer? : Bool, resolve_color_buffer? : Bool, resolve_depth_buffer? : Bool, resolve_stencil_buffer? : Bool, store_multisampled_color_buffer? : Bool, store_multisampled_depth_buffer? : Bool, store_multisampled_stencil_buffer? : Bool, depth_texture? : Texture, samples? : Int32, count? : Int32, depth? : Int32, multiview? : Bool, use_array_depth_texture? : Bool, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, wrap_r? : Int32, mag_filter? : Int32, format? : Int32, type_? : Int32, anisotropy? : Int32, color_space? : String, flip_y? : Bool, mipmaps_auto_update? : Bool) -> Self
+pub fn RenderTarget::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn RenderTarget::set_depth_texture(Self, Texture?) -> Unit
+pub fn RenderTarget::set_extension(Self, &RenderTargetExtension) -> Self
+pub fn RenderTarget::set_size(Self, Int32, Int32, depth? : Int32) -> Unit
+pub fn RenderTarget::set_texture(Self, Texture) -> Unit
+pub fn RenderTarget::texture(Self) -> Texture
+pub impl EventSource for RenderTarget
+
+#external
+pub type RenderTarget3D
+pub fn RenderTarget3D::new(width? : Int32, height? : Int32, depth? : Int32, generate_mipmaps? : Bool, internal_format? : String, min_filter? : Int32, depth_buffer? : Bool, stencil_buffer? : Bool, resolve_color_buffer? : Bool, resolve_depth_buffer? : Bool, resolve_stencil_buffer? : Bool, store_multisampled_color_buffer? : Bool, store_multisampled_depth_buffer? : Bool, store_multisampled_stencil_buffer? : Bool, depth_texture? : Texture, samples? : Int32, count? : Int32, multiview? : Bool, use_array_depth_texture? : Bool, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, wrap_r? : Int32, mag_filter? : Int32, format? : Int32, type_? : Int32, anisotropy? : Int32, color_space? : String, flip_y? : Bool, mipmaps_auto_update? : Bool) -> RenderTarget
+
+pub(all) enum RenderTargetType {
+  PlainRenderTarget
+  RenderTarget3D
+}
+
+pub(all) struct Scene {
+  mut background : SceneBackground?
+  mut environment : Texture?
+  mut fog : SceneFog?
+  mut background_blurriness : Double
+  mut background_intensity : Double
+  mut background_rotation : @math.Euler
+  mut environment_intensity : Double
+  mut environment_rotation : @math.Euler
+  mut override_material : Material?
+  mut background_node : JsValue?
+  mut environment_node : JsValue?
+  mut fog_node : JsValue?
+  mut on_before_render : (JsValue, Object3D, Object3D, RenderTarget?) -> Unit
+  mut on_after_render : (JsValue, Object3D, Object3D) -> Unit
+}
+pub fn Scene::new() -> Object3D
+
+pub(all) enum SceneBackground {
+  Color(@math.Color)
+  Texture(Texture)
+}
+pub fn SceneBackground::clone(Self) -> Self
+
+pub(all) enum SceneFog {
+  Fog(Fog)
+  FogExp2(FogExp2)
+}
+pub fn SceneFog::clone(Self) -> Self
+pub fn SceneFog::to_json(Self) -> @json.Json
+
+pub(all) struct ShaderExtensions {
+  mut clip_cull_distance : Bool
+  mut multi_draw : Bool
+}
+
+#external
+pub type ShaderMaterial
+pub fn ShaderMaterial::new() -> Material
+
+pub(all) struct ShaderObject {
+  mut name : String
+  mut uniforms : Map[String, Uniform]
+  mut vertex_shader : String
+  mut fragment_shader : String
+  mut parameters : JsValue
+}
+
+#external
+pub type ShadowMaterial
+pub fn ShadowMaterial::new() -> Material
+
+pub(all) struct Skeleton {
+  mut uuid : String
+  mut bones : Array[Object3D]
+  mut bone_inverses : Array[@math.Matrix4]
+  mut bone_matrices : TypedArray?
+  mut previous_bone_matrices : TypedArray?
+  mut bone_texture : Texture?
+  mut previous_bone_texture : Texture?
+}
+pub fn Skeleton::calculate_inverses(Self) -> Unit
+pub fn Skeleton::clone(Self) -> Self
+pub fn Skeleton::compute_bone_texture(Self) -> Self
+pub fn Skeleton::dispose(Self) -> Unit
+pub fn Skeleton::from_json(Self, @json.Json, Map[String, Object3D]) -> Self
+pub fn Skeleton::get_bone_by_name(Self, String) -> Object3D?
+pub fn Skeleton::init(Self) -> Unit
+pub fn Skeleton::new(bones? : Array[Object3D], bone_inverses? : Array[@math.Matrix4]) -> Self
+pub fn Skeleton::pose(Self) -> Unit
+pub fn Skeleton::to_json(Self) -> @json.Json
+pub fn Skeleton::update(Self) -> Unit
+
+pub(all) struct SkinnedMesh {
+  mut bind_mode : String
+  mut bind_matrix : @math.Matrix4
+  mut bind_matrix_inverse : @math.Matrix4
+  mut bounding_box : @math.Box3?
+  mut bounding_sphere : @math.Sphere?
+  mut skeleton : Skeleton?
+}
+pub fn SkinnedMesh::new(geometry? : BufferGeometry, material? : MaterialSlot) -> Object3D
+
+pub(all) struct SpotLight {
+  mut target : Object3D
+  mut distance : Double
+  mut angle : Double
+  mut penumbra : Double
+  mut decay : Double
+  mut map : Texture?
+  mut ies_map : Texture?
+  mut aspect : Double?
+  mut variant : SpotLightVariant
+}
+pub fn SpotLight::new(color? : @math.Color, intensity? : Double, distance? : Double, angle? : Double, penumbra? : Double, decay? : Double) -> Object3D
+
+pub(all) struct SpotLightShadow {
+  mut focus : Double
+  mut aspect : Double
+}
+pub fn SpotLightShadow::new() -> LightShadow
+
+pub(all) enum SpotLightVariant {
+  PlainSpotLight
+  IESSpotLight
+  ProjectorLight
+}
+
+pub(all) struct Sprite {
+  mut geometry : BufferGeometry
+  mut material : Material
+  mut center : @math.Vector2
+  mut count : Int32
+}
+pub fn Sprite::new(material? : Material) -> Object3D
+
+#external
+pub type SpriteMaterial
+pub fn SpriteMaterial::new() -> Material
+
+pub(all) struct StereoCamera {
+  mut type_ : String
+  mut aspect : Double
+  mut eye_sep : Double
+  mut camera_l : Object3D
+  mut camera_r : Object3D
+  _cache : StereoCameraCache
+}
+pub fn StereoCamera::new() -> Self
+pub fn StereoCamera::update(Self, Object3D) -> Unit
+
+pub(all) struct StereoCameraCache {
+  mut focus : Double?
+  mut fov : Double?
+  mut aspect : Double?
+  mut near : Double?
+  mut far : Double?
+  mut zoom : Double?
+  mut eye_sep : Double?
+}
+
+pub(all) struct Texture {
+  id : Int32
+  dispatcher : EventDispatcher
+  mut uuid : String
+  mut name : String
+  mut source : TextureSource
+  mut mipmaps : Array[TextureImage]
+  mut mapping : Int32
+  mut channel : Int32
+  mut wrap_s : Int32
+  mut wrap_t : Int32
+  mut mag_filter : Int32
+  mut min_filter : Int32
+  mut anisotropy : Int32
+  mut format : Int32
+  mut internal_format : String?
+  mut type_ : Int32
+  mut offset : @math.Vector2
+  mut repeat : @math.Vector2
+  mut center : @math.Vector2
+  mut rotation : Double
+  mut matrix_auto_update : Bool
+  mut matrix : @math.Matrix3
+  mut generate_mipmaps : Bool
+  mut mipmaps_auto_update : Bool
+  mut premultiply_alpha : Bool
+  mut flip_y : Bool
+  mut unpack_alignment : Int32
+  mut color_space : String
+  mut user_data : JsValue
+  mut update_ranges : Array[UpdateRange]
+  mut version : Int32
+  mut on_update : ((Texture) -> Unit)?
+  mut render_target : RenderTarget?
+  mut is_render_target_texture : Bool
+  mut is_array_texture : Bool
+  mut pmrem_version : Int32
+  mut is_pmrem_texture : Bool
+  mut normalized : Bool
+  mut compare_function : Int32?
+  mut wrap_r : Int32
+  mut layer_updates : Array[Int32]?
+  mut source_texture : Texture?
+  mut external_source : JsValue?
+  mut _request_video_frame_callback_id : Int32
+  mut texture_type : TextureType
+  mut extension : &TextureExtension?
+}
+pub fn Texture::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Texture::add_layer_update(Self, Int32) -> Unit
+pub fn Texture::add_update_range(Self, Int32, Int32) -> Unit
+pub fn Texture::clear_layer_updates(Self) -> Unit
+pub fn Texture::clear_update_ranges(Self) -> Unit
+pub fn Texture::clone(Self) -> Self
+pub fn Texture::copy(Self, Self) -> Self
+pub fn Texture::depth(Self) -> Double
+pub fn Texture::dispatch_event(Self, Event) -> Unit
+pub fn Texture::dispose(Self) -> Unit
+pub fn Texture::event_dispatcher(Self) -> EventDispatcher
+pub fn Texture::event_target(Self) -> EventTarget
+pub fn Texture::has_event_listener(Self, String, (Event) -> Unit) -> Bool
+pub fn Texture::has_extension_flag(Self, String) -> Bool
+pub fn Texture::height(Self) -> Double
+pub fn Texture::image(Self) -> TextureImage
+pub fn Texture::images(Self) -> TextureImage
+pub fn Texture::is_compressed_texture(Self) -> Bool
+pub fn Texture::is_cube_texture(Self) -> Bool
+pub fn Texture::is_depth_texture(Self) -> Bool
+pub fn Texture::is_video_texture(Self) -> Bool
+pub fn Texture::new(image? : TextureImage, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, mag_filter? : Int32, min_filter? : Int32, format? : Int32, type_? : Int32, anisotropy? : Int32, color_space? : String) -> Self
+pub fn Texture::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Texture::set_extension(Self, &TextureExtension) -> Self
+pub fn Texture::set_frame(Self, JsValue) -> Unit
+pub fn Texture::set_image(Self, TextureImage) -> Unit
+pub fn Texture::set_images(Self, TextureImage) -> Unit
+pub fn Texture::set_needs_pmrem_update(Self, Bool) -> Unit
+pub fn Texture::set_needs_update(Self, Bool) -> Unit
+pub fn Texture::set_values(Self, uuid? : String, name? : String, source? : TextureSource, image? : TextureImage, mipmaps? : Array[TextureImage], mapping? : Int32, channel? : Int32, wrap_s? : Int32, wrap_t? : Int32, wrap_r? : Int32, mag_filter? : Int32, min_filter? : Int32, anisotropy? : Int32, format? : Int32, internal_format? : String?, type_? : Int32, offset? : @math.Vector2, repeat? : @math.Vector2, center? : @math.Vector2, rotation? : Double, matrix_auto_update? : Bool, matrix? : @math.Matrix3, generate_mipmaps? : Bool, mipmaps_auto_update? : Bool, premultiply_alpha? : Bool, flip_y? : Bool, unpack_alignment? : Int32, color_space? : String, user_data? : JsValue, update_ranges? : Array[UpdateRange], version? : Int32, on_update? : ((Self) -> Unit)?, render_target? : RenderTarget?, is_render_target_texture? : Bool, is_array_texture? : Bool, pmrem_version? : Int32, is_pmrem_texture? : Bool, normalized? : Bool, compare_function? : Int32?, layer_updates? : Array[Int32]?, source_texture? : Self?) -> Unit
+pub fn Texture::to_json(Self, meta? : ToJsonMeta) -> @json.Json
+pub fn Texture::transform_uv(Self, @math.Vector2) -> @math.Vector2
+pub fn Texture::update(Self) -> Unit
+pub fn Texture::update_matrix(Self) -> Unit
+pub fn Texture::width(Self) -> Double
+pub impl EventSource for Texture
+
+pub(all) enum TextureImage {
+  NoImage
+  DomImage(JsValue)
+  DataImage(DataImage)
+  TextureImage(Texture)
+  ImageArray(Array[TextureImage])
+}
+pub fn TextureImage::depth(Self) -> Double
+pub fn TextureImage::from_js(JsValue) -> Self
+pub fn TextureImage::height(Self) -> Double
+pub fn TextureImage::set_size(Self, Int32, Int32, Int32) -> Unit
+pub fn TextureImage::shallow_copy(Self) -> Self
+pub fn TextureImage::to_js(Self) -> JsValue
+pub fn TextureImage::width(Self) -> Double
+
+pub(all) struct TextureSource {
+  id : Int32
+  mut uuid : String
+  mut data : TextureImage
+  mut data_ready : Bool
+  mut version : Int32
+}
+pub fn TextureSource::get_size(Self, @math.Vector3) -> @math.Vector3
+pub fn TextureSource::new(data? : TextureImage) -> Self
+pub fn TextureSource::set_needs_update(Self, Bool) -> Unit
+pub fn TextureSource::to_json(Self, meta? : ToJsonMeta) -> @json.Json
+
+pub(all) enum TextureType {
+  Texture
+  CanvasTexture
+  CompressedArrayTexture
+  CompressedCubeTexture
+  CompressedTexture
+  CubeDepthTexture
+  CubeTexture
+  Data3DTexture
+  DataArrayTexture
+  DataTexture
+  DepthTexture
+  ExternalTexture
+  FramebufferTexture
+  HTMLTexture
+  VideoFrameTexture
+  VideoTexture
+}
+
+pub(all) struct Timer {
+  mut _previous_time : Double
+  mut _current_time : Double
+  mut _start_time : Double
+  mut _delta : Double
+  mut _elapsed : Double
+  mut _timescale : Double
+  mut _document : JsValue?
+  mut _page_visibility_handler : JsValue?
+}
+pub fn Timer::connect(Self, JsValue) -> Unit
+pub fn Timer::disconnect(Self) -> Unit
+pub fn Timer::dispose(Self) -> Unit
+pub fn Timer::get_delta(Self) -> Double
+pub fn Timer::get_elapsed(Self) -> Double
+pub fn Timer::get_timescale(Self) -> Double
+pub fn Timer::new() -> Self
+pub fn Timer::reset(Self) -> Self
+pub fn Timer::set_timescale(Self, Double) -> Self
+pub fn Timer::update(Self, timestamp? : Double) -> Self
+
+pub(all) struct ToJsonMeta {
+  geometries : Map[String, @json.Json]
+  materials : Map[String, @json.Json]
+  textures : Map[String, @json.Json]
+  images : Map[String, @json.Json]
+  shapes : Map[String, @json.Json]
+  skeletons : Map[String, @json.Json]
+  animations : Map[String, @json.Json]
+  nodes : Map[String, @json.Json]
+}
+pub fn ToJsonMeta::new() -> Self
+
+#external
+pub type TypedArray
+pub fn TypedArray::buffer(Self) -> ArrayBuffer
+pub fn TypedArray::byte_length(Self) -> Int32
+pub fn TypedArray::byte_offset(Self) -> Int32
+pub fn TypedArray::bytes_per_element(Self) -> Int32
+pub fn TypedArray::clone(Self) -> Self
+pub fn TypedArray::fill(Self, Double) -> Unit
+pub fn[A : TypedArrayInit] TypedArray::float32(A) -> Self
+pub fn[A : TypedArrayInit] TypedArray::float64(A) -> Self
+#alias("_[_]")
+pub fn TypedArray::get(Self, Int32) -> Double
+pub fn TypedArray::get_int(Self, Int32) -> Int32
+pub fn[A : TypedArrayInit] TypedArray::int16(A) -> Self
+pub fn[A : TypedArrayInit] TypedArray::int32(A) -> Self
+pub fn[A : TypedArrayInit] TypedArray::int8(A) -> Self
+pub fn TypedArray::kind(Self) -> @math.TypedArrayKind
+pub fn TypedArray::length(Self) -> Int32
+pub fn[A : TypedArrayInit] TypedArray::new(@math.TypedArrayKind, A) -> Self
+pub fn[A : TypedArrayInit] TypedArray::new_by_name(String, A) -> Self
+pub fn[A : TypedArrayInit] TypedArray::new_like(Self, A) -> Self
+pub fn TypedArray::new_like_from_buffer(Self, ArrayBuffer) -> Self
+#alias("_[_]=_")
+pub fn TypedArray::set(Self, Int32, Double) -> Unit
+pub fn[A : TypedArrayInit] TypedArray::set_from(Self, A, offset? : Int32) -> Unit
+pub fn TypedArray::slice(Self, start? : Int32, end? : Int32) -> Self
+pub fn TypedArray::subarray(Self, start? : Int32, end? : Int32) -> Self
+pub fn TypedArray::to_array(Self) -> Array[Double]
+pub fn TypedArray::to_js_init(Self) -> JsValue
+pub fn TypedArray::type_name(Self) -> String
+pub fn[A : TypedArrayInit] TypedArray::uint16(A) -> Self
+pub fn[A : TypedArrayInit] TypedArray::uint32(A) -> Self
+pub fn[A : TypedArrayInit] TypedArray::uint8(A) -> Self
+pub fn[A : TypedArrayInit] TypedArray::uint8_clamped(A) -> Self
+pub fn TypedArray::view_by_name(String, ArrayBuffer, byte_offset? : Int32, length? : Int32) -> Self
+pub impl TypedArrayInit for TypedArray
+
+#external
+pub type Uint16BufferAttribute
+pub fn[A : TypedArrayInit] Uint16BufferAttribute::new(A, Int32, normalized? : Bool) -> BufferAttribute
+
+#external
+pub type Uint32BufferAttribute
+pub fn[A : TypedArrayInit] Uint32BufferAttribute::new(A, Int32, normalized? : Bool) -> BufferAttribute
+
+#external
+pub type Uint8BufferAttribute
+pub fn[A : TypedArrayInit] Uint8BufferAttribute::new(A, Int32, normalized? : Bool) -> BufferAttribute
+
+#external
+pub type Uint8ClampedBufferAttribute
+pub fn[A : TypedArrayInit] Uint8ClampedBufferAttribute::new(A, Int32, normalized? : Bool) -> BufferAttribute
+
+pub(all) struct Uniform {
+  mut value : UniformValue
+}
+pub fn Uniform::clone(Self) -> Self
+pub fn Uniform::new(UniformValue) -> Self
+
+pub(all) enum UniformValue {
+  Null
+  Bool(Bool)
+  Int(Int32)
+  Number(Double)
+  Numbers(Array[Double])
+  Vector2(@math.Vector2)
+  Vector3(@math.Vector3)
+  Vector4(@math.Vector4)
+  Color(@math.Color)
+  Quaternion(@math.Quaternion)
+  Matrix3(@math.Matrix3)
+  Matrix4(@math.Matrix4)
+  Plane(@math.Plane)
+  Texture(Texture)
+  TypedArray(TypedArray)
+  Array(Array[UniformValue])
+  Struct(Map[String, UniformValue])
+  Other(JsValue)
+}
+pub fn UniformValue::clone(Self) -> Self
+
+pub(all) struct UniformsGroup {
+  id : Int32
+  dispatcher : EventDispatcher
+  mut name : String
+  mut usage : Int32
+  mut uniforms : Array[UniformsGroupEntry]
+}
+pub fn UniformsGroup::add(Self, Uniform) -> Self
+pub fn UniformsGroup::add_array(Self, Array[Uniform]) -> Self
+pub fn UniformsGroup::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn UniformsGroup::clone(Self) -> Self
+pub fn UniformsGroup::copy(Self, Self) -> Self
+pub fn UniformsGroup::dispatch_event(Self, Event) -> Unit
+pub fn UniformsGroup::dispose(Self) -> Unit
+pub fn UniformsGroup::event_dispatcher(Self) -> EventDispatcher
+pub fn UniformsGroup::event_target(Self) -> EventTarget
+pub fn UniformsGroup::has_event_listener(Self, String, (Event) -> Unit) -> Bool
+pub fn UniformsGroup::new() -> Self
+pub fn UniformsGroup::remove(Self, Uniform) -> Self
+pub fn UniformsGroup::remove_array(Self, Array[Uniform]) -> Self
+pub fn UniformsGroup::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn UniformsGroup::set_name(Self, String) -> Self
+pub fn UniformsGroup::set_usage(Self, Int32) -> Self
+pub impl EventSource for UniformsGroup
+
+pub(all) enum UniformsGroupEntry {
+  Single(Uniform)
+  Multiple(Array[Uniform])
+}
+
+#external
+pub type UniformsUtils
+pub fn UniformsUtils::clone(Map[String, Uniform]) -> Map[String, Uniform]
+pub fn UniformsUtils::merge(Array[Map[String, Uniform]]) -> Map[String, Uniform]
+
+pub(all) struct UpdateRange {
+  mut start : Int32
+  mut count : Int32
+}
+
+#external
+pub type VideoFrameTexture
+pub fn VideoFrameTexture::new(mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, mag_filter? : Int32, min_filter? : Int32, format? : Int32, type_? : Int32, anisotropy? : Int32) -> Texture
+
+#external
+pub type VideoTexture
+pub fn VideoTexture::new(JsValue, mapping? : Int32, wrap_s? : Int32, wrap_t? : Int32, mag_filter? : Int32, min_filter? : Int32, format? : Int32, type_? : Int32, anisotropy? : Int32) -> Texture
+
+// Type aliases
+
+// Traits
+pub(open) trait CubeCameraRenderer {
+  fn coordinate_system(Self) -> Int32
+  fn get_render_target(Self) -> RenderTarget?
+  fn get_active_cube_face(Self) -> Int32
+  fn get_active_mipmap_level(Self) -> Int32
+  fn xr_enabled(Self) -> Bool
+  fn set_xr_enabled(Self, Bool) -> Unit
+  fn reversed_depth_buffer(Self) -> Bool
+  fn auto_clear(Self) -> Bool
+  fn set_render_target(Self, RenderTarget?, Int32, Int32) -> Unit
+  fn clear_depth(Self) -> Unit
+  fn render(Self, Object3D, Object3D) -> Unit
+}
+
+pub(open) trait EventSource {
+  fn event_dispatcher(Self) -> EventDispatcher
+  fn event_target(Self) -> EventTarget
+  fn add_event_listener(Self, String, (Event) -> Unit) -> Unit = _
+  fn has_event_listener(Self, String, (Event) -> Unit) -> Bool = _
+  fn remove_event_listener(Self, String, (Event) -> Unit) -> Unit = _
+  fn dispatch_event(Self, Event) -> Unit = _
+}
+
+pub(open) trait GeometryIndex {
+  fn to_geometry_index(Self) -> GeometryAttribute?
+}
+pub impl GeometryIndex for GeometryAttribute?
+pub impl[T] GeometryIndex for Array[T]
+
+pub(open) trait InterpolatedAttributeTarget {
+  fn set_scalar(Self, Double) -> Self
+  fn add_scaled_vector4(Self, @math.Vector4, Double) -> Self
+}
+pub impl InterpolatedAttributeTarget for @math.Vector2
+pub impl InterpolatedAttributeTarget for @math.Vector3
+pub impl InterpolatedAttributeTarget for @math.Vector4
+
+pub(open) trait MaterialExtension {
+  fn type_name(Self) -> String
+  fn construct(Self) -> Material
+  fn payload(Self) -> JsValue = _
+  fn has_flag(Self, String) -> Bool = _
+  fn copy_from(Self, Material, Material) -> Unit = _
+  fn to_json(Self, Material, ToJsonMeta?, Map[String, @json.Json]) -> Unit = _
+  fn custom_program_cache_key(Self, Material) -> String? = _
+  fn dispose(Self, Material) -> Unit = _
+}
+
+pub(open) trait Object3DExtension {
+  fn type_name(Self) -> String
+  fn construct(Self) -> Object3D
+  fn payload(Self) -> JsValue = _
+  fn has_flag(Self, String) -> Bool = _
+  fn raycast(Self, Object3D, Raycaster, Array[Intersection]) -> Unit = _
+  fn copy_from(Self, Object3D, Object3D, Bool) -> Unit = _
+  fn to_json(Self, Object3D, ToJsonMeta, Map[String, @json.Json]) -> Unit = _
+  fn update_matrix_world(Self, Object3D, Bool) -> Unit = _
+  fn update_world_matrix(Self, Object3D, Bool, Bool, Bool) -> Unit = _
+  fn intersects_frustum(Self, Object3D, FrustumRef) -> Bool = _
+  fn get_world_direction(Self, Object3D, @math.Vector3) -> @math.Vector3 = _
+  fn dispose(Self, Object3D) -> Unit = _
+}
+
+pub(open) trait RenderTargetExtension {
+  fn construct(Self) -> RenderTarget
+  fn payload(Self) -> JsValue = _
+  fn has_flag(Self, String) -> Bool = _
+  fn copy_from(Self, RenderTarget, RenderTarget) -> Unit = _
+}
+
+pub(open) trait SerializableResource {
+  fn uuid(Self) -> String
+  fn to_json(Self) -> @json.Json
+  fn payload(Self) -> JsValue = _
+}
+
+pub(open) trait TextureExtension {
+  fn type_name(Self) -> String
+  fn construct(Self) -> Texture
+  fn payload(Self) -> JsValue = _
+  fn has_flag(Self, String) -> Bool = _
+  fn copy_from(Self, Texture, Texture) -> Unit = _
+  fn to_json(Self, Texture, ToJsonMeta?, Map[String, @json.Json]) -> Unit = _
+}
+
+pub(open) trait ToGeometryAttribute {
+  fn to_geometry_attribute(Self) -> GeometryAttribute
+}
+
+pub(open) trait TypedArrayInit {
+  fn to_js_init(Self) -> JsValue
+}
+pub impl TypedArrayInit for Int32
+pub impl[T] TypedArrayInit for Array[T]

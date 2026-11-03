@@ -1,0 +1,2844 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/webgpu"
+
+import {
+  "bobzhang/three/animation",
+  "bobzhang/three/audio",
+  "bobzhang/three/core",
+  "bobzhang/three/extras",
+  "bobzhang/three/geometries",
+  "bobzhang/three/helpers",
+  "bobzhang/three/loaders",
+  "bobzhang/three/math",
+  "bobzhang/three/renderers/webgl",
+  "bobzhang/three/renderers/webgl_fallback",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub const ACESFilmicToneMapping : Int32 = 4
+
+pub const AddEquation : Int32 = 100
+
+pub const AddOperation : Int32 = 2
+
+pub const AdditiveAnimationBlendMode : Int32 = 2501
+
+pub const AdditiveBlending : Int32 = 2
+
+pub const AgXToneMapping : Int32 = 6
+
+pub const AlphaFormat : Int32 = 1021
+
+pub const AlwaysCompare : Int32 = 519
+
+pub const AlwaysDepth : Int32 = 1
+
+pub const AlwaysStencilFunc : Int32 = 519
+
+pub const AttachedBindMode : String = "attached"
+
+pub const BackSide : Int32 = 1
+
+pub const BasicDepthPacking : Int32 = 3200
+
+pub const BasicShadowMap : Int32 = 0
+
+pub const ByteType : Int32 = 1010
+
+pub const CineonToneMapping : Int32 = 3
+
+pub const ClampToEdgeWrapping : Int32 = 1001
+
+pub const Compatibility_TEXTURE_COMPARE : String = "depthTextureCompare"
+
+pub const ConstantAlphaFactor : Int32 = 213
+
+pub const ConstantColorFactor : Int32 = 211
+
+pub const CubeReflectionMapping : Int32 = 301
+
+pub const CubeRefractionMapping : Int32 = 302
+
+pub const CullFaceBack : Int32 = 1
+
+pub const CullFaceFront : Int32 = 2
+
+pub const CullFaceFrontBack : Int32 = 3
+
+pub const CullFaceNone : Int32 = 0
+
+pub const CustomBlending : Int32 = 5
+
+pub const CustomToneMapping : Int32 = 5
+
+pub const DecrementStencilOp : Int32 = 7683
+
+pub const DecrementWrapStencilOp : Int32 = 34056
+
+pub const DepthFormat : Int32 = 1026
+
+pub const DepthStencilFormat : Int32 = 1027
+
+pub const DetachedBindMode : String = "detached"
+
+pub const DoubleSide : Int32 = 2
+
+pub const DstAlphaFactor : Int32 = 206
+
+pub const DstColorFactor : Int32 = 208
+
+pub const DynamicCopyUsage : Int32 = 35050
+
+pub const DynamicDrawUsage : Int32 = 35048
+
+pub const DynamicReadUsage : Int32 = 35049
+
+pub const EqualCompare : Int32 = 514
+
+pub const EqualDepth : Int32 = 4
+
+pub const EqualStencilFunc : Int32 = 514
+
+pub const EquirectangularReflectionMapping : Int32 = 303
+
+pub const EquirectangularRefractionMapping : Int32 = 304
+
+pub const FloatType : Int32 = 1015
+
+pub const FrontSide : Int32 = 0
+
+pub const GLSL1 : String = "100"
+
+pub const GLSL3 : String = "300 es"
+
+pub const GreaterCompare : Int32 = 516
+
+pub const GreaterDepth : Int32 = 6
+
+pub const GreaterEqualCompare : Int32 = 518
+
+pub const GreaterEqualDepth : Int32 = 5
+
+pub const GreaterEqualStencilFunc : Int32 = 518
+
+pub const GreaterStencilFunc : Int32 = 516
+
+pub const HalfFloatType : Int32 = 1016
+
+pub const IncrementStencilOp : Int32 = 7682
+
+pub const IncrementWrapStencilOp : Int32 = 34055
+
+pub const IntType : Int32 = 1013
+
+pub const InterpolateBezier : Int32 = 2303
+
+pub const InterpolateDiscrete : Int32 = 2300
+
+pub const InterpolateLinear : Int32 = 2301
+
+pub const InterpolateSmooth : Int32 = 2302
+
+pub const InterpolationSamplingMode_CENTROID : String = "centroid"
+
+pub const InterpolationSamplingMode_EITHER : String = "either"
+
+pub const InterpolationSamplingMode_FIRST : String = "first"
+
+pub const InterpolationSamplingMode_NORMAL : String = "normal"
+
+pub const InterpolationSamplingMode_SAMPLE : String = "sample"
+
+pub const InterpolationSamplingType_FLAT : String = "flat"
+
+pub const InterpolationSamplingType_LINEAR : String = "linear"
+
+pub const InterpolationSamplingType_PERSPECTIVE : String = "perspective"
+
+pub const InvertStencilOp : Int32 = 5386
+
+pub const KeepStencilOp : Int32 = 7680
+
+pub const LessCompare : Int32 = 513
+
+pub const LessDepth : Int32 = 2
+
+pub const LessEqualCompare : Int32 = 515
+
+pub const LessEqualDepth : Int32 = 3
+
+pub const LessEqualStencilFunc : Int32 = 515
+
+pub const LessStencilFunc : Int32 = 513
+
+pub const LinearFilter : Int32 = 1006
+
+pub const LinearMipMapLinearFilter : Int32 = 1008
+
+pub const LinearMipMapNearestFilter : Int32 = 1007
+
+pub const LinearMipmapLinearFilter : Int32 = 1008
+
+pub const LinearMipmapNearestFilter : Int32 = 1007
+
+pub const LinearSRGBColorSpace : String = "srgb-linear"
+
+pub const LinearToneMapping : Int32 = 1
+
+pub const LinearTransfer : String = "linear"
+
+pub const LoopOnce : Int32 = 2200
+
+pub const LoopPingPong : Int32 = 2202
+
+pub const LoopRepeat : Int32 = 2201
+
+pub const MOUSE_DOLLY : Int32 = 1
+
+pub const MOUSE_LEFT : Int32 = 0
+
+pub const MOUSE_MIDDLE : Int32 = 1
+
+pub const MOUSE_PAN : Int32 = 2
+
+pub const MOUSE_RIGHT : Int32 = 2
+
+pub const MOUSE_ROTATE : Int32 = 0
+
+pub const MaterialBlending : Int32 = 6
+
+pub const MaxEquation : Int32 = 104
+
+pub const MinEquation : Int32 = 103
+
+pub const MirroredRepeatWrapping : Int32 = 1002
+
+pub const MixOperation : Int32 = 1
+
+pub const MultiplyBlending : Int32 = 4
+
+pub const MultiplyOperation : Int32 = 0
+
+pub const NearestFilter : Int32 = 1003
+
+pub const NearestMipMapLinearFilter : Int32 = 1005
+
+pub const NearestMipMapNearestFilter : Int32 = 1004
+
+pub const NearestMipmapLinearFilter : Int32 = 1005
+
+pub const NearestMipmapNearestFilter : Int32 = 1004
+
+pub const NeutralToneMapping : Int32 = 7
+
+pub const NeverCompare : Int32 = 512
+
+pub const NeverDepth : Int32 = 0
+
+pub const NeverStencilFunc : Int32 = 512
+
+pub const NoBlending : Int32 = 0
+
+pub const NoColorSpace : String = ""
+
+pub const NoNormalPacking : String = ""
+
+pub const NoToneMapping : Int32 = 0
+
+pub const NormalAnimationBlendMode : Int32 = 2500
+
+pub const NormalBlending : Int32 = 1
+
+pub const NormalGAPacking : String = "ga"
+
+pub const NormalRGPacking : String = "rg"
+
+pub const NotEqualCompare : Int32 = 517
+
+pub const NotEqualDepth : Int32 = 7
+
+pub const NotEqualStencilFunc : Int32 = 517
+
+pub const ObjectSpaceNormalMap : Int32 = 1
+
+pub const OneFactor : Int32 = 201
+
+pub const OneMinusConstantAlphaFactor : Int32 = 214
+
+pub const OneMinusConstantColorFactor : Int32 = 212
+
+pub const OneMinusDstAlphaFactor : Int32 = 207
+
+pub const OneMinusDstColorFactor : Int32 = 209
+
+pub const OneMinusSrcAlphaFactor : Int32 = 205
+
+pub const OneMinusSrcColorFactor : Int32 = 203
+
+pub const PCFShadowMap : Int32 = 1
+
+pub const PCFSoftShadowMap : Int32 = 2
+
+pub const R11_EAC_Format : Int32 = 37488
+
+pub const RED_GREEN_RGTC2_Format : Int32 = 36285
+
+pub const RED_RGTC1_Format : Int32 = 36283
+
+pub const REVISION : String = "187"
+
+pub const RG11_EAC_Format : Int32 = 37490
+
+pub const RGBADepthPacking : Int32 = 3201
+
+pub const RGBAFormat : Int32 = 1023
+
+pub const RGBAIntegerFormat : Int32 = 1033
+
+pub const RGBA_ASTC_10x10_Format : Int32 = 37819
+
+pub const RGBA_ASTC_10x5_Format : Int32 = 37816
+
+pub const RGBA_ASTC_10x6_Format : Int32 = 37817
+
+pub const RGBA_ASTC_10x8_Format : Int32 = 37818
+
+pub const RGBA_ASTC_12x10_Format : Int32 = 37820
+
+pub const RGBA_ASTC_12x12_Format : Int32 = 37821
+
+pub const RGBA_ASTC_4x4_Format : Int32 = 37808
+
+pub const RGBA_ASTC_5x4_Format : Int32 = 37809
+
+pub const RGBA_ASTC_5x5_Format : Int32 = 37810
+
+pub const RGBA_ASTC_6x5_Format : Int32 = 37811
+
+pub const RGBA_ASTC_6x6_Format : Int32 = 37812
+
+pub const RGBA_ASTC_8x5_Format : Int32 = 37813
+
+pub const RGBA_ASTC_8x6_Format : Int32 = 37814
+
+pub const RGBA_ASTC_8x8_Format : Int32 = 37815
+
+pub const RGBA_BPTC_Format : Int32 = 36492
+
+pub const RGBA_ETC2_EAC_Format : Int32 = 37496
+
+pub const RGBA_PVRTC_2BPPV1_Format : Int32 = 35843
+
+pub const RGBA_PVRTC_4BPPV1_Format : Int32 = 35842
+
+pub const RGBA_S3TC_DXT1_Format : Int32 = 33777
+
+pub const RGBA_S3TC_DXT3_Format : Int32 = 33778
+
+pub const RGBA_S3TC_DXT5_Format : Int32 = 33779
+
+pub const RGBDepthPacking : Int32 = 3202
+
+pub const RGBFormat : Int32 = 1022
+
+pub const RGBIntegerFormat : Int32 = 1032
+
+pub const RGB_BPTC_SIGNED_Format : Int32 = 36494
+
+pub const RGB_BPTC_UNSIGNED_Format : Int32 = 36495
+
+pub const RGB_ETC1_Format : Int32 = 36196
+
+pub const RGB_ETC2_Format : Int32 = 37492
+
+pub const RGB_PVRTC_2BPPV1_Format : Int32 = 35841
+
+pub const RGB_PVRTC_4BPPV1_Format : Int32 = 35840
+
+pub const RGB_S3TC_DXT1_Format : Int32 = 33776
+
+pub const RGDepthPacking : Int32 = 3203
+
+pub const RGFormat : Int32 = 1030
+
+pub const RGIntegerFormat : Int32 = 1031
+
+pub const RedFormat : Int32 = 1028
+
+pub const RedIntegerFormat : Int32 = 1029
+
+pub const ReinhardToneMapping : Int32 = 2
+
+pub const RenderObjectRefreshType_FULL : Int32 = 2
+
+pub const RenderObjectRefreshType_NONE : Int32 = 0
+
+pub const RenderObjectRefreshType_SHARED : Int32 = 1
+
+pub const RepeatWrapping : Int32 = 1000
+
+pub const ReplaceStencilOp : Int32 = 7681
+
+pub const ReverseSubtractEquation : Int32 = 102
+
+pub const SIGNED_R11_EAC_Format : Int32 = 37489
+
+pub const SIGNED_RED_GREEN_RGTC2_Format : Int32 = 36286
+
+pub const SIGNED_RED_RGTC1_Format : Int32 = 36284
+
+pub const SIGNED_RG11_EAC_Format : Int32 = 37491
+
+pub const SRGBColorSpace : String = "srgb"
+
+pub const SRGBTransfer : String = "srgb"
+
+pub const ShortType : Int32 = 1011
+
+pub const SrcAlphaFactor : Int32 = 204
+
+pub const SrcAlphaSaturateFactor : Int32 = 210
+
+pub const SrcColorFactor : Int32 = 202
+
+pub const StaticCopyUsage : Int32 = 35046
+
+pub const StaticDrawUsage : Int32 = 35044
+
+pub const StaticReadUsage : Int32 = 35045
+
+pub const StreamCopyUsage : Int32 = 35042
+
+pub const StreamDrawUsage : Int32 = 35040
+
+pub const StreamReadUsage : Int32 = 35041
+
+pub const SubtractEquation : Int32 = 101
+
+pub const SubtractiveBlending : Int32 = 3
+
+pub const TOUCH_DOLLY_PAN : Int32 = 2
+
+pub const TOUCH_DOLLY_ROTATE : Int32 = 3
+
+pub const TOUCH_PAN : Int32 = 1
+
+pub const TOUCH_ROTATE : Int32 = 0
+
+pub const TangentSpaceNormalMap : Int32 = 0
+
+pub const TimestampQuery_COMPUTE : String = "compute"
+
+pub const TimestampQuery_RENDER : String = "render"
+
+pub const TriangleFanDrawMode : Int32 = 2
+
+pub const TriangleStripDrawMode : Int32 = 1
+
+pub const TrianglesDrawMode : Int32 = 0
+
+pub const UVMapping : Int32 = 300
+
+pub const UnsignedByteType : Int32 = 1009
+
+pub const UnsignedInt101111Type : Int32 = 35899
+
+pub const UnsignedInt248Type : Int32 = 1020
+
+pub const UnsignedInt5999Type : Int32 = 35902
+
+pub const UnsignedIntType : Int32 = 1014
+
+pub const UnsignedShort4444Type : Int32 = 1017
+
+pub const UnsignedShort5551Type : Int32 = 1018
+
+pub const UnsignedShortType : Int32 = 1012
+
+pub const VSMShadowMap : Int32 = 3
+
+pub const WebGLCoordinateSystem : Int32 = 2000
+
+pub const WebGPUCoordinateSystem : Int32 = 2001
+
+pub const WrapAroundEnding : Int32 = 2402
+
+pub const ZeroCurvatureEnding : Int32 = 2400
+
+pub const ZeroFactor : Int32 = 200
+
+pub const ZeroSlopeEnding : Int32 = 2401
+
+pub const ZeroStencilOp : Int32 = 0
+
+pub fn abs(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let aces_filmic_tone_mapping : @bobzhang/three/nodes.Node
+
+pub fn acos(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn acosh(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn add(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn add_node_element(String) -> Unit
+
+pub fn add_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub let agx_tone_mapping : @bobzhang/three/nodes.Node
+
+pub fn all(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let alpha_t : @bobzhang/three/nodes.Node
+
+pub let ambient_occlusion : @bobzhang/three/nodes.Node
+
+pub fn and_(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let anisotropy : @bobzhang/three/nodes.Node
+
+pub let anisotropy_b : @bobzhang/three/nodes.Node
+
+pub let anisotropy_t : @bobzhang/three/nodes.Node
+
+pub fn any(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn array(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn array_of_type(String, Int32) -> @bobzhang/three/nodes.Node
+
+pub fn asin(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn asinh(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn assign(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn atan(&@bobzhang/three/nodes.IntoTsl, x? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn atanh(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn atomic_add(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn atomic_and(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn atomic_func(String, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl?) -> @bobzhang/three/nodes.Node
+
+pub fn atomic_load(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn atomic_max(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn atomic_min(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn atomic_or(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn atomic_store(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn atomic_sub(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn atomic_xor(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let attenuation_color : @bobzhang/three/nodes.Node
+
+pub let attenuation_distance : @bobzhang/three/nodes.Node
+
+pub fn attribute(String, node_type? : String) -> @bobzhang/three/nodes.Node
+
+pub fn attribute_array(Int32, type_? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let background_blurriness : @bobzhang/three/nodes.Node
+
+pub let background_intensity : @bobzhang/three/nodes.Node
+
+pub let background_rotation : @bobzhang/three/nodes.Node
+
+pub let basic_point_shadow_filter : @bobzhang/three/nodes.Node
+
+pub let basic_shadow_filter : @bobzhang/three/nodes.Node
+
+pub let batch : @bobzhang/three/nodes.Node
+
+pub let batch_color : @bobzhang/three/nodes.Node
+
+pub let batch_indirect_index : @bobzhang/three/nodes.Node
+
+pub let bent_normal_view : @bobzhang/three/nodes.Node
+
+pub let billboarding : @bobzhang/three/nodes.Node
+
+pub fn bit_and(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn bit_not(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn bit_or(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn bit_xor(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let bitangent_geometry : @bobzhang/three/nodes.Node
+
+pub let bitangent_local : @bobzhang/three/nodes.Node
+
+pub let bitangent_view : @bobzhang/three/nodes.Node
+
+pub let bitangent_view_frame : @bobzhang/three/nodes.Node
+
+pub let bitangent_world : @bobzhang/three/nodes.Node
+
+pub fn bitcast(&@bobzhang/three/nodes.IntoTsl, String) -> @bobzhang/three/nodes.Node
+
+pub let blend_burn : @bobzhang/three/nodes.Node
+
+pub let blend_color : @bobzhang/three/nodes.Node
+
+pub let blend_dodge : @bobzhang/three/nodes.Node
+
+pub let blend_overlay : @bobzhang/three/nodes.Node
+
+pub let blend_screen : @bobzhang/three/nodes.Node
+
+pub fn bool(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn bool_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub let brdf_eon : @bobzhang/three/nodes.Node
+
+pub let brdf_ggx : @bobzhang/three/nodes.Node
+
+pub let brdf_lambert : @bobzhang/three/nodes.Node
+
+pub let brdf_sheen : @bobzhang/three/nodes.Node
+
+pub fn break_() -> Unit
+
+pub fn buffer(&@bobzhang/three/nodes.IntoTsl, String, Int32) -> @bobzhang/three/nodes.Node
+
+pub fn buffer_attribute(&@bobzhang/three/nodes.IntoBufferAttributeValue, type_? : String, stride? : Int32, offset? : Int32) -> @bobzhang/three/nodes.Node
+
+pub fn builtin(String) -> @bobzhang/three/nodes.Node
+
+pub fn builtin_ao_context(@bobzhang/three/nodes.Node, node? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn builtin_gi_context(@bobzhang/three/nodes.Node, @bobzhang/three/nodes.Node, node? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn builtin_shadow_context(@bobzhang/three/nodes.Node, @core.Object3D, node? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn bump_map(&@bobzhang/three/nodes.IntoTsl, scale_node? : &@bobzhang/three/nodes.IntoTsl, normal_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn bvec2(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn bvec2_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn bvec3(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn bvec3_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn bvec4(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn bvec4_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn bypass(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn cache(&@bobzhang/three/nodes.IntoTsl, parent? : Bool) -> @bobzhang/three/nodes.Node
+
+pub let camera_far : @bobzhang/three/nodes.Node
+
+pub fn camera_far_of(@core.Object3D) -> Double
+
+pub let camera_index : @bobzhang/three/nodes.Node
+
+pub let camera_near : @bobzhang/three/nodes.Node
+
+pub fn camera_near_of(@core.Object3D) -> Double
+
+pub let camera_normal_matrix : @bobzhang/three/nodes.Node
+
+pub let camera_position : @bobzhang/three/nodes.Node
+
+pub let camera_projection_matrix : @bobzhang/three/nodes.Node
+
+pub let camera_projection_matrix_inverse : @bobzhang/three/nodes.Node
+
+pub let camera_view_matrix : @bobzhang/three/nodes.Node
+
+pub let camera_viewport : @bobzhang/three/nodes.Node
+
+pub let camera_world_matrix : @bobzhang/three/nodes.Node
+
+pub fn cbrt(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let cdl : @bobzhang/three/nodes.Node
+
+pub fn ceil(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let checker : @bobzhang/three/nodes.Node
+
+pub let cineon_tone_mapping : @bobzhang/three/nodes.Node
+
+pub fn clamp(&@bobzhang/three/nodes.IntoTsl, low? : &@bobzhang/three/nodes.IntoTsl, high? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let clearcoat : @bobzhang/three/nodes.Node
+
+pub let clearcoat_normal_view : @bobzhang/three/nodes.Node
+
+pub let clearcoat_roughness : @bobzhang/three/nodes.Node
+
+pub let clip_space : @bobzhang/three/nodes.Node
+
+pub fn clipping() -> @bobzhang/three/nodes.Node
+
+pub fn clipping_alpha() -> @bobzhang/three/nodes.Node
+
+pub fn code(String, includes? : Array[@bobzhang/three/nodes.Node], language? : String) -> @bobzhang/three/nodes.Node
+
+pub fn color(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let color_management : @math.ColorManagement
+
+pub fn color_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn color_space_to_working(&@bobzhang/three/nodes.IntoTsl, String) -> @bobzhang/three/nodes.Node
+
+pub fn compute(&@bobzhang/three/nodes.IntoTsl, Int32, workgroup_size? : Array[Int32]) -> @bobzhang/three/nodes.Node
+
+pub fn compute_kernel(&@bobzhang/three/nodes.IntoTsl, workgroup_size? : Array[Int32]) -> @bobzhang/three/nodes.Node
+
+pub let compute_skinning : @bobzhang/three/nodes.Node
+
+pub fn const_(&@bobzhang/three/nodes.IntoTsl, name? : String) -> @bobzhang/three/nodes.Node
+
+pub fn context(node? : @bobzhang/three/nodes.Node, value? : @bobzhang/three/nodes.NodeContext) -> @bobzhang/three/nodes.Node
+
+pub fn continue_() -> Unit
+
+pub fn convert(&@bobzhang/three/nodes.IntoTsl, String) -> @bobzhang/three/nodes.Node
+
+pub fn convert_color_space(&@bobzhang/three/nodes.IntoTsl, String, String) -> @bobzhang/three/nodes.Node
+
+pub fn convert_to_texture(@bobzhang/three/nodes.Node, width? : Double, height? : Double, auto_update? : Bool, resolution_scale? : Double, type_? : Int32) -> @bobzhang/three/nodes.Node
+
+pub fn cos(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn cosh(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn count_leading_zeros(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn count_one_bits(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn count_trailing_zeros(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn create_canvas_element() -> @webgl.HTMLCanvasElement
+
+pub fn cross(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn cube_texture(&@bobzhang/three/nodes.IntoTsl, uv_node? : &@bobzhang/three/nodes.IntoTsl, level_node? : &@bobzhang/three/nodes.IntoTsl, bias_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn cube_texture_base(&@bobzhang/three/nodes.IntoTsl, uv_node? : &@bobzhang/three/nodes.IntoTsl, level_node? : &@bobzhang/three/nodes.IntoTsl, bias_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn d_fdx(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn d_fdy(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let d_ggx : @bobzhang/three/nodes.Node
+
+pub let d_ggx_anisotropic : @bobzhang/three/nodes.Node
+
+pub let dash_size : @bobzhang/three/nodes.Node
+
+pub fn debug_(&@bobzhang/three/nodes.IntoTsl, callback? : (@bobzhang/three/nodes.NodeBuilder, String) -> Unit) -> @bobzhang/three/nodes.Node
+
+pub let decrement : @bobzhang/three/nodes.Node
+
+pub let decrement_before : @bobzhang/three/nodes.Node
+
+pub let default_build_stages : Array[String]
+
+pub let default_loading_manager : @loaders.LoadingManager
+
+pub let default_shader_stages : Array[String]
+
+pub fn defined(@bobzhang/three/nodes.TslValue) -> Bool
+
+pub fn degrees(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let delta_time : @bobzhang/three/nodes.Node
+
+pub let density_fog_factor : @bobzhang/three/nodes.Node
+
+pub let depth : @bobzhang/three/nodes.Node
+
+pub fn depth_pass(@core.Object3D, @core.Object3D, options? : @bobzhang/three/nodes.PassNodeOptions) -> @bobzhang/three/nodes.Node
+
+pub fn determinant(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let dfglut : @bobzhang/three/nodes.Node
+
+pub fn difference(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let diffuse_color : @bobzhang/three/nodes.Node
+
+pub let diffuse_contribution : @bobzhang/three/nodes.Node
+
+pub let diffuse_roughness : @bobzhang/three/nodes.Node
+
+pub fn direct_point_light(color~ : @bobzhang/three/nodes.Node, light_vector~ : @bobzhang/three/nodes.Node, cutoff_distance~ : @bobzhang/three/nodes.Node, decay_exponent~ : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.LightData
+
+pub fn discard(conditional? : &@bobzhang/three/nodes.IntoTsl) -> Unit
+
+pub let dispersion : @bobzhang/three/nodes.Node
+
+pub fn distance(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn div(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn div_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn dot(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn dot4_i8_packed(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn dot4_u8_packed(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let draw_index : @bobzhang/three/nodes.Node
+
+pub fn dynamic_buffer_attribute(&@bobzhang/three/nodes.IntoBufferAttributeValue, type_? : String, stride? : Int32, offset? : Int32) -> @bobzhang/three/nodes.Node
+
+pub fn element(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let emissive : @bobzhang/three/nodes.Node
+
+pub let environment_brdf : @bobzhang/three/nodes.Node
+
+pub let eon_directional_albedo : @bobzhang/three/nodes.Node
+
+pub let epsilon : @bobzhang/three/nodes.Node
+
+pub fn equal(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let equirect_direction : @bobzhang/three/nodes.Node
+
+pub let equirect_uv : @bobzhang/three/nodes.Node
+
+pub fn error(String) -> Unit
+
+pub fn exp(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn exp2(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let exponential_height_fog_factor : @bobzhang/three/nodes.Node
+
+pub fn expression(String, node_type? : String) -> @bobzhang/three/nodes.Node
+
+pub let f_schlick : @bobzhang/three/nodes.Node
+
+pub let face_direction : @bobzhang/three/nodes.Node
+
+pub fn face_forward(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn faceforward(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn float(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn float_bits_to_int(@bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn float_bits_to_uint(@bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn float_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn floor(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn fn_((@bobzhang/three/nodes.FnInputs, @bobzhang/three/nodes.NodeBuilder) -> @bobzhang/three/nodes.Node?, layout? : @bobzhang/three/nodes.FnLayoutArg) -> @bobzhang/three/nodes.Node
+
+pub let fog : @bobzhang/three/nodes.Node
+
+pub fn fract(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let frame_group : @bobzhang/three/nodes.Node
+
+pub let frame_id : @bobzhang/three/nodes.Node
+
+pub let front_facing : @bobzhang/three/nodes.Node
+
+pub fn function_call(&@bobzhang/three/nodes.IntoTsl, Array[@bobzhang/three/nodes.TslValue]) -> @bobzhang/three/nodes.Node
+
+pub fn fwidth(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn gain(@bobzhang/three/nodes.Node, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let gap_size : @bobzhang/three/nodes.Node
+
+pub fn get_const_node_type(@bobzhang/three/nodes.TslValue) -> String?
+
+pub fn get_current_stack() -> @bobzhang/three/nodes.StackNode?
+
+pub let get_distance_attenuation : @bobzhang/three/nodes.Node
+
+pub let get_geometry_roughness : @bobzhang/three/nodes.Node
+
+pub let get_normal_from_depth : @bobzhang/three/nodes.Node
+
+pub let get_parallax_correct_normal : @bobzhang/three/nodes.Node
+
+pub let get_roughness : @bobzhang/three/nodes.Node
+
+pub let get_screen_position : @bobzhang/three/nodes.Node
+
+pub let get_screen_position_from_clip : @bobzhang/three/nodes.Node
+
+pub let get_sh_irradiance_at : @bobzhang/three/nodes.Node
+
+pub fn get_texture_index(Array[@core.Texture], String) -> Int32
+
+pub let get_view_position : @bobzhang/three/nodes.Node
+
+pub let global_id : @bobzhang/three/nodes.Node
+
+pub fn glsl(String, includes? : Array[@bobzhang/three/nodes.Node]) -> @bobzhang/three/nodes.Node
+
+pub fn glsl_fn(String, includes? : Array[@bobzhang/three/nodes.Node]) -> @bobzhang/three/nodes.Node
+
+pub let grayscale : @bobzhang/three/nodes.Node
+
+pub fn greater_than(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn greater_than_equal(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let half_pi : @bobzhang/three/nodes.Node
+
+pub fn hardware_clipping() -> @bobzhang/three/nodes.Node
+
+pub let hash_tsl : @bobzhang/three/nodes.Node
+
+pub let highp_model_normal_view_matrix : @bobzhang/three/nodes.Node
+
+pub let highp_model_view_matrix : @bobzhang/three/nodes.Node
+
+pub let hue : @bobzhang/three/nodes.Node
+
+pub fn if_(&@bobzhang/three/nodes.IntoTsl, () -> Unit) -> @bobzhang/three/nodes.StackNode
+
+pub fn if_value(&@bobzhang/three/nodes.IntoTsl, () -> @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.StackNode
+
+pub let increment : @bobzhang/three/nodes.Node
+
+pub let increment_before : @bobzhang/three/nodes.Node
+
+pub let infinity : @bobzhang/three/nodes.Node
+
+pub fn inspect_(&@bobzhang/three/nodes.IntoTsl, name? : String, callback? : (@bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub let instance : @bobzhang/three/nodes.Node
+
+pub let instance_color : @bobzhang/three/nodes.Node
+
+pub let instance_index : @bobzhang/three/nodes.Node
+
+pub fn instanced_array(Int32, type_? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn instanced_buffer_attribute(&@bobzhang/three/nodes.IntoBufferAttributeValue, type_? : String, stride? : Int32, offset? : Int32) -> @bobzhang/three/nodes.Node
+
+pub fn instanced_dynamic_buffer_attribute(&@bobzhang/three/nodes.IntoBufferAttributeValue, type_? : String, stride? : Int32, offset? : Int32) -> @bobzhang/three/nodes.Node
+
+pub let instanced_mesh : @bobzhang/three/nodes.Node
+
+pub fn int(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn int_bits_to_float(@bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn int_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub let interleaved_gradient_noise : @bobzhang/three/nodes.Node
+
+pub fn inverse(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn inverse_sqrt(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn inversesqrt(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let invocation_local_index : @bobzhang/three/nodes.Node
+
+pub let invocation_subgroup_index : @bobzhang/three/nodes.Node
+
+pub let ior : @bobzhang/three/nodes.Node
+
+pub let iridescence : @bobzhang/three/nodes.Node
+
+pub let iridescence_ior : @bobzhang/three/nodes.Node
+
+pub let iridescence_thickness : @bobzhang/three/nodes.Node
+
+pub let is_background_depth : @bobzhang/three/nodes.Node
+
+pub fn isolate(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn ivec2(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn ivec2_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn ivec3(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn ivec3_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn ivec4(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn ivec4_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn js(String, includes? : Array[@bobzhang/three/nodes.Node]) -> @bobzhang/three/nodes.Node
+
+pub fn label(@bobzhang/three/nodes.Node, String) -> @bobzhang/three/nodes.Node
+
+pub fn length(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn length_sq(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn less_than(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn less_than_equal(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn light_position(@core.Object3D) -> @bobzhang/three/nodes.Node
+
+pub fn light_projection_uv(@core.Object3D, position? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn light_shadow_matrix(@core.Object3D) -> @bobzhang/three/nodes.Node
+
+pub fn light_target_direction(@core.Object3D) -> @bobzhang/three/nodes.Node
+
+pub fn light_target_position(@core.Object3D) -> @bobzhang/three/nodes.Node
+
+pub fn light_view_position(@core.Object3D) -> @bobzhang/three/nodes.Node
+
+pub fn lighting_context(@bobzhang/three/nodes.Node, lighting_model? : @bobzhang/three/nodes.LightingModel, material_lightings? : Array[@bobzhang/three/nodes.Node], backdrop_node? : @bobzhang/three/nodes.Node, backdrop_alpha_node? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn lights(lights? : Array[@core.Object3D]) -> @bobzhang/three/nodes.Node
+
+pub fn linear_depth(value_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let linear_tone_mapping : @bobzhang/three/nodes.Node
+
+pub let local_id : @bobzhang/three/nodes.Node
+
+pub fn log(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn log2(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn logarithmic_depth_to_view_z(@bobzhang/three/nodes.Node, @bobzhang/three/nodes.Node, @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn loop_(Array[&@bobzhang/three/nodes.IntoTsl], (@bobzhang/three/nodes.FnInputs) -> Unit) -> Unit
+
+pub fn loop_range(start? : &@bobzhang/three/nodes.IntoTsl, end? : &@bobzhang/three/nodes.IntoTsl, type_? : String, condition? : String, name? : String, update? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.TslValue
+
+pub let ltc_evaluate : @bobzhang/three/nodes.Node
+
+pub let ltc_evaluate_volume : @bobzhang/three/nodes.Node
+
+pub let ltc_uv : @bobzhang/three/nodes.Node
+
+pub fn luminance(&@bobzhang/three/nodes.IntoTsl, luminance_coefficients? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mat2(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mat2_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn mat3(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mat3_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn mat4(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mat4_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub let matcap_uv : @bobzhang/three/nodes.Node
+
+pub let material_alpha_test : @bobzhang/three/nodes.Node
+
+pub let material_anisotropy : @bobzhang/three/nodes.Node
+
+pub let material_anisotropy_vector : @bobzhang/three/nodes.Node
+
+pub let material_ao : @bobzhang/three/nodes.Node
+
+pub let material_attenuation_color : @bobzhang/three/nodes.Node
+
+pub let material_attenuation_distance : @bobzhang/three/nodes.Node
+
+pub let material_clearcoat : @bobzhang/three/nodes.Node
+
+pub let material_clearcoat_normal : @bobzhang/three/nodes.Node
+
+pub let material_clearcoat_roughness : @bobzhang/three/nodes.Node
+
+pub let material_color : @bobzhang/three/nodes.Node
+
+pub let material_diffuse_roughness : @bobzhang/three/nodes.Node
+
+pub let material_dispersion : @bobzhang/three/nodes.Node
+
+pub let material_emissive : @bobzhang/three/nodes.Node
+
+pub let material_env_intensity : @bobzhang/three/nodes.Node
+
+pub let material_env_rotation : @bobzhang/three/nodes.Node
+
+pub let material_ior : @bobzhang/three/nodes.Node
+
+pub let material_iridescence : @bobzhang/three/nodes.Node
+
+pub let material_iridescence_ior : @bobzhang/three/nodes.Node
+
+pub let material_iridescence_thickness : @bobzhang/three/nodes.Node
+
+pub let material_light_map : @bobzhang/three/nodes.Node
+
+pub let material_line_dash_offset : @bobzhang/three/nodes.Node
+
+pub let material_line_dash_size : @bobzhang/three/nodes.Node
+
+pub let material_line_gap_size : @bobzhang/three/nodes.Node
+
+pub let material_line_scale : @bobzhang/three/nodes.Node
+
+pub let material_line_width : @bobzhang/three/nodes.Node
+
+pub let material_metalness : @bobzhang/three/nodes.Node
+
+pub let material_normal : @bobzhang/three/nodes.Node
+
+pub let material_opacity : @bobzhang/three/nodes.Node
+
+pub let material_point_size : @bobzhang/three/nodes.Node
+
+pub fn material_reference(String, String, material? : @core.Material) -> @bobzhang/three/nodes.Node
+
+pub let material_reflectivity : @bobzhang/three/nodes.Node
+
+pub let material_refraction_ratio : @bobzhang/three/nodes.Node
+
+pub let material_retroreflectivity : @bobzhang/three/nodes.Node
+
+pub let material_rotation : @bobzhang/three/nodes.Node
+
+pub let material_roughness : @bobzhang/three/nodes.Node
+
+pub let material_sheen : @bobzhang/three/nodes.Node
+
+pub let material_sheen_roughness : @bobzhang/three/nodes.Node
+
+pub let material_shininess : @bobzhang/three/nodes.Node
+
+pub let material_specular : @bobzhang/three/nodes.Node
+
+pub let material_specular_color : @bobzhang/three/nodes.Node
+
+pub let material_specular_intensity : @bobzhang/three/nodes.Node
+
+pub let material_specular_strength : @bobzhang/three/nodes.Node
+
+pub let material_thickness : @bobzhang/three/nodes.Node
+
+pub let material_transmission : @bobzhang/three/nodes.Node
+
+pub fn max(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn max_mip_level(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn max_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub let mediump_model_view_matrix : @bobzhang/three/nodes.Node
+
+pub let metalness : @bobzhang/three/nodes.Node
+
+pub fn min(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn min_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn mix(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mix_element(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mod(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let model_direction : @bobzhang/three/nodes.Node
+
+pub let model_normal_matrix : @bobzhang/three/nodes.Node
+
+pub let model_position : @bobzhang/three/nodes.Node
+
+pub let model_radius : @bobzhang/three/nodes.Node
+
+pub let model_scale : @bobzhang/three/nodes.Node
+
+pub let model_view_matrix : @bobzhang/three/nodes.Node
+
+pub let model_view_position : @bobzhang/three/nodes.Node
+
+pub let model_view_projection : @bobzhang/three/nodes.Node
+
+pub let model_world_matrix : @bobzhang/three/nodes.Node
+
+pub let model_world_matrix_inverse : @bobzhang/three/nodes.Node
+
+pub let morph_color : @bobzhang/three/nodes.Node
+
+pub let morph_reference : @bobzhang/three/nodes.Node
+
+pub fn mrt(Map[String, @bobzhang/three/nodes.Node]) -> @bobzhang/three/nodes.Node
+
+pub fn mul(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mul_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn mx_aastep(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_add(&@bobzhang/three/nodes.IntoTsl, in2? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_atan2(in1? : &@bobzhang/three/nodes.IntoTsl, in2? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_cell_noise_float(texcoord? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn mx_cell_noise_vec3(texcoord? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn mx_contrast(&@bobzhang/three/nodes.IntoTsl, amount? : &@bobzhang/three/nodes.IntoTsl, pivot? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_divide(&@bobzhang/three/nodes.IntoTsl, in2? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_fractal_noise_float(position? : &@bobzhang/three/nodes.IntoTsl, octaves? : &@bobzhang/three/nodes.IntoTsl, lacunarity? : &@bobzhang/three/nodes.IntoTsl, diminish? : &@bobzhang/three/nodes.IntoTsl, amplitude? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_fractal_noise_float_2d(texcoord? : &@bobzhang/three/nodes.IntoTsl, octaves? : &@bobzhang/three/nodes.IntoTsl, lacunarity? : &@bobzhang/three/nodes.IntoTsl, diminish? : &@bobzhang/three/nodes.IntoTsl, amplitude? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_fractal_noise_vec2(position? : &@bobzhang/three/nodes.IntoTsl, octaves? : &@bobzhang/three/nodes.IntoTsl, lacunarity? : &@bobzhang/three/nodes.IntoTsl, diminish? : &@bobzhang/three/nodes.IntoTsl, amplitude? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_fractal_noise_vec3(position? : &@bobzhang/three/nodes.IntoTsl, octaves? : &@bobzhang/three/nodes.IntoTsl, lacunarity? : &@bobzhang/three/nodes.IntoTsl, diminish? : &@bobzhang/three/nodes.IntoTsl, amplitude? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_fractal_noise_vec4(position? : &@bobzhang/three/nodes.IntoTsl, octaves? : &@bobzhang/three/nodes.IntoTsl, lacunarity? : &@bobzhang/three/nodes.IntoTsl, diminish? : &@bobzhang/three/nodes.IntoTsl, amplitude? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_frame() -> @bobzhang/three/nodes.Node
+
+pub fn mx_heighttonormal(&@bobzhang/three/nodes.IntoTsl, scale? : &@bobzhang/three/nodes.IntoTsl, texcoord? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let mx_hsvtorgb : @bobzhang/three/nodes.Node
+
+pub fn mx_ifequal(@bobzhang/three/nodes.Node, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_ifgreater(@bobzhang/three/nodes.Node, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_ifgreatereq(@bobzhang/three/nodes.Node, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_invert(&@bobzhang/three/nodes.IntoTsl, amount? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_modulo(&@bobzhang/three/nodes.IntoTsl, in2? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_multiply(&@bobzhang/three/nodes.IntoTsl, in2? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_noise_float(texcoord? : @bobzhang/three/nodes.Node, amplitude? : &@bobzhang/three/nodes.IntoTsl, pivot? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_noise_vec3(texcoord? : @bobzhang/three/nodes.Node, amplitude? : &@bobzhang/three/nodes.IntoTsl, pivot? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_noise_vec4(texcoord? : @bobzhang/three/nodes.Node, amplitude? : &@bobzhang/three/nodes.IntoTsl, pivot? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_place2d(&@bobzhang/three/nodes.IntoTsl, pivot? : &@bobzhang/three/nodes.IntoTsl, scale? : &@bobzhang/three/nodes.IntoTsl, rotate? : &@bobzhang/three/nodes.IntoTsl, offset? : &@bobzhang/three/nodes.IntoTsl, operationorder? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_power(&@bobzhang/three/nodes.IntoTsl, in2? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_ramp4(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, texcoord? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn mx_ramplr(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, texcoord? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn mx_ramptb(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, texcoord? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub let mx_rgbtohsv : @bobzhang/three/nodes.Node
+
+pub fn mx_rotate2d(&@bobzhang/three/nodes.IntoTsl, amount? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_rotate3d(&@bobzhang/three/nodes.IntoTsl, amount? : &@bobzhang/three/nodes.IntoTsl, axis? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_safepower(&@bobzhang/three/nodes.IntoTsl, in2? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_separate(@bobzhang/three/nodes.Node, channel_or_out? : @bobzhang/three/nodes.TslValue) -> @bobzhang/three/nodes.Node
+
+pub fn mx_smoothstep(&@bobzhang/three/nodes.IntoTsl, low? : &@bobzhang/three/nodes.IntoTsl, high? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_splitlr(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, texcoord? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn mx_splittb(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, texcoord? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub let mx_srgb_texture_to_lin_rec709 : @bobzhang/three/nodes.Node
+
+pub fn mx_subtract(&@bobzhang/three/nodes.IntoTsl, in2? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_timer() -> @bobzhang/three/nodes.Node
+
+pub fn mx_transform_uv(uv_scale? : &@bobzhang/three/nodes.IntoTsl, uv_offset? : &@bobzhang/three/nodes.IntoTsl, uv_geo? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn mx_unifiednoise2d(&@bobzhang/three/nodes.IntoTsl, texcoord? : &@bobzhang/three/nodes.IntoTsl, freq? : &@bobzhang/three/nodes.IntoTsl, offset? : &@bobzhang/three/nodes.IntoTsl, jitter? : &@bobzhang/three/nodes.IntoTsl, outmin? : &@bobzhang/three/nodes.IntoTsl, outmax? : &@bobzhang/three/nodes.IntoTsl, clampoutput? : &@bobzhang/three/nodes.IntoTsl, octaves? : &@bobzhang/three/nodes.IntoTsl, lacunarity? : &@bobzhang/three/nodes.IntoTsl, diminish? : &@bobzhang/three/nodes.IntoTsl, style? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_unifiednoise3d(&@bobzhang/three/nodes.IntoTsl, texcoord? : &@bobzhang/three/nodes.IntoTsl, freq? : &@bobzhang/three/nodes.IntoTsl, offset? : &@bobzhang/three/nodes.IntoTsl, jitter? : &@bobzhang/three/nodes.IntoTsl, outmin? : &@bobzhang/three/nodes.IntoTsl, outmax? : &@bobzhang/three/nodes.IntoTsl, clampoutput? : &@bobzhang/three/nodes.IntoTsl, octaves? : &@bobzhang/three/nodes.IntoTsl, lacunarity? : &@bobzhang/three/nodes.IntoTsl, diminish? : &@bobzhang/three/nodes.IntoTsl, style? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_worley_noise_float(texcoord? : @bobzhang/three/nodes.Node, jitter? : &@bobzhang/three/nodes.IntoTsl, style? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_worley_noise_float_2d(texcoord? : &@bobzhang/three/nodes.IntoTsl, jitter? : &@bobzhang/three/nodes.IntoTsl, style? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_worley_noise_float_3d(texcoord? : &@bobzhang/three/nodes.IntoTsl, jitter? : &@bobzhang/three/nodes.IntoTsl, style? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_worley_noise_vec2(texcoord? : @bobzhang/three/nodes.Node, jitter? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_worley_noise_vec3(texcoord? : @bobzhang/three/nodes.Node, jitter? : &@bobzhang/three/nodes.IntoTsl, metric? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn mx_worley_noise_vec3_style(texcoord? : @bobzhang/three/nodes.Node, jitter? : &@bobzhang/three/nodes.IntoTsl, style? : &@bobzhang/three/nodes.IntoTsl, metric? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn negate(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let negate_on_back_side : @bobzhang/three/nodes.Node
+
+pub let neutral_tone_mapping : @bobzhang/three/nodes.Node
+
+pub let node_access_read_only : String
+
+pub let node_access_read_write : String
+
+pub let node_access_write_only : String
+
+pub fn node_array(Array[@bobzhang/three/nodes.TslValue], alt_type? : String) -> Array[@bobzhang/three/nodes.TslValue]
+
+pub fn node_context(Array[(String, @bobzhang/three/nodes.ContextValue)]) -> @bobzhang/three/nodes.NodeContext
+
+pub fn node_object(@bobzhang/three/nodes.TslValue, alt_type? : String) -> @bobzhang/three/nodes.Node
+
+pub fn node_object_assignable(&@bobzhang/three/nodes.IntoTsl, alt_type? : String) -> @bobzhang/three/nodes.Node
+
+pub fn node_objects(Map[String, @bobzhang/three/nodes.TslValue], alt_type? : String) -> Map[String, @bobzhang/three/nodes.TslValue]
+
+pub let node_shader_stage_fragment : String
+
+pub let node_shader_stage_vertex : String
+
+pub let node_type_boolean : String
+
+pub let node_type_float : String
+
+pub let node_type_integer : String
+
+pub let node_type_matrix2 : String
+
+pub let node_type_matrix3 : String
+
+pub let node_type_matrix4 : String
+
+pub let node_type_vector2 : String
+
+pub let node_type_vector3 : String
+
+pub let node_type_vector4 : String
+
+pub let normal_flat : @bobzhang/three/nodes.Node
+
+pub let normal_geometry : @bobzhang/three/nodes.Node
+
+pub let normal_local : @bobzhang/three/nodes.Node
+
+pub fn normal_map(&@bobzhang/three/nodes.IntoTsl, scale_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let normal_view : @bobzhang/three/nodes.Node
+
+pub let normal_view_geometry : @bobzhang/three/nodes.Node
+
+pub let normal_world : @bobzhang/three/nodes.Node
+
+pub let normal_world_geometry : @bobzhang/three/nodes.Node
+
+pub fn normalize(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn not_(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn not_equal(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let num_workgroups : @bobzhang/three/nodes.Node
+
+pub fn object_direction(@core.Object3D) -> @bobzhang/three/nodes.Node
+
+pub let object_group : @bobzhang/three/nodes.Node
+
+pub fn object_position(@core.Object3D) -> @bobzhang/three/nodes.Node
+
+pub fn object_radius(@core.Object3D) -> @bobzhang/three/nodes.Node
+
+pub fn object_scale(@core.Object3D) -> @bobzhang/three/nodes.Node
+
+pub fn object_view_position(@core.Object3D) -> @bobzhang/three/nodes.Node
+
+pub fn object_world_matrix(@core.Object3D) -> @bobzhang/three/nodes.Node
+
+pub fn on_after_object_update((@bobzhang/three/nodes.NodeFrame) -> Unit) -> @bobzhang/three/nodes.Node
+
+pub fn on_after_render_pipeline(() -> Unit) -> @bobzhang/three/nodes.Node
+
+pub fn on_before_frame_update((@bobzhang/three/nodes.NodeFrame) -> Unit) -> @bobzhang/three/nodes.Node
+
+pub fn on_before_material_update((@bobzhang/three/nodes.NodeFrame) -> Unit) -> @bobzhang/three/nodes.Node
+
+pub fn on_before_object_update((@bobzhang/three/nodes.NodeFrame) -> Unit) -> @bobzhang/three/nodes.Node
+
+pub fn on_before_render_pipeline(() -> Unit) -> @bobzhang/three/nodes.Node
+
+pub fn on_frame_update((@bobzhang/three/nodes.NodeFrame) -> Unit) -> @bobzhang/three/nodes.Node
+
+pub fn on_material_update((@bobzhang/three/nodes.NodeFrame) -> Unit) -> @bobzhang/three/nodes.Node
+
+pub fn on_object_update((@bobzhang/three/nodes.NodeFrame) -> Unit) -> @bobzhang/three/nodes.Node
+
+pub fn one_minus(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn or(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn or_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub let orthographic_depth_to_view_z : @bobzhang/three/nodes.Node
+
+pub fn osc_sawtooth(t? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn osc_sine(t? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn osc_square(t? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn osc_triangle(t? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub let output : @bobzhang/three/nodes.Node
+
+pub fn output_struct(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn overloading_fn(Array[@bobzhang/three/nodes.Node]) -> (Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn override_node(@bobzhang/three/nodes.Node, @bobzhang/three/nodes.OverrideCallback?, flow_node? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn override_nodes(Array[(@bobzhang/three/nodes.Node, @bobzhang/three/nodes.OverrideCallback?)], flow_node? : @bobzhang/three/nodes.Node, shader_stage? : String) -> @bobzhang/three/nodes.Node
+
+pub fn pack4x_i8(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn pack4x_i8_clamp(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn pack4x_u8(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn pack4x_u8_clamp(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn pack_half2x16(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn pack_normal_to_rgb(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn pack_snorm2x16(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn pack_snorm4x8(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn pack_unorm2x16(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn pack_unorm4x8(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn parabola(@bobzhang/three/nodes.Node, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let parallax_direction : @bobzhang/three/nodes.Node
+
+pub fn parallax_uv(@bobzhang/three/nodes.Node, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn parameter(String, name? : String) -> @bobzhang/three/nodes.Node
+
+pub fn pass(@core.Object3D, @core.Object3D, options? : @bobzhang/three/nodes.PassNodeOptions) -> @bobzhang/three/nodes.Node
+
+pub fn pass_texture(@bobzhang/three/nodes.Node, @core.Texture) -> @bobzhang/three/nodes.Node
+
+pub let pcf_shadow_filter : @bobzhang/three/nodes.Node
+
+pub fn pcurve(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let perspective_depth_to_view_z : @bobzhang/three/nodes.Node
+
+pub let pi : @bobzhang/three/nodes.Node
+
+pub fn pmrem_texture(@core.Texture, uv_node? : &@bobzhang/three/nodes.IntoTsl, level_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn point_shadow(@core.Object3D, shadow? : @core.LightShadow) -> @bobzhang/three/nodes.Node
+
+pub let point_shadow_filter : @bobzhang/three/nodes.Node
+
+pub let point_uv : @bobzhang/three/nodes.Node
+
+pub let point_width : @bobzhang/three/nodes.Node
+
+pub let position_geometry : @bobzhang/three/nodes.Node
+
+pub let position_local : @bobzhang/three/nodes.Node
+
+pub let position_previous : @bobzhang/three/nodes.Node
+
+pub let position_view : @bobzhang/three/nodes.Node
+
+pub let position_view_direction : @bobzhang/three/nodes.Node
+
+pub let position_world : @bobzhang/three/nodes.Node
+
+pub let position_world_direction : @bobzhang/three/nodes.Node
+
+pub let posterize : @bobzhang/three/nodes.Node
+
+pub fn pow(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn pow2(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn pow3(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn pow4(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let premultiply_alpha : @bobzhang/three/nodes.Node
+
+pub let projection_depth : @bobzhang/three/nodes.Node
+
+pub fn property(String, name? : String, placeholder_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn quad_broadcast(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn quad_swap_diagonal(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn quad_swap_x(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn quad_swap_y(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn radians(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let rand : @bobzhang/three/nodes.Node
+
+pub fn range(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let range_fog_factor : @bobzhang/three/nodes.Node
+
+pub fn reciprocal(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn reference(String, String, object? : @bobzhang/three/nodes.ReferenceObject) -> @bobzhang/three/nodes.Node
+
+pub fn reference_attribute(String, type_? : String, object? : @core.Object3D) -> @bobzhang/three/nodes.Node
+
+pub fn reference_buffer(String, String, Int32, object? : @bobzhang/three/nodes.ReferenceObject) -> @bobzhang/three/nodes.Node
+
+pub fn reflect(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let reflect_vector : @bobzhang/three/nodes.Node
+
+pub let reflect_view : @bobzhang/three/nodes.Node
+
+pub fn reflector(target? : @core.Object3D, resolution_scale? : Double, generate_mipmaps? : Bool, bounces? : Bool, depth? : Bool, samples? : Int32) -> @bobzhang/three/nodes.Node
+
+pub fn refract(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let refract_vector : @bobzhang/three/nodes.Node
+
+pub let refract_view : @bobzhang/three/nodes.Node
+
+pub let reinhard_tone_mapping : @bobzhang/three/nodes.Node
+
+pub let remap : @bobzhang/three/nodes.Node
+
+pub fn remap_clamp(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, out_low_node? : &@bobzhang/three/nodes.IntoTsl, out_high_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let render_group : @bobzhang/three/nodes.Node
+
+pub fn render_output(&@bobzhang/three/nodes.IntoTsl, tone_mapping? : Int32, output_color_space? : String) -> @bobzhang/three/nodes.Node
+
+pub fn renderer_reference(String, String, renderer? : @bobzhang/three/nodes.Renderer) -> @bobzhang/three/nodes.Node
+
+pub fn replace_default_uv((@bobzhang/three/nodes.Node, @bobzhang/three/nodes.NodeBuilder) -> @bobzhang/three/nodes.Node, node? : @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub let retroreflectivity : @bobzhang/three/nodes.Node
+
+pub fn return_() -> Unit
+
+pub fn rotate(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, order? : String) -> @bobzhang/three/nodes.Node
+
+pub let rotate_uv : @bobzhang/three/nodes.Node
+
+pub let roughness : @bobzhang/three/nodes.Node
+
+pub fn round(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn rtt(&@bobzhang/three/nodes.IntoTsl, width? : Double, height? : Double, auto_update? : Bool, resolution_scale? : Double, type_? : Int32) -> @bobzhang/three/nodes.Node
+
+pub let s_rgb_transfer_eotf : @bobzhang/three/nodes.Node
+
+pub let s_rgb_transfer_oetf : @bobzhang/three/nodes.Node
+
+pub fn sample((@bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node, uv_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn sampler(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn sampler_comparison(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn saturate(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let saturation : @bobzhang/three/nodes.Node
+
+pub let schlick_to_f0 : @bobzhang/three/nodes.Node
+
+pub let screen_coordinate : @bobzhang/three/nodes.Node
+
+pub let screen_dpr : @bobzhang/three/nodes.Node
+
+pub let screen_size : @bobzhang/three/nodes.Node
+
+pub let screen_uv : @bobzhang/three/nodes.Node
+
+pub fn select(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, else_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn set_current_stack(@bobzhang/three/nodes.StackNode?) -> Unit
+
+pub fn set_name(@bobzhang/three/nodes.Node, String) -> @bobzhang/three/nodes.Node
+
+pub fn shader_node(@bobzhang/three/nodes.ShaderFn, node_type? : String) -> @bobzhang/three/nodes.Node
+
+pub let shader_stages : Array[String]
+
+pub fn shadow(@core.Object3D, shadow? : @core.LightShadow) -> @bobzhang/three/nodes.Node
+
+pub let shadow_position_world : @bobzhang/three/nodes.Node
+
+pub let shape_circle : @bobzhang/three/nodes.Node
+
+pub fn shared_uniform_group(String, order? : Int32, update_type? : String) -> @bobzhang/three/nodes.Node
+
+pub let sheen : @bobzhang/three/nodes.Node
+
+pub let sheen_roughness : @bobzhang/three/nodes.Node
+
+pub fn shift_left(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn shift_right(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let shininess : @bobzhang/three/nodes.Node
+
+pub fn sign(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn sin(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn sinc(&@bobzhang/three/nodes.IntoTsl, @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn sinh(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let skinning : @bobzhang/three/nodes.Node
+
+pub fn smoothstep(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn smoothstep_element(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let specular_color : @bobzhang/three/nodes.Node
+
+pub let specular_color_blended : @bobzhang/three/nodes.Node
+
+pub let specular_f90 : @bobzhang/three/nodes.Node
+
+pub let spherize_uv : @bobzhang/three/nodes.Node
+
+pub fn split(&@bobzhang/three/nodes.IntoTsl, channels? : String) -> @bobzhang/three/nodes.Node
+
+pub let spritesheet_uv : @bobzhang/three/nodes.Node
+
+pub fn sqrt(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn stack(parent? : @bobzhang/three/nodes.StackNode) -> @bobzhang/three/nodes.Node
+
+pub fn stack_(@bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn step(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn step_element(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn storage(@core.BufferAttribute, type_? : &@bobzhang/three/nodes.IntoTsl, count? : Int32) -> @bobzhang/three/nodes.Node
+
+pub fn storage_barrier() -> Unit
+
+pub fn storage_element(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn storage_texture(&@bobzhang/three/nodes.IntoTsl, uv_node? : &@bobzhang/three/nodes.IntoTsl, store_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn storage_texture3d(&@bobzhang/three/nodes.IntoTsl, uv_node? : &@bobzhang/three/nodes.IntoTsl, store_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn struct_(Array[@bobzhang/three/nodes.StructMember], name? : String) -> @bobzhang/three/nodes.StructFn
+
+pub fn sub(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn sub_build(&@bobzhang/three/nodes.IntoTsl, String, type_? : String) -> @bobzhang/three/nodes.Node
+
+pub fn sub_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_add(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_all(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_and(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_any(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_ballot(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_broadcast(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_broadcast_first(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_elect() -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_exclusive_add(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_exclusive_mul(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_inclusive_add(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_inclusive_mul(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let subgroup_index : @bobzhang/three/nodes.Node
+
+pub fn subgroup_max(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_min(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_mul(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_or(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_shuffle(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_shuffle_down(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_shuffle_up(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn subgroup_shuffle_xor(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let subgroup_size : @bobzhang/three/nodes.Node
+
+pub fn subgroup_xor(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn switch_(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.StackNode
+
+pub fn tan(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let tangent_geometry : @bobzhang/three/nodes.Node
+
+pub let tangent_local : @bobzhang/three/nodes.Node
+
+pub let tangent_view : @bobzhang/three/nodes.Node
+
+pub let tangent_view_frame : @bobzhang/three/nodes.Node
+
+pub let tangent_world : @bobzhang/three/nodes.Node
+
+pub fn tanh(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let tbn_view_matrix : @bobzhang/three/nodes.Node
+
+pub fn texture(&@bobzhang/three/nodes.IntoTsl, uv_node? : &@bobzhang/three/nodes.IntoTsl, level_node? : &@bobzhang/three/nodes.IntoTsl, bias_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn texture3d(&@bobzhang/three/nodes.IntoTsl, uv_node? : &@bobzhang/three/nodes.IntoTsl, level_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn texture3d_level(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn texture3d_load(&@bobzhang/three/nodes.IntoTsl, uv_node? : &@bobzhang/three/nodes.IntoTsl, level_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn texture_barrier() -> Unit
+
+pub let texture_bicubic : @bobzhang/three/nodes.Node
+
+pub let texture_bicubic_level : @bobzhang/three/nodes.Node
+
+pub fn texture_level(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn texture_load(&@bobzhang/three/nodes.IntoTsl, uv_node? : &@bobzhang/three/nodes.IntoTsl, level_node? : &@bobzhang/three/nodes.IntoTsl, bias_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn texture_size(&@bobzhang/three/nodes.IntoTsl, level_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn texture_store(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let thickness : @bobzhang/three/nodes.Node
+
+pub let time : @bobzhang/three/nodes.Node
+
+pub fn tone_mapping(Int32, exposure? : &@bobzhang/three/nodes.IntoTsl, color? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let tone_mapping_exposure : @bobzhang/three/nodes.Node
+
+pub fn toon_outline_pass(@core.Object3D, @core.Object3D, color? : &@bobzhang/three/nodes.IntoTsl, thickness? : &@bobzhang/three/nodes.IntoTsl, alpha? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn transform_direction(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let transform_normal : @bobzhang/three/nodes.Node
+
+pub fn transform_normal_by_inverse_view_matrix(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn transform_normal_by_view_matrix(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let transform_normal_to_view : @bobzhang/three/nodes.Node
+
+pub let transmission : @bobzhang/three/nodes.Node
+
+pub fn transpose(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let tri_noise3d : @bobzhang/three/nodes.Node
+
+pub fn triplanar_texture(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub let triplanar_textures : @bobzhang/three/nodes.Node
+
+pub fn trunc(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let two_pi : @bobzhang/three/nodes.Node
+
+pub fn uint(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn uint_bits_to_float(@bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn uint_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn uniform(&@bobzhang/three/nodes.IntoTsl, type_? : String) -> @bobzhang/three/nodes.Node
+
+pub fn uniform_array(&@bobzhang/three/nodes.IntoTsl, element_type? : String) -> @bobzhang/three/nodes.Node
+
+pub fn uniform_cube_texture(value? : @core.Texture) -> @bobzhang/three/nodes.Node
+
+pub fn uniform_flow(@bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn uniform_group(String, order? : Int32, update_type? : String) -> @bobzhang/three/nodes.Node
+
+pub fn uniform_texture(value? : @core.Texture) -> @bobzhang/three/nodes.Node
+
+pub fn unpack4x_i8(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn unpack4x_u8(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn unpack_half2x16(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn unpack_normal(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn unpack_rgb_to_normal(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn unpack_snorm2x16(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn unpack_snorm4x8(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn unpack_unorm2x16(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn unpack_unorm4x8(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let unpremultiply_alpha : @bobzhang/three/nodes.Node
+
+pub fn user_data(String, String, user_data? : @core.JsValue) -> @bobzhang/three/nodes.Node
+
+pub fn uv(index? : Int32) -> @bobzhang/three/nodes.Node
+
+pub fn uvec2(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn uvec2_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn uvec3(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn uvec3_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn uvec4(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn uvec4_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub let v_ggx_smith_correlated : @bobzhang/three/nodes.Node
+
+pub let v_ggx_smith_correlated_anisotropic : @bobzhang/three/nodes.Node
+
+pub fn var_(&@bobzhang/three/nodes.IntoTsl, name? : String) -> @bobzhang/three/nodes.Node
+
+pub fn varying(&@bobzhang/three/nodes.IntoTsl, name? : String) -> @bobzhang/three/nodes.Node
+
+pub fn varying_property(String, name? : String, placeholder_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn vec2(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn vec2_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn vec3(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn vec3_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub fn vec4(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub fn vec4_of(Array[&@bobzhang/three/nodes.IntoTsl]) -> @bobzhang/three/nodes.Node
+
+pub let vector_components : Array[String]
+
+pub let velocity : @bobzhang/three/nodes.Node
+
+pub fn vertex_color(index? : Int32) -> @bobzhang/three/nodes.Node
+
+pub let vertex_index : @bobzhang/three/nodes.Node
+
+pub fn vertex_stage(&@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let vibrance : @bobzhang/three/nodes.Node
+
+pub fn view_z_to_logarithmic_depth(@bobzhang/three/nodes.Node, @bobzhang/three/nodes.Node, @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn view_z_to_orthographic_depth(@bobzhang/three/nodes.Node, @bobzhang/three/nodes.Node, @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn view_z_to_perspective_depth(@bobzhang/three/nodes.Node, @bobzhang/three/nodes.Node, @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn view_z_to_reversed_orthographic_depth(@bobzhang/three/nodes.Node, @bobzhang/three/nodes.Node, @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub fn view_z_to_reversed_perspective_depth(@bobzhang/three/nodes.Node, @bobzhang/three/nodes.Node, @bobzhang/three/nodes.Node) -> @bobzhang/three/nodes.Node
+
+pub let viewport : @bobzhang/three/nodes.Node
+
+pub let viewport_coordinate : @bobzhang/three/nodes.Node
+
+pub fn viewport_depth_texture(uv_node? : &@bobzhang/three/nodes.IntoTsl, level_node? : &@bobzhang/three/nodes.IntoTsl, depth_texture? : @core.Texture) -> @bobzhang/three/nodes.Node
+
+pub let viewport_linear_depth : @bobzhang/three/nodes.Node
+
+pub fn viewport_mip_texture(uv_node? : &@bobzhang/three/nodes.IntoTsl, level_node? : &@bobzhang/three/nodes.IntoTsl, framebuffer_texture? : @core.Texture) -> @bobzhang/three/nodes.Node
+
+pub fn viewport_opaque_mip_texture(uv? : &@bobzhang/three/nodes.IntoTsl, level? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let viewport_safe_uv : @bobzhang/three/nodes.Node
+
+pub fn viewport_shared_texture(uv_node? : &@bobzhang/three/nodes.IntoTsl, level_node? : &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+pub let viewport_size : @bobzhang/three/nodes.Node
+
+pub fn viewport_texture(uv_node? : &@bobzhang/three/nodes.IntoTsl, level_node? : &@bobzhang/three/nodes.IntoTsl, framebuffer_texture? : @core.Texture) -> @bobzhang/three/nodes.Node
+
+pub let viewport_uv : @bobzhang/three/nodes.Node
+
+pub let vogel_disk_sample : @bobzhang/three/nodes.Node
+
+pub let vsm_shadow_filter : @bobzhang/three/nodes.Node
+
+pub fn warn(String) -> Unit
+
+pub fn warn_once(String) -> Unit
+
+pub fn wgsl(String, includes? : Array[@bobzhang/three/nodes.Node]) -> @bobzhang/three/nodes.Node
+
+pub fn wgsl_fn(String, includes? : Array[@bobzhang/three/nodes.Node]) -> @bobzhang/three/nodes.Node
+
+pub fn workgroup_array(String, count? : Int32) -> @bobzhang/three/nodes.Node
+
+pub fn workgroup_barrier() -> Unit
+
+pub let workgroup_id : @bobzhang/three/nodes.Node
+
+pub let working_luminance_coefficients : @bobzhang/three/nodes.Node
+
+pub fn working_to_color_space(&@bobzhang/three/nodes.IntoTsl, String) -> @bobzhang/three/nodes.Node
+
+pub fn xor(&@bobzhang/three/nodes.IntoTsl, &@bobzhang/three/nodes.IntoTsl) -> @bobzhang/three/nodes.Node
+
+// Errors
+
+// Types and methods
+#external
+pub type AnimationUtils
+pub fn[A : @core.TypedArrayInit] AnimationUtils::convert_array(A, String) -> @core.TypedArray
+pub fn AnimationUtils::flatten_json(Array[@json.Json], Array[@json.Json], Array[@json.Json], String) -> Unit
+pub fn AnimationUtils::get_keyframe_order(Array[Double]) -> Array[Int32]
+pub fn AnimationUtils::has_tangents(@animation.KeyframeTrackSettings?) -> Bool
+pub fn AnimationUtils::is_typed_array(@core.JsValue) -> Bool
+pub fn AnimationUtils::make_clip_additive(@animation.AnimationClip, reference_frame? : Double, reference_clip? : @animation.AnimationClip, fps? : Double) -> @animation.AnimationClip
+pub fn AnimationUtils::sorted_array(Array[Double], Int32, Array[Int32]) -> Array[Double]
+pub fn AnimationUtils::subclip(@animation.AnimationClip, String, Double, Double, fps? : Double) -> @animation.AnimationClip
+
+#external
+pub type MathUtils
+pub fn MathUtils::ceil_power_of_two(Double) -> Double
+pub fn MathUtils::clamp(Double, Double, Double) -> Double
+pub fn MathUtils::damp(Double, Double, Double, Double) -> Double
+pub fn MathUtils::deg_to_rad(Double) -> Double
+pub fn MathUtils::denormalize(Double, @math.TypedArrayKind) -> Double
+pub fn MathUtils::euclidean_modulo(Double, Double) -> Double
+pub fn MathUtils::floor_power_of_two(Double) -> Double
+pub fn MathUtils::generate_uuid() -> String
+pub fn MathUtils::inverse_lerp(Double, Double, Double) -> Double
+pub fn MathUtils::is_power_of_two(Double) -> Bool
+pub fn MathUtils::lerp(Double, Double, Double) -> Double
+pub fn MathUtils::map_linear(Double, Double, Double, Double, Double) -> Double
+pub fn MathUtils::normalize(Double, @math.TypedArrayKind) -> Double
+pub fn MathUtils::pingpong(Double, length? : Double) -> Double
+pub fn MathUtils::rad_to_deg(Double) -> Double
+pub fn MathUtils::rand_float(Double, Double) -> Double
+pub fn MathUtils::rand_float_spread(Double) -> Double
+pub fn MathUtils::rand_int(Double, Double) -> Double
+pub fn MathUtils::seeded_random(s? : Double) -> Double
+pub fn MathUtils::set_quaternion_from_proper_euler(@math.Quaternion, Double, Double, Double, String) -> Unit
+pub fn MathUtils::smootherstep(Double, Double, Double) -> Double
+pub fn MathUtils::smoothstep(Double, Double, Double) -> Double
+
+#external
+pub type NodeUtils
+pub fn NodeUtils::array_buffer_to_base64(@core.JsValue) -> String
+pub fn NodeUtils::base64_to_array_buffer(String) -> @core.ArrayBuffer
+pub fn NodeUtils::get_alignment_from_type(String) -> Int32
+pub fn NodeUtils::get_data_from_object(@core.JsValue) -> @core.JsValue
+pub fn NodeUtils::get_length_from_type(String) -> Int32
+pub fn NodeUtils::get_memory_length_from_type(String) -> Int32
+pub fn NodeUtils::get_texture_type(@core.Texture) -> String
+pub fn NodeUtils::get_type_from_length(Int32) -> String?
+pub fn NodeUtils::get_typed_array_from_type(String) -> @math.TypedArrayKind
+pub fn NodeUtils::get_value_from_type(String?, Array[@bobzhang/three/nodes.TslValue]) -> @bobzhang/three/nodes.TslValue
+pub fn NodeUtils::get_value_type(@bobzhang/three/nodes.TslValue) -> String?
+pub fn NodeUtils::hash(Array[Double]) -> Double
+pub fn NodeUtils::hash_array(Array[Double]) -> Double
+pub fn NodeUtils::hash_string(String) -> Double
+pub fn NodeUtils::is_array_as_parameter(Array[@bobzhang/three/nodes.TslValue]) -> Bool
+pub fn NodeUtils::merge_context(@bobzhang/three/nodes.NodeContext, @bobzhang/three/nodes.NodeContext) -> @bobzhang/three/nodes.NodeContext
+
+#external
+pub type RendererUtils
+pub fn RendererUtils::reset_renderer_and_scene_state(@bobzhang/three/nodes.Renderer, @core.Object3D, state? : @bobzhang/three/nodes.RendererState) -> @bobzhang/three/nodes.RendererState
+pub fn RendererUtils::reset_renderer_state(@bobzhang/three/nodes.Renderer, state? : @bobzhang/three/nodes.RendererState) -> @bobzhang/three/nodes.RendererState
+pub fn RendererUtils::reset_scene_state(@core.Object3D, state? : @bobzhang/three/nodes.RendererState) -> @bobzhang/three/nodes.RendererState
+pub fn RendererUtils::restore_renderer_and_scene_state(@bobzhang/three/nodes.Renderer, @core.Object3D, @bobzhang/three/nodes.RendererState) -> Unit
+pub fn RendererUtils::restore_renderer_state(@bobzhang/three/nodes.Renderer, @bobzhang/three/nodes.RendererState) -> Unit
+pub fn RendererUtils::restore_scene_state(@core.Object3D, @bobzhang/three/nodes.RendererState) -> Unit
+pub fn RendererUtils::save_renderer_and_scene_state(@bobzhang/three/nodes.Renderer, @core.Object3D, state? : @bobzhang/three/nodes.RendererState) -> @bobzhang/three/nodes.RendererState
+pub fn RendererUtils::save_renderer_state(@bobzhang/three/nodes.Renderer, state? : @bobzhang/three/nodes.RendererState) -> @bobzhang/three/nodes.RendererState
+pub fn RendererUtils::save_scene_state(@core.Object3D, state? : @bobzhang/three/nodes.RendererState) -> @bobzhang/three/nodes.RendererState
+
+// Type aliases
+pub using @bobzhang/three/nodes {type AONode}
+
+pub using @core {type AmbientLight}
+
+pub using @bobzhang/three/nodes {type AmbientLightNode}
+
+pub using @bobzhang/three/nodes {type AnalyticLightNode}
+
+pub using @animation {type AnimationAction}
+
+pub using @animation {type AnimationClip}
+
+pub using @loaders {type AnimationLoader}
+
+pub using @animation {type AnimationMixer}
+
+pub using @animation {type AnimationObjectGroup}
+
+pub using @extras {type ArcCurve}
+
+pub using @core {type ArrayBuffer}
+
+pub using @core {type ArrayCamera}
+
+pub using @bobzhang/three/nodes {type ArrayElementNode}
+
+pub using @bobzhang/three/nodes {type ArrayNode}
+
+pub using @helpers {type ArrowHelper}
+
+pub using @bobzhang/three/nodes {type AssignNode}
+
+pub using @bobzhang/three/nodes {type AtomicFunctionNode}
+
+pub using @bobzhang/three/nodes {type AttributeNode}
+
+pub using @audio {type Audio}
+
+pub using @audio {type AudioAnalyser}
+
+pub using @audio {type AudioContext}
+
+pub using @audio {type AudioListener}
+
+pub using @loaders {type AudioLoader}
+
+pub using @helpers {type AxesHelper}
+
+pub using @bobzhang/three/nodes {type Backend}
+
+pub using @bobzhang/three/nodes {type BarrierNode}
+
+pub using @bobzhang/three/nodes {type BasicEnvironmentNode}
+
+pub using @bobzhang/three/nodes {type BasicLightMapNode}
+
+pub using @bobzhang/three/renderers/webgpu {type BasicNodeLibrary}
+
+pub using @core {type BatchedMesh}
+
+pub using @math {type BezierInterpolant}
+
+pub using @bobzhang/three/nodes {type BitcastNode}
+
+pub using @bobzhang/three/nodes {type BitcountNode}
+
+pub using @bobzhang/three/nodes {type BlendMode}
+
+pub using @core {type Bone}
+
+pub using @animation {type BooleanKeyframeTrack}
+
+pub using @math {type Box2}
+
+pub using @math {type Box3}
+
+pub using @helpers {type Box3Helper}
+
+pub using @geometries {type BoxGeometry}
+
+pub using @helpers {type BoxHelper}
+
+pub using @core {type BufferAttribute}
+
+pub using @bobzhang/three/nodes {type BufferAttributeNode}
+
+pub using @core {type BufferGeometry}
+
+pub using @loaders {type BufferGeometryLoader}
+
+pub using @bobzhang/three/nodes {type BufferNode}
+
+pub using @bobzhang/three/nodes {type BuiltinNode}
+
+pub using @bobzhang/three/nodes {type BumpMapNode}
+
+pub using @bobzhang/three/nodes {type BundleGroup}
+
+pub using @bobzhang/three/nodes {type BypassNode}
+
+pub using @loaders {type Cache}
+
+pub using @core {type Camera}
+
+pub using @helpers {type CameraHelper}
+
+pub using @bobzhang/three/nodes {type CanvasTarget}
+
+pub using @core {type CanvasTexture}
+
+pub using @geometries {type CapsuleGeometry}
+
+pub using @extras {type CatmullRomCurve3}
+
+pub using @geometries {type CircleGeometry}
+
+pub using @core {type ClippingGroup}
+
+pub using @bobzhang/three/nodes {type ClippingNode}
+
+pub using @core {type Clock}
+
+pub using @bobzhang/three/nodes {type CodeNode}
+
+pub using @math {type Color}
+
+pub using @animation {type ColorKeyframeTrack}
+
+pub using @math {type ColorManagement}
+
+pub using @bobzhang/three/nodes {type ColorSpaceNode}
+
+pub using @core {type CompressedArrayTexture}
+
+pub using @core {type CompressedCubeTexture}
+
+pub using @core {type CompressedTexture}
+
+pub using @loaders {type CompressedTextureLoader}
+
+pub using @bobzhang/three/nodes {type ComputeBuiltinNode}
+
+pub using @bobzhang/three/nodes {type ComputeDispatchSize}
+
+pub using @bobzhang/three/nodes {type ComputeNode}
+
+pub using @bobzhang/three/nodes {type ConditionalNode}
+
+pub using @geometries {type ConeGeometry}
+
+pub using @bobzhang/three/nodes {type ConstNode}
+
+pub using @bobzhang/three/nodes {type ContextNode}
+
+pub using @extras {type Controls}
+
+pub using @bobzhang/three/nodes {type ConvertNode}
+
+pub using @core {type CubeCamera}
+
+pub using @core {type CubeDepthTexture}
+
+pub using @bobzhang/three/nodes {type CubeMapNode}
+
+pub using @bobzhang/three/nodes {type CubeRenderTarget}
+
+pub using @core {type CubeTexture}
+
+pub using @loaders {type CubeTextureLoader}
+
+pub using @bobzhang/three/nodes {type CubeTextureNode}
+
+pub using @extras {type CubicBezierCurve}
+
+pub using @extras {type CubicBezierCurve3}
+
+pub using @math {type CubicInterpolant}
+
+pub using @extras {type Curve}
+
+pub using @extras {type CurvePath}
+
+pub using @geometries {type CylinderGeometry}
+
+pub using @math {type Cylindrical}
+
+pub using @core {type Data3DTexture}
+
+pub using @core {type DataArrayTexture}
+
+pub using @core {type DataTexture}
+
+pub using @loaders {type DataTextureLoader}
+
+pub using @extras {type DataUtils}
+
+pub using @bobzhang/three/nodes {type DebugNode}
+
+pub using @core {type DepthTexture}
+
+pub using @bobzhang/three/nodes {type DirectRenderPipeline}
+
+pub using @core {type DirectionalLight}
+
+pub using @helpers {type DirectionalLightHelper}
+
+pub using @bobzhang/three/nodes {type DirectionalLightNode}
+
+pub using @math {type DiscreteInterpolant}
+
+pub using @geometries {type DodecahedronGeometry}
+
+pub using @geometries {type EdgesGeometry}
+
+pub using @extras {type EllipseCurve}
+
+pub using @bobzhang/three/nodes {type EnvironmentNode}
+
+pub using @math {type Euler}
+
+pub using @core {type EventDispatcher}
+
+pub using @bobzhang/three/nodes {type EventNode}
+
+pub using @bobzhang/three/nodes {type ExpressionNode}
+
+pub using @core {type ExternalTexture}
+
+pub using @geometries {type ExtrudeGeometry}
+
+pub using @loaders {type FileLoader}
+
+pub using @bobzhang/three/nodes {type FlipNode}
+
+pub using @core {type Float16BufferAttribute}
+
+pub using @core {type Float32BufferAttribute}
+
+pub using @bobzhang/three/nodes {type FnInputs}
+
+pub using @bobzhang/three/nodes {type FnLayout}
+
+pub using @bobzhang/three/nodes {type FnLayoutArg}
+
+pub using @core {type Fog}
+
+pub using @core {type FogExp2}
+
+pub using @core {type FramebufferTexture}
+
+pub using @bobzhang/three/nodes {type FrontFacingNode}
+
+pub using @math {type Frustum}
+
+pub using @math {type FrustumArray}
+
+pub using @bobzhang/three/nodes {type FunctionCallNode}
+
+pub using @bobzhang/three/nodes {type FunctionNode}
+
+pub using @bobzhang/three/nodes {type FunctionOverloadingNode}
+
+pub using @core {type GLBufferAttribute}
+
+pub using @webgl_fallback {type GLSLNodeBuilder}
+
+pub using @bobzhang/three/nodes {type GLSLNodeParser}
+
+pub using @helpers {type GridHelper}
+
+pub using @core {type Group}
+
+pub using @core {type HTMLTexture}
+
+pub using @core {type HemisphereLight}
+
+pub using @helpers {type HemisphereLightHelper}
+
+pub using @bobzhang/three/nodes {type HemisphereLightNode}
+
+pub using @core {type IESSpotLight}
+
+pub using @bobzhang/three/nodes {type IESSpotLightNode}
+
+pub using @geometries {type IcosahedronGeometry}
+
+pub using @loaders {type ImageBitmapLoader}
+
+pub using @loaders {type ImageLoader}
+
+pub using @extras {type ImageUtils}
+
+pub using @bobzhang/three/nodes {type IndexNode}
+
+pub using @bobzhang/three/nodes {type IndirectStorageBufferAttribute}
+
+pub using @bobzhang/three/nodes {type InputNode}
+
+pub using @bobzhang/three/nodes {type InspectorBase}
+
+pub using @bobzhang/three/nodes {type InspectorNode}
+
+pub using @core {type InstancedBufferAttribute}
+
+pub using @core {type InstancedBufferGeometry}
+
+pub using @core {type InstancedInterleavedBuffer}
+
+pub using @core {type InstancedMesh}
+
+pub using @core {type Int16BufferAttribute}
+
+pub using @core {type Int32BufferAttribute}
+
+pub using @core {type Int8BufferAttribute}
+
+pub using @core {type InterleavedBuffer}
+
+pub using @core {type InterleavedBufferAttribute}
+
+pub using @math {type Interpolant}
+
+pub using @bobzhang/three/nodes {type IrradianceNode}
+
+pub using @bobzhang/three/nodes {type IsolateNode}
+
+pub using @bobzhang/three/nodes {type JoinNode}
+
+pub using @core {type JsValue}
+
+pub using @animation {type KeyframeTrack}
+
+pub using @core {type LOD}
+
+pub using @geometries {type LatheGeometry}
+
+pub using @core {type Layers}
+
+pub using @core {type Light}
+
+pub using @core {type LightProbe}
+
+pub using @bobzhang/three/nodes {type LightProbeNode}
+
+pub using @core {type LightShadow}
+
+pub using @bobzhang/three/nodes {type Lighting}
+
+pub using @bobzhang/three/nodes {type LightingContextNode}
+
+pub using @bobzhang/three/nodes {type LightingModel}
+
+pub using @bobzhang/three/nodes {type LightingNode}
+
+pub using @bobzhang/three/nodes {type LightsNode}
+
+pub using @core {type Line}
+
+pub using @bobzhang/three/nodes {type Line2NodeMaterial}
+
+pub using @math {type Line3}
+
+pub using @core {type LineBasicMaterial}
+
+pub using @bobzhang/three/nodes {type LineBasicNodeMaterial}
+
+pub using @extras {type LineCurve}
+
+pub using @extras {type LineCurve3}
+
+pub using @core {type LineDashedMaterial}
+
+pub using @bobzhang/three/nodes {type LineDashedNodeMaterial}
+
+pub using @core {type LineLoop}
+
+pub using @core {type LineSegments}
+
+pub using @math {type LinearInterpolant}
+
+pub using @loaders {type Loader}
+
+pub using @loaders {type LoaderUtils}
+
+pub using @loaders {type LoadingManager}
+
+pub using @bobzhang/three/nodes {type LoopNode}
+
+pub using @bobzhang/three/nodes {type MRTNode}
+
+pub using @core {type Material}
+
+pub using @loaders {type MaterialLoader}
+
+pub using @bobzhang/three/nodes {type MaterialNode}
+
+pub using @bobzhang/three/nodes {type MaterialReferenceNode}
+
+pub using @core {type MaterialSlot}
+
+pub using @bobzhang/three/nodes {type MathNode}
+
+pub using @math {type Matrix2}
+
+pub using @math {type Matrix3}
+
+pub using @math {type Matrix4}
+
+pub using @bobzhang/three/nodes {type MaxMipLevelNode}
+
+pub using @bobzhang/three/nodes {type MemberNode}
+
+pub using @core {type Mesh}
+
+pub using @core {type MeshBasicMaterial}
+
+pub using @bobzhang/three/nodes {type MeshBasicNodeMaterial}
+
+pub using @core {type MeshDepthMaterial}
+
+pub using @core {type MeshDistanceMaterial}
+
+pub using @core {type MeshLambertMaterial}
+
+pub using @bobzhang/three/nodes {type MeshLambertNodeMaterial}
+
+pub using @core {type MeshMatcapMaterial}
+
+pub using @bobzhang/three/nodes {type MeshMatcapNodeMaterial}
+
+pub using @core {type MeshNormalMaterial}
+
+pub using @bobzhang/three/nodes {type MeshNormalNodeMaterial}
+
+pub using @core {type MeshPhongMaterial}
+
+pub using @bobzhang/three/nodes {type MeshPhongNodeMaterial}
+
+pub using @core {type MeshPhysicalMaterial}
+
+pub using @bobzhang/three/nodes {type MeshPhysicalNodeMaterial}
+
+pub using @bobzhang/three/nodes {type MeshSSSNodeMaterial}
+
+pub using @core {type MeshStandardMaterial}
+
+pub using @bobzhang/three/nodes {type MeshStandardNodeMaterial}
+
+pub using @core {type MeshToonMaterial}
+
+pub using @bobzhang/three/nodes {type MeshToonNodeMaterial}
+
+pub using @bobzhang/three/nodes {type ModelNode}
+
+pub using @bobzhang/three/nodes {type Node}
+
+pub using @bobzhang/three/nodes {type NodeAttribute}
+
+pub using @bobzhang/three/nodes {type NodeBuilder}
+
+pub using @bobzhang/three/nodes {type NodeCache}
+
+pub using @bobzhang/three/nodes {type NodeCode}
+
+pub using @bobzhang/three/nodes {type NodeError}
+
+pub using @bobzhang/three/nodes {type NodeFrame}
+
+pub using @bobzhang/three/nodes {type NodeFunctionInput}
+
+pub using @bobzhang/three/loaders/nodes {type NodeLoader}
+
+pub using @bobzhang/three/nodes {type NodeMaterial}
+
+pub using @bobzhang/three/nodes {type NodeMaterialInstance}
+
+pub using @bobzhang/three/loaders/nodes {type NodeMaterialLoader}
+
+pub using @bobzhang/three/nodes {type NodeMaterialObserver}
+
+pub using @bobzhang/three/loaders/nodes {type NodeObjectLoader}
+
+pub using @bobzhang/three/nodes {type NodeShaderStage}
+
+pub using @bobzhang/three/nodes {type NodeUniform}
+
+pub using @bobzhang/three/nodes {type NodeUpdateType}
+
+pub using @bobzhang/three/nodes {type NodeVar}
+
+pub using @bobzhang/three/nodes {type NodeVarying}
+
+pub using @bobzhang/three/nodes {type NormalMapNode}
+
+pub using @animation {type NumberKeyframeTrack}
+
+pub using @core {type Object3D}
+
+pub using @bobzhang/three/nodes {type Object3DNode}
+
+pub using @loaders {type ObjectLoader}
+
+pub using @geometries {type OctahedronGeometry}
+
+pub using @bobzhang/three/nodes {type OperatorNode}
+
+pub using @core {type OrthographicCamera}
+
+pub using @bobzhang/three/nodes {type OutputStructNode}
+
+pub using @bobzhang/three/nodes {type OverrideContextNode}
+
+pub using @bobzhang/three/nodes {type PMREMGenerator}
+
+pub using @bobzhang/three/nodes {type PMREMNode}
+
+pub using @bobzhang/three/nodes {type PackFloatNode}
+
+pub using @bobzhang/three/nodes {type Packed4x8IntegerNode}
+
+pub using @bobzhang/three/nodes {type ParameterNode}
+
+pub using @bobzhang/three/nodes {type PassNode}
+
+pub using @extras {type Path}
+
+pub using @core {type PerspectiveCamera}
+
+pub using @bobzhang/three/nodes {type PhongLightingModel}
+
+pub using @bobzhang/three/nodes {type PhysicalLightingModel}
+
+pub using @math {type Plane}
+
+pub using @geometries {type PlaneGeometry}
+
+pub using @helpers {type PlaneHelper}
+
+pub using @core {type PointLight}
+
+pub using @helpers {type PointLightHelper}
+
+pub using @bobzhang/three/nodes {type PointLightNode}
+
+pub using @bobzhang/three/nodes {type PointShadowNode}
+
+pub using @bobzhang/three/nodes {type PointUVNode}
+
+pub using @core {type Points}
+
+pub using @core {type PointsMaterial}
+
+pub using @bobzhang/three/nodes {type PointsNodeMaterial}
+
+pub using @helpers {type PolarGridHelper}
+
+pub using @geometries {type PolyhedronGeometry}
+
+pub using @audio {type PositionalAudio}
+
+pub using @bobzhang/three/nodes {type PostProcessing}
+
+pub using @core {type ProjectorLight}
+
+pub using @bobzhang/three/nodes {type ProjectorLightNode}
+
+pub using @animation {type PropertyBinding}
+
+pub using @animation {type PropertyMixer}
+
+pub using @bobzhang/three/nodes {type PropertyNode}
+
+pub using @bobzhang/three/nodes {type QuadMesh}
+
+pub using @extras {type QuadraticBezierCurve}
+
+pub using @extras {type QuadraticBezierCurve3}
+
+pub using @math {type Quaternion}
+
+pub using @animation {type QuaternionKeyframeTrack}
+
+pub using @math {type QuaternionLinearInterpolant}
+
+pub using @bobzhang/three/nodes {type RTTNode}
+
+pub using @bobzhang/three/nodes {type RangeNode}
+
+pub using @core {type RawShaderMaterial}
+
+pub using @math {type Ray}
+
+pub using @core {type Raycaster}
+
+pub using @bobzhang/three/nodes {type ReadbackBuffer}
+
+pub using @core {type RectAreaLight}
+
+pub using @bobzhang/three/nodes {type RectAreaLightNode}
+
+pub using @bobzhang/three/nodes {type ReferenceAttributeNode}
+
+pub using @bobzhang/three/nodes {type ReferenceBaseNode}
+
+pub using @bobzhang/three/nodes {type ReferenceElementNode}
+
+pub using @bobzhang/three/nodes {type ReferenceNode}
+
+pub using @bobzhang/three/nodes {type ReflectorNode}
+
+pub using @bobzhang/three/nodes {type RenderOutputNode}
+
+pub using @bobzhang/three/nodes {type RenderPipeline}
+
+pub using @core {type RenderTarget}
+
+pub using @core {type RenderTarget3D}
+
+pub using @bobzhang/three/nodes {type Renderer}
+
+pub using @bobzhang/three/nodes {type RendererReferenceNode}
+
+pub using @geometries {type RingGeometry}
+
+pub using @bobzhang/three/nodes {type RotateNode}
+
+pub using @bobzhang/three/nodes {type SampleNode}
+
+pub using @core {type Scene}
+
+pub using @core {type SceneBackground}
+
+pub using @core {type SceneFog}
+
+pub using @bobzhang/three/nodes {type ScreenNode}
+
+pub using @bobzhang/three/nodes {type SetNode}
+
+pub using @bobzhang/three/nodes {type ShaderFn}
+
+pub using @core {type ShaderMaterial}
+
+pub using @bobzhang/three/nodes {type ShadowBaseNode}
+
+pub using @core {type ShadowMaterial}
+
+pub using @bobzhang/three/nodes {type ShadowNode}
+
+pub using @bobzhang/three/nodes {type ShadowNodeMaterial}
+
+pub using @extras {type Shape}
+
+pub using @geometries {type ShapeGeometry}
+
+pub using @extras {type ShapePath}
+
+pub using @extras {type ShapeUtils}
+
+pub using @core {type Skeleton}
+
+pub using @helpers {type SkeletonHelper}
+
+pub using @core {type SkinnedMesh}
+
+pub using @math {type Sphere}
+
+pub using @geometries {type SphereGeometry}
+
+pub using @math {type Spherical}
+
+pub using @math {type SphericalHarmonics3}
+
+pub using @extras {type SplineCurve}
+
+pub using @bobzhang/three/nodes {type SplitNode}
+
+pub using @core {type SpotLight}
+
+pub using @helpers {type SpotLightHelper}
+
+pub using @bobzhang/three/nodes {type SpotLightNode}
+
+pub using @core {type Sprite}
+
+pub using @core {type SpriteMaterial}
+
+pub using @bobzhang/three/nodes {type SpriteNodeMaterial}
+
+pub using @bobzhang/three/nodes {type StackNode}
+
+pub using @bobzhang/three/nodes {type StackTrace}
+
+pub using @bobzhang/three/nodes {type StandardDrawingPipeline}
+
+pub using @bobzhang/three/renderers/webgpu {type StandardNodeLibrary}
+
+pub using @core {type StereoCamera}
+
+pub using @bobzhang/three/nodes {type Storage3DTexture}
+
+pub using @bobzhang/three/nodes {type StorageArrayElementNode}
+
+pub using @bobzhang/three/nodes {type StorageArrayTexture}
+
+pub using @bobzhang/three/nodes {type StorageBufferAttribute}
+
+pub using @bobzhang/three/nodes {type StorageBufferNode}
+
+pub using @bobzhang/three/nodes {type StorageInstancedBufferAttribute}
+
+pub using @bobzhang/three/nodes {type StorageTexture}
+
+pub using @bobzhang/three/nodes {type StorageTexture3DNode}
+
+pub using @bobzhang/three/nodes {type StorageTextureNode}
+
+pub using @animation {type StringKeyframeTrack}
+
+pub using @bobzhang/three/nodes {type StructNode}
+
+pub using @bobzhang/three/nodes {type StructTypeNode}
+
+pub using @bobzhang/three/nodes {type SubBuildNode}
+
+pub using @bobzhang/three/nodes {type SubgroupFunctionNode}
+
+pub using @bobzhang/three/nodes {type TempNode}
+
+pub using @geometries {type TetrahedronGeometry}
+
+pub using @core {type Texture}
+
+pub using @bobzhang/three/nodes {type Texture3DNode}
+
+pub using @core {type TextureImage}
+
+pub using @loaders {type TextureLoader}
+
+pub using @bobzhang/three/nodes {type TextureNode}
+
+pub using @bobzhang/three/nodes {type TextureSizeNode}
+
+pub using @core {type TextureSource}
+
+pub using @extras {type TextureUtils}
+
+pub using @core {type Timer}
+
+pub using @bobzhang/three/nodes {type ToneMappingNode}
+
+pub using @bobzhang/three/nodes {type ToonOutlinePassNode}
+
+pub using @geometries {type TorusGeometry}
+
+pub using @geometries {type TorusKnotGeometry}
+
+pub using @math {type Triangle}
+
+pub using @bobzhang/three/nodes {type TslValue}
+
+pub using @geometries {type TubeGeometry}
+
+pub using @core {type TypedArray}
+
+pub using @core {type Uint16BufferAttribute}
+
+pub using @core {type Uint32BufferAttribute}
+
+pub using @core {type Uint8BufferAttribute}
+
+pub using @core {type Uint8ClampedBufferAttribute}
+
+pub using @core {type Uniform}
+
+pub using @bobzhang/three/nodes {type UniformArrayNode}
+
+pub using @bobzhang/three/nodes {type UniformGroupNode}
+
+pub using @bobzhang/three/nodes {type UniformNode}
+
+pub using @core {type UniformsGroup}
+
+pub using @bobzhang/three/nodes {type UnpackFloatNode}
+
+pub using @bobzhang/three/nodes {type UserDataNode}
+
+pub using @bobzhang/three/nodes {type VarNode}
+
+pub using @bobzhang/three/nodes {type VaryingNode}
+
+pub using @math {type Vector2}
+
+pub using @math {type Vector3}
+
+pub using @math {type Vector4}
+
+pub using @animation {type VectorKeyframeTrack}
+
+pub using @bobzhang/three/nodes {type VelocityNode}
+
+pub using @bobzhang/three/nodes {type VertexColorNode}
+
+pub using @core {type VideoFrameTexture}
+
+pub using @core {type VideoTexture}
+
+pub using @bobzhang/three/nodes {type ViewportDepthNode}
+
+pub using @bobzhang/three/nodes {type ViewportDepthTextureNode}
+
+pub using @bobzhang/three/nodes {type ViewportSharedTextureNode}
+
+pub using @bobzhang/three/nodes {type ViewportTextureNode}
+
+pub using @bobzhang/three/nodes {type VolumeNodeMaterial}
+
+pub using @bobzhang/three/renderers/webgpu {type WGSLNodeBuilder}
+
+pub using @webgl {type WebGL3DRenderTarget}
+
+pub using @webgl {type WebGLArrayRenderTarget}
+
+pub using @webgl_fallback {type WebGLBackend}
+
+pub using @webgl_fallback {type WebGLCapabilities}
+
+pub using @webgl {type WebGLRenderTarget}
+
+pub using @bobzhang/three/renderers/webgpu {type WebGPUBackend}
+
+pub using @bobzhang/three/renderers/webgpu {type WebGPURenderer}
+
+pub using @bobzhang/three/renderers/webgpu {type WebGPURendererNodes}
+
+pub using @webgl {type WebXRController}
+
+pub using @geometries {type WireframeGeometry}
+
+pub using @bobzhang/three/nodes {type WorkgroupInfoNode}
+
+pub using @bobzhang/three/nodes {trait IntoTsl}
+
+pub using @core {trait TypedArrayInit}
+
+// Traits

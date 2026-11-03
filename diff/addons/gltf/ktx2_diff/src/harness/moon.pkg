@@ -1,0 +1,39 @@
+import {
+  "bobzhang/three/addons/loaders" @addon_loaders,
+  "bobzhang/three/addons/libs" @libs,
+  "bobzhang/three/addons/utils" @utils,
+  "bobzhang/three/addons/math" @addon_math,
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/renderers/webgl",
+}
+
+warnings = "-1-2-3-4-5-6-7-8-9-20-35"
+
+options(
+  link: {
+    "js": {
+      "exports": [
+        "ktx2_new_loader",
+        "ktx2_set_config",
+        "ktx2_load",
+        "ktx2_parse",
+        "ktx2_init",
+        "ktx2_detect_support_webgl",
+        "ktx2_basis_worker_source",
+        "ktx2_tables_json",
+        "ktx2_set_worker_limit",
+        "ktx2_dispose",
+        "ktx2_loader_state",
+        "ktx_read",
+        "color_spaces_dump",
+        "worker_pool_new",
+        "worker_pool_post",
+        "worker_pool_state",
+        "worker_pool_dispose",
+        "worker_pool_set_limit",
+      ],
+      "format": "esm",
+    },
+  },
+)

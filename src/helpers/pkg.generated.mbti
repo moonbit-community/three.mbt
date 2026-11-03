@@ -1,0 +1,439 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/three/helpers"
+
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "moonbitlang/core/json",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub(all) struct ArrowHelper {
+  mut line : @core.Object3D
+  mut cone : @core.Object3D
+}
+#deprecated
+pub fn ArrowHelper::construct(Self) -> @core.Object3D
+#deprecated
+pub fn ArrowHelper::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn ArrowHelper::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn ArrowHelper::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn ArrowHelper::has_flag(Self, String) -> Bool
+#deprecated
+pub fn ArrowHelper::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn ArrowHelper::new(dir? : @math.Vector3, origin? : @math.Vector3, length? : Double, color? : @math.Color, head_length? : Double, head_width? : Double) -> @core.Object3D
+pub fn ArrowHelper::of(@core.Object3D) -> Self?
+#deprecated
+pub fn ArrowHelper::payload(Self) -> @core.JsValue
+#deprecated
+pub fn ArrowHelper::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+pub fn ArrowHelper::set_color(@core.Object3D, @math.Color) -> Unit
+pub fn ArrowHelper::set_direction(@core.Object3D, @math.Vector3) -> Unit
+pub fn ArrowHelper::set_length(@core.Object3D, Double, head_length? : Double, head_width? : Double) -> Unit
+#deprecated
+pub fn ArrowHelper::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn ArrowHelper::type_name(Self) -> String
+#deprecated
+pub fn ArrowHelper::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn ArrowHelper::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for ArrowHelper
+
+pub(all) struct AxesHelper {
+}
+#deprecated
+pub fn AxesHelper::construct(Self) -> @core.Object3D
+#deprecated
+pub fn AxesHelper::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn AxesHelper::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn AxesHelper::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn AxesHelper::has_flag(Self, String) -> Bool
+#deprecated
+pub fn AxesHelper::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn AxesHelper::new(size? : Double) -> @core.Object3D
+#deprecated
+pub fn AxesHelper::payload(Self) -> @core.JsValue
+#deprecated
+pub fn AxesHelper::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+pub fn AxesHelper::set_colors(@core.Object3D, @math.Color, @math.Color, @math.Color) -> @core.Object3D
+#deprecated
+pub fn AxesHelper::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn AxesHelper::type_name(Self) -> String
+#deprecated
+pub fn AxesHelper::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn AxesHelper::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for AxesHelper
+
+pub(all) struct Box3Helper {
+  mut box : @math.Box3?
+}
+#deprecated
+pub fn Box3Helper::construct(Self) -> @core.Object3D
+#deprecated
+pub fn Box3Helper::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Box3Helper::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn Box3Helper::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn Box3Helper::has_flag(Self, String) -> Bool
+#deprecated
+pub fn Box3Helper::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn Box3Helper::new(box? : @math.Box3, color? : @math.Color) -> @core.Object3D
+pub fn Box3Helper::of(@core.Object3D) -> Self?
+#deprecated
+pub fn Box3Helper::payload(Self) -> @core.JsValue
+#deprecated
+pub fn Box3Helper::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn Box3Helper::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn Box3Helper::type_name(Self) -> String
+#deprecated
+pub fn Box3Helper::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn Box3Helper::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for Box3Helper
+
+pub(all) struct BoxHelper {
+  mut object : @core.Object3D?
+}
+#deprecated
+pub fn BoxHelper::construct(Self) -> @core.Object3D
+#deprecated
+pub fn BoxHelper::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn BoxHelper::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn BoxHelper::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn BoxHelper::has_flag(Self, String) -> Bool
+#deprecated
+pub fn BoxHelper::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn BoxHelper::new(object? : @core.Object3D, color? : @math.Color) -> @core.Object3D
+pub fn BoxHelper::of(@core.Object3D) -> Self?
+#deprecated
+pub fn BoxHelper::payload(Self) -> @core.JsValue
+#deprecated
+pub fn BoxHelper::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+pub fn BoxHelper::set_from_object(@core.Object3D, @core.Object3D) -> @core.Object3D
+#deprecated
+pub fn BoxHelper::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn BoxHelper::type_name(Self) -> String
+pub fn BoxHelper::update(@core.Object3D) -> Unit
+#deprecated
+pub fn BoxHelper::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn BoxHelper::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for BoxHelper
+
+pub(all) struct CameraHelper {
+  mut camera : @core.Object3D
+  mut point_map : Map[String, Array[Int32]]
+}
+#deprecated
+pub fn CameraHelper::construct(Self) -> @core.Object3D
+#deprecated
+pub fn CameraHelper::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn CameraHelper::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn CameraHelper::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn CameraHelper::has_flag(Self, String) -> Bool
+#deprecated
+pub fn CameraHelper::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn CameraHelper::new(@core.Object3D) -> @core.Object3D
+pub fn CameraHelper::of(@core.Object3D) -> Self?
+#deprecated
+pub fn CameraHelper::payload(Self) -> @core.JsValue
+#deprecated
+pub fn CameraHelper::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+pub fn CameraHelper::set_colors(@core.Object3D, @math.Color, @math.Color, @math.Color, @math.Color, @math.Color) -> @core.Object3D
+#deprecated
+pub fn CameraHelper::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn CameraHelper::type_name(Self) -> String
+pub fn CameraHelper::update(@core.Object3D) -> Unit
+#deprecated
+pub fn CameraHelper::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn CameraHelper::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for CameraHelper
+
+pub(all) struct DirectionalLightHelper {
+  mut light : @core.Object3D
+  mut color : @math.Color?
+  mut light_plane : @core.Object3D
+  mut target_line : @core.Object3D
+}
+#deprecated
+pub fn DirectionalLightHelper::construct(Self) -> @core.Object3D
+#deprecated
+pub fn DirectionalLightHelper::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn DirectionalLightHelper::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn DirectionalLightHelper::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn DirectionalLightHelper::has_flag(Self, String) -> Bool
+#deprecated
+pub fn DirectionalLightHelper::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn DirectionalLightHelper::new(@core.Object3D, size? : Double, color? : @math.Color) -> @core.Object3D
+pub fn DirectionalLightHelper::of(@core.Object3D) -> Self?
+#deprecated
+pub fn DirectionalLightHelper::payload(Self) -> @core.JsValue
+#deprecated
+pub fn DirectionalLightHelper::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn DirectionalLightHelper::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn DirectionalLightHelper::type_name(Self) -> String
+pub fn DirectionalLightHelper::update(@core.Object3D) -> Unit
+#deprecated
+pub fn DirectionalLightHelper::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn DirectionalLightHelper::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for DirectionalLightHelper
+
+pub(all) struct GridHelper {
+}
+#deprecated
+pub fn GridHelper::construct(Self) -> @core.Object3D
+#deprecated
+pub fn GridHelper::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn GridHelper::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn GridHelper::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn GridHelper::has_flag(Self, String) -> Bool
+#deprecated
+pub fn GridHelper::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn GridHelper::new(size? : Double, divisions? : Double, color1? : @math.Color, color2? : @math.Color) -> @core.Object3D
+#deprecated
+pub fn GridHelper::payload(Self) -> @core.JsValue
+#deprecated
+pub fn GridHelper::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn GridHelper::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn GridHelper::type_name(Self) -> String
+#deprecated
+pub fn GridHelper::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn GridHelper::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for GridHelper
+
+pub(all) struct HemisphereLightHelper {
+  mut light : @core.Object3D
+  mut color : @math.Color?
+  mut material : @core.Material
+}
+#deprecated
+pub fn HemisphereLightHelper::construct(Self) -> @core.Object3D
+#deprecated
+pub fn HemisphereLightHelper::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn HemisphereLightHelper::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn HemisphereLightHelper::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn HemisphereLightHelper::has_flag(Self, String) -> Bool
+#deprecated
+pub fn HemisphereLightHelper::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn HemisphereLightHelper::new(@core.Object3D, size? : Double, color? : @math.Color) -> @core.Object3D
+pub fn HemisphereLightHelper::of(@core.Object3D) -> Self?
+#deprecated
+pub fn HemisphereLightHelper::payload(Self) -> @core.JsValue
+#deprecated
+pub fn HemisphereLightHelper::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn HemisphereLightHelper::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn HemisphereLightHelper::type_name(Self) -> String
+pub fn HemisphereLightHelper::update(@core.Object3D) -> Unit
+#deprecated
+pub fn HemisphereLightHelper::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn HemisphereLightHelper::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for HemisphereLightHelper
+
+pub(all) struct PlaneHelper {
+  mut plane : @math.Plane?
+  mut size : Double
+}
+#deprecated
+pub fn PlaneHelper::construct(Self) -> @core.Object3D
+#deprecated
+pub fn PlaneHelper::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn PlaneHelper::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn PlaneHelper::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn PlaneHelper::has_flag(Self, String) -> Bool
+#deprecated
+pub fn PlaneHelper::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn PlaneHelper::new(plane? : @math.Plane, size? : Double, color? : @math.Color) -> @core.Object3D
+pub fn PlaneHelper::of(@core.Object3D) -> Self?
+#deprecated
+pub fn PlaneHelper::payload(Self) -> @core.JsValue
+#deprecated
+pub fn PlaneHelper::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn PlaneHelper::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn PlaneHelper::type_name(Self) -> String
+#deprecated
+pub fn PlaneHelper::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn PlaneHelper::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for PlaneHelper
+
+pub(all) struct PointLightHelper {
+  mut light : @core.Object3D
+  mut color : @math.Color?
+}
+#deprecated
+pub fn PointLightHelper::construct(Self) -> @core.Object3D
+#deprecated
+pub fn PointLightHelper::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn PointLightHelper::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn PointLightHelper::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn PointLightHelper::has_flag(Self, String) -> Bool
+#deprecated
+pub fn PointLightHelper::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn PointLightHelper::new(@core.Object3D, sphere_size? : Double, color? : @math.Color) -> @core.Object3D
+pub fn PointLightHelper::of(@core.Object3D) -> Self?
+#deprecated
+pub fn PointLightHelper::payload(Self) -> @core.JsValue
+#deprecated
+pub fn PointLightHelper::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn PointLightHelper::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn PointLightHelper::type_name(Self) -> String
+pub fn PointLightHelper::update(@core.Object3D) -> Unit
+#deprecated
+pub fn PointLightHelper::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn PointLightHelper::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for PointLightHelper
+
+pub(all) struct PolarGridHelper {
+}
+#deprecated
+pub fn PolarGridHelper::construct(Self) -> @core.Object3D
+#deprecated
+pub fn PolarGridHelper::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn PolarGridHelper::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn PolarGridHelper::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn PolarGridHelper::has_flag(Self, String) -> Bool
+#deprecated
+pub fn PolarGridHelper::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn PolarGridHelper::new(radius? : Double, sectors? : Double, rings? : Double, divisions? : Double, color1? : @math.Color, color2? : @math.Color) -> @core.Object3D
+#deprecated
+pub fn PolarGridHelper::payload(Self) -> @core.JsValue
+#deprecated
+pub fn PolarGridHelper::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn PolarGridHelper::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn PolarGridHelper::type_name(Self) -> String
+#deprecated
+pub fn PolarGridHelper::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn PolarGridHelper::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for PolarGridHelper
+
+pub(all) struct SkeletonHelper {
+  mut root : @core.Object3D
+  mut bones : Array[@core.Object3D]
+}
+#deprecated
+pub fn SkeletonHelper::construct(Self) -> @core.Object3D
+#deprecated
+pub fn SkeletonHelper::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn SkeletonHelper::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn SkeletonHelper::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn SkeletonHelper::has_flag(Self, String) -> Bool
+#deprecated
+pub fn SkeletonHelper::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn SkeletonHelper::new(@core.Object3D) -> @core.Object3D
+pub fn SkeletonHelper::of(@core.Object3D) -> Self?
+#deprecated
+pub fn SkeletonHelper::payload(Self) -> @core.JsValue
+#deprecated
+pub fn SkeletonHelper::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+pub fn SkeletonHelper::set_colors(@core.Object3D, @math.Color, @math.Color) -> @core.Object3D
+#deprecated
+pub fn SkeletonHelper::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn SkeletonHelper::type_name(Self) -> String
+#deprecated
+pub fn SkeletonHelper::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn SkeletonHelper::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for SkeletonHelper
+
+pub(all) struct SpotLightHelper {
+  mut light : @core.Object3D
+  mut color : @math.Color?
+  mut cone : @core.Object3D
+}
+#deprecated
+pub fn SpotLightHelper::construct(Self) -> @core.Object3D
+#deprecated
+pub fn SpotLightHelper::copy_from(Self, @core.Object3D, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn SpotLightHelper::dispose(Self, @core.Object3D) -> Unit
+#deprecated
+pub fn SpotLightHelper::get_world_direction(Self, @core.Object3D, @math.Vector3) -> @math.Vector3
+#deprecated
+pub fn SpotLightHelper::has_flag(Self, String) -> Bool
+#deprecated
+pub fn SpotLightHelper::intersects_frustum(Self, @core.Object3D, @core.FrustumRef) -> Bool
+pub fn SpotLightHelper::new(@core.Object3D, color? : @math.Color) -> @core.Object3D
+pub fn SpotLightHelper::of(@core.Object3D) -> Self?
+#deprecated
+pub fn SpotLightHelper::payload(Self) -> @core.JsValue
+#deprecated
+pub fn SpotLightHelper::raycast(Self, @core.Object3D, @core.Raycaster, Array[@core.Intersection]) -> Unit
+#deprecated
+pub fn SpotLightHelper::to_json(Self, @core.Object3D, @core.ToJsonMeta, Map[String, @json.Json]) -> Unit
+#deprecated
+pub fn SpotLightHelper::type_name(Self) -> String
+pub fn SpotLightHelper::update(@core.Object3D) -> Unit
+#deprecated
+pub fn SpotLightHelper::update_matrix_world(Self, @core.Object3D, Bool) -> Unit
+#deprecated
+pub fn SpotLightHelper::update_world_matrix(Self, @core.Object3D, Bool, Bool, Bool) -> Unit
+pub impl @core.Object3DExtension for SpotLightHelper
+
+// Type aliases
+
+// Traits

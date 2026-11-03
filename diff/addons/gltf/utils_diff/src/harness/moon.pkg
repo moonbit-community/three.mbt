@@ -1,0 +1,20 @@
+import {
+  "bobzhang/three/addons/utils" @utils,
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/geometries",
+  "bobzhang/three/animation",
+}
+
+warnings = "-1-2-3-4-5-6-7-8-9-20-35"
+
+options(
+  link: {
+    "js": {
+      "exports": [
+        "run_case",
+      ],
+      "format": "esm",
+    },
+  },
+)

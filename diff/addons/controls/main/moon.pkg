@@ -1,0 +1,17 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/extras",
+  "bobzhang/three/geometries",
+  "bobzhang/three/addons/controls",
+}
+
+options(
+  "is-main": true,
+  link: {
+    "js": {
+      "exports": [ "perspective", "ortho", "set_vec", "look_at", "update_matrix_world", "add_child", "set_name", "obj_name", "obj_state", "create", "listen", "set", "call", "get", "scene", "group", "box_mesh" ],
+      "format": "esm",
+    },
+  },
+)

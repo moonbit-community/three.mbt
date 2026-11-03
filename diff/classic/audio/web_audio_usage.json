@@ -1,0 +1,668 @@
+[
+ {
+  "key": "AnalyserNode.fftSize set",
+  "iface": "AnalyserNode",
+  "member": "fftSize",
+  "access": "set",
+  "site": "AudioAnalyser.js:constructor",
+  "sites": [
+   "AudioAnalyser.js:constructor"
+  ]
+ },
+ {
+  "key": "AnalyserNode.frequencyBinCount get",
+  "iface": "AnalyserNode",
+  "member": "frequencyBinCount",
+  "access": "get",
+  "site": "AudioAnalyser.js:constructor",
+  "sites": [
+   "AudioAnalyser.js:constructor"
+  ]
+ },
+ {
+  "key": "AnalyserNode.getByteFrequencyData call",
+  "iface": "AnalyserNode",
+  "member": "getByteFrequencyData",
+  "access": "call",
+  "site": "AudioAnalyser.js:getFrequencyData",
+  "sites": [
+   "AudioAnalyser.js:getFrequencyData"
+  ]
+ },
+ {
+  "key": "AudioBuffer.duration get",
+  "iface": "AudioBuffer",
+  "member": "duration",
+  "access": "get",
+  "site": "Audio.js:pause",
+  "sites": [
+   "Audio.js:pause"
+  ]
+ },
+ {
+  "key": "AudioBufferSourceNode.buffer set",
+  "iface": "AudioBufferSourceNode",
+  "member": "buffer",
+  "access": "set",
+  "site": "Audio.js:play",
+  "sites": [
+   "Audio.js:play"
+  ]
+ },
+ {
+  "key": "AudioBufferSourceNode.loop set",
+  "iface": "AudioBufferSourceNode",
+  "member": "loop",
+  "access": "set",
+  "site": "Audio.js:play",
+  "sites": [
+   "Audio.js:play"
+  ]
+ },
+ {
+  "key": "AudioBufferSourceNode.loop set downcast",
+  "iface": "AudioBufferSourceNode",
+  "member": "loop",
+  "access": "set",
+  "downcast": "AudioNode",
+  "site": "Audio.js:setLoop",
+  "sites": [
+   "Audio.js:setLoop"
+  ]
+ },
+ {
+  "key": "AudioBufferSourceNode.loopEnd set",
+  "iface": "AudioBufferSourceNode",
+  "member": "loopEnd",
+  "access": "set",
+  "site": "Audio.js:play",
+  "sites": [
+   "Audio.js:play"
+  ]
+ },
+ {
+  "key": "AudioBufferSourceNode.loopStart set",
+  "iface": "AudioBufferSourceNode",
+  "member": "loopStart",
+  "access": "set",
+  "site": "Audio.js:play",
+  "sites": [
+   "Audio.js:play"
+  ]
+ },
+ {
+  "key": "AudioBufferSourceNode.playbackRate get downcast",
+  "iface": "AudioBufferSourceNode",
+  "member": "playbackRate",
+  "access": "get",
+  "downcast": "AudioNode",
+  "site": "Audio.js:setPlaybackRate",
+  "sites": [
+   "Audio.js:setPlaybackRate"
+  ]
+ },
+ {
+  "key": "AudioBufferSourceNode.start call",
+  "iface": "AudioBufferSourceNode",
+  "member": "start",
+  "access": "call",
+  "site": "Audio.js:play",
+  "sites": [
+   "Audio.js:play"
+  ]
+ },
+ {
+  "key": "AudioBufferSourceNode|BiquadFilterNode|OscillatorNode.detune get downcast",
+  "iface": "AudioBufferSourceNode|BiquadFilterNode|OscillatorNode",
+  "member": "detune",
+  "access": "get",
+  "downcast": "AudioNode",
+  "site": "Audio.js:setDetune",
+  "sites": [
+   "Audio.js:setDetune"
+  ]
+ },
+ {
+  "key": "AudioContext.createMediaElementSource call",
+  "iface": "AudioContext",
+  "member": "createMediaElementSource",
+  "access": "call",
+  "site": "Audio.js:setMediaElementSource",
+  "sites": [
+   "Audio.js:setMediaElementSource"
+  ]
+ },
+ {
+  "key": "AudioContext.createMediaStreamSource call",
+  "iface": "AudioContext",
+  "member": "createMediaStreamSource",
+  "access": "call",
+  "site": "Audio.js:setMediaStreamSource",
+  "sites": [
+   "Audio.js:setMediaStreamSource"
+  ]
+ },
+ {
+  "key": "AudioListener.forwardX get",
+  "iface": "AudioListener",
+  "member": "forwardX",
+  "access": "get",
+  "site": "AudioListener.js:updateMatrixWorld",
+  "sites": [
+   "AudioListener.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "AudioListener.forwardY get",
+  "iface": "AudioListener",
+  "member": "forwardY",
+  "access": "get",
+  "site": "AudioListener.js:updateMatrixWorld",
+  "sites": [
+   "AudioListener.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "AudioListener.forwardZ get",
+  "iface": "AudioListener",
+  "member": "forwardZ",
+  "access": "get",
+  "site": "AudioListener.js:updateMatrixWorld",
+  "sites": [
+   "AudioListener.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "AudioListener.positionX get",
+  "iface": "AudioListener",
+  "member": "positionX",
+  "access": "get",
+  "site": "AudioListener.js:updateMatrixWorld",
+  "sites": [
+   "AudioListener.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "AudioListener.positionY get",
+  "iface": "AudioListener",
+  "member": "positionY",
+  "access": "get",
+  "site": "AudioListener.js:updateMatrixWorld",
+  "sites": [
+   "AudioListener.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "AudioListener.positionZ get",
+  "iface": "AudioListener",
+  "member": "positionZ",
+  "access": "get",
+  "site": "AudioListener.js:updateMatrixWorld",
+  "sites": [
+   "AudioListener.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "AudioListener.setOrientation call",
+  "iface": "AudioListener",
+  "member": "setOrientation",
+  "access": "call",
+  "site": "AudioListener.js:updateMatrixWorld",
+  "sites": [
+   "AudioListener.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "AudioListener.setPosition call",
+  "iface": "AudioListener",
+  "member": "setPosition",
+  "access": "call",
+  "site": "AudioListener.js:updateMatrixWorld",
+  "sites": [
+   "AudioListener.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "AudioListener.upX get",
+  "iface": "AudioListener",
+  "member": "upX",
+  "access": "get",
+  "site": "AudioListener.js:updateMatrixWorld",
+  "sites": [
+   "AudioListener.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "AudioListener.upY get",
+  "iface": "AudioListener",
+  "member": "upY",
+  "access": "get",
+  "site": "AudioListener.js:updateMatrixWorld",
+  "sites": [
+   "AudioListener.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "AudioListener.upZ get",
+  "iface": "AudioListener",
+  "member": "upZ",
+  "access": "get",
+  "site": "AudioListener.js:updateMatrixWorld",
+  "sites": [
+   "AudioListener.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "AudioNode.connect call",
+  "iface": "AudioNode",
+  "member": "connect",
+  "access": "call",
+  "site": "Audio.js:constructor",
+  "sites": [
+   "Audio.js:constructor",
+   "Audio.js:connect",
+   "AudioAnalyser.js:constructor",
+   "AudioListener.js:constructor",
+   "AudioListener.js:removeFilter",
+   "AudioListener.js:setFilter",
+   "PositionalAudio.js:constructor",
+   "PositionalAudio.js:connect"
+  ]
+ },
+ {
+  "key": "AudioNode.disconnect call",
+  "iface": "AudioNode",
+  "member": "disconnect",
+  "access": "call",
+  "site": "Audio.js:disconnect",
+  "sites": [
+   "Audio.js:disconnect",
+   "AudioListener.js:removeFilter",
+   "AudioListener.js:setFilter",
+   "PositionalAudio.js:disconnect"
+  ]
+ },
+ {
+  "key": "AudioParam.linearRampToValueAtTime call",
+  "iface": "AudioParam",
+  "member": "linearRampToValueAtTime",
+  "access": "call",
+  "site": "AudioListener.js:updateMatrixWorld",
+  "sites": [
+   "AudioListener.js:updateMatrixWorld",
+   "PositionalAudio.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "AudioParam.setTargetAtTime call",
+  "iface": "AudioParam",
+  "member": "setTargetAtTime",
+  "access": "call",
+  "site": "Audio.js:setDetune",
+  "sites": [
+   "Audio.js:setDetune",
+   "Audio.js:setPlaybackRate",
+   "Audio.js:setVolume",
+   "AudioListener.js:setMasterVolume"
+  ]
+ },
+ {
+  "key": "AudioParam.value get",
+  "iface": "AudioParam",
+  "member": "value",
+  "access": "get",
+  "site": "Audio.js:getVolume",
+  "sites": [
+   "Audio.js:getVolume",
+   "AudioListener.js:getMasterVolume"
+  ]
+ },
+ {
+  "key": "AudioScheduledSourceNode.onended set",
+  "iface": "AudioScheduledSourceNode",
+  "member": "onended",
+  "access": "set",
+  "site": "Audio.js:play",
+  "sites": [
+   "Audio.js:play"
+  ]
+ },
+ {
+  "key": "AudioScheduledSourceNode.onended set downcast",
+  "iface": "AudioScheduledSourceNode",
+  "member": "onended",
+  "access": "set",
+  "downcast": "AudioNode",
+  "site": "Audio.js:pause",
+  "sites": [
+   "Audio.js:pause",
+   "Audio.js:stop"
+  ]
+ },
+ {
+  "key": "AudioScheduledSourceNode.stop call downcast",
+  "iface": "AudioScheduledSourceNode",
+  "member": "stop",
+  "access": "call",
+  "downcast": "AudioNode",
+  "site": "Audio.js:pause",
+  "sites": [
+   "Audio.js:pause",
+   "Audio.js:stop"
+  ]
+ },
+ {
+  "key": "BaseAudioContext.createAnalyser call",
+  "iface": "BaseAudioContext",
+  "member": "createAnalyser",
+  "access": "call",
+  "site": "AudioAnalyser.js:constructor",
+  "sites": [
+   "AudioAnalyser.js:constructor"
+  ]
+ },
+ {
+  "key": "BaseAudioContext.createBufferSource call",
+  "iface": "BaseAudioContext",
+  "member": "createBufferSource",
+  "access": "call",
+  "site": "Audio.js:play",
+  "sites": [
+   "Audio.js:play"
+  ]
+ },
+ {
+  "key": "BaseAudioContext.createGain call",
+  "iface": "BaseAudioContext",
+  "member": "createGain",
+  "access": "call",
+  "site": "Audio.js:constructor",
+  "sites": [
+   "Audio.js:constructor",
+   "AudioListener.js:constructor"
+  ]
+ },
+ {
+  "key": "BaseAudioContext.createPanner call",
+  "iface": "BaseAudioContext",
+  "member": "createPanner",
+  "access": "call",
+  "site": "PositionalAudio.js:constructor",
+  "sites": [
+   "PositionalAudio.js:constructor"
+  ]
+ },
+ {
+  "key": "BaseAudioContext.currentTime get",
+  "iface": "BaseAudioContext",
+  "member": "currentTime",
+  "access": "get",
+  "site": "Audio.js:play",
+  "sites": [
+   "Audio.js:play",
+   "Audio.js:pause",
+   "Audio.js:stop",
+   "Audio.js:setDetune",
+   "Audio.js:setPlaybackRate",
+   "Audio.js:setVolume",
+   "AudioListener.js:setMasterVolume",
+   "AudioListener.js:updateMatrixWorld",
+   "PositionalAudio.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "BaseAudioContext.destination get",
+  "iface": "BaseAudioContext",
+  "member": "destination",
+  "access": "get",
+  "site": "AudioListener.js:constructor",
+  "sites": [
+   "AudioListener.js:constructor",
+   "AudioListener.js:removeFilter",
+   "AudioListener.js:setFilter"
+  ]
+ },
+ {
+  "key": "BaseAudioContext.listener get",
+  "iface": "BaseAudioContext",
+  "member": "listener",
+  "access": "get",
+  "site": "AudioListener.js:updateMatrixWorld",
+  "sites": [
+   "AudioListener.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "GainNode.gain get",
+  "iface": "GainNode",
+  "member": "gain",
+  "access": "get",
+  "site": "Audio.js:getVolume",
+  "sites": [
+   "Audio.js:getVolume",
+   "Audio.js:setVolume",
+   "AudioListener.js:getMasterVolume",
+   "AudioListener.js:setMasterVolume"
+  ]
+ },
+ {
+  "key": "PannerNode.coneInnerAngle set",
+  "iface": "PannerNode",
+  "member": "coneInnerAngle",
+  "access": "set",
+  "site": "PositionalAudio.js:setDirectionalCone",
+  "sites": [
+   "PositionalAudio.js:setDirectionalCone"
+  ]
+ },
+ {
+  "key": "PannerNode.coneOuterAngle set",
+  "iface": "PannerNode",
+  "member": "coneOuterAngle",
+  "access": "set",
+  "site": "PositionalAudio.js:setDirectionalCone",
+  "sites": [
+   "PositionalAudio.js:setDirectionalCone"
+  ]
+ },
+ {
+  "key": "PannerNode.coneOuterGain set",
+  "iface": "PannerNode",
+  "member": "coneOuterGain",
+  "access": "set",
+  "site": "PositionalAudio.js:setDirectionalCone",
+  "sites": [
+   "PositionalAudio.js:setDirectionalCone"
+  ]
+ },
+ {
+  "key": "PannerNode.distanceModel get",
+  "iface": "PannerNode",
+  "member": "distanceModel",
+  "access": "get",
+  "site": "PositionalAudio.js:getDistanceModel",
+  "sites": [
+   "PositionalAudio.js:getDistanceModel"
+  ]
+ },
+ {
+  "key": "PannerNode.distanceModel set",
+  "iface": "PannerNode",
+  "member": "distanceModel",
+  "access": "set",
+  "site": "PositionalAudio.js:setDistanceModel",
+  "sites": [
+   "PositionalAudio.js:setDistanceModel"
+  ]
+ },
+ {
+  "key": "PannerNode.maxDistance get",
+  "iface": "PannerNode",
+  "member": "maxDistance",
+  "access": "get",
+  "site": "PositionalAudio.js:getMaxDistance",
+  "sites": [
+   "PositionalAudio.js:getMaxDistance"
+  ]
+ },
+ {
+  "key": "PannerNode.maxDistance set",
+  "iface": "PannerNode",
+  "member": "maxDistance",
+  "access": "set",
+  "site": "PositionalAudio.js:setMaxDistance",
+  "sites": [
+   "PositionalAudio.js:setMaxDistance"
+  ]
+ },
+ {
+  "key": "PannerNode.orientationX get",
+  "iface": "PannerNode",
+  "member": "orientationX",
+  "access": "get",
+  "site": "PositionalAudio.js:updateMatrixWorld",
+  "sites": [
+   "PositionalAudio.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "PannerNode.orientationY get",
+  "iface": "PannerNode",
+  "member": "orientationY",
+  "access": "get",
+  "site": "PositionalAudio.js:updateMatrixWorld",
+  "sites": [
+   "PositionalAudio.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "PannerNode.orientationZ get",
+  "iface": "PannerNode",
+  "member": "orientationZ",
+  "access": "get",
+  "site": "PositionalAudio.js:updateMatrixWorld",
+  "sites": [
+   "PositionalAudio.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "PannerNode.panningModel set",
+  "iface": "PannerNode",
+  "member": "panningModel",
+  "access": "set",
+  "site": "PositionalAudio.js:constructor",
+  "sites": [
+   "PositionalAudio.js:constructor"
+  ]
+ },
+ {
+  "key": "PannerNode.positionX get",
+  "iface": "PannerNode",
+  "member": "positionX",
+  "access": "get",
+  "site": "PositionalAudio.js:updateMatrixWorld",
+  "sites": [
+   "PositionalAudio.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "PannerNode.positionY get",
+  "iface": "PannerNode",
+  "member": "positionY",
+  "access": "get",
+  "site": "PositionalAudio.js:updateMatrixWorld",
+  "sites": [
+   "PositionalAudio.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "PannerNode.positionZ get",
+  "iface": "PannerNode",
+  "member": "positionZ",
+  "access": "get",
+  "site": "PositionalAudio.js:updateMatrixWorld",
+  "sites": [
+   "PositionalAudio.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "PannerNode.refDistance get",
+  "iface": "PannerNode",
+  "member": "refDistance",
+  "access": "get",
+  "site": "PositionalAudio.js:getRefDistance",
+  "sites": [
+   "PositionalAudio.js:getRefDistance"
+  ]
+ },
+ {
+  "key": "PannerNode.refDistance set",
+  "iface": "PannerNode",
+  "member": "refDistance",
+  "access": "set",
+  "site": "PositionalAudio.js:setRefDistance",
+  "sites": [
+   "PositionalAudio.js:setRefDistance"
+  ]
+ },
+ {
+  "key": "PannerNode.rolloffFactor get",
+  "iface": "PannerNode",
+  "member": "rolloffFactor",
+  "access": "get",
+  "site": "PositionalAudio.js:getRolloffFactor",
+  "sites": [
+   "PositionalAudio.js:getRolloffFactor"
+  ]
+ },
+ {
+  "key": "PannerNode.rolloffFactor set",
+  "iface": "PannerNode",
+  "member": "rolloffFactor",
+  "access": "set",
+  "site": "PositionalAudio.js:setRolloffFactor",
+  "sites": [
+   "PositionalAudio.js:setRolloffFactor"
+  ]
+ },
+ {
+  "key": "PannerNode.setOrientation call",
+  "iface": "PannerNode",
+  "member": "setOrientation",
+  "access": "call",
+  "site": "PositionalAudio.js:updateMatrixWorld",
+  "sites": [
+   "PositionalAudio.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "PannerNode.setPosition call",
+  "iface": "PannerNode",
+  "member": "setPosition",
+  "access": "call",
+  "site": "PositionalAudio.js:updateMatrixWorld",
+  "sites": [
+   "PositionalAudio.js:updateMatrixWorld"
+  ]
+ },
+ {
+  "key": "window.AudioContext get",
+  "iface": "window",
+  "member": "AudioContext",
+  "access": "get",
+  "site": "AudioContext.js:getContext",
+  "sites": [
+   "AudioContext.js:getContext"
+  ]
+ },
+ {
+  "key": "window.webkitAudioContext get",
+  "iface": "window",
+  "member": "webkitAudioContext",
+  "access": "get",
+  "site": "AudioContext.js:getContext",
+  "sites": [
+   "AudioContext.js:getContext"
+  ]
+ }
+]

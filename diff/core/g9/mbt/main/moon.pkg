@@ -1,0 +1,21 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/geometries",
+  "bobzhang/three/math",
+  "bobzhang/three/nodes",
+  "bobzhang/three/renderers/gpu",
+  "bobzhang/three/renderers/webgl",
+  "bobzhang/three/renderers/webgpu",
+}
+
+warnings = "-1-2-3-6-7-9-20-28-29-35-79"
+
+options(
+  "is-main": true,
+  link: {
+    "js": {
+      "exports": [ "scenario_names", "run_scenario" ],
+      "format": "esm",
+    },
+  },
+)

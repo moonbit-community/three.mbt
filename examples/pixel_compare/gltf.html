@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>glTF Pixel Compare</title>
+<style>
+	:root { --bg: #f6f6f4; --fg: #1d1d1b; --muted: #6b6b66; --line: #d9d9d4; --pass: #1f7a3d; --fail: #b3261e; --cell: #ffffff; }
+	@media (prefers-color-scheme: dark) {
+		:root:not([data-theme="light"]) { --bg: #161615; --fg: #ecece8; --muted: #9a9a94; --line: #34342f; --pass: #5fc27e; --fail: #ff7a70; --cell: #20201e; }
+	}
+	:root[data-theme="dark"] { --bg: #161615; --fg: #ecece8; --muted: #9a9a94; --line: #34342f; --pass: #5fc27e; --fail: #ff7a70; --cell: #20201e; }
+	body { margin: 0; padding: 16px; background: var(--bg); color: var(--fg); font: 14px/1.45 system-ui, sans-serif; }
+	h1 { font-size: 20px; margin: 0 0 4px; }
+	p { margin: 4px 0 12px; color: var(--muted); max-width: 72ch; }
+	#summary { font-weight: 600; margin: 8px 0 16px; }
+	.table { overflow-x: auto; }
+	table { border-collapse: collapse; background: var(--cell); }
+	th, td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: middle; white-space: nowrap; }
+	th { font-weight: 600; font-size: 12px; color: var(--muted); }
+	td.num { font-variant-numeric: tabular-nums; text-align: right; }
+	canvas.img { display: block; width: 128px; height: 96px; image-rendering: pixelated; }
+	.pass { color: var(--pass); font-weight: 700; }
+	.fail { color: var(--fail); font-weight: 700; }
+	.err { color: var(--fail); font-size: 12px; white-space: normal; max-width: 40ch; }
+	pre { background: var(--cell); border: 1px solid var(--line); padding: 8px; overflow-x: auto; font-size: 12px; }
+</style>
+</head>
+<body>
+<h1>three.js vs three.mbt: GLTFLoader pixel comparison</h1>
+<p>Each scene loads a glTF model with upstream's <code>GLTFLoader</code> (Draco through
+<code>DRACOLoader</code>; animated models posed at a fixed time with an <code>AnimationMixer</code>)
+and renders it at 128&times;96 with upstream's <code>WebGPURenderer</code> (r187), then does the same
+with the MoonBit port's loader and renderer (<code>gltf/main.mbt</code>). Both frames are read back
+with <code>readRenderTargetPixelsAsync</code> and compared exactly. Models load from
+<code>.repos/three.js/examples/models/gltf</code>. Results are also in <code>window.__pixelResults</code>.</p>
+<div id="summary">Running&hellip;</div>
+<div class="table">
+<table>
+	<thead><tr><th>scene</th><th>three.js</th><th>three.mbt</th><th>|diff| &times;8</th><th>max</th><th>differing bytes</th><th>result</th></tr></thead>
+	<tbody id="rows"></tbody>
+</table>
+</div>
+<pre id="json"></pre>
+<!-- the add-on scenes' modules import three's bare specifiers -->
+<script type="importmap">
+{ "imports": {
+	"three": "../../.repos/three.js/src/Three.WebGPU.js",
+	"three/webgpu": "../../.repos/three.js/src/Three.WebGPU.js",
+	"three/tsl": "../../.repos/three.js/src/Three.TSL.js",
+	"three/addons/": "../../.repos/three.js/examples/jsm/"
+} }
+</script>
+<script type="module">
+// the published bundles' module order (three.webgpu.js imports three.tsl.js first)
+await import( '../../.repos/three.js/src/Three.TSL.js' );
+const THREE = await import( '../../.repos/three.js/src/Three.WebGPU.js' );
+import { SCENE_NAMES, WIDTH, HEIGHT, renderUpstream } from './gltf_scenes.js';
+// A hidden page gets no animation frames, and both renderers poll WebGL readback fences
+// with `requestAnimationFrame`. Off-screen comparison needs no display frames, so use a
+// timer there; it applies to upstream and the port alike. (`document.hidden` is not
+// reliable for embedded panes, so probe for a frame instead.)
+const framesRun = await Promise.race( [
+	new Promise( ( resolve ) => requestAnimationFrame( () => resolve( true ) ) ),
+	new Promise( ( resolve ) => setTimeout( () => resolve( false ), 200 ) )
+] );
+if ( ! framesRun ) window.requestAnimationFrame = ( f ) => setTimeout( () => f( performance.now() ), 16 );
+// `?webgl=1`: both sides use the WebGL fallback backend (`forceWebGL: true`).
+const FORCE_WEBGL = new URLSearchParams( location.search ).get( 'webgl' ) === '1';
+if ( FORCE_WEBGL ) document.querySelector( 'h1' ).textContent += ' (forceWebGL)';
+
+function makeCanvas() {
+
+	const canvas = document.createElement( 'canvas' );
+	canvas.width = WIDTH;
+	canvas.height = HEIGHT;
+	return canvas;
+
+}
+
+function image( pixels, scale = 1 ) {
+
+	const canvas = makeCanvas();
+	canvas.className = 'img';
+	const context = canvas.getContext( '2d' );
+	const data = context.createImageData( WIDTH, HEIGHT );
+	for ( let y = 0; y < HEIGHT; y ++ ) {
+
+		for ( let x = 0; x < WIDTH * 4; x ++ ) {
+
+			const v = pixels[ y * WIDTH * 4 + x ];
+			data.data[ y * WIDTH * 4 + x ] = ( x % 4 === 3 ) ? 255 : Math.min( 255, v * scale );
+
+		}
+
+	}
+
+	context.putImageData( data, 0, 0 );
+	return canvas;
+
+}
+
+function cell( row, content, className ) {
+
+	const td = document.createElement( 'td' );
+	if ( typeof content === 'string' ) td.textContent = content; else td.appendChild( content );
+	if ( className ) td.className = className;
+	row.appendChild( td );
+	return td;
+
+}
+
+async function loadPort() {
+
+	let lastError;
+	for ( const mode of [ 'debug', 'release' ] ) {
+
+		try {
+
+			return await import( `./_build/js/${ mode }/build/bobzhang/three-pixel-compare/gltf/gltf.js` );
+
+		} catch ( e ) {
+
+			lastError = e;
+
+		}
+
+	}
+
+	throw new Error( 'MoonBit build not found; run `moon build --target js` in examples/pixel_compare (' + lastError + ')' );
+
+}
+
+const results = { width: WIDTH, height: HEIGHT, scenes: [], allPass: false, done: false, error: null };
+window.__pixelResults = results;
+const rows = document.getElementById( 'rows' );
+try {
+
+	if ( navigator.gpu === undefined ) throw new Error( 'this browser has no WebGPU (navigator.gpu)' );
+	const port = await loadPort();
+	const names = Array.from( port.scene_names() );
+	if ( names.join() !== SCENE_NAMES.join() ) throw new Error( 'scene lists differ: ' + names.join() + ' vs ' + SCENE_NAMES.join() );
+	for ( const name of SCENE_NAMES ) {
+
+		const row = document.createElement( 'tr' );
+		rows.appendChild( row );
+		cell( row, name );
+		const entry = { name, max: null, differing: null, pass: false, error: null };
+		results.scenes.push( entry );
+		try {
+
+			const upstream = await renderUpstream( THREE, name, makeCanvas(), FORCE_WEBGL );
+			const ported = await new Promise( ( resolve, reject ) => port.render_scene( name, makeCanvas(), resolve, reject, FORCE_WEBGL ) );
+			if ( ported === null ) throw new Error( 'unknown scene ' + name );
+			const diff = new Uint8Array( upstream.length );
+			let max = 0, differing = 0;
+			for ( let i = 0; i < upstream.length; i ++ ) {
+
+				const d = Math.abs( upstream[ i ] - ported[ i ] );
+				diff[ i ] = d;
+				if ( d > max ) max = d;
+				if ( d !== 0 ) differing ++;
+
+			}
+
+			entry.max = max;
+			entry.differing = differing;
+			entry.pass = upstream.length === ported.length && differing === 0;
+			cell( row, image( upstream ) );
+			cell( row, image( ported ) );
+			cell( row, image( diff, 8 ) );
+			cell( row, String( max ), 'num' );
+			cell( row, String( differing ), 'num' );
+			cell( row, entry.pass ? 'PASS' : 'FAIL', entry.pass ? 'pass' : 'fail' );
+
+		} catch ( e ) {
+
+			entry.error = String( e && e.stack || e );
+			const td = cell( row, String( e ), 'err' );
+			td.colSpan = 5;
+			cell( row, 'FAIL', 'fail' );
+
+		}
+
+		await new Promise( ( resolve ) => setTimeout( resolve, 0 ) );
+
+	}
+
+	results.allPass = results.scenes.every( ( s ) => s.pass );
+
+} catch ( e ) {
+
+	results.error = String( e && e.stack || e );
+
+}
+
+results.done = true;
+const passed = results.scenes.filter( ( s ) => s.pass ).length;
+document.getElementById( 'summary' ).textContent = results.error ? 'Error: ' + results.error : passed + ' / ' + results.scenes.length + ' scenes identical';
+document.getElementById( 'summary' ).className = results.allPass ? 'pass' : 'fail';
+document.getElementById( 'json' ).textContent = JSON.stringify( results, null, 2 );
+</script>
+</body>
+</html>

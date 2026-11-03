@@ -1,0 +1,9 @@
+import {
+  "bobzhang/three/renderers/shaders",
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+}
+
+options(
+  link: { "js": { "exports": [ "dump" ], "format": "esm" } },
+)

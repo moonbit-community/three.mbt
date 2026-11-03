@@ -1,0 +1,61 @@
+///|
+test "CylinderGeometry: type" {
+  assert_eq(@geometries.CylinderGeometry::new().type_, "CylinderGeometry")
+}
+
+///|
+test "CylinderGeometry: standard geometry tests" {
+  run_std_geometry_tests(
+    [
+      @geometries.CylinderGeometry::new(),
+      @geometries.CylinderGeometry::new(radius_top=10),
+      @geometries.CylinderGeometry::new(radius_top=10, radius_bottom=20),
+      @geometries.CylinderGeometry::new(
+        radius_top=10,
+        radius_bottom=20,
+        height=30,
+      ),
+      @geometries.CylinderGeometry::new(
+        radius_top=10,
+        radius_bottom=20,
+        height=30,
+        radial_segments=20,
+      ),
+      @geometries.CylinderGeometry::new(
+        radius_top=10,
+        radius_bottom=20,
+        height=30,
+        radial_segments=20,
+        height_segments=30,
+      ),
+      @geometries.CylinderGeometry::new(
+        radius_top=10,
+        radius_bottom=20,
+        height=30,
+        radial_segments=20,
+        height_segments=30,
+        open_ended=true,
+      ),
+      @geometries.CylinderGeometry::new(
+        radius_top=10,
+        radius_bottom=20,
+        height=30,
+        radial_segments=20,
+        height_segments=30,
+        open_ended=true,
+        theta_start=0.1,
+      ),
+      @geometries.CylinderGeometry::new(
+        radius_top=10,
+        radius_bottom=20,
+        height=30,
+        radial_segments=20,
+        height_segments=30,
+        open_ended=true,
+        theta_start=0.1,
+        theta_length=2.0,
+      ),
+    ],
+    @geometries.CylinderGeometry::from_json,
+  )
+}

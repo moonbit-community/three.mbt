@@ -1,0 +1,10 @@
+import {
+  "bobzhang/three/core",
+  "bobzhang/three/math",
+  "bobzhang/three/nodes",
+  "bobzhang/three/renderers/gpu",
+  "bobzhang/three/renderers/webgl",
+  "bobzhang/three/renderers/webgl_fallback",
+}
+
+warnings = "-79"

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>three.mbt ocean</title>
+<style>
+	html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+	canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
+	#hud {
+		position: fixed; left: 16px; top: 14px; color: #e8e2d6;
+		font: 13px/1.7 ui-sans-serif, system-ui, -apple-system, sans-serif;
+		text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); user-select: none;
+		background: rgba(0, 0, 0, 0.18); padding: 8px 12px; border-radius: 8px;
+		backdrop-filter: blur(4px);
+	}
+	#hud b { color: #fff; font-weight: 600; }
+	#hud .dim { color: #cfc7b8; }
+	#hud label { display: flex; align-items: center; gap: 8px; }
+	#hud label span { width: 74px; }
+	#hud input[type=range] { width: 150px; }
+	#error { color: #ff8f8f; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud">
+	<b>three.mbt</b> &mdash; golden hour<br>
+	<span id="info" class="dim">loading&hellip;</span><br>
+	<span class="dim">SkyMesh &middot; WaterMesh &middot; GLTFLoader &middot; PMREM &middot; bloom &mdash; all MoonBit</span>
+	<label><input id="cycle" type="checkbox" checked> sunset cycle</label>
+	<label><span>elevation</span><input id="elevation" type="range" min="-2" max="40" step="0.1" value="4"></label>
+	<label><span>azimuth</span><input id="azimuth" type="range" min="-180" max="180" step="0.5" value="180"></label>
+	<label><span>exposure</span><input id="exposure" type="range" min="0.02" max="0.5" step="0.005" value="0.12"></label>
+	<label><span>clouds</span><input id="clouds" type="range" min="0" max="1" step="0.01" value="0.4"></label>
+	<div id="error"></div>
+</div>
+<script type="module">
+// The scene is MoonBit (main/main.mbt); this script wires the HUD to it.
+
+// An embedded or hidden pane may get no animation frames; fall back to a timer there.
+const framesRun = await Promise.race( [
+	new Promise( ( resolve ) => requestAnimationFrame( () => resolve( true ) ) ),
+	new Promise( ( resolve ) => setTimeout( () => resolve( false ), 200 ) )
+] );
+if ( ! framesRun ) window.requestAnimationFrame = ( f ) => setTimeout( () => f( performance.now() ), 16 );
+
+const $ = ( id ) => document.getElementById( id );
+let ocean;
+// Debug first: the release JS build currently mis-orders a hoisted constant at load
+// (see repro/release_hoist_cycle in the repository).
+for ( const mode of [ 'debug', 'release' ] ) {
+
+	try {
+
+		ocean = await import( `./_build/js/${ mode }/build/bobzhang/three-ocean/main/main.js?${ Date.now() }` );
+		break;
+
+	} catch ( e ) { console.error( e ); }
+
+}
+
+if ( ocean === undefined ) {
+
+	$( 'error' ).textContent = 'MoonBit build not found: run `moon build --target js` in examples/ocean.';
+
+} else {
+
+	const canvas = $( 'c' );
+	let backend = '';
+	ocean.start( canvas, innerWidth, innerHeight, Math.min( devicePixelRatio, 2 ), ( error, name ) => {
+
+		if ( error ) { $( 'error' ).textContent = error; return; }
+		backend = name;
+
+	} );
+
+	let frames = 0, last = performance.now();
+	( function tick() {
+
+		frames ++;
+		const now = performance.now();
+		if ( now - last >= 500 ) {
+
+			$( 'info' ).textContent = `${ backend } · ${ Math.round( frames * 1000 / ( now - last ) ) } fps · drag to orbit, scroll to zoom`;
+			frames = 0; last = now;
+
+		}
+		requestAnimationFrame( tick );
+
+	} )();
+
+	addEventListener( 'resize', () => ocean.resize( innerWidth, innerHeight ) );
+	const sun = () => {
+
+		$( 'cycle' ).checked = false;
+		ocean.set_sun( Number( $( 'elevation' ).value ), Number( $( 'azimuth' ).value ) );
+
+	};
+	$( 'elevation' ).addEventListener( 'input', sun );
+	$( 'azimuth' ).addEventListener( 'input', sun );
+	$( 'cycle' ).addEventListener( 'change', ( e ) => ocean.set_cycle( e.target.checked ) );
+	$( 'exposure' ).addEventListener( 'input', ( e ) => ocean.set_exposure( Number( e.target.value ) ) );
+	$( 'clouds' ).addEventListener( 'input', ( e ) => ocean.set_clouds( Number( e.target.value ) ) );
+
+}
+</script>
+</body>
+</html>
