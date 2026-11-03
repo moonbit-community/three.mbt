@@ -1,11 +1,11 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "bobzhang/three/loaders"
+package "moonbit-community/three/loaders"
 
 import {
-  "bobzhang/three/animation",
-  "bobzhang/three/audio",
-  "bobzhang/three/core",
-  "bobzhang/three/extras",
+  "moonbit-community/three/animation",
+  "moonbit-community/three/audio",
+  "moonbit-community/three/core",
+  "moonbit-community/three/extras",
   "moonbitlang/core/json",
 }
 

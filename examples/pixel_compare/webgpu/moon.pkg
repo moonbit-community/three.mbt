@@ -1,8 +1,8 @@
 import {
-  "bobzhang/three/webgpu" @three,
-  "bobzhang/three/addons/tsl",
-  "bobzhang/three/nodes",
-  "bobzhang/three/addons/objects",
+  "moonbit-community/three/webgpu" @three,
+  "moonbit-community/three/addons/tsl",
+  "moonbit-community/three/nodes",
+  "moonbit-community/three/addons/objects",
 }
 
 options(

@@ -1,0 +1,8 @@
+# Files left out of the published package (`moon publish`): the package is the library
+# in src/ plus README, LICENSE and PORTING.md. Examples, the differential harnesses
+# against upstream, the compiler repro and the generator tools stay in the repository.
+diff/
+examples/
+repro/
+tools/
+.github/

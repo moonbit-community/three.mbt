@@ -1,13 +1,13 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "bobzhang/three/addons/loaders"
+package "moonbit-community/three/addons/loaders"
 
 import {
-  "bobzhang/three/addons/utils",
-  "bobzhang/three/animation",
-  "bobzhang/three/core",
-  "bobzhang/three/math",
-  "bobzhang/three/nodes",
-  "bobzhang/three/renderers/webgl",
+  "moonbit-community/three/addons/utils",
+  "moonbit-community/three/animation",
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
+  "moonbit-community/three/nodes",
+  "moonbit-community/three/renderers/webgl",
 }
 
 // Values
@@ -39,7 +39,7 @@ pub(all) struct DRACODecoderPaths {
 }
 
 pub struct DRACOLoader {
-  base : @bobzhang/three/loaders.Loader
+  base : @moonbit-community/three/loaders.Loader
   decoder_paths : DRACODecoderPaths
   mut decoder_config : @core.JsValue
   mut decoder_pending : @utils.AddonPromise?
@@ -54,9 +54,9 @@ pub fn DRACOLoader::abort(Self) -> Self
 pub fn DRACOLoader::debug(Self) -> Unit
 pub fn DRACOLoader::decode_draco_file(Self, @core.JsValue, (@core.BufferGeometry) -> Unit, attribute_ids? : Map[String, Int32], attribute_types? : Map[String, String], vertex_color_space? : String, on_error? : (@core.JsValue) -> Unit) -> @utils.AddonPromise
 pub fn DRACOLoader::dispose(Self) -> Self
-pub fn DRACOLoader::load(Self, String, (@core.BufferGeometry) -> Unit, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
-pub fn DRACOLoader::loader(Self) -> @bobzhang/three/loaders.Loader
-pub fn DRACOLoader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> Self
+pub fn DRACOLoader::load(Self, String, (@core.BufferGeometry) -> Unit, on_progress? : (@moonbit-community/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn DRACOLoader::loader(Self) -> @moonbit-community/three/loaders.Loader
+pub fn DRACOLoader::new(manager? : @moonbit-community/three/loaders.LoadingManager) -> Self
 pub fn DRACOLoader::parse(Self, @core.JsValue, (@core.BufferGeometry) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
 pub fn DRACOLoader::preload(Self) -> Self
 pub fn DRACOLoader::set_cache(Self, String) -> Self
@@ -70,8 +70,8 @@ pub fn DRACOLoader::set_request_header(Self, Map[String, String]) -> Self
 pub fn DRACOLoader::set_resource_path(Self, String) -> Self
 pub fn DRACOLoader::set_with_credentials(Self, Bool) -> Self
 pub fn DRACOLoader::set_worker_limit(Self, Int32) -> Self
-pub impl @bobzhang/three/loaders.LoaderLike for DRACOLoader
-pub impl @bobzhang/three/loaders.LoaderSettings for DRACOLoader
+pub impl @moonbit-community/three/loaders.LoaderLike for DRACOLoader
+pub impl @moonbit-community/three/loaders.LoaderSettings for DRACOLoader
 
 pub(all) struct DRACOPathConfig {
   js : String
@@ -79,17 +79,17 @@ pub(all) struct DRACOPathConfig {
 }
 
 pub(all) struct EXRLoader {
-  mut base : @bobzhang/three/loaders.DataTextureLoader
+  mut base : @moonbit-community/three/loaders.DataTextureLoader
   mut type_ : Int32
   mut output_format : Int32
   mut part : Int32
 }
 pub fn EXRLoader::abort(Self) -> Self
-pub fn EXRLoader::load(Self, String, on_load? : (@core.Texture, @bobzhang/three/loaders.DataTexData) -> Unit, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
-pub async fn EXRLoader::load_async(Self, String, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit) -> @core.Texture raise @bobzhang/three/loaders.LoaderError
-pub fn EXRLoader::loader(Self) -> @bobzhang/three/loaders.Loader
-pub fn EXRLoader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> Self
-pub fn EXRLoader::parse(Self, @core.JsValue) -> @bobzhang/three/loaders.DataTexData
+pub fn EXRLoader::load(Self, String, on_load? : (@core.Texture, @moonbit-community/three/loaders.DataTexData) -> Unit, on_progress? : (@moonbit-community/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
+pub async fn EXRLoader::load_async(Self, String, on_progress? : (@moonbit-community/three/loaders.ProgressEvent) -> Unit) -> @core.Texture raise @moonbit-community/three/loaders.LoaderError
+pub fn EXRLoader::loader(Self) -> @moonbit-community/three/loaders.Loader
+pub fn EXRLoader::new(manager? : @moonbit-community/three/loaders.LoadingManager) -> Self
+pub fn EXRLoader::parse(Self, @core.JsValue) -> @moonbit-community/three/loaders.DataTexData
 pub fn EXRLoader::set_cache(Self, String) -> Self
 pub fn EXRLoader::set_cross_origin(Self, String) -> Self
 pub fn EXRLoader::set_data_type(Self, Int32) -> Self
@@ -100,8 +100,8 @@ pub fn EXRLoader::set_priority(Self, String) -> Self
 pub fn EXRLoader::set_request_header(Self, Map[String, String]) -> Self
 pub fn EXRLoader::set_resource_path(Self, String) -> Self
 pub fn EXRLoader::set_with_credentials(Self, Bool) -> Self
-pub impl @bobzhang/three/loaders.LoaderLike for EXRLoader
-pub impl @bobzhang/three/loaders.LoaderSettings for EXRLoader
+pub impl @moonbit-community/three/loaders.LoaderLike for EXRLoader
+pub impl @moonbit-community/three/loaders.LoaderSettings for EXRLoader
 
 pub(all) enum GLTFAssociationKey {
   Object3D(@core.Object3D)
@@ -154,8 +154,8 @@ pub enum GLTFExtension {
 }
 
 pub enum GLTFImageLoader {
-  TextureLoader(@bobzhang/three/loaders.TextureLoader)
-  ImageBitmapLoader(@bobzhang/three/loaders.ImageBitmapLoader)
+  TextureLoader(@moonbit-community/three/loaders.TextureLoader)
+  ImageBitmapLoader(@moonbit-community/three/loaders.ImageBitmapLoader)
   KTX2Loader(KTX2Loader)
 }
 
@@ -167,15 +167,15 @@ pub struct GLTFLightsExtension {
 pub fn GLTFLightsExtension::new(GLTFParser) -> &GLTFPlugin
 
 pub struct GLTFLoader {
-  base : @bobzhang/three/loaders.Loader
+  base : @moonbit-community/three/loaders.Loader
   mut draco_loader : DRACOLoader?
   mut ktx2_loader : KTX2Loader?
   mut meshopt_decoder : @core.JsValue?
   plugin_callbacks : Array[(GLTFParser) -> &GLTFPlugin]
 }
-pub fn GLTFLoader::load(Self, String, (GLTFResult) -> Unit, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
-pub fn GLTFLoader::loader(Self) -> @bobzhang/three/loaders.Loader
-pub fn GLTFLoader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> Self
+pub fn GLTFLoader::load(Self, String, (GLTFResult) -> Unit, on_progress? : (@moonbit-community/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn GLTFLoader::loader(Self) -> @moonbit-community/three/loaders.Loader
+pub fn GLTFLoader::new(manager? : @moonbit-community/three/loaders.LoadingManager) -> Self
 pub fn GLTFLoader::parse(Self, @core.JsValue, String, (GLTFResult) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
 pub fn GLTFLoader::register(Self, (GLTFParser) -> &GLTFPlugin) -> Self
 pub fn GLTFLoader::set_cache(Self, String) -> Self
@@ -189,8 +189,8 @@ pub fn GLTFLoader::set_request_header(Self, Map[String, String]) -> Self
 pub fn GLTFLoader::set_resource_path(Self, String) -> Self
 pub fn GLTFLoader::set_with_credentials(Self, Bool) -> Self
 pub fn GLTFLoader::unregister(Self, (GLTFParser) -> &GLTFPlugin) -> Self
-pub impl @bobzhang/three/loaders.LoaderLike for GLTFLoader
-pub impl @bobzhang/three/loaders.LoaderSettings for GLTFLoader
+pub impl @moonbit-community/three/loaders.LoaderLike for GLTFLoader
+pub impl @moonbit-community/three/loaders.LoaderSettings for GLTFLoader
 
 pub(all) enum GLTFMaterialType {
   MeshBasicMaterial
@@ -319,7 +319,7 @@ pub struct GLTFParser {
   texture_cache : Map[String, @utils.AddonPromise]
   node_names_used : @core.JsValue
   texture_loader : GLTFImageLoader
-  file_loader : @bobzhang/three/loaders.FileLoader
+  file_loader : @moonbit-community/three/loaders.FileLoader
 }
 pub fn GLTFParser::add_node_ref(Self, GLTFNodeRefCache, @core.JsValue) -> Unit
 pub fn GLTFParser::assign_final_material(Self, @core.Object3D) -> Unit
@@ -342,7 +342,7 @@ pub(all) struct GLTFParserOptions {
   cache : String
   with_credentials : Bool
   request_header : Map[String, String]
-  manager : @bobzhang/three/loaders.LoadingManager
+  manager : @moonbit-community/three/loaders.LoadingManager
   ktx2_loader : KTX2Loader?
   meshopt_decoder : @core.JsValue?
 }
@@ -401,15 +401,15 @@ pub struct GLTFTextureWebPExtension {
 pub fn GLTFTextureWebPExtension::new(GLTFParser) -> &GLTFPlugin
 
 pub(all) struct HDRCubeTextureLoader {
-  base : @bobzhang/three/loaders.Loader
+  base : @moonbit-community/three/loaders.Loader
   hdr_loader : HDRLoader
   mut type_ : Int32
 }
 pub fn HDRCubeTextureLoader::abort(Self) -> Self
-pub fn HDRCubeTextureLoader::load(Self, Array[String], on_load? : (@core.Texture) -> Unit, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
-pub async fn HDRCubeTextureLoader::load_async(Self, Array[String], on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit) -> @core.Texture raise @bobzhang/three/loaders.LoaderError
-pub fn HDRCubeTextureLoader::loader(Self) -> @bobzhang/three/loaders.Loader
-pub fn HDRCubeTextureLoader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> Self
+pub fn HDRCubeTextureLoader::load(Self, Array[String], on_load? : (@core.Texture) -> Unit, on_progress? : (@moonbit-community/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
+pub async fn HDRCubeTextureLoader::load_async(Self, Array[String], on_progress? : (@moonbit-community/three/loaders.ProgressEvent) -> Unit) -> @core.Texture raise @moonbit-community/three/loaders.LoaderError
+pub fn HDRCubeTextureLoader::loader(Self) -> @moonbit-community/three/loaders.Loader
+pub fn HDRCubeTextureLoader::new(manager? : @moonbit-community/three/loaders.LoadingManager) -> Self
 pub fn HDRCubeTextureLoader::set_cache(Self, String) -> Self
 pub fn HDRCubeTextureLoader::set_cross_origin(Self, String) -> Self
 pub fn HDRCubeTextureLoader::set_data_type(Self, Int32) -> Self
@@ -418,19 +418,19 @@ pub fn HDRCubeTextureLoader::set_priority(Self, String) -> Self
 pub fn HDRCubeTextureLoader::set_request_header(Self, Map[String, String]) -> Self
 pub fn HDRCubeTextureLoader::set_resource_path(Self, String) -> Self
 pub fn HDRCubeTextureLoader::set_with_credentials(Self, Bool) -> Self
-pub impl @bobzhang/three/loaders.LoaderLike for HDRCubeTextureLoader
-pub impl @bobzhang/three/loaders.LoaderSettings for HDRCubeTextureLoader
+pub impl @moonbit-community/three/loaders.LoaderLike for HDRCubeTextureLoader
+pub impl @moonbit-community/three/loaders.LoaderSettings for HDRCubeTextureLoader
 
 pub(all) struct HDRLoader {
-  mut base : @bobzhang/three/loaders.DataTextureLoader
+  mut base : @moonbit-community/three/loaders.DataTextureLoader
   mut type_ : Int32
 }
 pub fn HDRLoader::abort(Self) -> Self
-pub fn HDRLoader::load(Self, String, on_load? : (@core.Texture, @bobzhang/three/loaders.DataTexData) -> Unit, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
-pub async fn HDRLoader::load_async(Self, String, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit) -> @core.Texture raise @bobzhang/three/loaders.LoaderError
-pub fn HDRLoader::loader(Self) -> @bobzhang/three/loaders.Loader
-pub fn HDRLoader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> Self
-pub fn HDRLoader::parse(Self, @core.JsValue) -> @bobzhang/three/loaders.DataTexData
+pub fn HDRLoader::load(Self, String, on_load? : (@core.Texture, @moonbit-community/three/loaders.DataTexData) -> Unit, on_progress? : (@moonbit-community/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
+pub async fn HDRLoader::load_async(Self, String, on_progress? : (@moonbit-community/three/loaders.ProgressEvent) -> Unit) -> @core.Texture raise @moonbit-community/three/loaders.LoaderError
+pub fn HDRLoader::loader(Self) -> @moonbit-community/three/loaders.Loader
+pub fn HDRLoader::new(manager? : @moonbit-community/three/loaders.LoadingManager) -> Self
+pub fn HDRLoader::parse(Self, @core.JsValue) -> @moonbit-community/three/loaders.DataTexData
 pub fn HDRLoader::set_cache(Self, String) -> Self
 pub fn HDRLoader::set_cross_origin(Self, String) -> Self
 pub fn HDRLoader::set_data_type(Self, Int32) -> Self
@@ -439,11 +439,11 @@ pub fn HDRLoader::set_priority(Self, String) -> Self
 pub fn HDRLoader::set_request_header(Self, Map[String, String]) -> Self
 pub fn HDRLoader::set_resource_path(Self, String) -> Self
 pub fn HDRLoader::set_with_credentials(Self, Bool) -> Self
-pub impl @bobzhang/three/loaders.LoaderLike for HDRLoader
-pub impl @bobzhang/three/loaders.LoaderSettings for HDRLoader
+pub impl @moonbit-community/three/loaders.LoaderLike for HDRLoader
+pub impl @moonbit-community/three/loaders.LoaderSettings for HDRLoader
 
 pub(all) struct KTX2Loader {
-  base : @bobzhang/three/loaders.Loader
+  base : @moonbit-community/three/loaders.Loader
   mut transcoder_path : String
   mut transcoder_binary : @core.JsValue
   mut transcoder_pending : @utils.AddonPromise?
@@ -456,9 +456,9 @@ pub fn KTX2Loader::detect_support(Self, @webgl.WebGLRenderer) -> Self
 pub fn KTX2Loader::detect_support_webgpu(Self, @nodes.Renderer) -> Self
 pub fn KTX2Loader::dispose(Self) -> Self
 pub fn KTX2Loader::init(Self) -> @utils.AddonPromise
-pub fn KTX2Loader::load(Self, String, (@core.Texture) -> Unit, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
-pub fn KTX2Loader::loader(Self) -> @bobzhang/three/loaders.Loader
-pub fn KTX2Loader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> Self
+pub fn KTX2Loader::load(Self, String, (@core.Texture) -> Unit, on_progress? : (@moonbit-community/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> Unit
+pub fn KTX2Loader::loader(Self) -> @moonbit-community/three/loaders.Loader
+pub fn KTX2Loader::new(manager? : @moonbit-community/three/loaders.LoadingManager) -> Self
 pub fn KTX2Loader::parse(Self, @core.JsValue, ((@core.Texture) -> Unit)?, ((@core.JsValue) -> Unit)?) -> Unit
 pub fn KTX2Loader::set_cache(Self, String) -> Self
 pub fn KTX2Loader::set_cross_origin(Self, String) -> Self
@@ -469,8 +469,8 @@ pub fn KTX2Loader::set_resource_path(Self, String) -> Self
 pub fn KTX2Loader::set_transcoder_path(Self, String) -> Self
 pub fn KTX2Loader::set_with_credentials(Self, Bool) -> Self
 pub fn KTX2Loader::set_worker_limit(Self, Int32) -> Self
-pub impl @bobzhang/three/loaders.LoaderLike for KTX2Loader
-pub impl @bobzhang/three/loaders.LoaderSettings for KTX2Loader
+pub impl @moonbit-community/three/loaders.LoaderLike for KTX2Loader
+pub impl @moonbit-community/three/loaders.LoaderSettings for KTX2Loader
 
 pub(all) struct KTX2WorkerConfig {
   mut astc_supported : Bool
@@ -485,18 +485,18 @@ pub fn KTX2WorkerConfig::to_js(Self) -> @core.JsValue
 
 #external
 pub type RGBELoader
-pub fn RGBELoader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> HDRLoader
+pub fn RGBELoader::new(manager? : @moonbit-community/three/loaders.LoadingManager) -> HDRLoader
 
 pub(all) struct UltraHDRLoader {
-  base : @bobzhang/three/loaders.Loader
+  base : @moonbit-community/three/loaders.Loader
   mut type_ : Int32
 }
 pub fn UltraHDRLoader::abort(Self) -> Self
-pub fn UltraHDRLoader::load(Self, String, on_load? : (@core.Texture, @bobzhang/three/loaders.DataTexData) -> Unit, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
-pub async fn UltraHDRLoader::load_async(Self, String, on_progress? : (@bobzhang/three/loaders.ProgressEvent) -> Unit) -> @core.Texture raise @bobzhang/three/loaders.LoaderError
-pub fn UltraHDRLoader::loader(Self) -> @bobzhang/three/loaders.Loader
-pub fn UltraHDRLoader::new(manager? : @bobzhang/three/loaders.LoadingManager) -> Self
-pub fn UltraHDRLoader::parse(Self, @core.JsValue, (@bobzhang/three/loaders.DataTexData) -> Unit) -> Unit
+pub fn UltraHDRLoader::load(Self, String, on_load? : (@core.Texture, @moonbit-community/three/loaders.DataTexData) -> Unit, on_progress? : (@moonbit-community/three/loaders.ProgressEvent) -> Unit, on_error? : (@core.JsValue) -> Unit) -> @core.Texture
+pub async fn UltraHDRLoader::load_async(Self, String, on_progress? : (@moonbit-community/three/loaders.ProgressEvent) -> Unit) -> @core.Texture raise @moonbit-community/three/loaders.LoaderError
+pub fn UltraHDRLoader::loader(Self) -> @moonbit-community/three/loaders.Loader
+pub fn UltraHDRLoader::new(manager? : @moonbit-community/three/loaders.LoadingManager) -> Self
+pub fn UltraHDRLoader::parse(Self, @core.JsValue, (@moonbit-community/three/loaders.DataTexData) -> Unit) -> Unit
 pub fn UltraHDRLoader::set_cache(Self, String) -> Self
 pub fn UltraHDRLoader::set_cross_origin(Self, String) -> Self
 pub fn UltraHDRLoader::set_data_type(Self, Int32) -> Self
@@ -505,8 +505,8 @@ pub fn UltraHDRLoader::set_priority(Self, String) -> Self
 pub fn UltraHDRLoader::set_request_header(Self, Map[String, String]) -> Self
 pub fn UltraHDRLoader::set_resource_path(Self, String) -> Self
 pub fn UltraHDRLoader::set_with_credentials(Self, Bool) -> Self
-pub impl @bobzhang/three/loaders.LoaderLike for UltraHDRLoader
-pub impl @bobzhang/three/loaders.LoaderSettings for UltraHDRLoader
+pub impl @moonbit-community/three/loaders.LoaderLike for UltraHDRLoader
+pub impl @moonbit-community/three/loaders.LoaderSettings for UltraHDRLoader
 
 // Type aliases
 pub type GLTFMaterialParams = Map[String, @core.MaterialValue]

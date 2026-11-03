@@ -1,13 +1,13 @@
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/math",
-  "bobzhang/three/renderers/webgl",
-  "bobzhang/three/loaders",
-  "bobzhang/three/nodes",
-  "bobzhang/three/animation",
-  "bobzhang/three/addons/utils",
-  "bobzhang/three/addons/libs",
-  "bobzhang/three/addons/math" @addon_math,
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
+  "moonbit-community/three/renderers/webgl",
+  "moonbit-community/three/loaders",
+  "moonbit-community/three/nodes",
+  "moonbit-community/three/animation",
+  "moonbit-community/three/addons/utils",
+  "moonbit-community/three/addons/libs",
+  "moonbit-community/three/addons/math" @addon_math,
 }
 
 warnings = "-79"

@@ -1,11 +1,11 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "bobzhang/three/addons/tsl"
+package "moonbit-community/three/addons/tsl"
 
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/math",
-  "bobzhang/three/nodes",
-  "bobzhang/three/renderers/webgl",
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
+  "moonbit-community/three/nodes",
+  "moonbit-community/three/renderers/webgl",
   "moonbitlang/core/ref",
 }
 

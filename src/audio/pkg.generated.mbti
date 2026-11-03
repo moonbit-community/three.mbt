@@ -1,8 +1,8 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "bobzhang/three/audio"
+package "moonbit-community/three/audio"
 
 import {
-  "bobzhang/three/core",
+  "moonbit-community/three/core",
 }
 
 // Values

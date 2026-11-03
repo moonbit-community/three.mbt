@@ -14,5 +14,5 @@ export const EXR_DIR = path.join( OUT_HDR, 'exr' );
 /** Truncated/corrupted inputs (corrupt_run.mjs). */
 export const CORRUPT_DIR = path.join( OUT_HDR, 'corrupt' );
 /** The MoonBit side (mod/, `moon build --target js`). */
-export const HARNESS_JS = path.join( HERE, 'mod/_build/js/debug/build/bobzhang/three-diff-hdr/harness/harness.js' );
+export const HARNESS_JS = path.join( HERE, 'mod/_build/js/debug/build/moonbit-community/three-diff-hdr/harness/harness.js' );
 export const HARNESS_URL = pathToFileURL( HARNESS_JS ).href;

@@ -11,7 +11,7 @@ const T = await import(upstreamURL('src/Three.js'));
 
 if (!process.env.SKIP_BUILD) try { execSync('moon build --target js', { cwd: here, stdio: 'pipe' }); }
 catch (e) { console.log('BUILD FAILED\n' + String(e.stdout).split('\n').filter(l => /rror/.test(l)).slice(0, 20).join('\n')); process.exit(2); }
-const M = await import(pathToFileURL(path.join(here, '_build/js/debug/build/bobzhang/three-diff-geometry-gaps/main/main.js')).href);
+const M = await import(pathToFileURL(path.join(here, '_build/js/debug/build/moonbit-community/three-diff-geometry-gaps/main/main.js')).href);
 // MoonBit's abort reports its message on console.error, then throws an empty $PanicError
 let panicText = '';
 console.warn = () => {}; console.error = (...a) => { panicText = a.join(' '); };

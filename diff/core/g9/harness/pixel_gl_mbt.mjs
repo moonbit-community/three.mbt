@@ -3,7 +3,7 @@ import { flush } from './common.mjs';
 import { setupGL } from './pixel_gl_common.mjs';
 const name = process.argv[ 2 ];
 const { gl, canvas } = setupGL();
-const MAIN = new URL( '../mbt/_build/js/debug/build/bobzhang/three-g9-diff/pixel/pixel.js', import.meta.url );
+const MAIN = new URL( '../mbt/_build/js/debug/build/moonbit-community/three-g9-diff/pixel/pixel.js', import.meta.url );
 const mbt = await import( MAIN.href );
 mbt.align_counters();
 const pixels = await new Promise( ( resolve ) => mbt.render_scene( name, canvas, resolve, true ) );

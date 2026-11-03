@@ -9,7 +9,7 @@ import { catmullRomInterp } from './interp_shim.mjs';
 const THREE = await import( upstreamURL( 'src/Three.js' ) );
 const { default: earcutLib, deviation, flatten } = await import( upstreamURL( 'src/extras/lib/earcut.js' ) );
 const DataUtilsModule = await import( upstreamURL( 'src/extras/DataUtils.js' ) );
-const bridgeDefault = new URL( './_build/js/debug/build/bobzhang/three-diff-extras/bridge/bridge.js', import.meta.url );
+const bridgeDefault = new URL( './_build/js/debug/build/moonbit-community/three-diff-extras/bridge/bridge.js', import.meta.url );
 if ( ! process.env.BRIDGE && ! fs.existsSync( bridgeDefault ) ) {
 	console.log( 'missing _build/.../bridge.js; build first (moon build --target js)' );
 	process.exit( 2 );

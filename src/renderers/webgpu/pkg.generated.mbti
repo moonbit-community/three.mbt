@@ -1,11 +1,11 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "bobzhang/three/renderers/webgpu"
+package "moonbit-community/three/renderers/webgpu"
 
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/math",
-  "bobzhang/three/nodes",
-  "bobzhang/three/renderers/gpu",
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
+  "moonbit-community/three/nodes",
+  "moonbit-community/three/renderers/gpu",
 }
 
 // Values

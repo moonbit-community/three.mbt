@@ -1,10 +1,10 @@
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/nodes",
-  "bobzhang/three/renderers/webgpu",
-  "bobzhang/three/addons/controls",
-  "bobzhang/three/addons/loaders",
-  "bobzhang/three/addons/tsl",
+  "moonbit-community/three/core",
+  "moonbit-community/three/nodes",
+  "moonbit-community/three/renderers/webgpu",
+  "moonbit-community/three/addons/controls",
+  "moonbit-community/three/addons/loaders",
+  "moonbit-community/three/addons/tsl",
 }
 
 options(

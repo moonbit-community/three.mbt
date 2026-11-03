@@ -1,4 +1,4 @@
-# bobzhang/three/webgpu
+# moonbit-community/three/webgpu
 
 The entry points of three.js's WebGPU build in one package: upstream's `Three.WebGPU.js`
 (`three/webgpu`), `Three.TSL.js` (`three/tsl`) and `Three.WebGPU.Nodes.js`. Import it once
@@ -6,7 +6,7 @@ and use it like the `THREE` namespace:
 
 ```text
 import {
-  "bobzhang/three/webgpu" @three,
+  "moonbit-community/three/webgpu" @three,
 }
 ```
 

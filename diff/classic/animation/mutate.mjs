@@ -84,7 +84,7 @@ for (const [i, [file, from, to, label]] of mutants.entries()) {
         const first = run.stdout.split('\n').find(l => l.startsWith('FAIL')) || run.stdout.split('\n').slice(-3).join(' ');
         how = 'diff: ' + first.slice(0, 110);
       } else {
-        const test = spawnSync('moon', ['test', '--target', 'js', '-p', 'bobzhang/three/animation'], { cwd: REPO, encoding: 'utf8' });
+        const test = spawnSync('moon', ['test', '--target', 'js', '-p', 'moonbit-community/three/animation'], { cwd: REPO, encoding: 'utf8' });
         if (test.status !== 0) how = 'moon test only';
       }
     }

@@ -1,8 +1,8 @@
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/addons/libs" @libs,
-  "bobzhang/three/addons/loaders" @aloaders,
-  "bobzhang/three/loaders" @loaders,
+  "moonbit-community/three/core",
+  "moonbit-community/three/addons/libs" @libs,
+  "moonbit-community/three/addons/loaders" @aloaders,
+  "moonbit-community/three/loaders" @loaders,
 }
 
 warnings = "-1-2-3"

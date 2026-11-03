@@ -1,7 +1,7 @@
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/geometries",
-  "bobzhang/three/math",
-  "bobzhang/three/renderers/shaders",
+  "moonbit-community/three/core",
+  "moonbit-community/three/geometries",
+  "moonbit-community/three/math",
+  "moonbit-community/three/renderers/shaders",
   "moonbitlang/core/math" @cmath,
 }

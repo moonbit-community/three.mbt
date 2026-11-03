@@ -152,7 +152,7 @@ function signatureOf( pkg, fn ) {
 
 		} catch {}
 
-		if ( ! text.includes( `package "bobzhang/three/${pkg}"` ) ) text = fs.readFileSync( path.join( repoRoot, 'src', pkg, 'pkg.generated.mbti' ), 'utf8' );
+		if ( ! text.includes( `package "moonbit-community/three/${pkg}"` ) ) text = fs.readFileSync( path.join( repoRoot, 'src', pkg, 'pkg.generated.mbti' ), 'utf8' );
 		signatures[ pkg ] = text.split( '\n' );
 
 	}
@@ -505,7 +505,7 @@ ${usingBlocks( facade[ 'Three.WebGPU.Nodes.js' ] )}`;
 
 const used = new Set( Object.values( facade ).flat().map( ( it ) => it.pkg ) );
 for ( const n of namespaces ) for ( const m of n.members ) used.add( m.pkg );
-files[ 'moon.pkg' ] = `import {\n${PACKAGE_ORDER.filter( ( p ) => used.has( p ) ).map( ( p ) => `  "bobzhang/three/${p}"${ALIAS[ p ] !== p.split( '/' ).pop() ? ` @${ALIAS[ p ]}` : ''},\n` ).join( '' )}}\n\nwarnings = "-79"\n`;
+files[ 'moon.pkg' ] = `import {\n${PACKAGE_ORDER.filter( ( p ) => used.has( p ) ).map( ( p ) => `  "moonbit-community/three/${p}"${ALIAS[ p ] !== p.split( '/' ).pop() ? ` @${ALIAS[ p ]}` : ''},\n` ).join( '' )}}\n\nwarnings = "-79"\n`;
 
 // --- report -----------------------------------------------------------------------
 

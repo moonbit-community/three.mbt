@@ -11,7 +11,7 @@ import { outDir } from '../../lib/env.mjs';
 
 const here = path.dirname( fileURLToPath( import.meta.url ) );
 if ( process.argv.includes( '--build' ) ) execFileSync( 'moon', [ 'build', '--target', 'js' ], { cwd: here, stdio: 'inherit' } );
-const js = path.join( here, '_build/js/debug/build/bobzhang/three-diff-cameras-lights/main/main.js' );
+const js = path.join( here, '_build/js/debug/build/moonbit-community/three-diff-cameras-lights/main/main.js' );
 if ( ! fs.existsSync( js ) ) {
 
 	console.log( `missing ${path.relative( here, js )}; build first (moon build --target js)` );

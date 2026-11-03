@@ -26,7 +26,7 @@ if (!args.includes('--no-build')) {
   try { execSync('moon build --target js', { cwd: here, stdio: 'pipe' }); }
   catch (e) { console.log('BUILD FAILED\n' + String(e.stdout).split('\n').filter((l) => /Error|error/.test(l)).slice(0, 20).join('\n')); process.exit(2); }
 }
-const M = await import(pathToFileURL(path.join(here, '_build/js/debug/build/bobzhang/three-diff-json-uuid/main/main.js')).href);
+const M = await import(pathToFileURL(path.join(here, '_build/js/debug/build/moonbit-community/three-diff-json-uuid/main/main.js')).href);
 const SRC = upstreamURL('src') + '/';
 const T = await import(SRC + 'Three.js');
 const { ClippingGroup } = await import(SRC + 'objects/ClippingGroup.js');

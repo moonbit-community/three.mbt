@@ -1,9 +1,9 @@
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/math",
-  "bobzhang/three/renderers/webgl",
-  "bobzhang/three/geometries",
-  "bobzhang/three/nodes",
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
+  "moonbit-community/three/renderers/webgl",
+  "moonbit-community/three/geometries",
+  "moonbit-community/three/nodes",
 }
 
 warnings = "-79"

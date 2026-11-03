@@ -1,9 +1,9 @@
-name = "bobzhang/three-diff-animation"
+name = "moonbit-community/three-diff-animation"
 
 version = "0.1.0"
 
 import {
-  "bobzhang/three@0.1.0",
+  "moonbit-community/three@0.1.0",
 }
 
 source = "src"

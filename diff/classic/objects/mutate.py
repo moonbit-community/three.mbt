@@ -38,7 +38,7 @@ for pkg in ['math', 'core']:
 shutil.copytree(Path(D) / 'mbt/diff', M / 'h/diff')
 shutil.copy(Path(D) / 'mbt/moon.mod', M / 'h')
 (M / 'h/moon.work').write_text('members = [\n  ".",\n  "../three",\n]\n')
-runner = M / 'h/_build/js/debug/build/bobzhang/three-diff-objects/diff/diff.js'
+runner = M / 'h/_build/js/debug/build/moonbit-community/three-diff-objects/diff/diff.js'
 
 def run():
     b = subprocess.run(['moon', 'build', '--target', 'js'], cwd=M / 'h', capture_output=True, text=True)

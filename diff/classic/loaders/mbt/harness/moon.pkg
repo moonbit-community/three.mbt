@@ -1,7 +1,7 @@
 import {
-  "bobzhang/three/loaders" @loaders,
-  "bobzhang/three/core",
-  "bobzhang/three/math",
+  "moonbit-community/three/loaders" @loaders,
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
   "moonbitlang/core/json",
   "moonbitlang/core/async/js_async",
 }

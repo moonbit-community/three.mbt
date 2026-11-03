@@ -1,9 +1,9 @@
-name = "bobzhang/three-g9-diff"
+name = "moonbit-community/three-g9-diff"
 
 version = "0.1.0"
 
 import {
-  "bobzhang/three@0.1.0",
+  "moonbit-community/three@0.1.0",
 }
 
 preferred_target = "js"

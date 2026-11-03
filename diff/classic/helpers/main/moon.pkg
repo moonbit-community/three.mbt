@@ -1,8 +1,8 @@
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/geometries",
-  "bobzhang/three/helpers",
-  "bobzhang/three/math",
+  "moonbit-community/three/core",
+  "moonbit-community/three/geometries",
+  "moonbit-community/three/helpers",
+  "moonbit-community/three/math",
 }
 
 options(

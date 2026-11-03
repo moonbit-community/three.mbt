@@ -9,7 +9,7 @@ set -eo pipefail
 cd "$(dirname "$0")"
 . ../../lib/env.sh
 O="$OUT/classic_objects"; mkdir -p "$O"
-RUNNER="${OBJECTS_RUNNER:-mbt/_build/js/debug/build/bobzhang/three-diff-objects/diff/diff.js}"
+RUNNER="${OBJECTS_RUNNER:-mbt/_build/js/debug/build/moonbit-community/three-diff-objects/diff/diff.js}"
 [ -n "$SKIP_BUILD" ] || [ -n "$OBJECTS_RUNNER" ] || (cd mbt && moon build --target js 2>&1 | grep -E "^Error" -A6 || true)
 node gen.mjs "$O/scenarios.json" "${1:-1}" "${2:-1}"
 node run_upstream.mjs "$O/scenarios.json" "$O/upstream.json"

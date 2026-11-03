@@ -1,9 +1,9 @@
-name = "bobzhang/three-diff-helpers"
+name = "moonbit-community/three-diff-helpers"
 
 version = "0.1.0"
 
 import {
-  "bobzhang/three@0.1.0",
+  "moonbit-community/three@0.1.0",
 }
 
 preferred_target = "js"

@@ -1,11 +1,11 @@
 // The MoonBit side of the A5 mock-GPU scenarios (harness/a5_scenarios.mjs).
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/geometries",
-  "bobzhang/three/math",
-  "bobzhang/three/nodes",
-  "bobzhang/three/renderers/webgpu",
-  "bobzhang/three/addons/tsl",
+  "moonbit-community/three/core",
+  "moonbit-community/three/geometries",
+  "moonbit-community/three/math",
+  "moonbit-community/three/nodes",
+  "moonbit-community/three/renderers/webgpu",
+  "moonbit-community/three/addons/tsl",
 }
 
 warnings = "-1-2-3-6-7-9-20-28-29-35-79"

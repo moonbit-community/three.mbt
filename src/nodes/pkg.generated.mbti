@@ -1,10 +1,10 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "bobzhang/three/nodes"
+package "moonbit-community/three/nodes"
 
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/math",
-  "bobzhang/three/renderers/webgl",
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
+  "moonbit-community/three/renderers/webgl",
   "moonbitlang/core/debug",
   "moonbitlang/core/json",
   "moonbitlang/core/ref",

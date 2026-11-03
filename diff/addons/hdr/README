@@ -45,7 +45,7 @@ The corrupt inputs are always derived by corrupt_run.mjs.
 
 mod/ is a module (moon.work: mod/ and the repository root) with one package, harness,
 exporting the functions run.mjs, case.mjs and one.mjs call; it imports the real
-bobzhang/three/addons/{loaders,libs}. The loaders' own unit tests run with the repo's
+moonbit-community/three/addons/{loaders,libs}. The loaders' own unit tests run with the repo's
 `moon test`, not here.
 
 UltraHDR stubs (env.mjs installUltra): createImageBitmap reads the JPEG SOF size and fills

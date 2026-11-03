@@ -18,7 +18,7 @@ globalThis.__noteStr = ( l, v ) => log.push( [ l, String( v ) ] );
 globalThis.__noteTyped = ( l, a ) => log.push( [ l, a.constructor.name + '[' + a.length + '] ' +
 	Buffer.from( a.buffer, a.byteOffset, a.byteLength ).toString( 'hex' ) ] );
 
-const mbt = await import( pathToFileURL( path.join( here, '_build/js/debug/build/bobzhang/three-diff-helpers/main/main.js' ) ) );
+const mbt = await import( pathToFileURL( path.join( here, '_build/js/debug/build/moonbit-community/three-diff-helpers/main/main.js' ) ) );
 mbt.run_mbt();
 const mine = log;
 log = [];

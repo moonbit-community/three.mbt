@@ -13,7 +13,7 @@ const here = path.dirname( fileURLToPath( import.meta.url ) );
 
 /** `diff/` */
 export const DIFF = path.resolve( here, '..' );
-/** The repository root (module `bobzhang/three`). */
+/** The repository root (module `moonbit-community/three`). */
 export const REPO = path.resolve( DIFF, '..' );
 /** The upstream three.js checkout. */
 export const UPSTREAM = path.resolve( REPO, process.env.THREE_UPSTREAM || '.repos/three.js' );

@@ -1,6 +1,6 @@
 import {
-  "bobzhang/three/webgpu" @three,
-  "bobzhang/three/addons/loaders" @gltf,
+  "moonbit-community/three/webgpu" @three,
+  "moonbit-community/three/addons/loaders" @gltf,
 }
 
 options(

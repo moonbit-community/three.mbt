@@ -17,7 +17,7 @@ HDR = 'src/addons/loaders/hdr_loader.mbt'
 UHDR = 'src/addons/loaders/ultra_hdr_loader.mbt'
 CUBE = 'src/addons/loaders/hdr_cube_texture_loader.mbt'
 FF = 'src/addons/libs/fflate_module.mbt'
-UNIT = ('repo', ['moon', 'test', '--target', 'js', '-p', 'bobzhang/three/addons/loaders'])
+UNIT = ('repo', ['moon', 'test', '--target', 'js', '-p', 'moonbit-community/three/addons/loaders'])
 run_exr = lambda f: ['node', 'run.mjs', '--only', 'exr', '--filter', f]
 BUGS = [
   ('piz-wavelet', EXR, 'let ai = ls + (hi & 1) + (hi >> 1)', 'let ai = ls + (hi >> 1)', run_exr(r'memorial|rgb_half_big\.piz')),

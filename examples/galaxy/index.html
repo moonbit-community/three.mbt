@@ -47,7 +47,7 @@ for ( const mode of [ 'debug', 'release' ] ) {
 	try {
 
 		// The query string defeats the cache, so a rebuild shows up on reload.
-		galaxy = await import( `./_build/js/${ mode }/build/bobzhang/three-galaxy/main/main.js?${ Date.now() }` );
+		galaxy = await import( `./_build/js/${ mode }/build/moonbit-community/three-galaxy/main/main.js?${ Date.now() }` );
 		break;
 
 	} catch ( e ) { /* try the next build mode */ }

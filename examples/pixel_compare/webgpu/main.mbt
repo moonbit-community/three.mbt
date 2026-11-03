@@ -1,7 +1,7 @@
 // The MoonBit half of the WebGPU pixel comparison (webgpu.html): the scenes of
 // webgpu_scenes.js, line for line, rendered with the port's WebGPURenderer into a render
 // target and read back with `readRenderTargetPixelsAsync`. `@three` is the
-// `bobzhang/three/webgpu` facade, upstream's `THREE` (Three.WebGPU.js) and `TSL`
+// `moonbit-community/three/webgpu` facade, upstream's `THREE` (Three.WebGPU.js) and `TSL`
 // (Three.TSL.js) in one package.
 
 ///|

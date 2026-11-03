@@ -57,7 +57,7 @@ renderer.init(on_done=fn(_) {
 })
 ```
 
-`bobzhang/three/webgpu` (imported as `@three`) re-exports `WebGPURenderer`, the node
+`moonbit-community/three/webgpu` (imported as `@three`) re-exports `WebGPURenderer`, the node
 materials and TSL from one place.
 
 ## Examples

@@ -1,10 +1,10 @@
 import {
-  "bobzhang/three/addons/loaders" @gltf,
-  "bobzhang/three/addons/utils",
-  "bobzhang/three/core",
-  "bobzhang/three/math",
-  "bobzhang/three/animation",
-  "bobzhang/three/loaders",
+  "moonbit-community/three/addons/loaders" @gltf,
+  "moonbit-community/three/addons/utils",
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
+  "moonbit-community/three/animation",
+  "moonbit-community/three/loaders",
 }
 
 warnings = "-1-2-3"

@@ -1,10 +1,10 @@
 import {
-  "bobzhang/three/animation",
-  "bobzhang/three/audio",
-  "bobzhang/three/core",
-  "bobzhang/three/extras",
-  "bobzhang/three/geometries",
-  "bobzhang/three/math",
+  "moonbit-community/three/animation",
+  "moonbit-community/three/audio",
+  "moonbit-community/three/core",
+  "moonbit-community/three/extras",
+  "moonbit-community/three/geometries",
+  "moonbit-community/three/math",
   "moonbitlang/core/async/js_async",
 }
 

@@ -1,11 +1,11 @@
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/geometries",
-  "bobzhang/three/math",
-  "bobzhang/three/nodes",
-  "bobzhang/three/renderers/gpu",
-  "bobzhang/three/renderers/webgl",
-  "bobzhang/three/renderers/webgpu",
+  "moonbit-community/three/core",
+  "moonbit-community/three/geometries",
+  "moonbit-community/three/math",
+  "moonbit-community/three/nodes",
+  "moonbit-community/three/renderers/gpu",
+  "moonbit-community/three/renderers/webgl",
+  "moonbit-community/three/renderers/webgpu",
 }
 
 warnings = "-1-2-3-6-7-9-20-28-29-35-79"

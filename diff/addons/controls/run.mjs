@@ -26,7 +26,7 @@ globalThis.__describe = ( v ) => {
 
 };
 
-const mbt = await import( pathToFileURL( path.join( here, '_build/js/debug/build/bobzhang/three-controls-diff/main/main.js' ) ) );
+const mbt = await import( pathToFileURL( path.join( here, '_build/js/debug/build/moonbit-community/three-controls-diff/main/main.js' ) ) );
 const up = await makeUpstream();
 
 function runSide( A, scenario ) {

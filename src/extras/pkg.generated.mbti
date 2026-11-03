@@ -1,9 +1,9 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "bobzhang/three/extras"
+package "moonbit-community/three/extras"
 
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/math",
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
   "moonbitlang/core/json",
 }
 

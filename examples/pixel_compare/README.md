@@ -33,7 +33,7 @@ are checked against upstream by the `a6_*` mock-GL scenarios of the diff/core/we
 
 ```sh
 cd examples/pixel_compare
-moon build --target js          # writes _build/js/debug/build/bobzhang/three-pixel-compare/main/main.js
+moon build --target js          # writes _build/js/debug/build/moonbit-community/three-pixel-compare/main/main.js
 cd ../..                        # serve the repository root, so the page can load .repos/three.js
 python3 -m http.server 8000
 ```
@@ -89,7 +89,7 @@ A page that gets no animation frames (a hidden or embedded pane) would stall Web
 readbacks, because both renderers poll the fence with `requestAnimationFrame`; the page
 probes for a frame and falls back to a 16 ms timer for both sides.
 
-The port side imports one package, the `bobzhang/three/webgpu` facade as `@three`, so
+The port side imports one package, the `moonbit-community/three/webgpu` facade as `@three`, so
 `new THREE.Mesh( ... )` is `@three.Mesh::new(...)` and `TSL.uv()` is `@three.uv()`.
 
 Scenes (20): `unlit_box`, `lit_spheres`, `data_texture`, `instancing`, `lines_points`,

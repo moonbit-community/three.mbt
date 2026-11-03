@@ -1,11 +1,11 @@
 import {
-  "bobzhang/three/addons/loaders" @addon_loaders,
-  "bobzhang/three/addons/libs" @libs,
-  "bobzhang/three/addons/utils" @utils,
-  "bobzhang/three/addons/math" @addon_math,
-  "bobzhang/three/core",
-  "bobzhang/three/math",
-  "bobzhang/three/renderers/webgl",
+  "moonbit-community/three/addons/loaders" @addon_loaders,
+  "moonbit-community/three/addons/libs" @libs,
+  "moonbit-community/three/addons/utils" @utils,
+  "moonbit-community/three/addons/math" @addon_math,
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
+  "moonbit-community/three/renderers/webgl",
 }
 
 warnings = "-1-2-3-4-5-6-7-8-9-20-35"

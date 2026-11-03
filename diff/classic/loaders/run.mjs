@@ -49,7 +49,7 @@ if (!args.includes('--no-build')) {
   try { execSync('moon build --target js', { cwd: devDir, stdio: 'pipe' }); }
   catch (e) { console.log('BUILD FAILED\n' + String(e.stdout).split('\n').filter((l) => /Error|error/.test(l)).slice(0, 20).join('\n')); process.exit(2); }
 }
-const M = await import(pathToFileURL(path.join(devDir, '_build/js/debug/build/' + (process.env.LOADERS_HARNESS || 'bobzhang/three-diff-loaders/harness/harness.js'))).href);
+const M = await import(pathToFileURL(path.join(devDir, '_build/js/debug/build/' + (process.env.LOADERS_HARNESS || 'moonbit-community/three-diff-loaders/harness/harness.js'))).href);
 const T = await import(upstreamURL('src/Three.js'));
 
 let failed = 0, passed = 0, known = 0;

@@ -1,11 +1,11 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "bobzhang/three/addons/utils"
+package "moonbit-community/three/addons/utils"
 
 import {
-  "bobzhang/three/animation",
-  "bobzhang/three/core",
-  "bobzhang/three/math",
-  "bobzhang/three/nodes",
+  "moonbit-community/three/animation",
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
+  "moonbit-community/three/nodes",
 }
 
 // Values

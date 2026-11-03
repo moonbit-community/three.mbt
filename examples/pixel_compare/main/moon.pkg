@@ -1,10 +1,10 @@
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/geometries",
-  "bobzhang/three/helpers",
-  "bobzhang/three/math",
-  "bobzhang/three/renderers/webgl",
-  "bobzhang/three/addons/objects",
+  "moonbit-community/three/core",
+  "moonbit-community/three/geometries",
+  "moonbit-community/three/helpers",
+  "moonbit-community/three/math",
+  "moonbit-community/three/renderers/webgl",
+  "moonbit-community/three/addons/objects",
 }
 
 options(

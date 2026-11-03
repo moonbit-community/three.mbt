@@ -1,5 +1,5 @@
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/math",
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
   "moonbitlang/core/double",
 }

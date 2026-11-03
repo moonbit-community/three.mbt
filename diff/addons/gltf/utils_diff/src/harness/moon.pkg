@@ -1,9 +1,9 @@
 import {
-  "bobzhang/three/addons/utils" @utils,
-  "bobzhang/three/core",
-  "bobzhang/three/math",
-  "bobzhang/three/geometries",
-  "bobzhang/three/animation",
+  "moonbit-community/three/addons/utils" @utils,
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
+  "moonbit-community/three/geometries",
+  "moonbit-community/three/animation",
 }
 
 warnings = "-1-2-3-4-5-6-7-8-9-20-35"

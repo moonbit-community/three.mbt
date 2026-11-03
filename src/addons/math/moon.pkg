@@ -1,12 +1,12 @@
 import {
-  "bobzhang/three/core",
-  "bobzhang/three/math",
-  "bobzhang/three/renderers/webgl",
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
+  "moonbit-community/three/renderers/webgl",
 }
 
 import {
-  "bobzhang/three/addons/math" @addon_math,
-  "bobzhang/three/math" @three_math,
+  "moonbit-community/three/addons/math" @addon_math,
+  "moonbit-community/three/math" @three_math,
 } for "test"
 
 warnings = "-79"

@@ -1,4 +1,4 @@
 import {
-  "bobzhang/three/math",
+  "moonbit-community/three/math",
   "moonbitlang/core/json",
 }

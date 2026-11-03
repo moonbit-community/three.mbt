@@ -6,7 +6,7 @@ import { installDocument, pixelNote, WIDTH, HEIGHT } from './pixel_common.mjs';
 const name = process.argv[ 2 ];
 const mock = setup();
 installDocument( mock );
-const MAIN = new URL( '../mbt/_build/js/debug/build/bobzhang/three-g9-diff/pixel/pixel.js', import.meta.url );
+const MAIN = new URL( '../mbt/_build/js/debug/build/moonbit-community/three-g9-diff/pixel/pixel.js', import.meta.url );
 const mbt = await import( MAIN.href );
 mbt.align_counters();
 const canvas = mock.createCanvas( { width: WIDTH, height: HEIGHT } );

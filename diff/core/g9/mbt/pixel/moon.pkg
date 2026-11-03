@@ -1,10 +1,10 @@
 // examples/pixel_compare/webgpu/main.mbt (linked as scenes.mbt) plus `align_counters`, for
 // harness/pixel_mbt.mjs.
 import {
-  "bobzhang/three/webgpu" @three,
-  "bobzhang/three/addons/tsl",
-  "bobzhang/three/nodes",
-  "bobzhang/three/addons/objects",
+  "moonbit-community/three/webgpu" @three,
+  "moonbit-community/three/addons/tsl",
+  "moonbit-community/three/nodes",
+  "moonbit-community/three/addons/objects",
 }
 
 warnings = "-1-2-3-6-7-9-20-28-29-35-79"

@@ -10,7 +10,7 @@ const { cloneUniforms, mergeUniforms } = await import(upstreamURL('src/renderers
 const require = createRequire(import.meta.url);
 const realLog = console.log;
 const silent = (f) => { const l=console.log, w=console.warn, e=console.error; console.log=console.warn=console.error=()=>{}; try { return f(); } finally { console.log=l; console.warn=w; console.error=e; } };
-const { run } = require(path.resolve(process.argv[2] || fileURLToPath(new URL('./mbt/_build/js/debug/build/bobzhang/three-diff-materials/harness/harness.js', import.meta.url))));
+const { run } = require(path.resolve(process.argv[2] || fileURLToPath(new URL('./mbt/_build/js/debug/build/moonbit-community/three-diff-materials/harness/harness.js', import.meta.url))));
 const KEYS = JSON.parse(fs.readFileSync(new URL('./keys.json', import.meta.url)));
 const CLASSES = ['Material','LineBasicMaterial','LineDashedMaterial','MeshBasicMaterial','MeshDepthMaterial','MeshDistanceMaterial','MeshLambertMaterial','MeshMatcapMaterial','MeshNormalMaterial','MeshPhongMaterial','MeshPhysicalMaterial','MeshStandardMaterial','MeshToonMaterial','PointsMaterial','RawShaderMaterial','ShaderMaterial','ShadowMaterial','SpriteMaterial'];
 

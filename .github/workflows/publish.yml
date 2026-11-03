@@ -1,0 +1,97 @@
+name: publish-package
+
+# Publishes the module at the repository root (moonbit-community/three) to mooncakes and
+# tags the published commit v<version>. Run it by hand from the Actions tab after bumping
+# `version` in moon.mod. Follows moonbit-community/.github's publish template; the toolchain
+# is pinned to the one CI verifies with.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Validate with the registry (moon publish --dry-run) without releasing
+        type: boolean
+        default: false
+
+permissions: {}
+
+env:
+  MOONBIT_VERSION: 0.10.19+bee578715
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      published_tag: ${{ steps.prepublish.outputs.published_tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: install-ubuntu
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash -s "$MOONBIT_VERSION"
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+
+      - name: post install
+        run: |
+          moon version --all
+          moon update
+
+      - name: prepublish check
+        id: prepublish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          moon fmt
+          git diff --exit-code
+          moon check --target js
+          moon test --target js
+          version="$(sed -n 's/^version = "\(.*\)"/\1/p' moon.mod)"
+          if [[ -z "$version" ]]; then
+            echo "could not read package version from moon.mod" >&2
+            exit 1
+          fi
+          if gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/v$version" >/dev/null 2>&1; then
+            echo "tag v$version already exists: bump version in moon.mod first" >&2
+            exit 1
+          fi
+          echo "published_tag=v$version" >> "$GITHUB_OUTPUT"
+
+      - name: publish
+        env:
+          SECRET: ${{ secrets.MOONCAKES_MOONBIT_COMMUNITY_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        shell: bash
+        run: |
+          if [ -z "$SECRET" ]; then
+            echo "Error: MOONCAKES_MOONBIT_COMMUNITY_TOKEN secret is not set."
+            echo "Please contact an admin to grant access to this secret."
+            exit 1
+          fi
+          printf '%s' "$SECRET" > "$HOME/.moon/credentials.json"
+          trap 'rm -f "$HOME/.moon/credentials.json"' EXIT
+          if [ "$DRY_RUN" = "true" ]; then
+            moon publish --dry-run
+          else
+            moon publish
+          fi
+
+  tag:
+    needs: publish
+    if: ${{ !inputs.dry_run }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: tag published commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PUBLISHED_TAG: ${{ needs.publish.outputs.published_tag }}
+        shell: bash
+        run: |
+          gh api --method POST "repos/$GITHUB_REPOSITORY/git/refs" \
+            -f ref="refs/tags/$PUBLISHED_TAG" \
+            -f sha="$GITHUB_SHA"

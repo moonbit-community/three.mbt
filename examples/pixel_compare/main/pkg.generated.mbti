@@ -1,8 +1,8 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "bobzhang/three-pixel-compare/main"
+package "moonbit-community/three-pixel-compare/main"
 
 import {
-  "bobzhang/three/renderers/webgl",
+  "moonbit-community/three/renderers/webgl",
 }
 
 // Values

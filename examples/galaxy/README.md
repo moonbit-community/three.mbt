@@ -1,7 +1,7 @@
 # GPU particle galaxy
 
 131,072 stars simulated entirely on the GPU by TSL compute shaders, written in MoonBit
-against the port's `WebGPURenderer` (one import: `bobzhang/three/webgpu` as `@three`).
+against the port's `WebGPURenderer` (one import: `moonbit-community/three/webgpu` as `@three`).
 
 - **Seeding** (`seed_kernel`): a compute pass places each star on a three-armed spiral disk
   from per-particle hashes and gives it the circular orbital speed of the central mass.

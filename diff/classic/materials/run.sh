@@ -5,4 +5,4 @@ set -eo pipefail
 cd "$(dirname "$0")"
 python3 gen_harness.py
 (cd mbt && moon build --target js 2>&1 | grep -E "^Error" -A6 || true)
-node diff.mjs mbt/_build/js/debug/build/bobzhang/three-diff-materials/harness/harness.js "${1:-40}" 2>&1 | cut -c1-240
+node diff.mjs mbt/_build/js/debug/build/moonbit-community/three-diff-materials/harness/harness.js "${1:-40}" 2>&1 | cut -c1-240

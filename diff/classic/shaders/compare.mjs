@@ -9,7 +9,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { upstreamPath } from '../../lib/env.mjs';
 const up = upstreamPath('src/renderers/shaders');
 const imp = (p) => import(pathToFileURL(p).href);
-const dumpJs = process.argv[2] ?? path.join(path.dirname(fileURLToPath(import.meta.url)), '_build/js/debug/build/bobzhang/three-diff-shaders/dump/dump.js');
+const dumpJs = process.argv[2] ?? path.join(path.dirname(fileURLToPath(import.meta.url)), '_build/js/debug/build/moonbit-community/three-diff-shaders/dump/dump.js');
 if (!fs.existsSync(dumpJs)) { console.log(`missing ${dumpJs}; build first (moon build --target js)`); process.exit(2); }
 const { ShaderChunk } = await imp(up + '/ShaderChunk.js');
 const { ShaderLib } = await imp(up + '/ShaderLib.js');

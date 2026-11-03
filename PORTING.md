@@ -107,7 +107,7 @@ on reading about 350 material properties without knowing the concrete class.
 
 ## `src/renderers/webgl` conventions
 
-Package `bobzhang/three/renderers/webgl` holds `src/renderers/webgl/*.js`,
+Package `moonbit-community/three/renderers/webgl` holds `src/renderers/webgl/*.js`,
 `WebGLRenderer.js`, the `WebGL*RenderTarget.js` classes and `extras/PMREMGenerator.js`
 (they need `WebGLRenderer`, and the renderer needs them).
 
@@ -690,7 +690,7 @@ uses GLTFLoader, HDRLoader, OrbitControls and TSL bloom together.
 ### Packages
 
 One package per upstream directory, under `src/addons`, imported as
-`bobzhang/three/addons/<dir>`. Files are named as in `src`
+`moonbit-community/three/addons/<dir>`. Files are named as in `src`
 (`loaders/GLTFLoader.js` -> `gltf_loader.mbt`; `tsl/display/BloomNode.js` ->
 `display_bloom_node.mbt` in `src/addons/tsl`, since a package is flat).
 

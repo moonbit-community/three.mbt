@@ -2,7 +2,7 @@
 import { setup, flush } from './common.mjs';
 const name = process.argv[ 2 ];
 const mock = setup();
-const MAIN = new URL( '../mbt/_build/js/debug/build/bobzhang/three-diff-a6-objects/main/main.js', import.meta.url );
+const MAIN = new URL( '../mbt/_build/js/debug/build/moonbit-community/three-diff-a6-objects/main/main.js', import.meta.url );
 const mbt = await import( MAIN.href );
 const canvas = mock.createCanvas( { width: 64, height: 32 } );
 await new Promise( ( resolve ) => mbt.run_scenario( name, { canvas, note: mock.note, mock }, resolve ) );

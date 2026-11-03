@@ -64,12 +64,12 @@ def setup():
     os.makedirs(os.path.join(MUT, 'src', 'loaders'), exist_ok=True)
     os.makedirs(os.path.join(MUT, 'src', 'harness'), exist_ok=True)
     with open(os.path.join(MUT, 'moon.mod'), 'w') as f:
-        f.write('name = "loadersdev/mut"\n\nversion = "0.1.0"\n\nimport {\n  "bobzhang/three@0.1.0",\n}\n\nsource = "src"\n\npreferred_target = "js"\n')
+        f.write('name = "loadersdev/mut"\n\nversion = "0.1.0"\n\nimport {\n  "moonbit-community/three@0.1.0",\n}\n\nsource = "src"\n\npreferred_target = "js"\n')
     with open(os.path.join(MUT, 'moon.work'), 'w') as f:
         f.write('members = [\n  ".",\n  "%s",\n]\n' % os.path.relpath(REPO, MUT))
     pkg = open(os.path.join(HERE, 'mbt', 'harness', 'moon.pkg')).read()
     with open(os.path.join(MUT, 'src', 'harness', 'moon.pkg'), 'w') as f:
-        f.write(pkg.replace('"bobzhang/three/loaders" @loaders', '"loadersdev/mut/loaders" @loaders'))
+        f.write(pkg.replace('"moonbit-community/three/loaders" @loaders', '"loadersdev/mut/loaders" @loaders'))
     for name in ('harness.mbt', 'scenarios.mbt'):
         shutil.copy(os.path.join(HERE, 'mbt', 'harness', name), os.path.join(MUT, 'src', 'harness', name))
 

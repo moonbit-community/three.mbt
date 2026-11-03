@@ -44,7 +44,7 @@ if ( side === 'up' ) {
 	const canvas = mock.createCanvas( { width: 4, height: 4 } );
 	await s.run( { THREE, TSL, mock, canvas, note: mock.note, name }, A );
 } else {
-	const MAIN = new URL( '../mbt_a5/_build/js/debug/build/bobzhang/three-g9-a5/main/main.js', import.meta.url );
+	const MAIN = new URL( '../mbt_a5/_build/js/debug/build/moonbit-community/three-g9-a5/main/main.js', import.meta.url );
 	const mbt = await import( MAIN.href );
 	const canvas = mock.createCanvas( { width: 4, height: 4 } );
 	await new Promise( ( resolve ) => mbt.run_scenario( name, { canvas, note: mock.note, mock }, resolve ) );
