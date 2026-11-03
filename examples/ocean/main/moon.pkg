@@ -16,7 +16,7 @@ options(
   "is-main": true,
   link: {
     "js": {
-      "exports": [ "start", "resize", "set_sun", "set_cycle", "set_exposure", "set_clouds" ],
+      "exports": [ "start", "set_assets", "resize", "set_sun", "set_cycle", "set_exposure", "set_clouds" ],
       "format": "esm",
     },
   },

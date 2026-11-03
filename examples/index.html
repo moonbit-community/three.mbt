@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>three.mbt demos</title>
+<meta name="description" content="Interactive 3D in your browser, made with a MoonBit port of three.js.">
+<style>
+	:root { --fg: #f4f1ea; --dim: #b8b2a7; --bg: #0b0c10; --card: #15171d; --edge: #262a33; --accent: #ffb347; }
+	* { box-sizing: border-box; }
+	html { background: var(--bg); }
+	body { margin: 0; color: var(--fg); font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+	main { max-width: 1120px; margin: 0 auto; padding: 56px 20px 40px; }
+	header h1 { margin: 0; font-size: clamp(30px, 5vw, 46px); line-height: 1.15; letter-spacing: -0.01em; }
+	header h1 span { color: var(--accent); }
+	header p { max-width: 680px; color: var(--dim); font-size: 18px; margin: 14px 0 0; }
+	.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-top: 40px; }
+	a.demo { display: block; background: var(--card); border: 1px solid var(--edge); border-radius: 18px; overflow: hidden; color: inherit; text-decoration: none; transition: transform 0.25s ease, border-color 0.25s ease; }
+	a.demo:hover, a.demo:focus-visible { transform: translateY(-4px); border-color: #3b4150; }
+	a.demo img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #000; }
+	a.demo .text { padding: 16px 18px 20px; }
+	a.demo h2 { margin: 0 0 4px; font-size: 20px; }
+	a.demo p { margin: 0; color: var(--dim); }
+	a.demo .tag { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--accent); }
+	section { margin-top: 56px; color: var(--dim); max-width: 760px; }
+	section h3 { color: var(--fg); font-size: 18px; margin: 0 0 8px; }
+	section a { color: var(--fg); }
+	footer { margin-top: 48px; color: #7d786f; font-size: 13.5px; }
+	footer a { color: #a49e93; }
+</style>
+</head>
+<body>
+<main>
+	<header>
+		<h1>Interactive 3D, <span>right in your browser</span></h1>
+		<p>Four small worlds you can play with: a sunset at sea, a polished helmet, a tank of
+		sloshing water and a galaxy you can blow apart. No installs and no plugins. Open one,
+		then drag to look around.</p>
+	</header>
+
+	<div class="grid">
+		<a class="demo" href="ocean/">
+			<img src="gallery/ocean.jpg" alt="Rubber ducks floating on a calm sea at sunset, with a chrome knot hovering above them">
+			<div class="text">
+				<h2>Golden hour</h2>
+				<p>Rubber ducks bob on the open sea as the sun goes down. Move the sun and watch every
+				reflection follow it.</p>
+				<span class="tag">Works in any modern browser</span>
+			</div>
+		</a>
+		<a class="demo" href="showroom/">
+			<img src="gallery/showroom.jpg" alt="A worn sci-fi helmet with a glowing visor under a hazy sky">
+			<div class="text">
+				<h2>Showroom</h2>
+				<p>A battle-worn sci-fi helmet under a Venetian sunset. Turn it in your hands and
+				make the visor glow.</p>
+				<span class="tag">Works in any modern browser</span>
+			</div>
+		</a>
+		<a class="demo" href="fluid/">
+			<img src="gallery/fluid.jpg" alt="Blue simulated water splashing inside a tilted box">
+			<div class="text">
+				<h2>Water in a box</h2>
+				<p>65,000 drops of simulated water slosh around a rocking tank. Swipe through it to make
+				waves.</p>
+				<span class="tag">Needs Chrome or Edge (WebGPU)</span>
+			</div>
+		</a>
+		<a class="demo" href="galaxy/">
+			<img src="gallery/galaxy.jpg" alt="A glowing spiral galaxy with a bright ring at its centre">
+			<div class="text">
+				<h2>Pocket galaxy</h2>
+				<p>131,000 stars swirl into spiral arms. Hold a button to blow the galaxy apart and
+				watch it pull itself back together.</p>
+				<span class="tag">Works in any modern browser</span>
+			</div>
+		</a>
+	</div>
+
+	<section>
+		<h3>Tips</h3>
+		<p>Drag with a mouse or one finger to look around, and scroll or pinch to zoom. A recent
+		Chrome or Edge on a laptop or desktop gives the smoothest result. Phones work for most
+		demos, though big scenes can take a few seconds to load.</p>
+	</section>
+
+	<section>
+		<h3>For developers</h3>
+		<p>Every demo runs on <a href="https://github.com/moonbit-community/three.mbt">three.mbt</a>,
+		a faithful port of <a href="https://threejs.org">three.js</a> to
+		<a href="https://www.moonbitlang.com">MoonBit</a>. The demos themselves are written in MoonBit
+		too, and the port is checked against three.js down to its shaders and pixels. The
+		<a href="https://github.com/moonbit-community/three.mbt/tree/main/examples/pixel_compare">pixel comparison pages</a>
+		render the same scenes with both and compare every pixel.</p>
+	</section>
+
+	<footer>
+		Models and skies: DamagedHelmet by theblueturtle_ (CC BY 4.0) and the rubber duck, from
+		the glTF sample models; the venice_sunset and royal_esplanade skies from Poly Haven
+		(CC0). All are served from the three.js examples. Code: MIT, as three.js.
+	</footer>
+</main>
+</body>
+</html>

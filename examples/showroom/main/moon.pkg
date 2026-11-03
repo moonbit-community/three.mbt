@@ -11,7 +11,7 @@ options(
   "is-main": true,
   link: {
     "js": {
-      "exports": [ "start", "resize", "set_bloom", "set_auto_rotate" ],
+      "exports": [ "start", "set_assets", "resize", "set_bloom", "set_auto_rotate" ],
       "format": "esm",
     },
   },

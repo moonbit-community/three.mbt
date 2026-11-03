@@ -5,7 +5,14 @@
 // sky is re-baked through PMREMGenerator so every reflection follows it.
 
 ///|
-const ASSETS : String = "../../.repos/three.js/examples/"
+/// Base URL of the shared assets (models, textures, decoders); the page sets it from
+/// examples/assets.js before `start`.
+let assets_base : Ref[String] = { val: "../../.repos/three.js/examples/" }
+
+///|
+pub fn set_assets(base : String) -> Unit {
+  assets_base.val = base
+}
 
 ///|
 const DUCKS : Int32 = 7
@@ -67,7 +74,7 @@ pub fn start(
 
   // Water: a huge plane whose normal map scrolls; it reflects the sky and the floaters.
   let water_normals = @loaders.TextureLoader::new().load(
-    ASSETS + "textures/waternormals.jpg",
+    assets_base.val + "textures/waternormals.jpg",
   )
   water_normals.wrap_s = @core.RepeatWrapping
   water_normals.wrap_t = @core.RepeatWrapping
@@ -116,10 +123,10 @@ pub fn start(
   let ducks : Array[@core.Object3D] = []
   // duck.glb is Draco-compressed: decode it with the vendored wasm decoder.
   let draco = @addon_loaders.DRACOLoader::new().set_decoder_path(
-    ASSETS + "jsm/libs/draco/gltf/",
+    assets_base.val + "jsm/libs/draco/gltf/",
   )
   let gltf_loader = @addon_loaders.GLTFLoader::new().set_draco_loader(draco)
-  gltf_loader.load(ASSETS + "models/gltf/duck.glb", fn(gltf) {
+  gltf_loader.load(assets_base.val + "models/gltf/duck.glb", fn(gltf) {
     guard gltf.scene is Some(model) else { return }
     model.scale.set(48.0, 48.0, 48.0) |> ignore
     for i in 0..<DUCKS {

@@ -7,7 +7,14 @@
 // mouse pushes the liquid in the tank's own frame.
 
 ///|
-const ASSETS : String = "../../.repos/three.js/examples/"
+/// Base URL of the shared assets (models, textures, decoders); the page sets it from
+/// examples/assets.js before `start`.
+let assets_base : Ref[String] = { val: "../../.repos/three.js/examples/" }
+
+///|
+pub fn set_assets(base : String) -> Unit {
+  assets_base.val = base
+}
 
 ///|
 const MAX_PARTICLES : Int32 = 8192 * 8
@@ -465,7 +472,7 @@ pub fn start(
 
   // Sky and reflections: an UltraHDR equirect, blurred behind the tank.
   @addon_loaders.UltraHDRLoader::new().load(
-    ASSETS + "textures/equirectangular/royal_esplanade_2k.hdr.jpg",
+    assets_base.val + "textures/equirectangular/royal_esplanade_2k.hdr.jpg",
     on_load=fn(texture, _) {
       texture.mapping = @core.EquirectangularReflectionMapping
       let s = scene.as_scene()

@@ -11,3 +11,4 @@ node_modules/
 diff/.out/
 __pycache__/
 *.pyc
+_site/

@@ -8,6 +8,8 @@ import {
 // Values
 pub fn resize(Double, Double) -> Unit
 
+pub fn set_assets(String) -> Unit
+
 pub fn set_clouds(Double) -> Unit
 
 pub fn set_cycle(Bool) -> Unit

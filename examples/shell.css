@@ -1,0 +1,77 @@
+/* Shared look of the demo pages: a full-window canvas with a title card, a hint, an
+   optional control panel, a loading screen and a link back to the gallery. */
+
+:root {
+	--fg: #f4f1ea;
+	--dim: rgba(244, 241, 234, 0.72);
+	--glass: rgba(12, 14, 20, 0.38);
+	--edge: rgba(255, 255, 255, 0.14);
+	--accent: #ffb347;
+}
+
+html, body { margin: 0; height: 100%; background: #05060a; overflow: hidden; }
+body { font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--fg); }
+canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
+
+.card, .panel, .hint, .back {
+	position: fixed; background: var(--glass); border: 1px solid var(--edge);
+	backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+	border-radius: 14px; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.card { left: 18px; top: 18px; max-width: min(420px, calc(100vw - 36px)); padding: 14px 18px; }
+.card h1 { margin: 0 0 4px; font-size: 22px; font-weight: 650; letter-spacing: 0.01em; }
+.card p { margin: 0; color: var(--dim); }
+
+.hint {
+	left: 50%; bottom: 26px; transform: translateX(-50%); padding: 9px 16px;
+	color: var(--fg); white-space: nowrap; transition: opacity 1.2s ease;
+}
+.hint.gone { opacity: 0; pointer-events: none; }
+
+.panel { right: 18px; top: 18px; padding: 12px 16px; display: grid; gap: 8px; }
+.panel label { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.panel input[type=range] { width: 140px; accent-color: var(--accent); }
+.panel input[type=checkbox] { accent-color: var(--accent); }
+
+.back { left: 18px; bottom: 18px; padding: 7px 13px; color: var(--fg); text-decoration: none; }
+.back:hover { background: rgba(40, 44, 56, 0.6); }
+
+.made { position: fixed; right: 18px; bottom: 16px; color: var(--dim); font-size: 12.5px; text-shadow: 0 1px 2px #000; }
+.made a { color: var(--dim); }
+
+.stats { position: fixed; right: 18px; bottom: 36px; color: var(--dim); font: 12px ui-monospace, monospace; }
+
+.loading {
+	position: fixed; inset: 0; display: grid; place-items: center; background: #05060a;
+	transition: opacity 0.8s ease; z-index: 10;
+}
+.loading.done { opacity: 0; pointer-events: none; }
+.loading .box { text-align: center; padding: 0 24px; }
+.loading h2 { margin: 18px 0 6px; font-weight: 600; font-size: 20px; }
+.loading p { margin: 0; color: var(--dim); max-width: 460px; }
+.spinner {
+	width: 44px; height: 44px; margin: 0 auto; border-radius: 50%;
+	border: 3px solid rgba(255, 255, 255, 0.15); border-top-color: var(--accent);
+	animation: spin 0.9s linear infinite;
+}
+.loading.failed .spinner { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.settings-toggle { display: none; }
+
+@media (max-width: 640px) {
+	.card { left: 12px; right: 12px; top: 12px; padding: 11px 14px; }
+	.card h1 { font-size: 18px; }
+	.card p { font-size: 13.5px; }
+	/* On phones the controls hide behind a Settings button (added by shell.js). */
+	.panel { display: none; top: auto; bottom: 64px; right: 12px; left: 12px; }
+	body.show-settings .panel { display: grid; }
+	.panel input[type=range] { width: 46vw; }
+	.settings-toggle {
+		display: block; position: fixed; right: 12px; bottom: 18px; padding: 7px 13px;
+		font: inherit; color: var(--fg); background: var(--glass); border: 1px solid var(--edge);
+		border-radius: 14px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+	}
+	.hint { bottom: 70px; white-space: normal; text-align: center; width: max-content; max-width: calc(100vw - 48px); }
+	.made { display: none; }
+}

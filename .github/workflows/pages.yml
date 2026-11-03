@@ -1,0 +1,65 @@
+name: demo-site
+
+# Builds the demo gallery (tools/build_site.sh) and publishes it on GitHub Pages: the
+# gallery page, the four demos with their MoonBit bundles, and the upstream assets they
+# load. Runs when the demos or the library change on main, or by hand.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'examples/**'
+      - 'src/**'
+      - 'tools/build_site.sh'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  MOONBIT_VERSION: 0.10.19+bee578715
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install MoonBit
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash -s "$MOONBIT_VERSION"
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+
+      - name: Cache upstream three.js
+        uses: actions/cache@v4
+        with:
+          path: .repos/three.js
+          key: three-upstream-${{ hashFiles('tools/fetch_upstream.sh') }}
+
+      - name: Fetch upstream three.js
+        run: tools/fetch_upstream.sh
+
+      - name: Build the site
+        run: tools/build_site.sh _site
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

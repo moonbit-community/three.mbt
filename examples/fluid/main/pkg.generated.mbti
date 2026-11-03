@@ -12,6 +12,8 @@ pub fn pointer(Double, Double) -> Unit
 
 pub fn resize(Double, Double) -> Unit
 
+pub fn set_assets(String) -> Unit
+
 pub fn set_tilt(Double) -> Unit
 
 pub fn set_viscosity(Double) -> Unit

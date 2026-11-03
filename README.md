@@ -72,6 +72,9 @@ directory, serve the repository root, and open its `index.html`.
 - [examples/fluid](examples/fluid): 65k-particle MLS-MPM liquid in a tilting tank, from
   upstream's compute example. Five TSL compute kernels with fixed-point atomics.
 - [examples/galaxy](examples/galaxy): 131k stars simulated by TSL compute shaders.
+**Try them in your browser:** https://moonbit-community.github.io/three.mbt/ (the gallery, built
+from `examples/` by `tools/build_site.sh`).
+
 - [examples/pixel_compare](examples/pixel_compare): the pages that render the same scenes
   with upstream and with the port and compare the pixels.
 

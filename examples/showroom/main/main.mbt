@@ -4,8 +4,14 @@
 // panels. Rendering is the port's WebGPURenderer.
 
 ///|
-/// Assets are served from the three.js checkout next to the port.
-const ASSETS : String = "../../.repos/three.js/examples/"
+/// Base URL of the shared assets (models, textures, decoders); the page sets it from
+/// examples/assets.js before `start`.
+let assets_base : Ref[String] = { val: "../../.repos/three.js/examples/" }
+
+///|
+pub fn set_assets(base : String) -> Unit {
+  assets_base.val = base
+}
 
 ///|
 struct App {
@@ -51,7 +57,7 @@ pub fn start(
 
   // HDR sky: the environment lights the PBR materials, the blurred background frames them.
   @loaders.HDRLoader::new().load(
-    ASSETS + "textures/equirectangular/venice_sunset_1k.hdr",
+    assets_base.val + "textures/equirectangular/venice_sunset_1k.hdr",
     on_load=fn(texture, _) {
       texture.mapping = @core.EquirectangularReflectionMapping
       let s = scene.as_scene()
@@ -64,7 +70,7 @@ pub fn start(
 
   // The helmet.
   @loaders.GLTFLoader::new().load(
-    ASSETS + "models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf",
+    assets_base.val + "models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf",
     fn(gltf) { if gltf.scene is Some(model) { scene.add(model) |> ignore } },
   )
 

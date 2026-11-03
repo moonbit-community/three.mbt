@@ -14,7 +14,7 @@ options(
   "is-main": true,
   link: {
     "js": {
-      "exports": [ "start", "resize", "pointer", "set_tilt", "set_viscosity", "particle_count" ],
+      "exports": [ "start", "set_assets", "resize", "pointer", "set_tilt", "set_viscosity", "particle_count" ],
       "format": "esm",
     },
   },
