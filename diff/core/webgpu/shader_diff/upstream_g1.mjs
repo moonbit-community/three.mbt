@@ -284,6 +284,10 @@ export async function runUpstream( src ) {
 	add( 'math_dfdy_compute', () => v2().dFdy(), { stage: 'compute' } );
 	add( 'math_all_any', () => T.all( bvec3( true, false, true ).toVar() ).and( bvec2( true, true ).toVar().any() ) );
 	add( 'math_transpose', () => m3().transpose() );
+	// One scalar: Matrix*( n ) leaves the other elements undefined, which generateConst prints as 0.
+	add( 'math_mat2_scalar', () => T.mat2( 1 ).toVar() );
+	add( 'math_mat3_scalar', () => T.mat3( 0 ).toVar() );
+	add( 'math_mat4_scalar', () => T.mat4( 2 ).toVar() );
 	add( 'math_determinant', () => m3().determinant() );
 	add( 'math_inverse', () => m4().inverse() );
 	add( 'math_mat_methods_mat2', () => m2().transpose().mul( m2().inverse() ).mul( m2().determinant() ) );

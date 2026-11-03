@@ -622,6 +622,10 @@ fn g1_scenarios() -> Array[G1Scenario] {
     )
   })
   add("math_transpose", fn() { g1_m3().transpose() })
+  // One scalar: the other elements are undefined upstream and print as 0.
+  add("math_mat2_scalar", fn() { @nodes.mat2(1).to_var() })
+  add("math_mat3_scalar", fn() { @nodes.mat3(0).to_var() })
+  add("math_mat4_scalar", fn() { @nodes.mat4(2).to_var() })
   add("math_determinant", fn() { g1_m3().determinant() })
   add("math_inverse", fn() { g1_m4().inverse() })
   add("math_mat_methods_mat2", fn() {

@@ -25,7 +25,7 @@ bindings: upstream's structure, behaviour and output, with snake_case names.
 Every layer is compared with upstream three.js running the same scenario, not only unit
 tested:
 
-- **Generated shaders:** WGSL and GLSL, byte for byte (1846 scenarios).
+- **Generated shaders:** WGSL and GLSL, byte for byte (1849 scenarios).
 - **Renderer calls on recording mock WebGL 2 / WebGPU contexts:** compared entry for
   entry, including every shader source and uniform upload.
 - **Loader output:** scene graphs, materials, attribute and texture bytes. glTF uses 50 of
@@ -69,6 +69,8 @@ directory, serve the repository root, and open its `index.html`.
   Draco-compressed glTF flotilla, PMREM re-baked as the sun moves, and bloom.
 - [examples/showroom](examples/showroom): DamagedHelmet under an HDR sky, with
   OrbitControls and TSL bloom.
+- [examples/fluid](examples/fluid): 65k-particle MLS-MPM liquid in a tilting tank, from
+  upstream's compute example. Five TSL compute kernels with fixed-point atomics.
 - [examples/galaxy](examples/galaxy): 131k stars simulated by TSL compute shaders.
 - [examples/pixel_compare](examples/pixel_compare): the pages that render the same scenes
   with upstream and with the port and compare the pixels.

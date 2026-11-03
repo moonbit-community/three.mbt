@@ -353,6 +353,15 @@ pub fn get_value_from_type(
       Undefined
     }
   }
+  // `new Matrix3( 0 )` leaves the other elements `undefined`, and
+  // `generateConst( type, value = null )` then prints each as 0 (`undefined` takes the
+  // default): a missing matrix argument is 0, not NaN (`mat3( 0 )` is the zero matrix).
+  let matrix_element = fn(i : Int32) -> Double {
+    match param(i) {
+      Undefined => 0.0
+      v => tsl_to_number(v)
+    }
+  }
   // `new Vector3( x = 0, ... )`: `undefined` takes the default
   let component = fn(i : Int32) -> Double {
     match param(i) {
@@ -376,21 +385,21 @@ pub fn get_value_from_type(
   } else if last4 == Some("mat2") {
     let m = @math.Matrix2::new()
     if !(param(0) is Undefined) {
-      let n = fn(i) { tsl_to_number(param(i)) }
+      let n = matrix_element
       m.set(n(0), n(1), n(2), n(3)) |> ignore
     }
     Matrix2(m)
   } else if last4 == Some("mat3") {
     let m = @math.Matrix3::new()
     if !(param(0) is Undefined) {
-      let n = fn(i) { tsl_to_number(param(i)) }
+      let n = matrix_element
       m.set(n(0), n(1), n(2), n(3), n(4), n(5), n(6), n(7), n(8)) |> ignore
     }
     Matrix3(m)
   } else if last4 == Some("mat4") {
     let m = @math.Matrix4::new()
     if !(param(0) is Undefined) {
-      let n = fn(i) { tsl_to_number(param(i)) }
+      let n = matrix_element
       m.set(
         n(0),
         n(1),

@@ -7,7 +7,7 @@ export default [
 		title: 'shader harness',
 		cmd: [ 'node', 'shader_diff/run.mjs' ],
 		summary: /\d+ identical, \d+ different or missing/,
-		expect: '1846 identical, 0 different or missing',
+		expect: '1849 identical, 0 different or missing',
 		timeout: 3600,
 	},
 ];

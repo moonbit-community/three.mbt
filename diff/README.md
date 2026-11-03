@@ -56,7 +56,7 @@ Old name = the directory the harness was developed in (as referenced in older no
 | dir (old name) | check | compares | expected |
 | --- | --- | --- | --- |
 | `webgl` (webgl_foundation) | `webgl` | classic `WebGLRenderer` and its modules on the recording mock WebGL 2 context (`harness/mock_gl_body.js`), incl. WebXR and the a6 objects' WebGL variants; `src/renderers/webgl/*_test.mbt` with `WEBGL_DIFF=1` vs `harness/scenarios/*.mjs`. `tools/`: the gl spec, binding and mock generators | `52 ok, 0 failed` |
-| `webgpu` (webgpu_foundation/harness) | `shader` | WGSL/GLSL/base-builder shader text of every group (G1-G10, A4-A6) byte for byte: every `src/**/*shader_diff_test.mbt` (`SHADER_DIFF=1`) vs `shader_diff/upstream*.mjs` (A4/A5/A6 groups in child processes, `shader_diff/a4,a5,a6`). Also the generated mock GPU (`mock_gpu_body.js`) | `1846 identical, 0 different or missing` |
+| `webgpu` (webgpu_foundation/harness) | `shader` | WGSL/GLSL/base-builder shader text of every group (G1-G10, A4-A6) byte for byte: every `src/**/*shader_diff_test.mbt` (`SHADER_DIFF=1`) vs `shader_diff/upstream*.mjs` (A4/A5/A6 groups in child processes, `shader_diff/a4,a5,a6`). Also the generated mock GPU (`mock_gpu_body.js`) | `1849 identical, 0 different or missing` |
 | `g6` (g6_diff) | `g6` | `Renderer`, Backend, Background, Lighting, pipelines on a stub backend (call logs) | `11 passed, 0 failed` |
 | `g7` (g7_diff) | `g7` | renderer data classes, bindings, render objects, cache keys | `18 passed, 0 failed` |
 | `g9` (g9_diff) | `g9` | `WebGPURenderer` on the recording mock GPU, incl. every WGSL module | `30/30 identical` |

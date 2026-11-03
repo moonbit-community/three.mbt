@@ -1,0 +1,21 @@
+import {
+  "moonbit-community/three/core",
+  "moonbit-community/three/math",
+  "moonbit-community/three/geometries",
+  "moonbit-community/three/nodes",
+  "moonbit-community/three/renderers/webgpu",
+  "moonbit-community/three/addons/controls",
+  "moonbit-community/three/addons/loaders" @addon_loaders,
+  "moonbit-community/three/addons/utils",
+  "moonbitlang/core/math" @cmath,
+}
+
+options(
+  "is-main": true,
+  link: {
+    "js": {
+      "exports": [ "start", "resize", "pointer", "set_tilt", "set_viscosity", "particle_count" ],
+      "format": "esm",
+    },
+  },
+)

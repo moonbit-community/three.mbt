@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>three.mbt fluid</title>
+<style>
+	html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+	canvas { display: block; width: 100vw; height: 100vh; touch-action: none; }
+	#hud {
+		position: fixed; left: 16px; top: 14px; color: #e6edf5;
+		font: 13px/1.7 ui-sans-serif, system-ui, -apple-system, sans-serif;
+		text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); user-select: none;
+		background: rgba(0, 0, 0, 0.22); padding: 8px 12px; border-radius: 8px;
+		backdrop-filter: blur(4px);
+	}
+	#hud b { color: #fff; font-weight: 600; }
+	#hud .dim { color: #b9c4d0; }
+	#hud label { display: flex; align-items: center; gap: 8px; }
+	#hud label span { width: 70px; }
+	#hud input[type=range] { width: 150px; }
+	#error { color: #ff8f8f; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud">
+	<b>three.mbt</b> &mdash; MLS-MPM fluid<br>
+	<span id="info" class="dim">loading&hellip;</span><br>
+	<span class="dim">5 TSL compute kernels per frame &mdash; move the mouse through the water</span>
+	<label><span>tilt</span><input id="tilt" type="range" min="0" max="35" step="0.5" value="18"></label>
+	<label><span>viscosity</span><input id="viscosity" type="range" min="0" max="1" step="0.01" value="0.1"></label>
+	<div id="error"></div>
+</div>
+<script type="module">
+// The simulation and rendering are MoonBit (main/main.mbt); this script wires the HUD and
+// the pointer to it.
+
+// An embedded or hidden pane may get no animation frames; fall back to a timer there.
+const framesRun = await Promise.race( [
+	new Promise( ( resolve ) => requestAnimationFrame( () => resolve( true ) ) ),
+	new Promise( ( resolve ) => setTimeout( () => resolve( false ), 200 ) )
+] );
+if ( ! framesRun ) window.requestAnimationFrame = ( f ) => setTimeout( () => f( performance.now() ), 16 );
+
+const $ = ( id ) => document.getElementById( id );
+let fluid;
+// Debug first: the release JS build currently mis-orders a hoisted constant at load
+// (see repro/release_hoist_cycle in the repository).
+for ( const mode of [ 'debug', 'release' ] ) {
+
+	try {
+
+		fluid = await import( `./_build/js/${ mode }/build/moonbit-community/three-fluid/main/main.js?${ Date.now() }` );
+		break;
+
+	} catch ( e ) { console.error( e ); }
+
+}
+
+if ( fluid === undefined ) {
+
+	$( 'error' ).textContent = 'MoonBit build not found: run `moon build --target js` in examples/fluid.';
+
+} else if ( navigator.gpu === undefined ) {
+
+	$( 'error' ).textContent = 'This demo needs WebGPU (compute shaders with atomics).';
+
+} else {
+
+	const canvas = $( 'c' );
+	let backend = '';
+	fluid.start( canvas, innerWidth, innerHeight, Math.min( devicePixelRatio, 2 ), ( error, name ) => {
+
+		if ( error ) { $( 'error' ).textContent = error; return; }
+		backend = name;
+
+	} );
+
+	const count = fluid.particle_count().toLocaleString( 'en-US' );
+	let frames = 0, last = performance.now();
+	( function tick() {
+
+		frames ++;
+		const now = performance.now();
+		if ( now - last >= 500 ) {
+
+			$( 'info' ).textContent = `${ count } particles · ${ backend } · ${ Math.round( frames * 1000 / ( now - last ) ) } fps`;
+			frames = 0; last = now;
+
+		}
+		requestAnimationFrame( tick );
+
+	} )();
+
+	addEventListener( 'resize', () => fluid.resize( innerWidth, innerHeight ) );
+	canvas.addEventListener( 'pointermove', ( e ) => {
+
+		fluid.pointer( ( e.clientX / innerWidth ) * 2 - 1, - ( e.clientY / innerHeight ) * 2 + 1 );
+
+	} );
+	$( 'tilt' ).addEventListener( 'input', ( e ) => fluid.set_tilt( Number( e.target.value ) ) );
+	$( 'viscosity' ).addEventListener( 'input', ( e ) => fluid.set_viscosity( Number( e.target.value ) ) );
+	fluid.set_tilt( Number( $( 'tilt' ).value ) );
+
+}
+</script>
+</body>
+</html>
