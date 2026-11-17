@@ -34,12 +34,12 @@ pub impl NodeClass for StorageBufferNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for StorageBufferNode with fn has_flag(self, flag) {
-  flag == "isStorageBufferNode" || self.buffer.has_flag(flag)
+  flag == "isStorageBufferNode" || NodeClass::has_flag(self.buffer, flag)
 }
 
 ///|
 pub impl NodeClass for StorageBufferNode with fn children(self, node, out) {
-  self.buffer.children(node, out)
+  NodeClass::children(self.buffer, node, out)
   push_child(out, "structTypeNode", self.struct_type_node)
 }
 
@@ -77,7 +77,7 @@ pub impl NodeClass for StorageBufferNode with fn generate_node_type(
 ) {
   match self.struct_type_node {
     Some(s) => s.get_node_type(builder)
-    None => self.buffer.generate_node_type(node, builder, output)
+    None => NodeClass::generate_node_type(self.buffer, node, builder, output)
   }
 }
 
@@ -112,7 +112,7 @@ pub impl NodeClass for StorageBufferNode with fn generate(
   }
   if builder.is_available("storageBuffer") ||
     builder.is_available("indirectStorageBuffer") {
-    return self.buffer.generate(node, builder, None)
+    return NodeClass::generate(self.buffer, node, builder, None)
   }
   let (attribute, varying) = StorageBufferNode::get_attribute_data(node)
   let output = varying.build(builder)

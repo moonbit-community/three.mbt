@@ -19,12 +19,12 @@ pub impl NodeClass for UniformNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for UniformNode with fn has_flag(self, flag) {
-  flag == "isUniformNode" || self.input.has_flag(flag)
+  flag == "isUniformNode" || NodeClass::has_flag(self.input, flag)
 }
 
 ///|
 pub impl NodeClass for UniformNode with fn children(self, node, out) {
-  self.input.children(node, out)
+  NodeClass::children(self.input, node, out)
   push_child(out, "groupNode", Some(self.group_node))
 }
 
@@ -59,7 +59,7 @@ pub impl NodeClass for UniformNode with fn on_update(
     }
     None
   }
-  match self.input.on_update(node, wrapped, update_type) {
+  match NodeClass::on_update(self.input, node, wrapped, update_type) {
     Some(n) => Some(n)
     None => Some(node.on_update_base(wrapped, update_type))
   }

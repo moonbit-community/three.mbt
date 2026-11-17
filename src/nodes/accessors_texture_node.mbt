@@ -232,12 +232,12 @@ pub impl NodeClass for TextureNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for TextureNode with fn has_flag(self, flag) {
-  flag == "isTextureNode" || self.uniform.has_flag(flag)
+  flag == "isTextureNode" || NodeClass::has_flag(self.uniform, flag)
 }
 
 ///|
 pub impl NodeClass for TextureNode with fn children(self, node, out) {
-  self.uniform.children(node, out)
+  NodeClass::children(self.uniform, node, out)
   push_child(out, "uvNode", self.uv_node)
   push_child(out, "levelNode", self.level_node)
   push_child(out, "biasNode", self.bias_node)
@@ -384,9 +384,12 @@ pub impl NodeClass for TextureNode with fn setup(self, node, builder) {
 pub impl NodeClass for TextureNode with fn generate(self, node, builder, output) {
   let texture = TextureNode::get_value(node)
   let properties = builder.get_node_properties(node)
-  let texture_property = self.uniform
-    .generate(node, builder, Some("property"))
-    .unwrap_or("")
+  let texture_property = NodeClass::generate(
+    self.uniform,
+    node,
+    builder,
+    Some("property"),
+  ).unwrap_or("")
   if output == Some("samplerComparison") ||
     properties.get_node("compareNode") is Some(_) {
     // make sure the texture node creates a binding with a comparison sampler
@@ -513,7 +516,7 @@ pub impl NodeClass for TextureNode with fn generate(self, node, builder, output)
 
 ///|
 pub impl NodeClass for TextureNode with fn serialize(self, node, data) {
-  self.uniform.serialize(node, data)
+  NodeClass::serialize(self.uniform, node, data)
   // `this.value.toJSON( data.meta ).uuid`: the texture's uuid.
   data.set("value", @core.JsValue::of(TextureNode::get_value(node).uuid))
   data.set("sampler", @core.JsValue::of(self.sampler))
@@ -522,7 +525,7 @@ pub impl NodeClass for TextureNode with fn serialize(self, node, data) {
 
 ///|
 pub impl NodeClass for TextureNode with fn deserialize(self, node, data) {
-  self.uniform.deserialize(node, data)
+  NodeClass::deserialize(self.uniform, node, data)
   let textures = data.get("meta").get("textures")
   let value = textures.get(data.get("value").cast())
   if !value.is_undefined() && !value.is_null() {

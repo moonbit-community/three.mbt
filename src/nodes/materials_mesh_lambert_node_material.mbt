@@ -68,7 +68,7 @@ pub impl NodeMaterialClass for MeshLambertNodeMaterial with fn get_property(
 ) {
   match name {
     "emissiveNode" => Some(node_material_slot_value(self.emissive_node))
-    _ => BaseNodeMaterial::{ }.get_property(material, name)
+    _ => NodeMaterialClass::get_property(BaseNodeMaterial::{ }, material, name)
   }
 }
 

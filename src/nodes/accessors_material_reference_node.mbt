@@ -19,7 +19,8 @@ pub impl NodeClass for MaterialReferenceNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for MaterialReferenceNode with fn has_flag(self, flag) {
-  flag == "isMaterialReferenceNode" || self.reference_node.has_flag(flag)
+  flag == "isMaterialReferenceNode" ||
+  NodeClass::has_flag(self.reference_node, flag)
 }
 
 ///|

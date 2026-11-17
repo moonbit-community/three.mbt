@@ -23,7 +23,7 @@ pub impl BindingClass for NodeUniformsGroup with fn parent(self) {
 
 ///|
 pub impl BindingClass for NodeUniformsGroup with fn has_flag(self, flag) {
-  flag == "isNodeUniformsGroup" || self.parent_.has_flag(flag)
+  flag == "isNodeUniformsGroup" || BindingClass::has_flag(self.parent_, flag)
 }
 
 ///|

@@ -42,12 +42,12 @@ pub impl @nodes.NodeClass for OITPassNode with fn parent(self) {
 
 ///|
 pub impl @nodes.NodeClass for OITPassNode with fn has_flag(self, flag) {
-  flag == "isOITPassNode" || self.pass.has_flag(flag)
+  flag == "isOITPassNode" || @nodes.NodeClass::has_flag(self.pass, flag)
 }
 
 ///|
 pub impl @nodes.NodeClass for OITPassNode with fn children(self, node, out) {
-  self.pass.children(node, out)
+  @nodes.NodeClass::children(self.pass, node, out)
   @nodes.push_child(out, "weightNode", self.weight_node)
 }
 
@@ -121,7 +121,7 @@ pub impl @nodes.PassNodeClass for OITPassNode with fn set_size(
 
 ///|
 pub impl @nodes.NodeClass for OITPassNode with fn setup(self, node, builder) {
-  let beauty_node = self.pass.setup(node, builder).unwrap()
+  let beauty_node = @nodes.NodeClass::setup(self.pass, node, builder).unwrap()
   // MSAA
   if builder.renderer.backend.has_flag("isWebGPUBackend") == true {
     // sample counts must match since the depth buffer is shared
@@ -208,7 +208,7 @@ pub impl @nodes.NodeClass for OITPassNode with fn update_before(
 
 ///|
 pub impl @nodes.NodeClass for OITPassNode with fn dispose(self, node) {
-  self.pass.dispose(node)
+  @nodes.NodeClass::dispose(self.pass, node)
   self._oit_render_target.dispose()
 }
 

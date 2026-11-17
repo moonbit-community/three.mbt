@@ -71,9 +71,10 @@ pub impl NodeMaterialClass for VolumeNodeMaterial with fn get_property(
   match name {
     "steps" => Some(Number(self.steps))
     _ =>
-      match self.node_slot(name) {
+      match NodeMaterialClass::node_slot(self, name) {
         Some(slot) => Some(node_material_slot_value(slot))
-        None => BaseNodeMaterial::{ }.get_property(material, name)
+        None =>
+          NodeMaterialClass::get_property(BaseNodeMaterial::{ }, material, name)
       }
   }
 }

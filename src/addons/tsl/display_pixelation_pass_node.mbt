@@ -22,7 +22,7 @@ pub impl @nodes.NodeClass for PixelationPassNode with fn parent(self) {
 
 ///|
 pub impl @nodes.NodeClass for PixelationPassNode with fn has_flag(self, flag) {
-  flag == "isPixelationPassNode" || self.pass.has_flag(flag)
+  flag == "isPixelationPassNode" || @nodes.NodeClass::has_flag(self.pass, flag)
 }
 
 ///|
@@ -31,7 +31,7 @@ pub impl @nodes.NodeClass for PixelationPassNode with fn children(
   node,
   out,
 ) {
-  self.pass.children(node, out)
+  @nodes.NodeClass::children(self.pass, node, out)
   @nodes.push_child(out, "normalEdgeStrength", Some(self.normal_edge_strength))
   @nodes.push_child(out, "depthEdgeStrength", Some(self.depth_edge_strength))
 }

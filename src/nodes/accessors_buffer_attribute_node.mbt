@@ -214,7 +214,7 @@ pub impl NodeClass for BufferAttributeNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for BufferAttributeNode with fn has_flag(self, flag) {
-  flag == "isBufferNode" || self.input.has_flag(flag)
+  flag == "isBufferNode" || NodeClass::has_flag(self.input, flag)
 }
 
 ///|

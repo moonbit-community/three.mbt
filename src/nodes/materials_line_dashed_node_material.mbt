@@ -85,9 +85,10 @@ pub impl NodeMaterialClass for LineDashedNodeMaterial with fn get_property(
   match name {
     "dashOffset" => Some(Number(self.dash_offset))
     _ =>
-      match self.node_slot(name) {
+      match NodeMaterialClass::node_slot(self, name) {
         Some(slot) => Some(node_material_slot_value(slot))
-        None => BaseNodeMaterial::{ }.get_property(material, name)
+        None =>
+          NodeMaterialClass::get_property(BaseNodeMaterial::{ }, material, name)
       }
   }
 }

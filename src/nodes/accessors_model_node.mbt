@@ -22,7 +22,7 @@ pub impl NodeClass for ModelNode with fn parent(self) {
 ///|
 pub impl NodeClass for ModelNode with fn update(self, node, frame) {
   self.object3d_node.object3d = frame.object
-  self.object3d_node.update(node, frame)
+  NodeClass::update(self.object3d_node, node, frame)
 }
 
 ///|

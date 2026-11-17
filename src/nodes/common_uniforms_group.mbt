@@ -37,7 +37,7 @@ pub impl BindingClass for UniformsGroup with fn parent(self) {
 
 ///|
 pub impl BindingClass for UniformsGroup with fn has_flag(self, flag) {
-  flag == "isUniformsGroup" || self.parent_.has_flag(flag)
+  flag == "isUniformsGroup" || BindingClass::has_flag(self.parent_, flag)
 }
 
 ///|
@@ -51,7 +51,7 @@ pub impl BindingClass for UniformsGroup with fn clear_update_ranges(
   binding,
 ) {
   self._added_indices.clear()
-  self.parent_.clear_update_ranges(binding)
+  BindingClass::clear_update_ranges(self.parent_, binding)
 }
 
 ///|
@@ -108,13 +108,13 @@ pub impl BindingClass for UniformsGroup with fn update(self, binding) {
 
 ///|
 pub impl BindingClass for UniformsGroup with fn release(self, binding) {
-  self.parent_.release(binding)
+  BindingClass::release(self.parent_, binding)
   self._values = None
 }
 
 ///|
 pub impl BindingClass for UniformsGroup with fn clone(self, binding) {
-  let clone = match self.parent() {
+  let clone = match BindingClass::parent(self) {
     Some(p) => p.clone(binding)
     None => binding.clone_base()
   }

@@ -21,7 +21,7 @@ pub impl NodeClass for CubeTextureNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for CubeTextureNode with fn has_flag(self, flag) {
-  flag == "isCubeTextureNode" || self.texture.has_flag(flag)
+  flag == "isCubeTextureNode" || NodeClass::has_flag(self.texture, flag)
 }
 
 ///|

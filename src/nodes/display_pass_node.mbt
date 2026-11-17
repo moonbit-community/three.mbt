@@ -67,12 +67,12 @@ pub impl NodeClass for PassTextureNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for PassTextureNode with fn has_flag(self, flag) {
-  flag == "isPassTextureNode" || self.texture.has_flag(flag)
+  flag == "isPassTextureNode" || NodeClass::has_flag(self.texture, flag)
 }
 
 ///|
 pub impl NodeClass for PassTextureNode with fn children(self, node, out) {
-  self.texture.children(node, out)
+  NodeClass::children(self.texture, node, out)
   push_child(out, "passNode", Some(self.pass_node))
 }
 
@@ -85,7 +85,7 @@ pub impl NodeClass for PassTextureNode with fn is_cacheable(_, _, _) {
 pub impl NodeClass for PassTextureNode with fn setup(self, node, builder) {
   let properties = builder.get_node_properties(node)
   properties.set_node("passNode", self.pass_node)
-  self.texture.setup(node, builder)
+  NodeClass::setup(self.texture, node, builder)
 }
 
 ///|
@@ -151,7 +151,8 @@ pub impl NodeClass for PassMultipleTextureNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for PassMultipleTextureNode with fn has_flag(self, flag) {
-  flag == "isPassMultipleTextureNode" || self.pass_texture.has_flag(flag)
+  flag == "isPassMultipleTextureNode" ||
+  NodeClass::has_flag(self.pass_texture, flag)
 }
 
 ///|
@@ -161,7 +162,7 @@ pub impl NodeClass for PassMultipleTextureNode with fn setup(
   builder,
 ) {
   self.update_texture(node)
-  self.pass_texture.setup(node, builder)
+  NodeClass::setup(self.pass_texture, node, builder)
 }
 
 ///|

@@ -75,9 +75,10 @@ pub impl NodeMaterialClass for SpriteNodeMaterial with fn get_property(
     "sizeAttenuation" =>
       Some(Bool(SpriteNodeMaterial::size_attenuation(material)))
     _ =>
-      match self.node_slot(name) {
+      match NodeMaterialClass::node_slot(self, name) {
         Some(slot) => Some(node_material_slot_value(slot))
-        None => BaseNodeMaterial::{ }.get_property(material, name)
+        None =>
+          NodeMaterialClass::get_property(BaseNodeMaterial::{ }, material, name)
       }
   }
 }

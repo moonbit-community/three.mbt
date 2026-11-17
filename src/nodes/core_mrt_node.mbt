@@ -45,12 +45,12 @@ pub impl NodeClass for MRTNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for MRTNode with fn has_flag(self, flag) {
-  flag == "isMRTNode" || self.output_struct.has_flag(flag)
+  flag == "isMRTNode" || NodeClass::has_flag(self.output_struct, flag)
 }
 
 ///|
 pub impl NodeClass for MRTNode with fn children(self, node, out) {
-  self.output_struct.children(node, out)
+  NodeClass::children(self.output_struct, node, out)
   push_child_object(out, "outputNodes", self.output_nodes)
 }
 
@@ -72,7 +72,7 @@ pub impl NodeClass for MRTNode with fn setup(self, node, builder) {
     members[index] = Some(output_node.convert(type_))
   }
   self.output_struct.members = members
-  self.output_struct.setup(node, builder)
+  NodeClass::setup(self.output_struct, node, builder)
 }
 
 ///|

@@ -520,9 +520,10 @@ pub impl NodeMaterialClass for Line2NodeMaterial with fn get_property(
       }
     "alphaToCoverage" => Some(Bool(material.alpha_to_coverage))
     _ =>
-      match self.node_slot(name) {
+      match NodeMaterialClass::node_slot(self, name) {
         Some(slot) => Some(node_material_slot_value(slot))
-        None => BaseNodeMaterial::{ }.get_property(material, name)
+        None =>
+          NodeMaterialClass::get_property(BaseNodeMaterial::{ }, material, name)
       }
   }
 }

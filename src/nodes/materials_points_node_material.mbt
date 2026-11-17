@@ -50,7 +50,7 @@ pub impl NodeMaterialClass for PointsNodeMaterial with fn parent(self) {
 pub impl NodeMaterialClass for PointsNodeMaterial with fn has_flag(self, flag) {
   flag == "isPointsNodeMaterial" ||
   flag == "isPointsMaterial" ||
-  self.sprite.has_flag(flag)
+  NodeMaterialClass::has_flag(self.sprite, flag)
 }
 
 ///|
@@ -62,7 +62,7 @@ pub impl NodeMaterialClass for PointsNodeMaterial with fn construct(_) {
 pub impl NodeMaterialClass for PointsNodeMaterial with fn node_slot(self, name) {
   match name {
     "sizeNode" => Some(self.size_node)
-    _ => self.sprite.node_slot(name)
+    _ => NodeMaterialClass::node_slot(self.sprite, name)
   }
 }
 
@@ -71,7 +71,7 @@ pub impl NodeMaterialClass for PointsNodeMaterial with fn own_node_slots(
   self,
   out,
 ) {
-  self.sprite.own_node_slots(out)
+  NodeMaterialClass::own_node_slots(self.sprite, out)
   out.push(("sizeNode", self.size_node))
 }
 
@@ -83,7 +83,7 @@ pub impl NodeMaterialClass for PointsNodeMaterial with fn set_node_slot(
 ) {
   match name {
     "sizeNode" => self.size_node = value
-    _ => return self.sprite.set_node_slot(name, value)
+    _ => return NodeMaterialClass::set_node_slot(self.sprite, name, value)
   }
   true
 }
@@ -97,7 +97,7 @@ pub impl NodeMaterialClass for PointsNodeMaterial with fn get_property(
   match name {
     "sizeNode" => Some(node_material_slot_value(self.size_node))
     "alphaToCoverage" => Some(Bool(material.alpha_to_coverage))
-    _ => self.sprite.get_property(material, name)
+    _ => NodeMaterialClass::get_property(self.sprite, material, name)
   }
 }
 
@@ -133,7 +133,7 @@ pub fn PointsNodeMaterial::setup_vertex_sprite(
   let scale_node = self.sprite.scale_node
   let size_node = self.size_node
   let size_attenuation = SpriteNodeMaterial::size_attenuation(material)
-  let mut mvp = self.sprite.setup_vertex(material, builder)
+  let mut mvp = NodeMaterialClass::setup_vertex(self.sprite, material, builder)
   // skip further processing if the material is not a node material
   if builder_material.is_node_material() != true {
     return mvp
@@ -181,7 +181,7 @@ pub impl NodeMaterialClass for PointsNodeMaterial with fn setup_vertex(
   builder,
 ) {
   if node_material_builder_object(builder).is_points() {
-    self.sprite.setup_vertex(material, builder)
+    NodeMaterialClass::setup_vertex(self.sprite, material, builder)
   } else {
     self.setup_vertex_sprite(material, builder)
   }

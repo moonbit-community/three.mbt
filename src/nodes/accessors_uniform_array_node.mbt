@@ -19,7 +19,8 @@ pub impl NodeClass for UniformArrayElementNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for UniformArrayElementNode with fn has_flag(self, flag) {
-  flag == "isArrayBufferElementNode" || self.array_element.has_flag(flag)
+  flag == "isArrayBufferElementNode" ||
+  NodeClass::has_flag(self.array_element, flag)
 }
 
 ///|
@@ -29,7 +30,9 @@ pub impl NodeClass for UniformArrayElementNode with fn generate(
   builder,
   output,
 ) {
-  let snippet = self.array_element.generate(node, builder, output).unwrap_or("")
+  let snippet = NodeClass::generate(self.array_element, node, builder, output).unwrap_or(
+    "",
+  )
   let type_ = node.get_node_type(builder)
   let padded_type = UniformArrayNode::get_padded_type(
     self.array_element.node,
@@ -80,7 +83,7 @@ pub impl NodeClass for UniformArrayNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for UniformArrayNode with fn has_flag(self, flag) {
-  flag == "isArrayBufferNode" || self.buffer.has_flag(flag)
+  flag == "isArrayBufferNode" || NodeClass::has_flag(self.buffer, flag)
 }
 
 ///|
@@ -116,7 +119,7 @@ pub impl NodeClass for UniformArrayNode with fn on_update(
     UniformArrayNode::update_buffer(node)
     None
   }
-  match self.buffer.on_update(node, wrapped, update_type) {
+  match NodeClass::on_update(self.buffer, node, wrapped, update_type) {
     Some(n) => Some(n)
     None => Some(node.on_update_base(wrapped, update_type))
   }
@@ -147,7 +150,7 @@ pub impl NodeClass for UniformArrayNode with fn setup(self, node, builder) {
   self.buffer.buffer_type = Some(padded_type)
   // initialize the buffer values
   UniformArrayNode::update_buffer(node)
-  self.buffer.setup(node, builder)
+  NodeClass::setup(self.buffer, node, builder)
 }
 
 ///|

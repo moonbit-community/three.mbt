@@ -68,7 +68,7 @@ pub impl LightingModelClass for SSSLightingModel with fn direct(
       ),
     )
   }
-  self.physical.direct(model, light_data, builder)
+  LightingModelClass::direct(self.physical, model, light_data, builder)
 }
 
 ///|
@@ -139,7 +139,7 @@ pub impl NodeMaterialClass for MeshSSSNodeMaterial with fn parent(self) {
 pub impl NodeMaterialClass for MeshSSSNodeMaterial with fn has_flag(self, flag) {
   match flag {
     "useSSS" => self.use_sss()
-    _ => self.physical.has_flag(flag)
+    _ => NodeMaterialClass::has_flag(self.physical, flag)
   }
 }
 
@@ -169,7 +169,7 @@ pub impl NodeMaterialClass for MeshSSSNodeMaterial with fn node_slot(self, name)
       return Some(slot.1)
     }
   }
-  self.physical.node_slot(name)
+  NodeMaterialClass::node_slot(self.physical, name)
 }
 
 ///|
@@ -177,7 +177,7 @@ pub impl NodeMaterialClass for MeshSSSNodeMaterial with fn own_node_slots(
   self,
   out,
 ) {
-  self.physical.own_node_slots(out)
+  NodeMaterialClass::own_node_slots(self.physical, out)
   out.append(self.own_slots())
 }
 
@@ -194,7 +194,7 @@ pub impl NodeMaterialClass for MeshSSSNodeMaterial with fn set_node_slot(
     "thicknessAttenuationNode" => self.thickness_attenuation_node = value
     "thicknessPowerNode" => self.thickness_power_node = value
     "thicknessScaleNode" => self.thickness_scale_node = value
-    _ => return self.physical.set_node_slot(name, value)
+    _ => return NodeMaterialClass::set_node_slot(self.physical, name, value)
   }
   true
 }
@@ -213,7 +213,7 @@ pub impl NodeMaterialClass for MeshSSSNodeMaterial with fn get_property(
           break Some(node_material_slot_value(slot.1))
         }
       } nobreak {
-        self.physical.get_property(material, name)
+        NodeMaterialClass::get_property(self.physical, material, name)
       }
   }
 }

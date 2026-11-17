@@ -24,7 +24,8 @@ pub impl NodeClass for WorkgroupInfoElementNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for WorkgroupInfoElementNode with fn has_flag(self, flag) {
-  flag == "isWorkgroupInfoElementNode" || self.array_element.has_flag(flag)
+  flag == "isWorkgroupInfoElementNode" ||
+  NodeClass::has_flag(self.array_element, flag)
 }
 
 ///|
@@ -40,9 +41,9 @@ pub impl NodeClass for WorkgroupInfoElementNode with fn generate(
   output,
 ) {
   let is_assign_context = builder.is_context_assign()
-  let mut snippet = self.array_element
-    .generate(node, builder, None)
-    .unwrap_or("")
+  let mut snippet = NodeClass::generate(self.array_element, node, builder, None).unwrap_or(
+    "",
+  )
   if is_assign_context != true {
     let type_ = node.get_node_type(builder)
     snippet = builder.format(snippet, type_, output)

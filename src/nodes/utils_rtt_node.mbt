@@ -35,12 +35,12 @@ pub impl NodeClass for RTTNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for RTTNode with fn has_flag(self, flag) {
-  flag == "isRTTNode" || self.texture.has_flag(flag)
+  flag == "isRTTNode" || NodeClass::has_flag(self.texture, flag)
 }
 
 ///|
 pub impl NodeClass for RTTNode with fn children(self, node, out) {
-  self.texture.children(node, out)
+  NodeClass::children(self.texture, node, out)
   push_child(out, "node", Some(self.node))
 }
 

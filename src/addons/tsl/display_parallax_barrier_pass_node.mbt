@@ -21,7 +21,8 @@ pub impl @nodes.NodeClass for ParallaxBarrierPassNode with fn has_flag(
   self,
   flag,
 ) {
-  flag == "isParallaxBarrierPassNode" || self.stereo.has_flag(flag)
+  flag == "isParallaxBarrierPassNode" ||
+  @nodes.NodeClass::has_flag(self.stereo, flag)
 }
 
 ///|

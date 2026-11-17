@@ -64,7 +64,7 @@ pub impl NodeClass for Texture3DNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for Texture3DNode with fn has_flag(self, flag) {
-  flag == "isTexture3DNode" || self.texture.has_flag(flag)
+  flag == "isTexture3DNode" || NodeClass::has_flag(self.texture, flag)
 }
 
 ///|

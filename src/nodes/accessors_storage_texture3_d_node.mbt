@@ -17,7 +17,7 @@ pub impl NodeClass for StorageTexture3DNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for StorageTexture3DNode with fn has_flag(self, flag) {
-  flag == "isStorageTexture3DNode" || self.storage.has_flag(flag)
+  flag == "isStorageTexture3DNode" || NodeClass::has_flag(self.storage, flag)
 }
 
 ///|

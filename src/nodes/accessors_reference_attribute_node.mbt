@@ -342,7 +342,7 @@ pub impl NodeClass for ReferenceBufferAttributeNode with fn parent(self) {
 ///|
 pub impl NodeClass for ReferenceBufferAttributeNode with fn has_flag(self, flag) {
   flag == "isReferenceBufferAttributeNode" ||
-  self.buffer_attribute.has_flag(flag)
+  NodeClass::has_flag(self.buffer_attribute, flag)
 }
 
 ///|
@@ -351,7 +351,7 @@ pub impl NodeClass for ReferenceBufferAttributeNode with fn children(
   node,
   out,
 ) {
-  self.buffer_attribute.children(node, out)
+  NodeClass::children(self.buffer_attribute, node, out)
   push_child(out, "referenceNode", Some(self.reference_node))
 }
 
@@ -366,7 +366,8 @@ pub impl NodeClass for ReferenceBufferAttributeNode with fn setup(
   node,
   builder,
 ) {
-  self.buffer_attribute.attribute = self.get_object_attribute(
+  self.buffer_attribute.attribute = BufferAttributeNodeClass::get_object_attribute(
+    self,
     node,
     builder.object,
   )

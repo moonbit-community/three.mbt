@@ -26,7 +26,7 @@ pub impl NodeClass for ToonOutlinePassNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for ToonOutlinePassNode with fn children(self, node, out) {
-  self.pass.children(node, out)
+  NodeClass::children(self.pass, node, out)
   push_child(out, "colorNode", Some(self.color_node))
   push_child(out, "thicknessNode", Some(self.thickness_node))
   push_child(out, "alphaNode", Some(self.alpha_node))
@@ -79,7 +79,7 @@ pub impl NodeClass for ToonOutlinePassNode with fn update_before(
 
 ///|
 pub impl NodeClass for ToonOutlinePassNode with fn dispose(self, node) {
-  self.pass.dispose(node)
+  NodeClass::dispose(self.pass, node)
   self._outline_material.dispose()
   for entry in self._material_cache {
     let (original_material, outline_material) = entry

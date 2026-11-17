@@ -19,7 +19,7 @@ pub impl BindingClass for StorageBuffer with fn parent(self) {
 
 ///|
 pub impl BindingClass for StorageBuffer with fn has_flag(self, flag) {
-  flag == "isStorageBuffer" || self.parent_.has_flag(flag)
+  flag == "isStorageBuffer" || BindingClass::has_flag(self.parent_, flag)
 }
 
 ///|

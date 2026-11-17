@@ -88,7 +88,7 @@ pub impl NodeClass for ReflectorNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for ReflectorNode with fn has_flag(self, flag) {
-  self.texture.has_flag(flag)
+  NodeClass::has_flag(self.texture, flag)
 }
 
 ///|
