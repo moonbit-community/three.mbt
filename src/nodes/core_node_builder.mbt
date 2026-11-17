@@ -2950,7 +2950,7 @@ pub fn NodeBuilder::is_reference(_self : NodeBuilder, type_ : String?) -> Bool {
     | "cubeTexture"
     | "storageTexture"
     | "depthTexture"
-    | "texture3D"
+    | "texture3D",
   )
 }
 

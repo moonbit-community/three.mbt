@@ -23,7 +23,7 @@ concurrency:
 
 env:
   # The toolchain the port was last verified with (`moonc -v`); bump it deliberately.
-  MOONBIT_VERSION: 0.10.19+bee578715
+  MOONBIT_VERSION: 0.10.21+06da1ed44
 
 jobs:
   test:

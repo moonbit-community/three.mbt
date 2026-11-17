@@ -167,7 +167,7 @@ pub fn WebGLMorphtargets::update(
   let uniforms = program.get_uniforms()
   match object.kind {
     Mesh(
-      { kind: InstancedMesh({ morph_texture: Some(morph_texture), .. }), .. }
+      { kind: InstancedMesh({ morph_texture: Some(morph_texture), .. }), .. },
     ) =>
       uniforms.set_value(
         gl,

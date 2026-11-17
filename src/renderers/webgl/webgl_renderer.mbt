@@ -1733,7 +1733,7 @@ pub fn WebGLRenderer::render(
         {
           kind: PerspectiveCamera({ array_camera: Some(array_camera), .. }),
           ..
-        }
+        },
       ) => {
         let cameras = array_camera.cameras
         if transmissive_objects.length() > 0 {
