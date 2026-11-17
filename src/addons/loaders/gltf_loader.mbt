@@ -433,7 +433,7 @@ pub fn GLTFLoader::parse(
       let extension_name : String = gltf_at(extensions_used, i).cast()
       let extensions_required = gltf_or(
         json.get("extensionsRequired"),
-        @core.JsValue::of(([] : Array[String])),
+        @core.JsValue::of(([] : FixedArray[String])),
       )
       match extension_name {
         "KHR_materials_unlit" =>

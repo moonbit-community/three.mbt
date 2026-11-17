@@ -76,7 +76,14 @@ extern "js" fn xr_array_unshift(
 ) -> Unit = "(a, v) => { a.unshift( v ); }"
 
 ///|
-extern "js" fn xr_array_of(values : Array[@core.JsValue]) -> @core.JsValue = "(a) => Array.from( a )"
+extern "js" fn xr_array_of_fixed(
+  values : FixedArray[@core.JsValue],
+) -> @core.JsValue = "(a) => Array.from( a )"
+
+///|
+fn xr_array_of(values : Array[@core.JsValue]) -> @core.JsValue {
+  xr_array_of_fixed(FixedArray::from_array(values))
+}
 
 ///|
 extern "js" fn xr_array_length(array : @core.JsValue) -> Int32 = "(a) => a.length"
@@ -1740,4 +1747,11 @@ fn xr_session(session : @core.JsValue) -> @webgl.XRSession {
 }
 
 ///|
-extern "js" fn xr_number_array(array : @core.JsValue) -> Array[Double] = "(a) => Array.from( a )"
+extern "js" fn xr_number_array_fixed(
+  array : @core.JsValue,
+) -> FixedArray[Double] = "(a) => Array.from( a )"
+
+///|
+fn xr_number_array(array : @core.JsValue) -> Array[Double] {
+  Array::from_fixed_array(xr_number_array_fixed(array))
+}

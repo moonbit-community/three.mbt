@@ -12,14 +12,33 @@
 extern "js" fn g5_enabled() -> Bool = "() => typeof process !== 'undefined' && process.env.SHADER_DIFF === '1'"
 
 ///|
-extern "js" fn g5_json(
+extern "js" fn g5_json_fixed(
+  code : String,
+  result : String,
+  vars : String,
+  uniforms : FixedArray[String],
+  codes : FixedArray[String],
+  extra : String,
+) -> String = "(code, result, vars, uniforms, codes, extra) => JSON.stringify({ code, result, vars, uniforms, codes, extra })"
+
+///|
+fn g5_json(
   code : String,
   result : String,
   vars : String,
   uniforms : Array[String],
   codes : Array[String],
   extra : String,
-) -> String = "(code, result, vars, uniforms, codes, extra) => JSON.stringify({ code, result, vars, uniforms, codes, extra })"
+) -> String {
+  g5_json_fixed(
+    code,
+    result,
+    vars,
+    FixedArray::from_array(uniforms),
+    FixedArray::from_array(codes),
+    extra,
+  )
+}
 
 ///|
 extern "js" fn g5_json3(

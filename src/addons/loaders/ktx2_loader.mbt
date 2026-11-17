@@ -367,7 +367,7 @@ pub fn KTX2Loader::init(self : KTX2Loader) -> @utils.AddonPromise {
     }
     self.transcoder_pending = Some(
       @utils.AddonPromise::all([js_content, binary_content]).then_(fn(
-        contents : Array[@core.JsValue],
+        contents : FixedArray[@core.JsValue],
       ) {
         let js_content : String = contents[0].cast()
         let binary_content = contents[1]

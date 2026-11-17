@@ -12,7 +12,9 @@ extern "js" fn fround(x : Double) -> Double = "Math.fround"
 
 ///|
 test "ImageUtils srgb_to_linear converts data images into a new object" {
-  let image = image_with_data(@core.JsValue::of([0.5, 1.0]))
+  let image = image_with_data(
+    @core.JsValue::of(([0.5, 1.0] : FixedArray[Double])),
+  )
   let result = @extras.ImageUtils::srgb_to_linear(image)
   assert_false(result.strict_equal(image))
   assert_eq(image_first_value(result), fround(@math.srgb_to_linear(0.5)))

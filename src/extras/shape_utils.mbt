@@ -78,5 +78,9 @@ extern "js" fn extras_js_sort(
 ///|
 /// JS `Array.prototype.sort`, which fixes the order an inconsistent comparator gives.
 fn[T] extras_sort_by(array : Array[T], compare : (T, T) -> Double) -> Unit {
-  extras_js_sort(@core.JsValue::of(array), @core.JsValue::of(compare))
+  let sorted = FixedArray::from_array(array)
+  extras_js_sort(@core.JsValue::of(sorted), @core.JsValue::of(compare))
+  for i, value in sorted {
+    array[i] = value
+  }
 }

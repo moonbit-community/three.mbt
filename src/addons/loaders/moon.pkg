@@ -10,4 +10,12 @@ import {
   "moonbit-community/three/addons/math" @addon_math,
 }
 
+import {
+  "moonbitlang/core/async",
+} for "wbtest"
+
+options(
+  "allow-experimental-packages": [ "moonbitlang/core/async" ],
+)
+
 warnings = "-79"

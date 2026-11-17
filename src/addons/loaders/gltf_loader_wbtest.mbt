@@ -9,6 +9,65 @@ fn gltf_test_json(text : String) -> JsValue {
 }
 
 ///|
+async test "GLTFLoader parses scene arrays and node transforms" {
+  let data = JsValue::from_json({
+    "asset": { "version": "2.0" },
+    "scene": 0,
+    "scenes": [{ "nodes": [0] }],
+    "nodes": [
+      {
+        "name": "parent",
+        "children": [1],
+        "translation": [1, 2, 3],
+        "scale": [2, 3, 4],
+      },
+      {
+        "name": "child",
+        "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4, 5, 6, 1],
+      },
+    ],
+    "cameras": [
+      {
+        "type": "perspective",
+        "perspective": { "yfov": 1, "znear": 0.1, "zfar": 100 },
+      },
+    ],
+  })
+  let result = @loaders.loader_promise(fn(resolve, reject) {
+    GLTFLoader::new().parse(data, "", resolve, on_error=reject)
+  })
+  assert_eq(result.scenes.length(), 1)
+  assert_eq(result.animations.length(), 0)
+  assert_eq(result.cameras.length(), 1)
+  let parent = result.scene.unwrap().children[0]
+  assert_eq(parent.position.to_array(), [1.0, 2, 3])
+  assert_eq(parent.scale.to_array(), [2.0, 3, 4])
+  assert_eq(parent.children[0].position.to_array(), [4.0, 5, 6])
+  assert_eq(parent.children[0].matrix_world.elements[12:15].to_owned(), [
+    9.0, 17, 27,
+  ])
+  assert_true(result.parser.associations.entries().length() >= 2)
+}
+
+///|
+async test "AddonPromise all preserves mixed values and nested arrays" {
+  let values = [JsValue::of(1), @utils.AddonPromise::resolve(2).to_js()]
+  values.push(JsValue::of(99))
+  ignore(values.pop())
+  let result = @loaders.loader_promise(fn(resolve, reject) {
+    @utils.AddonPromise::all([
+      @utils.AddonPromise::all_values(values),
+      @utils.AddonPromise::all([]),
+    ])
+    .then_(fn(result : FixedArray[JsValue]) { resolve(result) })
+    .catch_(fn(error) { reject(error) })
+    |> ignore
+  })
+  assert_eq(result[0].to_json(), [1, 2])
+  assert_eq(result[1].to_json(), [])
+}
+
+///|
 test "child credentials" {
   let loader = GLTFLoader::new()
   loader.set_with_credentials(true) |> ignore

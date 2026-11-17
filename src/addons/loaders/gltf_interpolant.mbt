@@ -3,9 +3,20 @@
 // https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#appendix-c-spline-interpolation
 
 ///|
-/// A typed array read and written in place as an `Array[Double]` (indexing compiles
-/// to `a[ i ]`).
-fn gltf_typed_as_array(array : @core.TypedArray) -> Array[Double] = "%identity"
+priv struct GltfTypedArrayView {
+  buf : @core.TypedArray
+  len : Int32
+}
+
+///|
+fn gltf_typed_array_view(view : GltfTypedArrayView) -> Array[Double] = "%identity"
+
+///|
+/// Shares typed storage through MoonBit's array header; only indexing and length
+/// are valid on this fixed-size view.
+fn gltf_typed_as_array(array : @core.TypedArray) -> Array[Double] {
+  gltf_typed_array_view({ buf: array, len: array.length(), })
+}
 
 ///|
 let gltf_interpolant_quaternion : @math.Quaternion = @math.Quaternion::new(
@@ -118,7 +129,7 @@ pub fn gltf_cubic_spline_interpolant(
 }
 
 ///|
-extern "js" fn gltf_is_float32_array(v : @core.JsValue) -> Bool = "(v) => v instanceof Float32Array"
+extern "js" fn gltf_is_float32_array(v : @core.JsValue) -> Bool = "(v) => v.buf instanceof Float32Array"
 
 ///|
 /// `InterpolantFactoryMethodGLTFCubicSpline( result )`, set as a track's

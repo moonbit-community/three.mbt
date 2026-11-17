@@ -1,13 +1,23 @@
 // JS helpers shared by the files of this package. Keyframe tracks keep their times and
 // values in real typed arrays (`@core.TypedArray`), as upstream does, so that writes
-// round to Float32. The interpolants of `@math` take `Array[Double]`; on the JS backend
-// a MoonBit array is a plain JS array, so a typed array can stand in for one as long as
-// only indexing and `length` are used. `typed_as_array` gives that view.
+// round to Float32. Interpolants take `Array[Double]`; their views must retain the
+// typed backing storage and use MoonBit's array header (`buf`, `len`).
+
+///|
+priv struct AnimationTypedArrayView {
+  buf : @core.TypedArray
+  len : Int32
+}
+
+///|
+fn animation_typed_array_view(view : AnimationTypedArrayView) -> Array[Double] = "%identity"
 
 ///|
 /// Views a typed array as an `Array[Double]`, sharing its storage. Only indexing and
 /// `length()` are valid on the result.
-fn typed_as_array(array : @core.TypedArray) -> Array[Double] = "%identity"
+fn typed_as_array(array : @core.TypedArray) -> Array[Double] {
+  animation_typed_array_view({ buf: array, len: array.length(), })
+}
 
 ///|
 /// `new Float32Array( size )` viewed as an `Array[Double]`.

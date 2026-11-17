@@ -92,7 +92,7 @@ impl GLTFPlugin for GLTFLightsExtension with fn mark_defs(self) {
   let parser = self.parser
   let node_defs = gltf_or(
     self.parser.json.get("nodes"),
-    JsValue::of(([] : Array[Int32])),
+    JsValue::of(([] : FixedArray[Int32])),
   )
   for node_index in 0..<gltf_length(node_defs) {
     let node_def = gltf_at(node_defs, node_index)
@@ -127,7 +127,7 @@ fn GLTFLightsExtension::load_light(
   )
   let light_defs = gltf_or(
     extensions.get("lights"),
-    JsValue::of(([] : Array[Int32])),
+    JsValue::of(([] : FixedArray[Int32])),
   )
   let light_def = gltf_at(light_defs, light_index)
   let color = @math.Color::new(1, 1, 1)
@@ -831,7 +831,7 @@ impl GLTFPlugin for GLTFMaterialsVolumeExtension with fn extend_material_params(
   )
   let color_array = gltf_or(
     extension.get("attenuationColor"),
-    JsValue::of([1.0, 1.0, 1.0]),
+    JsValue::of(([1.0, 1.0, 1.0] : FixedArray[Double])),
   )
   material_params["attenuationColor"] = Color(
     gltf_color_from_array(color_array),
@@ -944,7 +944,7 @@ impl GLTFPlugin for GLTFMaterialsSpecularExtension with fn extend_material_param
   }
   let color_array = gltf_or(
     extension.get("specularColorFactor"),
-    JsValue::of([1.0, 1.0, 1.0]),
+    JsValue::of(([1.0, 1.0, 1.0] : FixedArray[Double])),
   )
   material_params["specularColor"] = Color(gltf_color_from_array(color_array))
   if gltf_defined(extension.get("specularColorTexture")) {
@@ -1385,8 +1385,8 @@ impl GLTFPlugin for GLTFMeshGpuInstancing with fn create_node_mesh(
   }
   pending.push(self.parser.create_node_mesh(node_index).unwrap())
   Some(
-    AddonPromise::all(pending).then_(fn(results : Array[JsValue]) {
-      let node_object : @core.Object3D = results.pop().unwrap().cast()
+    AddonPromise::all(pending).then_(fn(results : FixedArray[JsValue]) {
+      let node_object : @core.Object3D = results[results.length() - 1].cast()
       let meshes = if node_object.is_group() {
         node_object.children
       } else {
@@ -1511,10 +1511,17 @@ extern "js" fn gltf_object_assign_copy(o : JsValue) -> JsValue = "(o) => Object.
 ///|
 /// The order `for ( const k in object )` visits these keys: integer-like keys first,
 /// ascending, then the others in insertion order.
-extern "js" fn gltf_js_key_order(keys : Array[String]) -> Array[String] =
+extern "js" fn gltf_js_key_order_fixed(
+  keys : FixedArray[String],
+) -> FixedArray[String] =
   #|(keys) => { const o = {}; for (const k of keys) o[k] = true; return Object.keys(o); }
 
 // --- KHR_binary_glTF -----------------------------------------------------------------
+
+///|
+fn gltf_js_key_order(keys : Array[String]) -> Array[String] {
+  Array::from_fixed_array(gltf_js_key_order_fixed(FixedArray::from_array(keys)))
+}
 
 ///|
 /// The `.glb` header.
@@ -1728,13 +1735,13 @@ pub fn GLTFTextureTransformExtension::extend_texture(
     texture.channel = tex_coord.cast()
   }
   if gltf_defined(transform.get("offset")) {
-    texture.offset.from_array(transform.get("offset").cast()) |> ignore
+    texture.offset.from_array(gltf_array(transform.get("offset"))) |> ignore
   }
   if gltf_defined(transform.get("rotation")) {
     texture.rotation = transform.get("rotation").cast()
   }
   if gltf_defined(transform.get("scale")) {
-    texture.repeat.from_array(transform.get("scale").cast()) |> ignore
+    texture.repeat.from_array(gltf_array(transform.get("scale"))) |> ignore
   }
   if gltf_defined(transform.get("rotation")) {
     // glTF's KHR_texture_transform order differs from three.js:

@@ -243,7 +243,9 @@ pub fn make_clip_additive(
       // Interpolate to the reference value
       let interpolant = reference_track.create_interpolant()
       interpolant.evaluate(reference_time) |> ignore
-      js_result_buffer_slice(@core.JsValue::of(interpolant.result_buffer))
+      js_result_buffer_slice(
+        @core.JsValue::of(FixedArray::from_array(interpolant.result_buffer)),
+      )
     }
 
     // Conjugate the quaternion

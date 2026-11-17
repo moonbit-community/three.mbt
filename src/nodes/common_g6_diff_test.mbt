@@ -48,7 +48,12 @@ extern "js" fn g6_typed_values(typed : @core.TypedArray) -> @core.JsValue = "(t)
 extern "js" fn g6_byte_length(buffer : @core.JsValue) -> Int32 = "(b) => b.byteLength"
 
 ///|
-extern "js" fn g6_uint8(values : Array[Int32]) -> @core.TypedArray = "(a) => new Uint8Array( a )"
+extern "js" fn g6_uint8_fixed(values : FixedArray[Int32]) -> @core.TypedArray = "(a) => new Uint8Array( a )"
+
+///|
+fn g6_uint8(values : Array[Int32]) -> @core.TypedArray {
+  g6_uint8_fixed(FixedArray::from_array(values))
+}
 
 ///|
 extern "js" fn g6_array_buffer(n : Int32) -> @core.JsValue = "(n) => new ArrayBuffer( n )"
@@ -1573,7 +1578,7 @@ test "g6diff info_dispose" {
             g6j(
               match xr_camera.kind {
                 Camera(
-                  { kind: PerspectiveCamera({ array_camera: Some(c), .. }), .. }
+                  { kind: PerspectiveCamera({ array_camera: Some(c), .. }), .. },
                 ) => c.cameras.length()
                 _ => -1
               },

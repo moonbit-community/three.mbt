@@ -206,15 +206,15 @@ pub fn GLTFParser::parse(
         parser.get_dependencies("camera"),
       ])
     })
-    .then_(fn(dependencies : Array[JsValue]) {
-      let scenes : Array[@core.Object3D] = dependencies[0].cast()
+    .then_(fn(dependencies : FixedArray[JsValue]) {
+      let scenes : Array[@core.Object3D] = gltf_array(dependencies[0])
       let scene_index = gltf_or(json.get("scene"), gltf_js_number(0))
       let scene : @core.Object3D? = gltf_at(dependencies[0], scene_index.cast()).cast()
       let result = {
         scene,
         scenes,
-        animations: dependencies[1].cast(),
-        cameras: dependencies[2].cast(),
+        animations: gltf_array(dependencies[1]),
+        cameras: gltf_array(dependencies[2]),
         asset: json.get("asset"),
         parser,
         user_data: JsValue::object(),
@@ -244,7 +244,7 @@ pub fn GLTFParser::parse(
 ///|
 /// Marks the special nodes/meshes in json for efficient parse.
 fn GLTFParser::mark_defs(self : GLTFParser) -> Unit {
-  let empty = JsValue::of(([] : Array[Int32]))
+  let empty = JsValue::of(([] : FixedArray[Int32]))
   let node_defs = gltf_or(self.json.get("nodes"), empty)
   let skin_defs = gltf_or(self.json.get("skins"), empty)
   let mesh_defs = gltf_or(self.json.get("meshes"), empty)
@@ -439,7 +439,7 @@ pub fn GLTFParser::get_dependencies(
     let parser = self
     let defs = gltf_or(
       self.json.get(type_ + (if type_ == "mesh" { "es" } else { "s" })),
-      JsValue::of(([] : Array[Int32])),
+      JsValue::of(([] : FixedArray[Int32])),
     )
     let pending = []
     for index in 0..<gltf_length(defs) {
@@ -580,7 +580,7 @@ fn GLTFParser::load_accessor(
     )
   }
   AddonPromise::all(pending_buffer_views).then_(fn(
-    buffer_views : Array[JsValue],
+    buffer_views : FixedArray[JsValue],
   ) {
     let buffer_view = buffer_views[0]
     let item_size = gltf_type_size(accessor_def.get("type"))
@@ -1443,9 +1443,11 @@ fn GLTFParser::load_mesh(self : GLTFParser, mesh_index : Int32) -> AddonPromise 
     pending.push(material)
   }
   pending.push(parser.load_geometries(primitives).to_js())
-  AddonPromise::all_values(pending).then_(fn(results : Array[JsValue]) {
+  AddonPromise::all_values(pending).then_(fn(results : FixedArray[JsValue]) {
     let materials = results[0:results.length() - 1]
-    let geometries : Array[@core.BufferGeometry] = results[results.length() - 1].cast()
+    let geometries : Array[@core.BufferGeometry] = gltf_array(
+      results[results.length() - 1],
+    )
     let meshes = []
     for i in 0..<geometries.length() {
       let geometry = geometries[i]
@@ -1616,9 +1618,9 @@ fn GLTFParser::load_skin(self : GLTFParser, skin_index : Int32) -> AddonPromise 
   } else {
     pending.push(gltf_null_promise())
   }
-  AddonPromise::all(pending).then_(fn(results : Array[JsValue]) {
-    let inverse_bind_matrices = results.pop().unwrap()
-    let joint_nodes = results
+  AddonPromise::all(pending).then_(fn(results : FixedArray[JsValue]) {
+    let inverse_bind_matrices = results[results.length() - 1]
+    let joint_nodes = results[0:results.length() - 1]
     let matrices = if inverse_bind_matrices.is_null() {
       None
     } else {
@@ -1707,7 +1709,7 @@ fn GLTFParser::load_animation(
     AddonPromise::all_values(pending_output_accessors),
     AddonPromise::all_values(pending_samplers),
     AddonPromise::all_values(pending_targets),
-  ]).then_(fn(dependencies : Array[Array[JsValue]]) {
+  ]).then_(fn(dependencies : FixedArray[FixedArray[JsValue]]) {
     let nodes = dependencies[0]
     let input_accessors = dependencies[1]
     let output_accessors = dependencies[2]
@@ -1803,7 +1805,7 @@ fn GLTFParser::load_node(self : GLTFParser, node_index : Int32) -> AddonPromise 
   let child_pending = []
   let children_def = gltf_or(
     node_def.get("children"),
-    JsValue::of(([] : Array[Int32])),
+    JsValue::of(([] : FixedArray[Int32])),
   )
   for i in 0..<gltf_length(children_def) {
     child_pending.push(
@@ -1819,9 +1821,9 @@ fn GLTFParser::load_node(self : GLTFParser, node_index : Int32) -> AddonPromise 
     node_pending,
     AddonPromise::all(child_pending),
     skeleton_pending,
-  ]).then_(fn(results : Array[JsValue]) {
+  ]).then_(fn(results : FixedArray[JsValue]) {
     let node : @core.Object3D = results[0].cast()
-    let children : Array[@core.Object3D] = results[1].cast()
+    let children : Array[@core.Object3D] = gltf_array(results[1])
     let skeleton = results[2]
     if !skeleton.is_null() {
       let skeleton : @core.Skeleton = skeleton.cast()
@@ -1845,7 +1847,9 @@ fn GLTFParser::load_node(self : GLTFParser, node_index : Int32) -> AddonPromise 
       let pivot_child = children[0]
 
       // Set pivot on container and adjust transforms
-      node.pivot = Some(@math.Vector3::new(0, 0, 0).from_array(pivot.cast()))
+      node.pivot = Some(
+        @math.Vector3::new(0, 0, 0).from_array(gltf_array(pivot)),
+      )
 
       // Adjust container position: stored as position + pivot, so subtract pivot
       node.position.x -= gltf_at(pivot, 0).cast()
@@ -1903,7 +1907,7 @@ fn GLTFParser::load_node_shallow(
     pending.push(promise)
   }
   let promise = AddonPromise::all(pending).then_(fn(
-    objects : Array[@core.Object3D],
+    objects : FixedArray[@core.Object3D],
   ) {
     // .isBone isn't in glTF spec. See ._markDefs
     let node = if gltf_is_true(node_def.get("isBone")) {
@@ -1934,17 +1938,19 @@ fn GLTFParser::load_node_shallow(
     }
     if gltf_defined(node_def.get("matrix")) {
       let matrix = @math.Matrix4::new()
-      matrix.from_array(node_def.get("matrix").cast()) |> ignore
+      matrix.from_array(gltf_array(node_def.get("matrix"))) |> ignore
       node.apply_matrix4(matrix)
     } else {
       if gltf_defined(node_def.get("translation")) {
-        node.position.from_array(node_def.get("translation").cast()) |> ignore
+        node.position.from_array(gltf_array(node_def.get("translation")))
+        |> ignore
       }
       if gltf_defined(node_def.get("rotation")) {
-        node.quaternion.from_array(node_def.get("rotation").cast()) |> ignore
+        node.quaternion.from_array(gltf_array(node_def.get("rotation")))
+        |> ignore
       }
       if gltf_defined(node_def.get("scale")) {
-        node.scale.from_array(node_def.get("scale").cast()) |> ignore
+        node.scale.from_array(gltf_array(node_def.get("scale"))) |> ignore
       }
     }
     if !parser.associations.has(Object3D(node)) {
@@ -1992,13 +1998,13 @@ fn GLTFParser::load_scene(
   }
   let node_ids = gltf_or(
     scene_def.get("nodes"),
-    JsValue::of(([] : Array[Int32])),
+    JsValue::of(([] : FixedArray[Int32])),
   )
   let pending = []
   for i in 0..<gltf_length(node_ids) {
     pending.push(parser.get_dependency("node", gltf_at(node_ids, i).cast()))
   }
-  AddonPromise::all(pending).then_(fn(nodes : Array[@core.Object3D]) {
+  AddonPromise::all(pending).then_(fn(nodes : FixedArray[@core.Object3D]) {
     for node in nodes {
       // If the node already has a parent, it means it's being reused across multiple scenes.
       // Clone it to avoid the second scene's add() removing it from the first scene.
@@ -2272,18 +2278,22 @@ fn gltf_add_morph_targets(
     AddonPromise::all_values(pending_position_accessors),
     AddonPromise::all_values(pending_normal_accessors),
     AddonPromise::all_values(pending_color_accessors),
-  ]).then_(fn(accessors : Array[Array[@core.GeometryAttribute]]) {
+  ]).then_(fn(accessors : FixedArray[FixedArray[@core.GeometryAttribute]]) {
     let morph_positions = accessors[0]
     let morph_normals = accessors[1]
     let morph_colors = accessors[2]
     if has_morph_position {
-      geometry.morph_attributes["position"] = morph_positions
+      geometry.morph_attributes["position"] = Array::from_fixed_array(
+        morph_positions,
+      )
     }
     if has_morph_normal {
-      geometry.morph_attributes["normal"] = morph_normals
+      geometry.morph_attributes["normal"] = Array::from_fixed_array(
+        morph_normals,
+      )
     }
     if has_morph_color {
-      geometry.morph_attributes["color"] = morph_colors
+      geometry.morph_attributes["color"] = Array::from_fixed_array(morph_colors)
     }
     geometry.morph_targets_relative = true
     geometry

@@ -43,14 +43,26 @@ extern "js" fn a6u_enabled() -> Bool = "() => typeof process !== 'undefined' && 
 extern "js" fn a6u_canon(c : @core.JsValue, value : @core.JsValue) -> String = "(c, v) => c.canon(v)"
 
 ///|
-extern "js" fn a6u_data_raw(
+extern "js" fn a6u_data_raw_fixed(
   c : @core.JsValue,
   seed : Int32,
   n : Int32,
   scale : Double,
   offset : Double,
   float : Bool,
-) -> Array[Double] = "(c, s, n, k, o, f) => c.data(s, n, k, o, f)"
+) -> FixedArray[Double] = "(c, s, n, k, o, f) => c.data(s, n, k, o, f)"
+
+///|
+fn a6u_data_raw(
+  c : @core.JsValue,
+  seed : Int32,
+  n : Int32,
+  scale : Double,
+  offset : Double,
+  float : Bool,
+) -> Array[Double] {
+  Array::from_fixed_array(a6u_data_raw_fixed(c, seed, n, scale, offset, float))
+}
 
 ///|
 extern "js" fn a6u_rng_raw(c : @core.JsValue, seed : Int32) -> () -> Double = "(c, s) => c.rng(s)"

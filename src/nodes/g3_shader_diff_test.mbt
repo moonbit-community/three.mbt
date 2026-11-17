@@ -11,13 +11,30 @@
 extern "js" fn g3_shader_diff_enabled() -> Bool = "() => typeof process !== 'undefined' && process.env.SHADER_DIFF === '1'"
 
 ///|
-extern "js" fn g3_shader_json(
+extern "js" fn g3_shader_json_fixed(
+  code : String,
+  result : String,
+  vars : String,
+  uniforms : FixedArray[String],
+  codes : String,
+) -> String = "(code, result, vars, uniforms, codes) => JSON.stringify({ code, result, vars, uniforms, codes })"
+
+///|
+fn g3_shader_json(
   code : String,
   result : String,
   vars : String,
   uniforms : Array[String],
   codes : String,
-) -> String = "(code, result, vars, uniforms, codes) => JSON.stringify({ code, result, vars, uniforms, codes })"
+) -> String {
+  g3_shader_json_fixed(
+    code,
+    result,
+    vars,
+    FixedArray::from_array(uniforms),
+    codes,
+  )
+}
 
 ///|
 /// `g3ParseFunction` of upstream_g3.mjs, verbatim: `[ name, type, [ [ name, type ] ] ]`.

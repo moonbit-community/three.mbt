@@ -65,10 +65,18 @@ extern "js" fn renderer_compile_yield(on_done : () -> Unit) -> Unit =
   #|}
 
 ///|
-extern "js" fn renderer_promise_all(
-  promises : Array[@core.JsValue],
+extern "js" fn renderer_promise_all_fixed(
+  promises : FixedArray[@core.JsValue],
   on_done : () -> Unit,
 ) -> Unit = "(p, f) => { Promise.all( p ).then( () => f() ); }"
+
+///|
+fn renderer_promise_all(
+  promises : Array[@core.JsValue],
+  on_done : () -> Unit,
+) -> Unit {
+  renderer_promise_all_fixed(FixedArray::from_array(promises), on_done)
+}
 
 ///|
 extern "js" fn renderer_progress_event(

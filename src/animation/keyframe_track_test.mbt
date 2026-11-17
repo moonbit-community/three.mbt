@@ -42,6 +42,21 @@ test "KeyframeTrack: shift" {
 }
 
 ///|
+test "KeyframeTrack interpolants share samples and round default results to Float32" {
+  let track = @animation.NumberKeyframeTrack::new(".value", [0, 1], [0, 1])
+  let interpolant = track.create_interpolant()
+  track.times[1] = 2
+  track.values.numbers()[1] = 3
+  assert_eq(interpolant.evaluate(1)[0], 1.5)
+  let expected = @core.TypedArray::float32([0.3])[0]
+  assert_eq(interpolant.evaluate(0.2)[0], expected)
+  let result = [0.0]
+  let shared = track.create_interpolant(result~)
+  assert_true(physical_equal(shared.evaluate(1), result))
+  assert_eq(result, [1.5])
+}
+
+///|
 test "KeyframeTrack: validate" {
   let valid_track = @animation.NumberKeyframeTrack::new(
     ".material.opacity",

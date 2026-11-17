@@ -427,7 +427,7 @@ fn DRACOLoader::create_geometry(
     geometry.set_index(@core.BufferAttribute::new(index.get("array").cast(), 1))
     |> ignore
   }
-  let attributes : Array[JsValue] = geometry_data.get("attributes").cast()
+  let attributes : Array[JsValue] = gltf_array(geometry_data.get("attributes"))
   for i in 0..<attributes.length() {
     let data = attributes[i]
     let name : String = data.get("name").cast()
@@ -525,7 +525,7 @@ fn DRACOLoader::init_decoder(self : DRACOLoader) -> @utils.AddonPromise {
     libraries_pending.push(self.load_library(decoder_paths.wasm, "arraybuffer"))
   }
   let pending = @utils.AddonPromise::all(libraries_pending).then_((
-    libraries : Array[JsValue],
+    libraries : FixedArray[JsValue],
   ) => {
     let js_content : String = libraries[0].cast()
     if !use_js {
