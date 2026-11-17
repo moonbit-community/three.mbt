@@ -12,7 +12,7 @@ pub(all) struct GLTFParserOptions {
   cache : String
   with_credentials : Bool
   request_header : Map[String, String]
-  manager : @loaders.LoadingManager
+  manager : @base_loaders.LoadingManager
   ktx2_loader : KTX2Loader?
   meshopt_decoder : JsValue?
 }
@@ -20,8 +20,8 @@ pub(all) struct GLTFParserOptions {
 ///|
 /// A loader `loadImageSource` can use: `parser.textureLoader` or the KTX2 loader.
 pub enum GLTFImageLoader {
-  TextureLoader(@loaders.TextureLoader)
-  ImageBitmapLoader(@loaders.ImageBitmapLoader)
+  TextureLoader(@base_loaders.TextureLoader)
+  ImageBitmapLoader(@base_loaders.ImageBitmapLoader)
   KTX2Loader(KTX2Loader)
 }
 
@@ -47,7 +47,7 @@ pub struct GLTFParser {
   /// Track node names, to ensure no duplicates (a plain JS object, as upstream).
   node_names_used : JsValue
   texture_loader : GLTFImageLoader
-  file_loader : @loaders.FileLoader
+  file_loader : @base_loaders.FileLoader
 }
 
 ///|
@@ -62,7 +62,7 @@ pub fn GLTFParser::new(
   // Use an ImageBitmapLoader if imageBitmaps are supported. Moves much of the
   // expensive work of uploading a texture to the GPU off the main thread.
   let texture_loader = if gltf_use_texture_loader() {
-    let loader = @loaders.TextureLoader::new(manager=options.manager)
+    let loader = @base_loaders.TextureLoader::new(manager=options.manager)
     loader.set_priority(options.priority) |> ignore
     loader.set_cache(options.cache) |> ignore
     loader.set_cross_origin(options.cross_origin) |> ignore
@@ -70,15 +70,15 @@ pub fn GLTFParser::new(
     loader.set_request_header(options.request_header) |> ignore
     GLTFImageLoader::TextureLoader(loader)
   } else {
-    let loader = @loaders.ImageBitmapLoader::new(manager=options.manager)
+    let loader = @base_loaders.ImageBitmapLoader::new(manager=options.manager)
     loader.set_priority(options.priority) |> ignore
     loader.set_cache(options.cache) |> ignore
     loader.set_cross_origin(options.cross_origin) |> ignore
     loader.set_with_credentials(options.with_credentials) |> ignore
     loader.set_request_header(options.request_header) |> ignore
-    GLTFImageLoader::ImageBitmapLoader(loader)
+    ImageBitmapLoader(loader)
   }
-  let file_loader = @loaders.FileLoader::new(manager=options.manager)
+  let file_loader = @base_loaders.FileLoader::new(manager=options.manager)
   file_loader.set_priority(options.priority) |> ignore
   file_loader.set_cache(options.cache) |> ignore
   file_loader.set_response_type("arraybuffer") |> ignore
@@ -195,7 +195,7 @@ pub fn GLTFParser::parse(
   // Mark the special nodes/meshes in json for efficient parse
   self.invoke_all(fn(ext) {
     ext.mark_defs()
-    None
+    (None : Unit?)
   })
   |> ignore
   let chain = AddonPromise::all(self.invoke_all(ext => ext.before_root()))
@@ -485,7 +485,7 @@ fn GLTFParser::load_buffer(
   let options = self.options
   AddonPromise::new(fn(resolve, reject) {
     loader.load(
-      @loaders.LoaderUtils::resolve_url(
+      @base_loaders.LoaderUtils::resolve_url(
         gltf_string(buffer_def.get("uri")),
         options.path,
       ),
@@ -823,8 +823,8 @@ fn GLTFParser::load_image_source(
     return cached.then_(fn(texture : @core.Texture) { texture.clone() })
   }
   let source_def = gltf_at(json.get("images"), source_index)
-  let source_uri = Ref::new(gltf_or(source_def.get("uri"), gltf_js_string("")))
-  let is_object_url = Ref::new(false)
+  let source_uri = Ref(gltf_or(source_def.get("uri"), gltf_js_string("")))
+  let is_object_url = Ref(false)
   let pending = match loader {
     KTX2Loader(loader) if gltf_defined(source_def.get("bufferView")) =>
       // KTX2Loader parses the binary image data from bufferView directly (see #35193).
@@ -863,7 +863,10 @@ fn GLTFParser::load_image_source(
       }
       AddonPromise::resolve(source_uri.val).then_(fn(source_uri : String) {
         AddonPromise::new(fn(resolve, reject) {
-          let url = @loaders.LoaderUtils::resolve_url(source_uri, options.path)
+          let url = @base_loaders.LoaderUtils::resolve_url(
+            source_uri,
+            options.path,
+          )
           match loader {
             ImageBitmapLoader(loader) =>
               loader.load(
@@ -1141,7 +1144,7 @@ fn GLTFParser::load_material(
   let json = self.json
   let extensions = self.extensions
   let material_def = gltf_at(json.get("materials"), material_index)
-  let material_params : GLTFMaterialParams = {}
+  let material_params : GLTFMaterialParams = Map([])
   let material_extensions = gltf_or(
     material_def.get("extensions"),
     JsValue::object(),

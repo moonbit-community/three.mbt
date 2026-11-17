@@ -320,7 +320,6 @@ priv struct WebGPUTextureViewInfo {
 ///|
 /// `descriptorBase` of a render target's cached render pass descriptors.
 priv struct WebGPUDescriptorBase {
-  texture_views : Array[WebGPUTextureViewInfo]
   color_attachments : Array[@gpu.GPURenderPassColorAttachment]
   descriptor : @gpu.GPURenderPassDescriptor
   mut depth_stencil_attachment : @gpu.GPURenderPassDepthStencilAttachment?
@@ -1092,7 +1091,6 @@ fn WebGPUBackend::_get_render_pass_descriptor(
       color_attachments.push(attachment)
     }
     let base = {
-      texture_views,
       color_attachments,
       descriptor: @gpu.GPURenderPassDescriptor::default(),
       depth_stencil_attachment: None,

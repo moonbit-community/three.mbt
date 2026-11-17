@@ -218,7 +218,8 @@ pub fn ColorManagement::_get_matrix(Self, Matrix3, String, String) -> Matrix3
 pub fn ColorManagement::_get_unpack_color_space(Self, color_space? : String) -> String
 pub fn ColorManagement::color_space_to_working(Self, Color, String) -> Color
 pub fn ColorManagement::convert(Self, Color, String, String) -> Color
-pub fn ColorManagement::define(Self, Map[String, ColorSpaceDefinition]) -> Unit
+#alias(define)
+pub fn ColorManagement::define_(Self, Map[String, ColorSpaceDefinition]) -> Unit
 pub fn ColorManagement::get_luminance_coefficients(Self, Vector3, color_space? : String) -> Vector3
 pub fn ColorManagement::get_primaries(Self, String) -> Array[Double]
 pub fn ColorManagement::get_tone_mapping_mode(Self, String) -> String

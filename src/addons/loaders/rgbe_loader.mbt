@@ -9,7 +9,7 @@ pub type RGBELoader
 extern "js" fn rgbe_console_warn(message : String) -> Unit = "(m) => console.warn(m)"
 
 ///|
-pub fn RGBELoader::new(manager? : @loaders.LoadingManager) -> HDRLoader {
+pub fn RGBELoader::new(manager? : @base_loaders.LoadingManager) -> HDRLoader {
   rgbe_console_warn(
     "RGBELoader has been deprecated. Please use HDRLoader instead.",
   )

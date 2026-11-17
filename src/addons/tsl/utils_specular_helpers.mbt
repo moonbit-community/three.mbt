@@ -10,14 +10,11 @@ pub const ENV_RAY_LENGTH_THRESHOLD : Double = 1000.0
 
 ///|
 priv struct SpecularHelpersModule {
-  sample_ggx_vndf : @nodes.Node
   d_gtr : @nodes.Node
   smith_g : @nodes.Node
   geometry_term : @nodes.Node
-  ggx_vndf_pdf : @nodes.Node
   f_schlick : @nodes.Node
   get_specular_dominant_factor : @nodes.Node
-  ggx_reflection_struct : @nodes.StructFn
   ggx_reflection_sample_with_reflectance : @nodes.Node
   equirect_uv_to_dir : @nodes.Node
   equirect_dir_pdf : @nodes.Node
@@ -176,7 +173,7 @@ let utils_specular_helpers_module : AddonModule[SpecularHelpersModule] = AddonMo
       fn(inputs, _) {
         let f0 = addon_arg(inputs, 0)
         let theta = addon_arg(inputs, 1)
-        let f90 = inputs.get(2).or_else(fn() { @nodes.float(1) })
+        let f90 = inputs.get(2).unwrap_or_else(fn() { @nodes.float(1) })
         let one_minus = @nodes.float(1.0).sub(theta).to_var()
         let one_minus2 = one_minus.mul(one_minus).to_var()
         let one_minus5 = one_minus2.mul(one_minus2).mul(one_minus).to_var()
@@ -340,14 +337,11 @@ let utils_specular_helpers_module : AddonModule[SpecularHelpersModule] = AddonMo
       layout=addon_short_layout([("pdfA", "float"), ("pdfB", "float")], "float"),
     )
     {
-      sample_ggx_vndf,
       d_gtr,
       smith_g,
       geometry_term,
-      ggx_vndf_pdf,
       f_schlick,
       get_specular_dominant_factor,
-      ggx_reflection_struct,
       ggx_reflection_sample_with_reflectance,
       equirect_uv_to_dir,
       equirect_dir_pdf,

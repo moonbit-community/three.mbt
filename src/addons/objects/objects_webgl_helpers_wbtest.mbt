@@ -42,26 +42,6 @@ extern "js" fn mock_note(
 ) -> Unit = "(gl, l, v) => gl.__note(l, v)"
 
 ///|
-/// `mock_note` for a number.
-fn note_num(
-  gl : @webgl.WebGL2RenderingContext,
-  label : String,
-  value : Double,
-) -> Unit {
-  mock_note(gl, label, @core.JsValue::of(value))
-}
-
-///|
-/// `mock_note` for an integer.
-fn note_int(
-  gl : @webgl.WebGL2RenderingContext,
-  label : String,
-  value : Int32,
-) -> Unit {
-  mock_note(gl, label, @core.JsValue::of(value))
-}
-
-///|
 /// `mock_note` for a boolean.
 fn note_bool(
   gl : @webgl.WebGL2RenderingContext,
@@ -69,29 +49,6 @@ fn note_bool(
   value : Bool,
 ) -> Unit {
   mock_note(gl, label, @core.JsValue::of(value))
-}
-
-///|
-/// `mock_note` for a string.
-fn note_str(
-  gl : @webgl.WebGL2RenderingContext,
-  label : String,
-  value : String,
-) -> Unit {
-  mock_note(gl, label, @core.JsValue::of(value))
-}
-
-///|
-/// `mock_note` for an optional integer; `None` is noted as `null`.
-fn note_opt_int(
-  gl : @webgl.WebGL2RenderingContext,
-  label : String,
-  value : Int32?,
-) -> Unit {
-  match value {
-    Some(v) => note_int(gl, label, v)
-    None => mock_note(gl, label, @core.JsValue::null())
-  }
 }
 
 ///|
@@ -108,27 +65,6 @@ fn emit_log(name : String, gl : @webgl.WebGL2RenderingContext) -> Array[String] 
   }
   mock_log(gl)
 }
-
-///|
-extern "js" fn ffi_mock_animation_context(
-  module_ : @core.JsValue,
-  gl : @webgl.WebGL2RenderingContext,
-) -> @webgl.AnimationFrameProvider = "(m, gl) => m.createMockAnimationContext(gl)"
-
-///|
-/// A `requestAnimationFrame` provider that records into `gl`'s log.
-fn mock_animation_context(
-  gl : @webgl.WebGL2RenderingContext,
-) -> @webgl.AnimationFrameProvider {
-  ffi_mock_animation_context(mock_module, gl)
-}
-
-///|
-/// Runs the pending animation frames with `time`.
-extern "js" fn mock_tick(
-  context : @webgl.AnimationFrameProvider,
-  time : Double,
-) -> Unit = "(c, t) => c.__tick(t)"
 
 ///|
 extern "js" fn ffi_renderer_common() -> @core.JsValue =
@@ -241,26 +177,6 @@ fn renderer_mock_canvas(
 }
 
 ///|
-/// `canvas.__dispatch( type )`: fires the canvas listeners.
-extern "js" fn renderer_canvas_dispatch(
-  canvas : @webgl.HTMLCanvasElement,
-  type_ : String,
-) -> Unit = "(c, t) => c.__dispatch(t)"
-
-///|
-extern "js" fn renderer_canvas_listener_count(
-  canvas : @webgl.HTMLCanvasElement,
-  type_ : String,
-) -> Int32 = "(c, t) => c.__listenerCount(t)"
-
-///|
-/// `gl[ key ]`.
-extern "js" fn renderer_gl_property(
-  gl : @webgl.WebGL2RenderingContext,
-  key : String,
-) -> @core.JsValue = "(gl, k) => gl[k]"
-
-///|
 /// `new WebGLRenderer( { canvas, context: gl, ... } )`.
 fn renderer_new(
   gl : @webgl.WebGL2RenderingContext,
@@ -276,23 +192,4 @@ fn renderer_new(
     antialias~,
     output_buffer_type~,
   )
-}
-
-///|
-fn note_json(
-  gl : @webgl.WebGL2RenderingContext,
-  label : String,
-  value : Json,
-) -> Unit {
-  mock_note(gl, label, @core.JsValue::from_json(value))
-}
-
-///|
-fn v2_json(v : @math.Vector2) -> Json {
-  Json([v.x, v.y])
-}
-
-///|
-fn v4_json(v : @math.Vector4) -> Json {
-  Json([v.x, v.y, v.z, v.w])
 }

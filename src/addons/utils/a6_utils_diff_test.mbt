@@ -518,7 +518,7 @@ test "a6 utils: SceneUtils" {
       a6u_array(attrs["offset"].array()),
       a6u_array(attrs["weight"].array()),
       a6u_array(attrs["id4"].array()),
-      a6u_array(attrs["position"].array())[0:6].to_array(),
+      a6u_array(attrs["position"].array())[0:6].to_owned(),
     ]),
   )
   // traverse generators
@@ -550,9 +550,9 @@ test "a6 utils: SceneUtils" {
   let all = names(@utils.traverse_generator(root))
   let visible = names(@utils.traverse_visible_generator(root))
   let ancestors = names(@utils.traverse_ancestors_generator(c1.children[0]))
-  let lazy = []
+  let traversed_names = []
   for o in @utils.traverse_generator(root) {
-    lazy.push(o.name)
+    traversed_names.push(o.name)
     if o.name == "a" {
       make("a3", Some(a)) |> ignore
       make("d", Some(root)) |> ignore
@@ -575,7 +575,7 @@ test "a6 utils: SceneUtils" {
       all,
       visible,
       ancestors,
-      lazy,
+      traversed_names,
       early,
       invisible_root,
       names(@utils.traverse_ancestors_generator(root)),

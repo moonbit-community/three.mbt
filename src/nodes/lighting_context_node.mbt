@@ -67,7 +67,11 @@ pub impl NodeClass for LightingContextNode with fn parent(self) {
 ///|
 pub impl NodeClass for LightingContextNode with fn children(self, node, out) {
   NodeClass::children(self.context, node, out)
-  push_children(out, "materialLightings", self.material_lightings.map(Some(_)))
+  push_children(
+    out,
+    "materialLightings",
+    self.material_lightings.map(child => Some(child)),
+  )
   push_child(out, "backdropNode", self.backdrop_node)
   push_child(out, "backdropAlphaNode", self.backdrop_alpha_node)
 }

@@ -240,7 +240,7 @@ fn _node_builder_create_layout_inputs(
   layout : FnLayout,
   values : Array[TslValue],
 ) -> Map[String, TslValue] {
-  let inputs : Map[String, TslValue] = Map::new()
+  let inputs : Map[String, TslValue] = Map([])
   for i, input in layout.inputs {
     inputs.set(
       input.name,
@@ -426,13 +426,13 @@ pub(all) struct NodeContext {
 
 ///|
 pub fn NodeContext::new() -> NodeContext {
-  { values: Map::new(), }
+  { values: Map([]), }
 }
 
 ///|
 /// `{ ...context }`.
 pub fn NodeContext::copy(self : NodeContext) -> NodeContext {
-  let values = Map::new()
+  let values = Map([])
   for k, v in self.values {
     values.set(k, v)
   }
@@ -535,7 +535,7 @@ pub(all) struct NodeProperties {
 
 ///|
 pub fn NodeProperties::new() -> NodeProperties {
-  let values = Map::new()
+  let values = Map([])
   values.set("outputNode", NodePropertyValue::Null)
   { values, }
 }
@@ -583,7 +583,7 @@ pub fn NodeProperties::set_node_or_null(
 ) -> Unit {
   match node {
     Some(n) => self.values.set(key, Node(n))
-    None => self.values.set(key, NodePropertyValue::Null)
+    None => self.values.set(key, Null)
   }
 }
 
@@ -688,20 +688,20 @@ pub fn NodeData::new() -> NodeData {
     flow_block: None,
     assign: None,
     force_declaration: None,
-    vars: Map::new(),
+    vars: Map([]),
     uniform: None,
     sub_builds: None,
     sub_builds_cache: None,
     overrides: None,
     varying: None,
-    sub_build_varyings: Map::new(),
+    sub_build_varyings: Map([]),
     code: None,
     struct_type: None,
     buffer_attribute: None,
     cache: None,
     node_function: None,
     function_property_name: None,
-    extra: Map::new(),
+    extra: Map([]),
   }
 }
 
@@ -1478,15 +1478,15 @@ pub fn NodeBuilder::new(
     }
     _ => (None, None)
   }
-  let flow_nodes : Map[String, Array[Node]] = Map::new()
-  let flow_code : Map[String, String] = Map::new()
-  let types : Map[String, Map[String, Node]] = Map::new()
-  let bindings : Map[String, Map[String, Array[Binding]]] = Map::new()
+  let flow_nodes : Map[String, Array[Node]] = Map([])
+  let flow_code : Map[String, String] = Map([])
+  let types : Map[String, Map[String, Node]] = Map([])
+  let bindings : Map[String, Map[String, Array[Binding]]] = Map([])
   for stage in ["vertex", "fragment", "compute"] {
     flow_nodes.set(stage, [])
     flow_code.set(stage, "")
-    types.set(stage, Map::new())
-    bindings.set(stage, Map::new())
+    types.set(stage, Map([]))
+    bindings.set(stage, Map([]))
   }
   let stack = StackNode::create()
   let context = NodeContext::new()
@@ -1516,7 +1516,7 @@ pub fn NodeBuilder::new(
     update_nodes: [],
     update_before_nodes: [],
     update_after_nodes: [],
-    hash_nodes: Map::new(),
+    hash_nodes: Map([]),
     observer: None,
     lights_node: None,
     environment_node: None,
@@ -1533,15 +1533,15 @@ pub fn NodeBuilder::new(
     structs: StageArrays::new(),
     types,
     bindings,
-    bindings_indexes: Map::new(),
+    bindings_indexes: Map([]),
     bind_groups: None,
     attributes: [],
     buffer_attributes: [],
     varyings: [],
-    codes: Map::new(),
-    vars: Map::new(),
-    var_ids: Map::new(),
-    declarations: Map::new(),
+    codes: Map([]),
+    vars: Map([]),
+    var_ids: Map([]),
+    declarations: Map([]),
     flow: FlowData::new(),
     chaining: [],
     stack,
@@ -1551,7 +1551,7 @@ pub fn NodeBuilder::new(
     context,
     cache,
     global_cache: cache,
-    flows_data: Map::new(),
+    flows_data: Map([]),
     shader_stage: None,
     build_stage: None,
     sub_build_layers: [],
@@ -2436,7 +2436,7 @@ pub fn NodeBuilder::get_bindings(self : NodeBuilder) -> Array[BindGroup] {
   match self.bind_groups {
     Some(groups) => groups
     None => {
-      let groups : Map[String, Array[Binding]] = Map::new()
+      let groups : Map[String, Array[Binding]] = Map([])
       for shader_stage in shader_stages {
         match self.bindings.get(shader_stage) {
           Some(stage_bindings) =>
@@ -2784,7 +2784,7 @@ pub fn NodeBuilder::generate_struct(
   values? : Array[Node?],
 ) -> String {
   let snippets = []
-  for i, member in members_layout {
+  for i, member_layout in members_layout {
     let value = match values {
       Some(values) =>
         match values.get(i) {
@@ -2794,8 +2794,8 @@ pub fn NodeBuilder::generate_struct(
       None => None
     }
     match value {
-      Some(v) => snippets.push(v.build(self, output=member.type_))
-      None => snippets.push(self.generate_const(member.type_))
+      Some(v) => snippets.push(v.build(self, output=member_layout.type_))
+      None => snippets.push(self.generate_const(member_layout.type_))
     }
   }
   type_ + "( " + snippets.join(", ") + " )"
@@ -3322,7 +3322,7 @@ pub fn NodeBuilder::get_data_from_node(
   let node_data = match cache.get_data(node) {
     Some(d) => d
     None => {
-      let d = Map::new()
+      let d = Map([])
       cache.set_data(node, d)
       d
     }
@@ -3347,7 +3347,7 @@ pub fn NodeBuilder::get_data_from_node(
     let sub_builds_cache = match data.sub_builds_cache {
       Some(c) => c
       None => {
-        let c = Map::new()
+        let c = Map([])
         data.sub_builds_cache = Some(c)
         c
       }
@@ -3654,7 +3654,7 @@ pub fn NodeBuilder::register_declaration(
   let declarations = match self.declarations.get(shader_stage) {
     Some(d) => d
     None => {
-      let d = Map::new()
+      let d = Map([])
       self.declarations.set(shader_stage, d)
       d
     }
@@ -3850,7 +3850,7 @@ pub fn NodeBuilder::flow_shader_node(
   let inputs = _node_builder_create_layout_inputs(
     layout,
     layout.inputs.map(fn(input) {
-      TslValue::Node(ParameterNode::new(input.type_, name=input.name))
+      Node(ParameterNode::new(input.type_, name=input.name))
     }),
   )
   shader.layout = None
@@ -3905,7 +3905,7 @@ pub fn NodeBuilder::_get_layout_inputs(
   let cache = match _node_builder_layout_defaults_cache.get(shader_node) {
     Some(c) => c
     None => {
-      let c = Map::new()
+      let c = Map([])
       _node_builder_layout_defaults_cache.set(shader_node, c)
       c
     }
@@ -3979,14 +3979,14 @@ pub fn NodeBuilder::_resolve_layout_defaults(
       parameters.mapi(fn(i, p) { if provided[i] { Node(p) } else { Undefined } }),
     ),
   )
-  let missing : Map[Int32, Int32] = Map::new()
+  let missing : Map[Int32, Int32] = Map([])
   for i, parameter in parameters {
     if provided[i] == false {
       missing.set(parameter.id, i)
     }
   }
   let defaults : Array[Node?] = Array::make(parameters.length(), None)
-  let visited : Map[Int32, Node] = Map::new()
+  let visited : Map[Int32, Node] = Map([])
   fn walk(a : Node?, b : Node?) -> Bool {
     match (a, b) {
       (None, None) => true
@@ -4115,9 +4115,9 @@ pub fn NodeBuilder::flow_stages_node(
   let previous_flow_block = self.flow_block
   let flow = FlowData::new()
   self.flow = flow
-  self.vars = Map::new()
-  self.var_ids = Map::new()
-  self.declarations = Map::new()
+  self.vars = Map([])
+  self.var_ids = Map([])
+  self.declarations = Map([])
   self.cache = NodeCache::new()
   self.stack = StackNode::create()
   self.flow_block = None

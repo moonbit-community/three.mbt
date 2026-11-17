@@ -556,7 +556,7 @@ pub impl LightingModelClass for PhysicalLightingModel with fn start(
       if self.dispersion {
         TslValue::Node(dispersion)
       } else {
-        TslValue::Null
+        Null
       },
     ])
     context.set("backdrop", Node(backdrop))

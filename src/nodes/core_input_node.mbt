@@ -111,7 +111,7 @@ pub impl NodeClass for InputNode with fn deserialize(self, node, data) {
     let params : Array[Double] = value.cast()
     get_value_from_type(
       input_node_js_to_string(data.get("valueType")),
-      params.map(fn(p) { TslValue::Number(p) }),
+      params.map(fn(p) { Number(p) }),
     )
   } else {
     input_node_js_to_value(value)

@@ -1157,7 +1157,7 @@ pub fn Node::get_node_type_base(
       let map = match node_data.type_from_output {
         Some(m) => m
         None => {
-          let m = Map::new()
+          let m = Map([])
           node_data.type_from_output = Some(m)
           m
         }
@@ -1294,7 +1294,7 @@ pub fn Node::analyze_base(
     let stages = match node_data.stages {
       Some(s) => s
       None => {
-        let s = Map::new()
+        let s = Map([])
         node_data.stages = Some(s)
         s
       }
@@ -1705,7 +1705,7 @@ pub(all) struct NodeSet {
 
 ///|
 pub fn NodeSet::new() -> NodeSet {
-  { ids: Map::new(), }
+  { ids: Map([]), }
 }
 
 ///|

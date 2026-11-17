@@ -41,7 +41,6 @@ priv struct FXAALuminance {
   se : @nodes.Node
   sw : @nodes.Node
   highest : @nodes.Node
-  lowest : @nodes.Node
   contrast : @nodes.Node
 }
 
@@ -115,7 +114,7 @@ pub impl @nodes.NodeClass for FXAANode with fn setup(self, _, _) {
     let highest = @nodes.max_of([s, e, n, w, m])
     let lowest = @nodes.min_of([s, e, n, w, m])
     let contrast = highest.sub(lowest)
-    { m, n, e, s, w, ne, nw, se, sw, highest, lowest, contrast, }
+    { m, n, e, s, w, ne, nw, se, sw, highest, contrast, }
   }
   let determine_pixel_blend_factor = fn(l : FXAALuminance) {
     let mut f = @nodes.float(2.0).mul(l.s.add(l.e).add(l.n).add(l.w))

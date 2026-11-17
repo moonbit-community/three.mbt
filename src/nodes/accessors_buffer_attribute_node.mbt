@@ -350,8 +350,7 @@ pub fn BufferAttributeNode::construct(
         a.kind is (InstancedAttribute | StorageInstancedAttribute),
         Some(@core.GeometryAttribute::Buffer(a)),
       )
-    Attribute(Interleaved(a)) =>
-      (a.data.usage, false, Some(@core.GeometryAttribute::Interleaved(a)))
+    Attribute(Interleaved(a)) => (a.data.usage, false, Some(Interleaved(a)))
     _ => (@core.StaticDrawUsage, false, None)
   }
   {

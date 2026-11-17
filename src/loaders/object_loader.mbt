@@ -1039,12 +1039,12 @@ fn ObjectLoader::parse_object(
         match background {
           Number(value, ..) if value == value.floor() && !value.is_inf() =>
             scene.background = object_loader_color(Some(background)).map(color => {
-              @core.SceneBackground::Color(color)
+              Color(color)
             })
           background =>
             scene.background = get_texture(
               json_string(background, "background"),
-            ).map(texture => @core.SceneBackground::Texture(texture))
+            ).map(texture => Texture(texture))
         }
       }
       if data.get("environment") is Some(environment) {

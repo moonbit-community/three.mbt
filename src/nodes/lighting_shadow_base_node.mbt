@@ -125,10 +125,7 @@ fn shadow_base_get_shadow_render_object_function(
           }
         },
       }
-      shadow_base_render_object_library.set(keys, ShadowBaseRenderObjectFunction::{
-        function,
-        shadow_type,
-      })
+      shadow_base_render_object_library.set(keys, { function, shadow_type, })
       |> ignore
       function
     }

@@ -173,8 +173,7 @@ fn webgl_uniforms_groups_array_items(
 ) -> Array[@core.UniformValue]? {
   match value {
     Array(items) => Some(items)
-    Numbers(numbers) =>
-      Some(numbers.map(fn(n) { @core.UniformValue::Number(n) }))
+    Numbers(numbers) => Some(numbers.map(fn(n) { Number(n) }))
     _ => None
   }
 }

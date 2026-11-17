@@ -22,7 +22,7 @@ fn reference_attribute_get_column(
   let columns = match _reference_attribute_columns.get(attribute) {
     Some(c) => c
     None => {
-      let c = {}
+      let c = Map([])
       _reference_attribute_columns.set(attribute, c)
       c
     }

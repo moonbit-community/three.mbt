@@ -373,7 +373,7 @@ impl GLTFPlugin for GLTFMaterialsClearcoatExtension with fn get_material_type(
   material_index,
 ) {
   gltf_get_material_extension(self.parser, material_index, self.name).map(_ => {
-    GLTFMaterialType::MeshPhysicalMaterial
+    MeshPhysicalMaterial
   })
 }
 
@@ -465,7 +465,7 @@ impl GLTFPlugin for GLTFMaterialsDiffuseRoughnessExtension with fn get_material_
   material_index,
 ) {
   gltf_get_material_extension(self.parser, material_index, self.name).map(_ => {
-    GLTFMaterialType::MeshPhysicalMaterial
+    MeshPhysicalMaterial
   })
 }
 
@@ -527,7 +527,7 @@ impl GLTFPlugin for GLTFMaterialsDispersionExtension with fn get_material_type(
   material_index,
 ) {
   gltf_get_material_extension(self.parser, material_index, self.name).map(_ => {
-    GLTFMaterialType::MeshPhysicalMaterial
+    MeshPhysicalMaterial
   })
 }
 
@@ -577,7 +577,7 @@ impl GLTFPlugin for GLTFMaterialsIridescenceExtension with fn get_material_type(
   material_index,
 ) {
   gltf_get_material_extension(self.parser, material_index, self.name).map(_ => {
-    GLTFMaterialType::MeshPhysicalMaterial
+    MeshPhysicalMaterial
   })
 }
 
@@ -656,7 +656,7 @@ impl GLTFPlugin for GLTFMaterialsSheenExtension with fn get_material_type(
   material_index,
 ) {
   gltf_get_material_extension(self.parser, material_index, self.name).map(_ => {
-    GLTFMaterialType::MeshPhysicalMaterial
+    MeshPhysicalMaterial
   })
 }
 
@@ -740,7 +740,7 @@ impl GLTFPlugin for GLTFMaterialsTransmissionExtension with fn get_material_type
   material_index,
 ) {
   gltf_get_material_extension(self.parser, material_index, self.name).map(_ => {
-    GLTFMaterialType::MeshPhysicalMaterial
+    MeshPhysicalMaterial
   })
 }
 
@@ -795,7 +795,7 @@ impl GLTFPlugin for GLTFMaterialsVolumeExtension with fn get_material_type(
   material_index,
 ) {
   gltf_get_material_extension(self.parser, material_index, self.name).map(_ => {
-    GLTFMaterialType::MeshPhysicalMaterial
+    MeshPhysicalMaterial
   })
 }
 
@@ -862,7 +862,7 @@ impl GLTFPlugin for GLTFMaterialsIorExtension with fn get_material_type(
   material_index,
 ) {
   gltf_get_material_extension(self.parser, material_index, self.name).map(_ => {
-    GLTFMaterialType::MeshPhysicalMaterial
+    MeshPhysicalMaterial
   })
 }
 
@@ -911,7 +911,7 @@ impl GLTFPlugin for GLTFMaterialsSpecularExtension with fn get_material_type(
   material_index,
 ) {
   gltf_get_material_extension(self.parser, material_index, self.name).map(_ => {
-    GLTFMaterialType::MeshPhysicalMaterial
+    MeshPhysicalMaterial
   })
 }
 
@@ -983,7 +983,7 @@ impl GLTFPlugin for GLTFMaterialsBumpExtension with fn get_material_type(
   material_index,
 ) {
   gltf_get_material_extension(self.parser, material_index, self.name).map(_ => {
-    GLTFMaterialType::MeshPhysicalMaterial
+    MeshPhysicalMaterial
   })
 }
 
@@ -1043,7 +1043,7 @@ impl GLTFPlugin for GLTFMaterialsAnisotropyExtension with fn get_material_type(
   material_index,
 ) {
   gltf_get_material_extension(self.parser, material_index, self.name).map(_ => {
-    GLTFMaterialType::MeshPhysicalMaterial
+    MeshPhysicalMaterial
   })
 }
 

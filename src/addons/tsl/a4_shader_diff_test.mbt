@@ -28,9 +28,6 @@ extern "js" fn a4_flow_json(
 ) -> String = "(code, result, vars, uniforms, codes, decl, bindings, internals) => JSON.stringify({ code, result, vars, uniforms, codes, decl, bindings, internals })"
 
 ///|
-extern "js" fn a4_error_json(message : String) -> String = "(message) => JSON.stringify({ error: message })"
-
-///|
 /// The recording mock WebGL 2 context (`createMockGL( { extensions } )`), loaded from
 /// diff/core/webgl/harness/mock_gl.cjs as upstream_a4.mjs does.
 extern "js" fn a4_mock_gl_js(extensions : FixedArray[String]) -> @core.JsValue =

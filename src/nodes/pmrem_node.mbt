@@ -238,11 +238,11 @@ fn PMREMNode::update_before_state(
     } else {
       let generator = match (self._generator, self._webgl_generator) {
         (Some(g), _) => PMREMNodeGenerator::Renderer(g)
-        (None, Some(g)) => PMREMNodeGenerator::WebGL(g)
+        (None, Some(g)) => WebGL(g)
         (None, None) => {
           let g = PMREMGenerator::new(renderer)
           self._generator = Some(g)
-          PMREMNodeGenerator::Renderer(g)
+          Renderer(g)
         }
       }
       pmrem = pmrem_node_get_pmrem_from_texture(texture, renderer, generator)

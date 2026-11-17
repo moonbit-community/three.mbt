@@ -1079,20 +1079,20 @@ test "g6diff render_scene" {
       camera.name = "camera"
       let light = @core.DirectionalLight::new()
       scene.add(light) |> ignore
-      let opaque = g6_mesh("opaque", g6_node_material("opaqueMat"))
-      opaque.position.set(0.0, 0.0, -1.0) |> ignore
-      opaque.on_before_render = fn(r, s, c, _, m, _) {
+      let opaque_mesh = g6_mesh("opaque", g6_node_material("opaqueMat"))
+      opaque_mesh.position.set(0.0, 0.0, -1.0) |> ignore
+      opaque_mesh.on_before_render = fn(r, s, c, _, m, _) {
         log.push([
           g6j("onBeforeRender"),
-          g6j(opaque.name),
+          g6j(opaque_mesh.name),
           g6j(s.id),
           g6j(c.id),
           g6j(m.name),
           g6j(r.strict_equal(g6j(renderer))),
         ])
       }
-      opaque.on_after_render = fn(_, _, _, _, m, _) {
-        log.push([g6j("onAfterRender"), g6j(opaque.name), g6j(m.name)])
+      opaque_mesh.on_after_render = fn(_, _, _, _, m, _) {
+        log.push([g6j("onAfterRender"), g6j(opaque_mesh.name), g6j(m.name)])
       }
       let opaque2 = g6_mesh("opaque2", g6_node_material("opaqueMat2"))
       opaque2.position.set(0.5, 0.0, -3.0) |> ignore
@@ -1156,8 +1156,8 @@ test "g6diff render_scene" {
         g6_material("invisibleMaterial", fn(m) { m.visible = false }),
       )
       scene.add_all([
-        opaque, opaque2, transparent, double_t, backdrop, group, sprite, lod, culled,
-        hidden, invisible, no_mat,
+        opaque_mesh, opaque2, transparent, double_t, backdrop, group, sprite, lod,
+        culled, hidden, invisible, no_mat,
       ])
       |> ignore
       renderer.render(scene, camera)
@@ -1225,7 +1225,11 @@ test "g6diff render_scene" {
       ortho.position.set(0.0, 0.0, 3.0) |> ignore
       renderer.render(scene, ortho)
       log.push(
-        [g6j("end"), ..g6_info(renderer), g6j(renderer.is_occluded(opaque))],
+        [
+          g6j("end"),
+          ..g6_info(renderer),
+          g6j(renderer.is_occluded(opaque_mesh)),
+        ],
       )
       done()
     })
@@ -1422,7 +1426,7 @@ test "g6diff background_fog" {
 extern "js" fn g6_join(typed : @core.TypedArray) -> String = "(t) => Array.from( t ).join( ',' )"
 
 ///|
-fn g6_empty_fn() -> Node {
+fn g6_empty_fn() -> @nodes.Node {
   @nodes.fn_(fn(_, _) { None }).call([])
 }
 

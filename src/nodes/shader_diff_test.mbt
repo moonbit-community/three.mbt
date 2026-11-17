@@ -130,7 +130,7 @@ fn shader_scenarios() -> Array[(String, () -> @nodes.Node)] {
       "fn_default_parameter",
       fn() {
         @nodes.fn_(fn(inputs, _) {
-          let a = inputs.get(0).or_else(fn() { @nodes.float(7) })
+          let a = inputs.get(0).unwrap_or_else(fn() { @nodes.float(7) })
           Some(a.to_var(name="d"))
         }).call([])
       },

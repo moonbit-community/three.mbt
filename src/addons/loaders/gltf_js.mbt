@@ -94,10 +94,6 @@ extern "js" fn gltf_get_uint32(
 ) -> Double = "(b, o, i) => new DataView(b, o).getUint32(i, true)"
 
 ///|
-/// `buffer.byteLength`.
-extern "js" fn gltf_byte_length(buffer : JsValue) -> Int32 = "(b) => b.byteLength"
-
-///|
 /// `buffer.slice( begin, end )` on an `ArrayBuffer`.
 extern "js" fn gltf_slice(
   buffer : JsValue,

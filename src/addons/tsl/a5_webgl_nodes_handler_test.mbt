@@ -98,7 +98,7 @@ fn wnh_align(k : Int32) -> Unit {
         @nodes.FnNode::of(f).unwrap().shader_node,
       ).unwrap().name
     let mut v = 0
-    for c in name.view(start_offset=2) {
+    for c in name.clamped_view(start=2) {
       v = v * 10 + (c.to_int() - '0'.to_int())
     }
     v

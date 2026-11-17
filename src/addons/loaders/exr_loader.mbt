@@ -13,7 +13,7 @@
 ///|
 /// A loader for the OpenEXR texture format.
 pub(all) struct EXRLoader {
-  mut base : @loaders.DataTextureLoader
+  mut base : @base_loaders.DataTextureLoader
   /// The texture type, `HalfFloatType` (default) or `FloatType`.
   mut type_ : Int32
   /// Texture output format: `RGBAFormat` (default), `RGFormat` or `RedFormat`.
@@ -23,32 +23,32 @@ pub(all) struct EXRLoader {
 }
 
 ///|
-pub fn EXRLoader::new(manager? : @loaders.LoadingManager) -> EXRLoader {
+pub fn EXRLoader::new(manager? : @base_loaders.LoadingManager) -> EXRLoader {
   let loader : EXRLoader = {
-    base: @loaders.DataTextureLoader::new(manager?),
+    base: @base_loaders.DataTextureLoader::new(manager?),
     type_: @core.HalfFloatType,
     output_format: @core.RGBAFormat,
     part: 0,
   }
-  loader.base = @loaders.DataTextureLoader::new(manager?, parse=buffer => {
+  loader.base = @base_loaders.DataTextureLoader::new(manager?, parse=buffer => {
     loader.parse(buffer)
   })
   loader
 }
 
 ///|
-pub impl @loaders.LoaderLike for EXRLoader with fn loader(self) {
+pub impl @base_loaders.LoaderLike for EXRLoader with fn loader(self) {
   self.base.base
 }
 
 ///|
-pub impl @loaders.LoaderSettings for EXRLoader
+pub impl @base_loaders.LoaderSettings for EXRLoader
 
 ///|
-pub extend EXRLoader with @loaders.LoaderLike::{loader}
+pub extend EXRLoader with @base_loaders.LoaderLike::{loader}
 
 ///|
-pub extend EXRLoader with @loaders.LoaderSettings::{
+pub extend EXRLoader with @base_loaders.LoaderSettings::{
   set_cross_origin,
   set_with_credentials,
   set_path,
@@ -65,8 +65,8 @@ pub extend EXRLoader with @loaders.LoaderSettings::{
 pub fn EXRLoader::load(
   self : EXRLoader,
   url : String,
-  on_load? : (@core.Texture, @loaders.DataTexData) -> Unit,
-  on_progress? : (@loaders.ProgressEvent) -> Unit,
+  on_load? : (@core.Texture, @base_loaders.DataTexData) -> Unit,
+  on_progress? : (@base_loaders.ProgressEvent) -> Unit,
   on_error? : (@core.JsValue) -> Unit,
 ) -> @core.Texture {
   self.base.load(url, on_load?, on_progress?, on_error?)
@@ -77,8 +77,8 @@ pub fn EXRLoader::load(
 pub async fn EXRLoader::load_async(
   self : EXRLoader,
   url : String,
-  on_progress? : (@loaders.ProgressEvent) -> Unit,
-) -> @core.Texture raise @loaders.LoaderError {
+  on_progress? : (@base_loaders.ProgressEvent) -> Unit,
+) -> @core.Texture raise @base_loaders.LoaderError {
   self.base.load_async(url, on_progress?)
 }
 
@@ -1318,10 +1318,8 @@ priv struct ExrDwaChannel {
   mut compression : Int32
   mut decoded : Bool
   type_ : Int32
-  p_linear : Int32
   width : Int32
   height : Int32
-  mut offset : Int32
 }
 
 ///|
@@ -1760,7 +1758,6 @@ priv enum ExrDecodeKind {
 /// A channel of a deep part.
 priv struct ExrDeepChannel {
   name : String
-  pixel_type : Int32
   bytes_per_sample : Int32
 }
 
@@ -1793,7 +1790,6 @@ priv struct ExrDecoder {
   mut out_line_width : Int32
   mut tile_count : Int32
   mut deep_channels : Array[ExrDeepChannel]
-  mut deep_bytes_per_sample : Int32
   mut chunk_offsets : Array[Double]
   mut multi_part : Bool
   mut decode : ExrDecodeKind
@@ -2259,10 +2255,8 @@ fn exr_uncompress_dwa(state : ExrParse, info : ExrDecoder) -> ExrDataView {
       compression: EXR_UNKNOWN,
       decoded: false,
       type_: channel.pixel_type,
-      p_linear: channel.p_linear,
       width: info.columns,
       height: info.lines,
-      offset: 0,
     })
   }
   let csc_set : Array[Int32?] = Array::make(16, None)
@@ -2281,7 +2275,6 @@ fn exr_uncompress_dwa(state : ExrParse, info : ExrDecoder) -> ExrDataView {
         if rule.index >= 0 {
           csc_set[rule.index] = Some(offset)
         }
-        cd.offset = offset
       }
     }
   }
@@ -3270,7 +3263,7 @@ fn exr_window_size(min : Int32, max : Int32) -> Double {
 
 ///|
 fn ExrParse::setup_decoder(
-  self : ExrParse,
+  _self : ExrParse,
   exr_header : ExrHeader,
   data_view : ExrDataView,
   u_int8_array : @core.TypedArray,
@@ -3306,7 +3299,6 @@ fn ExrParse::setup_decoder(
     out_line_width: 0,
     tile_count: 0,
     deep_channels: [],
-    deep_bytes_per_sample: 0,
     chunk_offsets: [],
     multi_part: false,
     decode: Scanline,
@@ -3494,7 +3486,6 @@ fn ExrParse::setup_decoder(
     // Deep format: offset tables are already parsed in the main flow.
     // Compute per-channel byte sizes for the deep pixel data layout.
     exr_decoder.deep_channels = []
-    let mut deep_bytes_per_sample = 0
     for channel in exr_header.channels() {
       // UINT=0→4bytes, HALF=1→2bytes, FLOAT=2→4bytes
       let bytes_per_sample = if channel.pixel_type == 0 {
@@ -3502,14 +3493,8 @@ fn ExrParse::setup_decoder(
       } else {
         channel.pixel_type * 2
       }
-      exr_decoder.deep_channels.push({
-        name: channel.name,
-        pixel_type: channel.pixel_type,
-        bytes_per_sample,
-      })
-      deep_bytes_per_sample += bytes_per_sample
+      exr_decoder.deep_channels.push({ name: channel.name, bytes_per_sample, })
     }
-    exr_decoder.deep_bytes_per_sample = deep_bytes_per_sample
     exr_decoder.chunk_offsets = exr_header.chunk_offsets.unwrap_or([])
     exr_decoder.multi_part = exr_header.spec.multi_part
     exr_decoder.decode = DeepScanline
@@ -3587,7 +3572,7 @@ extern "js" fn exr_tex_extra(header : @core.JsValue) -> @core.JsValue = "(h) => 
 pub fn EXRLoader::parse(
   self : EXRLoader,
   buffer : @core.JsValue,
-) -> @loaders.DataTexData {
+) -> @base_loaders.DataTexData {
   let state = ExrParse::new()
   // start parsing file [START]
   let offset = Ref(0)
@@ -3689,7 +3674,7 @@ pub fn EXRLoader::parse(
       }
     }
   }
-  let tex_data = @loaders.DataTexData::new()
+  let tex_data = @base_loaders.DataTexData::new()
   tex_data.extra = Some(exr_tex_extra(exr_header.to_js()))
   tex_data.width = Some(exr_decoder.width)
   tex_data.height = Some(exr_decoder.height)

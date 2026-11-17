@@ -128,7 +128,7 @@ pub fn Shape::set_holes(self : Shape, holes : Array[Path]) -> Unit {
 ///|
 /// The upcast to `Path`, sharing this shape's state.
 pub fn Shape::to_path(self : Shape) -> Path {
-  Path::{ curve: self.curve, }
+  { curve: self.curve, }
 }
 
 ///|
@@ -333,7 +333,7 @@ pub fn Shape::compute_frenet_frames(
 
 ///|
 pub fn Shape::clone(self : Shape) -> Shape {
-  Shape::{ curve: self.curve.clone(), }
+  { curve: self.curve.clone(), }
 }
 
 ///|

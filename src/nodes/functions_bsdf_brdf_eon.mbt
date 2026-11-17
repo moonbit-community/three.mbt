@@ -51,10 +51,12 @@ pub let brdf_eon : Node = module_nodes(
       let light_direction = inputs.named("lightDirection").unwrap()
       let diffuse_color = inputs.named("diffuseColor").unwrap()
       let roughness = inputs.named("roughness").unwrap()
-      let normal_view = inputs.named("normalView").or_else(fn() { normal_view })
+      let normal_view = inputs
+        .named("normalView")
+        .unwrap_or_else(fn() { normal_view })
       let view_direction = inputs
         .named("viewDirection")
-        .or_else(fn() { position_view_direction })
+        .unwrap_or_else(fn() { position_view_direction })
       let rho = diffuse_color.clamp()
       let dot_nl = normal_view.dot(light_direction).clamp()
       let dot_nv = normal_view.dot(view_direction).clamp()

@@ -5,36 +5,36 @@
 ///|
 /// A loader for the RGBE HDR texture format.
 pub(all) struct HDRLoader {
-  mut base : @loaders.DataTextureLoader
+  mut base : @base_loaders.DataTextureLoader
   /// The texture type, `HalfFloatType` (default) or `FloatType`.
   mut type_ : Int32
 }
 
 ///|
-pub fn HDRLoader::new(manager? : @loaders.LoadingManager) -> HDRLoader {
+pub fn HDRLoader::new(manager? : @base_loaders.LoadingManager) -> HDRLoader {
   let loader : HDRLoader = {
-    base: @loaders.DataTextureLoader::new(manager?),
+    base: @base_loaders.DataTextureLoader::new(manager?),
     type_: @core.HalfFloatType,
   }
-  loader.base = @loaders.DataTextureLoader::new(manager?, parse=buffer => {
+  loader.base = @base_loaders.DataTextureLoader::new(manager?, parse=buffer => {
     loader.parse(buffer)
   })
   loader
 }
 
 ///|
-pub impl @loaders.LoaderLike for HDRLoader with fn loader(self) {
+pub impl @base_loaders.LoaderLike for HDRLoader with fn loader(self) {
   self.base.base
 }
 
 ///|
-pub impl @loaders.LoaderSettings for HDRLoader
+pub impl @base_loaders.LoaderSettings for HDRLoader
 
 ///|
-pub extend HDRLoader with @loaders.LoaderLike::{loader}
+pub extend HDRLoader with @base_loaders.LoaderLike::{loader}
 
 ///|
-pub extend HDRLoader with @loaders.LoaderSettings::{
+pub extend HDRLoader with @base_loaders.LoaderSettings::{
   set_cross_origin,
   set_with_credentials,
   set_path,
@@ -51,8 +51,8 @@ pub extend HDRLoader with @loaders.LoaderSettings::{
 pub fn HDRLoader::load(
   self : HDRLoader,
   url : String,
-  on_load? : (@core.Texture, @loaders.DataTexData) -> Unit,
-  on_progress? : (@loaders.ProgressEvent) -> Unit,
+  on_load? : (@core.Texture, @base_loaders.DataTexData) -> Unit,
+  on_progress? : (@base_loaders.ProgressEvent) -> Unit,
   on_error? : (@core.JsValue) -> Unit,
 ) -> @core.Texture {
   self.base.load(url, on_load?, on_progress?, on_error?)
@@ -63,8 +63,8 @@ pub fn HDRLoader::load(
 pub async fn HDRLoader::load_async(
   self : HDRLoader,
   url : String,
-  on_progress? : (@loaders.ProgressEvent) -> Unit,
-) -> @core.Texture raise @loaders.LoaderError {
+  on_progress? : (@base_loaders.ProgressEvent) -> Unit,
+) -> @core.Texture raise @base_loaders.LoaderError {
   self.base.load_async(url, on_progress?)
 }
 
@@ -207,12 +207,13 @@ fn hdr_fgets(buffer : HdrByteArray) -> String? {
 
 ///|
 /// RGBE format header struct.
+/// Underscored fields retain upstream metadata that decoding does not consume.
 priv struct HdrRgbeHeader {
   mut valid : Int32
   mut string : String
-  mut comments : String
-  mut programtype : String
-  mut format : String
+  mut _comments : String
+  mut _programtype : String
+  mut _format : String
   mut gamma : Double
   mut exposure : Double
   mut width : Double
@@ -236,9 +237,9 @@ fn hdr_rgbe_read_header(buffer : HdrByteArray) -> HdrRgbeHeader {
   let header = {
     valid: 0,
     string: "",
-    comments: "",
-    programtype: "RGBE",
-    format: "",
+    _comments: "",
+    _programtype: "RGBE",
+    _format: "",
     gamma: 1.0,
     exposure: 1.0,
     width: 0.0,
@@ -259,7 +260,7 @@ fn hdr_rgbe_read_header(buffer : HdrByteArray) -> HdrRgbeHeader {
     hdr_rgbe_error(HDR_RGBE_FORMAT_ERROR, msg="bad initial token")
   }
   header.valid = header.valid | HDR_RGBE_VALID_PROGRAMTYPE
-  header.programtype = hdr_match_group(m, 1)
+  header._programtype = hdr_match_group(m, 1)
   header.string += line + "\n"
   while true {
     let line = match hdr_fgets(buffer) {
@@ -268,7 +269,7 @@ fn hdr_rgbe_read_header(buffer : HdrByteArray) -> HdrRgbeHeader {
     }
     header.string += line + "\n"
     if "#" == hdr_char_at0(line) {
-      header.comments += line + "\n"
+      header._comments += line + "\n"
       continue // comment line
     }
     let m = hdr_match(line, gamma_re)
@@ -282,7 +283,7 @@ fn hdr_rgbe_read_header(buffer : HdrByteArray) -> HdrRgbeHeader {
     let m = hdr_match(line, format_re)
     if !m.is_null() {
       header.valid = header.valid | HDR_RGBE_VALID_FORMAT
-      header.format = hdr_match_group(m, 1) //'32-bit_rle_rgbe';
+      header._format = hdr_match_group(m, 1) //'32-bit_rle_rgbe';
     }
     let m = hdr_match(line, dimensions_re)
     if !m.is_null() {
@@ -463,7 +464,7 @@ extern "js" fn hdr_new_uint8(buffer : @core.JsValue) -> @core.TypedArray = "(b) 
 pub fn HDRLoader::parse(
   self : HDRLoader,
   buffer : @core.JsValue,
-) -> @loaders.DataTexData {
+) -> @base_loaders.DataTexData {
   // adapted from http://www.graphics.cornell.edu/~bjw/rgbe.html
   let byte_array = { bytes: hdr_new_uint8(buffer), pos: 0, }
   let rgbe_header_info = hdr_rgbe_read_header(byte_array)
@@ -502,7 +503,7 @@ pub fn HDRLoader::parse(
       panic()
     }
   }
-  let tex_data = @loaders.DataTexData::new()
+  let tex_data = @base_loaders.DataTexData::new()
   tex_data.width = Some(w.to_int())
   tex_data.height = Some(h.to_int())
   tex_data.data = Some(data)

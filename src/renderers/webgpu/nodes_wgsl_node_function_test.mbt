@@ -5,10 +5,10 @@ test "WGSLNodeFunction parses a declaration" {
   )
   inspect(f.name, content="scale")
   inspect(f.type_, content="vec3")
-  inspect(
+  debug_inspect(
     f.inputs.map(fn(i) { i.name + ":" + i.type_ }),
     content=(
-      #|[a:float, b:vec3, t:texture, p:pointer]
+      #|["a:float", "b:vec3", "t:texture", "p:pointer"]
     ),
   )
   inspect(
@@ -45,7 +45,12 @@ test "WGSLNodeBuilder types and methods" {
   inspect(b.get_type("mat3"), content="mat3x3<f32>")
   inspect(b.get_type("custom"), content="custom")
   inspect(b.get_bitcast_method("uint"), content="bitcast<u32>")
-  inspect(b.get_ternary("c", "a", "b"), content="Some(select( b, a, c ))")
+  debug_inspect(
+    b.get_ternary("c", "a", "b"),
+    content=(
+      #|Some("select( b, a, c )")
+    ),
+  )
   inspect(b.get_method("dFdy"), content="- dpdy")
   inspect(b.get_float_packing_method("snorm"), content="pack2x16snorm")
   inspect(b.is_reserved_keyword("main"), content="true")

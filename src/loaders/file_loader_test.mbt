@@ -28,7 +28,7 @@ async test "FileLoader loadAsync rejects with the HTTP error" {
     ignore(loader.load_async("data:invalid"))
     "loaded"
   } catch {
-    @loaders.LoaderError(_) => "rejected"
+    LoaderError(_) => "rejected"
   }
   assert_eq(result, "rejected")
 }
@@ -71,7 +71,7 @@ async test "BufferGeometryLoader and MaterialLoader loadAsync" {
     )
     "loaded"
   } catch {
-    @loaders.LoaderError(_) => "rejected"
+    LoaderError(_) => "rejected"
   }
   assert_eq(bad, "rejected")
 }

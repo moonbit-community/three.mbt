@@ -1046,10 +1046,7 @@ pub impl @nodes.BackendClass for WebGLBackend with fn compute(
   }
   let vao_gpu = self.vertex_array_utils
     .unwrap()
-    .get_vao(
-      @core.JsValue::of(pipeline),
-      attributes.map(fn(a) { @core.GeometryAttribute::Buffer(a) }),
-    )
+    .get_vao(@core.JsValue::of(pipeline), attributes.map(fn(a) { Buffer(a) }))
   state.set_vertex_state(Some(vao_gpu)) |> ignore
   state.use_program(Some(program_gpu)) |> ignore
   self._bind_uniforms(bindings)

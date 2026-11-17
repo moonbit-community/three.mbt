@@ -1670,7 +1670,7 @@ pub fn WebGLNodesHandler::collect_uniforms_groups(
       let uniform = webgl_nodes_handler_node_uniform(node_uniform.node)
       // `uniform.type`, which WebGLUniformsGroups reads
       @webgl.set_uniform_type(uniform, node_uniform.type_)
-      @core.UniformsGroupEntry::Single(uniform)
+      Single(uniform)
     })
     uniforms_groups.push(group)
   }

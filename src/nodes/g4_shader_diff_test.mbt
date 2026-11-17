@@ -449,7 +449,7 @@ fn g4_define_display_p3() -> Unit {
     2.4934969, -0.9313836, -0.4027108, -0.8294890, 1.7626641, 0.0236247, 0.0358458,
     -0.0761724, 0.9568845,
   )
-  @math.color_management.define(
+  @math.color_management.define_(
     Map::from_array([
       (
         "display-p3",

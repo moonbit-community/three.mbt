@@ -41,7 +41,7 @@ let math_bayer_module : AddonModule[BayerModule] = AddonModule::new(fn() {
   })
   let bayer_dither = @nodes.fn_(fn(inputs, _) {
     let color = addon_arg(inputs, 0)
-    let steps = inputs.get(1).or_else(fn() { @nodes.float(32.0) })
+    let steps = inputs.get(1).unwrap_or_else(fn() { @nodes.float(32.0) })
     let screen_pos = @nodes.screen_uv.mul(@nodes.screen_size)
     let x = @nodes.mod(@nodes.floor(screen_pos.x()), @nodes.float(4.0))
     let y = @nodes.mod(@nodes.floor(screen_pos.y()), @nodes.float(4.0))

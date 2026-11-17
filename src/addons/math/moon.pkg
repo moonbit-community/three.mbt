@@ -1,7 +1,5 @@
 import {
-  "moonbit-community/three/core",
   "moonbit-community/three/math",
-  "moonbit-community/three/renderers/webgl",
 }
 
 import {

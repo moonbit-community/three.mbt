@@ -16,7 +16,7 @@ pub(all) struct NodeCache {
 pub fn NodeCache::new(parent? : NodeCache) -> NodeCache {
   let id = _node_cache_id.val
   _node_cache_id.val += 1
-  { id, nodes_data: Map::new(), parent, }
+  { id, nodes_data: Map([]), parent, }
 }
 
 ///|

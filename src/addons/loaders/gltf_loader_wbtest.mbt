@@ -4,6 +4,10 @@
 // harness (diff/addons/gltf/gltf_diff).
 
 ///|
+/// `buffer.byteLength`.
+extern "js" fn gltf_byte_length(buffer : JsValue) -> Int32 = "(b) => b.byteLength"
+
+///|
 fn gltf_test_json(text : String) -> JsValue {
   gltf_json_parse(gltf_js_string(text))
 }
@@ -33,7 +37,7 @@ async test "GLTFLoader parses scene arrays and node transforms" {
       },
     ],
   })
-  let result = @loaders.loader_promise(fn(resolve, reject) {
+  let result = @base_loaders.loader_promise(fn(resolve, reject) {
     GLTFLoader::new().parse(data, "", resolve, on_error=reject)
   })
   assert_eq(result.scenes.length(), 1)
@@ -54,7 +58,7 @@ async test "AddonPromise all preserves mixed values and nested arrays" {
   let values = [JsValue::of(1), @utils.AddonPromise::resolve(2).to_js()]
   values.push(JsValue::of(99))
   ignore(values.pop())
-  let result = @loaders.loader_promise(fn(resolve, reject) {
+  let result = @base_loaders.loader_promise(fn(resolve, reject) {
     @utils.AddonPromise::all([
       @utils.AddonPromise::all_values(values),
       @utils.AddonPromise::all([]),
@@ -71,7 +75,7 @@ async test "AddonPromise all preserves mixed values and nested arrays" {
 test "child credentials" {
   let loader = GLTFLoader::new()
   loader.set_with_credentials(true) |> ignore
-  let captured : Ref[GLTFParser?] = Ref::new(None)
+  let captured : Ref[GLTFParser?] = Ref(None)
   let capture = fn(parser) -> &GLTFPlugin {
     captured.val = Some(parser)
     GLTFMeshQuantizationTestPlugin::{ }
@@ -118,7 +122,7 @@ test "CUBICSPLINE animations can be made additive at an interpolated frame" {
     cache: "default",
     with_credentials: false,
     request_header: {},
-    manager: @loaders.default_loading_manager,
+    manager: @base_loaders.default_loading_manager,
     ktx2_loader: None,
     meshopt_decoder: None,
   })
@@ -150,16 +154,16 @@ test "CUBICSPLINE animations can be made additive at an interpolated frame" {
     fps=30,
   )
   |> ignore
-  inspect(
+  debug_inspect(
     clip.tracks[0].values.numbers().to_array(),
     content="[0, 0, 0, -1, -1, -1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0]",
   )
   // the interpolant: halfway along the spline with zero tangents
-  inspect(
+  debug_inspect(
     clip.tracks[0].create_interpolant().evaluate(0.5),
     content="[0, 0, 0]",
   )
-  inspect(tracks[0].get_interpolation(), content="None")
+  debug_inspect(tracks[0].get_interpolation(), content="None")
 }
 
 ///|
@@ -171,11 +175,11 @@ test "cubic spline quaternion interpolant normalizes" {
   ]
   let i = gltf_cubic_spline_interpolant(times, values, 4, quaternion=true)
   let r = i.evaluate(0.5)
-  inspect(r, content="[0, 0.7071067811865475, 0, 0.7071067811865475]")
+  debug_inspect(r, content="[0, 0.7071067811865475, 0, 0.7071067811865475]")
   let p = gltf_cubic_spline_interpolant(times, values, 4)
   // without normalization, and written to a Float32Array result buffer
-  inspect(p.evaluate(0.5), content="[0, 0.5, 0, 0.5]")
-  inspect(p.evaluate(-1), content="[0, 0, 0, 1]")
+  debug_inspect(p.evaluate(0.5), content="[0, 0.5, 0, 0.5]")
+  debug_inspect(p.evaluate(-1), content="[0, 0, 0, 1]")
 }
 
 ///|
@@ -197,7 +201,12 @@ test "binary glTF container" {
   let glb = GLTFBinaryExtension::new(gltf_test_glb("{\"asset\":{}}", 2))
   inspect(glb.header.magic, content="glTF")
   inspect(glb.header.version, content="2")
-  inspect(glb.content, content="Some({\"asset\":{}})")
+  debug_inspect(
+    glb.content,
+    content=(
+      #|Some("{\"asset\":{}}")
+    ),
+  )
   inspect(gltf_byte_length(glb.body.unwrap()), content="8")
   let error = @utils.addon_try(fn() {
     ignore(GLTFBinaryExtension::new(gltf_test_glb("{}", 1)))
@@ -220,9 +229,11 @@ test "unsupported assets reach onError" {
     _ => (),
     on_error=e => errors.push(gltf_string(gltf_error_message(e))),
   )
-  inspect(
+  debug_inspect(
     errors,
-    content="[THREE.GLTFLoader: Unsupported asset. glTF versions >=2.0 are supported.]",
+    content=(
+      #|["THREE.GLTFLoader: Unsupported asset. glTF versions >=2.0 are supported."]
+    ),
   )
 }
 
@@ -255,7 +266,7 @@ test "unique names" {
     cache: "default",
     with_credentials: false,
     request_header: {},
-    manager: @loaders.default_loading_manager,
+    manager: @base_loaders.default_loading_manager,
     ktx2_loader: None,
     meshopt_decoder: None,
   })
@@ -266,7 +277,12 @@ test "unique names" {
     parser.create_unique_name(JsValue::undefined()),
     parser.create_unique_name(gltf_js_string("")),
   ]
-  inspect(names, content="[a_b, a_b_1, ab, , _1]")
+  debug_inspect(
+    names,
+    content=(
+      #|["a_b", "a_b_1", "ab", "", "_1"]
+    ),
+  )
 }
 
 ///|
@@ -285,5 +301,5 @@ test "texture transform" {
   assert_false(physical_equal(t, texture))
   inspect(t.channel, content="1")
   inspect(t.matrix_auto_update, content="false")
-  inspect(t.matrix.elements, content="[2, 0, 0, 0, 4, 0, 0.5, 0.25, 1]")
+  debug_inspect(t.matrix.elements, content="[2, 0, 0, 0, 4, 0, 0.5, 0.25, 1]")
 }

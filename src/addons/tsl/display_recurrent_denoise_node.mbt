@@ -42,13 +42,10 @@ priv struct RecurrentDenoiseModule {
   mut renderer_state : @nodes.RendererState?
   vogel_disk : @nodes.Node
   diffuse_color_distance : @nodes.Node
-  temporal_weight : @nodes.Node
   get_temporal_variance_factor : @nodes.Node
-  compute_frustum_size : @nodes.Node
   compute_hit_dist_factor : @nodes.Node
   map_ao : @nodes.Node
   get_specular_dominant_direction : @nodes.Node
-  specular_lobe_tan_half_angle : @nodes.Node
   lobe_normal_falloff : @nodes.Node
   lobe_normal_weight : @nodes.Node
   plane_distance : @nodes.Node
@@ -302,13 +299,10 @@ let display_recurrent_denoise_node_module : AddonModule[RecurrentDenoiseModule] 
       renderer_state: None,
       vogel_disk,
       diffuse_color_distance,
-      temporal_weight,
       get_temporal_variance_factor,
-      compute_frustum_size,
       compute_hit_dist_factor,
       map_ao,
       get_specular_dominant_direction,
-      specular_lobe_tan_half_angle,
       lobe_normal_falloff,
       lobe_normal_weight,
       plane_distance,

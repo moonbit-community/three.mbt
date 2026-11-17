@@ -11,7 +11,7 @@ test "ColorManagement: _getMatrix" {
     Map::from_array([
       (
         linear_display_p3_color_space,
-        @math.ColorSpaceDefinition::{
+        {
           primaries: [0.680, 0.320, 0.265, 0.690, 0.150, 0.060],
           white_point: [0.3127, 0.3290],
           transfer: @math.LinearTransfer,
