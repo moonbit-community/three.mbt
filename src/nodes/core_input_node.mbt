@@ -108,10 +108,10 @@ pub impl NodeClass for InputNode with fn deserialize(self, node, data) {
   node.node_type = input_node_js_to_string(data.get("nodeType"))
   let value = data.get("value")
   self.value = if input_node_js_is_array(value) {
-    let params : Array[Double] = value.cast()
+    let params : Array[Double] = Array::from_fixed_array(value.cast())
     get_value_from_type(
       input_node_js_to_string(data.get("valueType")),
-      params.map(fn(p) { TslValue::Number(p) }),
+      params.map(fn(p) { Number(p) }),
     )
   } else {
     input_node_js_to_value(value)
@@ -121,7 +121,7 @@ pub impl NodeClass for InputNode with fn deserialize(self, node, data) {
     p => p
   }
   if input_node_js_is_array(value) {
-    let array : Array[Double] = value.cast()
+    let array : Array[Double] = Array::from_fixed_array(value.cast())
     match self.value {
       Vector2(v) => v.from_array(array) |> ignore
       Vector3(v) => v.from_array(array) |> ignore
@@ -236,15 +236,15 @@ fn input_node_value_to_js(value : TslValue) -> @core.JsValue {
     Number(x) => @core.JsValue::of(x)
     Bool(b) => @core.JsValue::of(b)
     String(s) => @core.JsValue::of(s)
-    Vector2(v) => @core.JsValue::of(v.to_array())
-    Vector3(v) => @core.JsValue::of(v.to_array())
-    Vector4(v) => @core.JsValue::of(v.to_array())
-    Color(c) => @core.JsValue::of(c.to_array())
+    Vector2(v) => @core.JsValue::from_array(v.to_array())
+    Vector3(v) => @core.JsValue::from_array(v.to_array())
+    Vector4(v) => @core.JsValue::from_array(v.to_array())
+    Color(c) => @core.JsValue::from_array(c.to_array())
     Matrix2(m) => @core.JsValue::of(m)
-    Matrix3(m) => @core.JsValue::of(m.to_array())
-    Matrix4(m) => @core.JsValue::of(m.to_array())
+    Matrix3(m) => @core.JsValue::from_array(m.to_array())
+    Matrix4(m) => @core.JsValue::from_array(m.to_array())
     Texture(t) => @core.JsValue::of(t)
-    Array(a) => @core.JsValue::of(a.map(input_node_value_to_js))
+    Array(a) => @core.JsValue::from_array(a.map(input_node_value_to_js))
     Object(o) => {
       let object = @core.JsValue::object()
       for k, v in o {

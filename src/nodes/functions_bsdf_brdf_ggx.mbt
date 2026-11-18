@@ -22,10 +22,12 @@ pub let brdf_ggx : Node = module_nodes(
       let f90 = inputs.named("f90").unwrap()
       let roughness = inputs.named("roughness").unwrap()
       let f = inputs.named("f")
-      let normal_view = inputs.named("normalView").or_else(fn() { normal_view })
+      let normal_view = inputs
+        .named("normalView")
+        .unwrap_or_else(fn() { normal_view })
       let view_direction = inputs
         .named("viewDirection")
-        .or_else(fn() { position_view_direction })
+        .unwrap_or_else(fn() { position_view_direction })
       let use_iridescence = inputs.named("USE_IRIDESCENCE")
       let use_anisotropy = inputs.named("USE_ANISOTROPY")
       let alpha = roughness.max(0.045).pow2()

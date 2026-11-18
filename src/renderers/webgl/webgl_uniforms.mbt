@@ -248,13 +248,13 @@ fn webgl_uniforms_flatten(
       if a.length() > 0 && !a[0].is_nan() {
         return GLData::to_gl_data(a)
       } else {
-        a.map(fn(x) { @core.UniformValue::Number(x) })
+        a.map(fn(x) { Number(x) })
       }
     TypedArray(t) =>
       if t.length() > 0 && !t[0].is_nan() {
         return @core.JsValue::of(t)
       } else {
-        t.to_array().map(fn(x) { @core.UniformValue::Number(x) })
+        t.to_array().map(fn(x) { Number(x) })
       }
     _ => abort("WebGLUniforms: flatten: unsupported uniform value")
   }

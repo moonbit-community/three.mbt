@@ -3,7 +3,7 @@
 ///|
 /// Loads six RGBE faces into a `CubeTexture` of `DataTexture`s.
 pub(all) struct HDRCubeTextureLoader {
-  base : @loaders.Loader
+  base : @base_loaders.Loader
   /// The internal HDR loader that parses each cube face.
   hdr_loader : HDRLoader
   /// The texture type, `HalfFloatType` (default) or `FloatType`.
@@ -12,28 +12,28 @@ pub(all) struct HDRCubeTextureLoader {
 
 ///|
 pub fn HDRCubeTextureLoader::new(
-  manager? : @loaders.LoadingManager,
+  manager? : @base_loaders.LoadingManager,
 ) -> HDRCubeTextureLoader {
   {
-    base: @loaders.Loader::new(manager?),
+    base: @base_loaders.Loader::new(manager?),
     hdr_loader: HDRLoader::new(),
     type_: @core.HalfFloatType,
   }
 }
 
 ///|
-pub impl @loaders.LoaderLike for HDRCubeTextureLoader with fn loader(self) {
+pub impl @base_loaders.LoaderLike for HDRCubeTextureLoader with fn loader(self) {
   self.base
 }
 
 ///|
-pub impl @loaders.LoaderSettings for HDRCubeTextureLoader
+pub impl @base_loaders.LoaderSettings for HDRCubeTextureLoader
 
 ///|
-pub extend HDRCubeTextureLoader with @loaders.LoaderLike::{loader}
+pub extend HDRCubeTextureLoader with @base_loaders.LoaderLike::{loader}
 
 ///|
-pub extend HDRCubeTextureLoader with @loaders.LoaderSettings::{
+pub extend HDRCubeTextureLoader with @base_loaders.LoaderSettings::{
   set_cross_origin,
   set_with_credentials,
   set_path,
@@ -52,7 +52,7 @@ pub fn HDRCubeTextureLoader::load(
   self : HDRCubeTextureLoader,
   urls : Array[String],
   on_load? : (@core.Texture) -> Unit,
-  on_progress? : (@loaders.ProgressEvent) -> Unit,
+  on_progress? : (@base_loaders.ProgressEvent) -> Unit,
   on_error? : (@core.JsValue) -> Unit,
 ) -> @core.Texture {
   let texture = @core.CubeTexture::new()
@@ -77,10 +77,10 @@ pub fn HDRCubeTextureLoader::load(
   fn load_hdr_data(
     i : Int32,
     on_load : ((@core.Texture) -> Unit)?,
-    on_progress : ((@loaders.ProgressEvent) -> Unit)?,
+    on_progress : ((@base_loaders.ProgressEvent) -> Unit)?,
     on_error : ((@core.JsValue) -> Unit)?,
   ) -> Unit {
-    @loaders.FileLoader::new(manager=scope.base.manager)
+    @base_loaders.FileLoader::new(manager=scope.base.manager)
     .set_priority(scope.base.priority)
     .set_cache(scope.base.cache)
     .set_path(scope.base.path)
@@ -145,9 +145,9 @@ pub fn HDRCubeTextureLoader::set_data_type(
 pub async fn HDRCubeTextureLoader::load_async(
   self : HDRCubeTextureLoader,
   urls : Array[String],
-  on_progress? : (@loaders.ProgressEvent) -> Unit,
-) -> @core.Texture raise @loaders.LoaderError {
-  @loaders.loader_promise((resolve, reject) => {
+  on_progress? : (@base_loaders.ProgressEvent) -> Unit,
+) -> @core.Texture raise @base_loaders.LoaderError {
+  @base_loaders.loader_promise((resolve, reject) => {
     self.load(urls, on_load=resolve, on_progress?, on_error=reject) |> ignore
   })
 }

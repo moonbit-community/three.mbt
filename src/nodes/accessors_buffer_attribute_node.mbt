@@ -214,7 +214,7 @@ pub impl NodeClass for BufferAttributeNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for BufferAttributeNode with fn has_flag(self, flag) {
-  flag == "isBufferNode" || self.input.has_flag(flag)
+  flag == "isBufferNode" || NodeClass::has_flag(self.input, flag)
 }
 
 ///|
@@ -350,8 +350,7 @@ pub fn BufferAttributeNode::construct(
         a.kind is (InstancedAttribute | StorageInstancedAttribute),
         Some(@core.GeometryAttribute::Buffer(a)),
       )
-    Attribute(Interleaved(a)) =>
-      (a.data.usage, false, Some(@core.GeometryAttribute::Interleaved(a)))
+    Attribute(Interleaved(a)) => (a.data.usage, false, Some(Interleaved(a)))
     _ => (@core.StaticDrawUsage, false, None)
   }
   {

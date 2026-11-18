@@ -370,7 +370,7 @@ pub fn get_value_from_type(
     }
   }
   if type_ == Some("color") {
-    TslValue::Color(node_utils_new_color(param(0), param(1), param(2)))
+    Color(node_utils_new_color(param(0), param(1), param(2)))
   } else if last4 == Some("vec2") {
     Vector2(@math.Vector2::new(component(0), component(1)))
   } else if last4 == Some("vec3") {

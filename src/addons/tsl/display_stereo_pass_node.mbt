@@ -26,7 +26,7 @@ pub impl @nodes.NodeClass for StereoPassNode with fn parent(self) {
 
 ///|
 pub impl @nodes.NodeClass for StereoPassNode with fn has_flag(self, flag) {
-  flag == "isStereoPassNode" || self.pass.has_flag(flag)
+  flag == "isStereoPassNode" || @nodes.NodeClass::has_flag(self.pass, flag)
 }
 
 ///|

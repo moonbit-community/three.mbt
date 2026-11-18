@@ -18,7 +18,7 @@ pub impl BindingClass for UniformBuffer with fn parent(self) {
 
 ///|
 pub impl BindingClass for UniformBuffer with fn has_flag(self, flag) {
-  flag == "isUniformBuffer" || self.parent_.has_flag(flag)
+  flag == "isUniformBuffer" || BindingClass::has_flag(self.parent_, flag)
 }
 
 ///|

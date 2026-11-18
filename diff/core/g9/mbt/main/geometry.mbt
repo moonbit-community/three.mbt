@@ -48,7 +48,7 @@ fn register_geometry() -> Unit {
       bm.set_matrix_at(i2, @math.Matrix4::new().make_translation(1.0, 0.0, 0.0)) |> ignore
       bm.set_matrix_at(i3, @math.Matrix4::new().make_translation(-1.0, 0.0, 0.0)) |> ignore
       scene.add(bm) |> ignore
-      env.note("batched", @core.JsValue::of([i1, i2, i3]))
+      env.note("batched", @core.JsValue::from_array([i1, i2, i3]))
       r.render(scene, cam)
       // update ranges
       tri_pos.array.set(0, 0.5)

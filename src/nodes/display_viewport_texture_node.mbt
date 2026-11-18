@@ -35,7 +35,7 @@ pub impl NodeClass for ViewportTextureNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for ViewportTextureNode with fn has_flag(self, flag) {
-  flag == "isOutputTextureNode" || self.texture.has_flag(flag)
+  flag == "isOutputTextureNode" || NodeClass::has_flag(self.texture, flag)
 }
 
 ///|

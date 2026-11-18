@@ -25,8 +25,13 @@ fn gltf_defined(value : JsValue) -> Bool {
 
 ///|
 /// The keys `for ( const k in o )` visits.
-extern "js" fn gltf_keys(object : JsValue) -> Array[String] =
+extern "js" fn gltf_keys_fixed(object : JsValue) -> FixedArray[String] =
   #|(o) => { const r = []; if (o === undefined || o === null) return r; for (const k in o) r.push(k); return r; }
+
+///|
+fn gltf_keys(object : JsValue) -> Array[String] {
+  Array::from_fixed_array(gltf_keys_fixed(object))
+}
 
 ///|
 /// `Array.isArray( v )`.
@@ -89,10 +94,6 @@ extern "js" fn gltf_get_uint32(
 ) -> Double = "(b, o, i) => new DataView(b, o).getUint32(i, true)"
 
 ///|
-/// `buffer.byteLength`.
-extern "js" fn gltf_byte_length(buffer : JsValue) -> Int32 = "(b) => b.byteLength"
-
-///|
 /// `buffer.slice( begin, end )` on an `ArrayBuffer`.
 extern "js" fn gltf_slice(
   buffer : JsValue,
@@ -136,7 +137,12 @@ extern "js" fn gltf_concat_key(a : JsValue, b : JsValue) -> String = "(a, b) => 
 
 ///|
 /// `Object.keys( o ).sort()`.
-extern "js" fn gltf_sorted_keys(object : JsValue) -> Array[String] = "(o) => Object.keys(o).sort()"
+extern "js" fn gltf_sorted_keys_fixed(object : JsValue) -> FixedArray[String] = "(o) => Object.keys(o).sort()"
+
+///|
+fn gltf_sorted_keys(object : JsValue) -> Array[String] {
+  Array::from_fixed_array(gltf_sorted_keys_fixed(object))
+}
 
 ///|
 /// `getImageURIMimeType( uri )`.
@@ -251,7 +257,12 @@ extern "js" fn GltfJsMap::size(self : GltfJsMap) -> Int32 = "(m) => m.size"
 
 ///|
 /// `Array.from( map.values() )`.
-extern "js" fn GltfJsMap::values(self : GltfJsMap) -> Array[JsValue] = "(m) => Array.from(m.values())"
+extern "js" fn GltfJsMap::values_fixed(self : GltfJsMap) -> FixedArray[JsValue] = "(m) => Array.from(m.values())"
+
+///|
+fn GltfJsMap::values(self : GltfJsMap) -> Array[JsValue] {
+  Array::from_fixed_array(GltfJsMap::values_fixed(self))
+}
 
 ///|
 /// `sanitizedName in this.nodeNamesUsed` on a plain object, as upstream.
@@ -313,3 +324,9 @@ extern "js" fn gltf_uint8_view(
 ///|
 /// `res.buffer`.
 extern "js" fn gltf_buffer_of(value : JsValue) -> JsValue = "(v) => v.buffer"
+
+///|
+/// Copies a plain JS array into a resizable MoonBit array.
+fn[T] gltf_array(value : JsValue) -> Array[T] {
+  Array::from_fixed_array((value.cast() : FixedArray[T]))
+}

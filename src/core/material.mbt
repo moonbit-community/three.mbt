@@ -31,7 +31,7 @@ pub(all) enum MaterialValue {
   /// `userData`.
   Object(JsValue)
   OnBeforeRender(
-    (JsValue, Object3D, Object3D, BufferGeometry, Object3D, GeometryGroup?) -> Unit
+    (JsValue, Object3D, Object3D, BufferGeometry, Object3D, GeometryGroup?) -> Unit,
   )
   OnBeforeCompile((ShaderObject, JsValue) -> Unit)
   CustomProgramCacheKey(() -> String)

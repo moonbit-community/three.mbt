@@ -20,9 +20,6 @@ extern "js" fn hash_view(a : @core.TypedArray) -> JsValue =
   #|(a) => { const b = new Uint8Array(a.buffer, a.byteOffset, a.byteLength); let h = 0x811c9dc5; for (let i = 0; i < b.length; i++) { h ^= b[i]; h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16).padStart(8, '0'); }
 
 ///|
-extern "js" fn array_from(a : Array[Double]) -> JsValue = "(a) => Array.from(a)"
-
-///|
 extern "js" fn sort_entries(a : JsValue) -> JsValue = "(a) => a.sort((x, y) => (x[0] < y[0] ? -1 : x[0] > y[0] ? 1 : 0))"
 
 ///|
@@ -55,7 +52,7 @@ fn int(v : Int) -> JsValue {
 
 ///|
 fn arr(a : Array[JsValue]) -> JsValue {
-  JsValue::of(a)
+  JsValue::from_array(a)
 }
 
 ///|
@@ -594,7 +591,7 @@ fn Ctx::obj_dump(self : Ctx, o : @core.Object3D) -> JsValue {
       d,
       "morphTargetInfluences",
       match infl {
-        Some(a) => array_from(a)
+        Some(a) => JsValue::from_array(a)
         None => null_()
       },
     )
@@ -767,7 +764,7 @@ fn track_dump(t : @animation.KeyframeTrack) -> JsValue {
       },
     ),
   )
-  put(d, "samples", arr(ts.map(x => array_from(interp.evaluate(x)))))
+  put(d, "samples", arr(ts.map(x => JsValue::from_array(interp.evaluate(x)))))
   d
 }
 

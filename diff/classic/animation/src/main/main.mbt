@@ -384,8 +384,8 @@ fn log_track_arrays(label : String, clip : @animation.AnimationClip) -> Unit {
   for i, track in clip.tracks {
     let values = match track.values {
       Numbers(v) => @core.JsValue::of(v)
-      Booleans(v) => @core.JsValue::of(v.map(b))
-      Strings(v) => @core.JsValue::of(v.map(s))
+      Booleans(v) => @core.JsValue::from_array(v.map(b))
+      Strings(v) => @core.JsValue::from_array(v.map(s))
     }
     log(label + ".track" + i.to_string(), [
       s(track.name),
@@ -678,14 +678,14 @@ fn run(spec : Json) -> Unit {
           let interpolant = track.create_interpolant()
           for t in arr(op[3]) {
             let result = interpolant.evaluate(num(t))
-            log("eval", [n(num(t)), @core.JsValue::of(result)])
+            log("eval", [n(num(t)), @core.JsValue::from_array(result)])
           }
         }
         "keyframeOrder" => {
           let order = @animation.get_keyframe_order(nums(op[1]))
           log("order", order.map(i => n(i.to_double())))
           log("sorted", [
-            @core.JsValue::of(
+            @core.JsValue::from_array(
               @animation.sorted_array(nums(op[2]), int(op[3]), order),
             ),
           ])
@@ -825,7 +825,7 @@ fn run(spec : Json) -> Unit {
         )
         let buffer = Array::make(int(op[2]), 0.0)
         binding.get_value(buffer, 0)
-        log("probe", [s(str(op[1])), @core.JsValue::of(buffer)])
+        log("probe", [s(str(op[1])), @core.JsValue::from_array(buffer)])
       }
       "poke" => {
         let binding = @animation.PropertyBinding::new(

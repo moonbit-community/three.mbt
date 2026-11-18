@@ -6,6 +6,11 @@ type Any
 fn[T] any(x : T) -> Any = "%identity"
 
 ///|
+fn[T] any_array(a : ArrayView[T]) -> Any {
+  any(@core.JsValue::from_array(a))
+}
+
+///|
 fn[T] from_any(x : Any) -> T = "%identity"
 
 ///|
@@ -41,7 +46,7 @@ fn Any::bool(self : Any, k : String) -> Bool? {
 ///|
 fn Any::numbers(self : Any, k : String) -> Array[Double]? {
   let v = obj_get(self, k)
-  if is_undefined(v) { None } else { Some(from_any(v)) }
+  if is_undefined(v) { None } else { Some(Array::from_fixed_array(from_any(v))) }
 }
 
 ///|
@@ -50,15 +55,15 @@ fn Any::points2(self : Any, k : String) -> Array[@math.Vector2]? {
   if is_undefined(v) {
     None
   } else {
-    let points : Array[Array[Double]] = from_any(v)
-    Some(points.map(p => @math.Vector2::new(p[0], p[1])))
+    let points : FixedArray[FixedArray[Double]] = from_any(v)
+    Some(Array::from_fixed_array(points).map(p => @math.Vector2::new(p[0], p[1])))
   }
 }
 
 ///|
 fn Any::points3(self : Any, k : String) -> Array[@math.Vector3] {
-  let points : Array[Array[Double]] = from_any(obj_get(self, k))
-  points.map(p => @math.Vector3::new(p[0], p[1], p[2]))
+  let points : FixedArray[FixedArray[Double]] = from_any(obj_get(self, k))
+  Array::from_fixed_array(points).map(p => @math.Vector3::new(p[0], p[1], p[2]))
 }
 
 ///|
@@ -120,8 +125,8 @@ fn Any::at_num(self : Any, i : Int) -> Double {
 
 ///|
 fn points_of(a : Any) -> Array[@math.Vector2] {
-  let points : Array[Array[Double]] = from_any(a)
-  points.map(p => @math.Vector2::new(p[0], p[1]))
+  let points : FixedArray[FixedArray[Double]] = from_any(a)
+  Array::from_fixed_array(points).map(p => @math.Vector2::new(p[0], p[1]))
 }
 
 ///|
@@ -239,8 +244,8 @@ fn shapes_arg(a : Any) -> Array[@extras.Shape]? {
 
 ///|
 fn vector3s(a : Any) -> Array[@math.Vector3] {
-  let points : Array[Array[Double]] = from_any(a)
-  points.map(p => @math.Vector3::new(p[0], p[1], p[2]))
+  let points : FixedArray[FixedArray[Double]] = from_any(a)
+  Array::from_fixed_array(points).map(p => @math.Vector3::new(p[0], p[1], p[2]))
 }
 
 ///|
@@ -304,9 +309,9 @@ fn frames_snapshot(g : @core.BufferGeometry) -> Any {
     None => any(())
     Some(f) => {
       let o = obj_new()
-      obj_set(o, "tangents", any(flatten(f.tangents)))
-      obj_set(o, "normals", any(flatten(f.normals)))
-      obj_set(o, "binormals", any(flatten(f.binormals)))
+      obj_set(o, "tangents", any_array(flatten(f.tangents)))
+      obj_set(o, "normals", any_array(flatten(f.normals)))
+      obj_set(o, "binormals", any_array(flatten(f.binormals)))
       o
     }
   }
@@ -532,7 +537,7 @@ fn sphere_snapshot(s : @math.Sphere?) -> Any {
     None => any(())
     Some(s) => {
       let o = obj_new()
-      obj_set(o, "center", any([s.center.x, s.center.y, s.center.z]))
+      obj_set(o, "center", any_array([s.center.x, s.center.y, s.center.z]))
       obj_set(o, "radius", any(s.radius))
       o
     }
@@ -545,8 +550,8 @@ fn box_snapshot(b : @math.Box3?) -> Any {
     None => any(())
     Some(b) => {
       let o = obj_new()
-      obj_set(o, "min", any([b.min.x, b.min.y, b.min.z]))
-      obj_set(o, "max", any([b.max.x, b.max.y, b.max.z]))
+      obj_set(o, "min", any_array([b.min.x, b.min.y, b.min.z]))
+      obj_set(o, "max", any_array([b.max.x, b.max.y, b.max.z]))
       o
     }
   }
@@ -578,15 +583,15 @@ fn snapshot(g : @core.BufferGeometry) -> Any {
   }
   let groups = arr_new()
   for group in g.groups {
-    arr_push(groups, any([group.start.to_double(), group.count, group.material_index.to_double()]))
+    arr_push(groups, any_array([group.start.to_double(), group.count, group.material_index.to_double()]))
   }
   obj_set(o, "groups", groups)
-  obj_set(o, "drawRange", any([g.draw_range.start.to_double(), g.draw_range.count]))
+  obj_set(o, "drawRange", any_array([g.draw_range.start.to_double(), g.draw_range.count]))
   match g.parameters {
     Some(p) => {
       obj_set(o, "parameters", any(Json::object(p.resolved_values()).stringify()))
-      obj_set(o, "parameterKeys", any(p.values.keys().collect()))
-      obj_set(o, "shapes", any(p.shapes.map(s => s.to_json().stringify())))
+      obj_set(o, "parameterKeys", any_array(p.values.keys().collect()))
+      obj_set(o, "shapes", any_array(p.shapes.map(s => s.to_json().stringify())))
     }
     None => obj_set(o, "parameters", any(()))
   }

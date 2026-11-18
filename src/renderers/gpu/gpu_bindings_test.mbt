@@ -215,7 +215,7 @@ test "promise methods call back synchronously against the mock" {
     events.push("messages: \{info.messages().length()}")
   })
   let pipeline_desc = @gpu.GPURenderPipelineDescriptor::default()
-  pipeline_desc.layout = Some(@gpu.GPUPipelineLayoutOrAuto::Auto)
+  pipeline_desc.layout = Some(Auto)
   pipeline_desc.vertex = Some(
     @gpu.GPUVertexState::new(module_=shader, entry_point="main"),
   )

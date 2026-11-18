@@ -40,7 +40,7 @@ test "Material::from_json keeps a null attenuationDistance" {
   let material = @core.MeshPhysicalMaterial::new()
   let json = material.to_json()
   guard json is Object(data) else { abort("not an object") }
-  inspect(data.get("attenuationDistance"), content="Some(Null)")
+  debug_inspect(data.get("attenuationDistance"), content="Some(Null)")
   let back = @core.MeshPhysicalMaterial::new().from_json(json)
   inspect(
     back.to_json().stringify().contains("\"attenuationDistance\":null"),
@@ -79,14 +79,14 @@ test "lights draw ids in upstream's order: light, target, shadow camera" {
     abort("not a DirectionalLight")
   }
   let camera = directional.as_light().shadow.unwrap().camera
-  inspect(
+  debug_inspect(
     (d.target.id - directional.id, camera.id - directional.id),
     content="(1, 2)",
   )
   let spot = @core.SpotLight::new()
   guard spot.as_light().kind is SpotLight(s) else { abort("not a SpotLight") }
   let camera = spot.as_light().shadow.unwrap().camera
-  inspect((s.target.id - spot.id, camera.id - spot.id), content="(1, 2)")
+  debug_inspect((s.target.id - spot.id, camera.id - spot.id), content="(1, 2)")
   let point = @core.PointLight::new()
   let camera = point.as_light().shadow.unwrap().camera
   inspect(camera.id - point.id, content="1")
@@ -121,5 +121,5 @@ test "constructors draw uuids in upstream's order" {
   let sprite_uuids = [data.material.uuid, sprite.uuid]
   json_fidelity_unseed()
   assert_eq(directional, expected)
-  assert_eq(sprite_uuids, expected[0:2].to_array())
+  assert_eq(sprite_uuids, expected[0:2].to_owned())
 }

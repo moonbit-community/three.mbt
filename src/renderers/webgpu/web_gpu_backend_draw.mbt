@@ -65,7 +65,7 @@ pub impl @nodes.BackendClass for WebGPUBackend with fn compute(
   if dispatch_size is None {
     dispatch_size = match compute.dispatch_size {
       Some(d) => Some(d)
-      None => compute.count.map(fn(c) { @nodes.ComputeDispatchSize::Count(c) })
+      None => compute.count.map(fn(c) { Count(c) })
     }
   }
   let dispatch : Array[Int32] = match dispatch_size {

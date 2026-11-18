@@ -78,7 +78,7 @@ pub fn decode(
     None
   } else {
     let m : Map[String, Int] = {}
-    let pairs : Array[Array[JsValue]] = ids.cast()
+    let pairs : FixedArray[FixedArray[JsValue]] = ids.cast()
     for p in pairs {
       m[p[0].cast()] = p[1].cast()
     }
@@ -88,7 +88,7 @@ pub fn decode(
     None
   } else {
     let m : Map[String, String] = {}
-    let pairs : Array[Array[JsValue]] = types.cast()
+    let pairs : FixedArray[FixedArray[JsValue]] = types.cast()
     for p in pairs {
       m[p[0].cast()] = p[1].cast()
     }
@@ -149,7 +149,7 @@ pub fn summary(g : @core.BufferGeometry) -> JsValue {
     attrs.push(o)
   }
   let r = JsValue::object()
-  r.set("attributes", JsValue::of(attrs))
+  r.set("attributes", JsValue::from_array(attrs))
   match g.index {
     Some(Buffer(b)) => {
       let o = JsValue::object()

@@ -13,9 +13,9 @@ test "json_number writes non-finite numbers as null, as JSON.stringify" {
 
 ///|
 test "json_to_number reads null as NaN" {
-  inspect(@math.json_to_number(Json::number(2)), content="Some(2)")
+  debug_inspect(@math.json_to_number(Json::number(2)), content="Some(2)")
   assert_true(@math.json_to_number(Json::null()).unwrap().is_nan())
-  inspect(@math.json_to_number(Json::string("2")), content="None")
+  debug_inspect(@math.json_to_number(Json::string("2")), content="None")
 }
 
 ///|

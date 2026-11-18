@@ -125,7 +125,7 @@ extern "js" fn g4_js_string(values : @core.JsValue) -> String = "(v) => v.map( S
 
 ///|
 fn g4_vec4(v : @math.Vector4) -> String {
-  g4_js_string(@core.JsValue::of([v.x, v.y, v.z, v.w]))
+  g4_js_string(@core.JsValue::of(([v.x, v.y, v.z, v.w] : FixedArray[Double])))
 }
 
 ///|
@@ -160,7 +160,9 @@ fn g4_pass_node_state() -> String {
     depth.type_.to_string(),
     rt.texture().type_.to_string(),
     rt.samples.to_string(),
-    g4_js_string(@core.JsValue::of([p.get_resolution_scale()])),
+    g4_js_string(
+      @core.JsValue::of(([p.get_resolution_scale()] : FixedArray[Double])),
+    ),
     physical_equal(
       p.get_texture_node(name="normal"),
       p.get_texture_node(name="normal"),
@@ -305,14 +307,33 @@ impl @nodes.NodeBuilderClass for G4Builder with fn get_frag_depth(_, _) {
 }
 
 ///|
-extern "js" fn g4_json(
+extern "js" fn g4_json_fixed(
+  code : String,
+  result : String,
+  vars : String,
+  uniforms : FixedArray[String],
+  codes : FixedArray[String],
+  extra : String,
+) -> String = "(code, result, vars, uniforms, codes, extra) => JSON.stringify({ code, result, vars, uniforms, codes, extra })"
+
+///|
+fn g4_json(
   code : String,
   result : String,
   vars : String,
   uniforms : Array[String],
   codes : Array[String],
   extra : String,
-) -> String = "(code, result, vars, uniforms, codes, extra) => JSON.stringify({ code, result, vars, uniforms, codes, extra })"
+) -> String {
+  g4_json_fixed(
+    code,
+    result,
+    vars,
+    FixedArray::from_array(uniforms),
+    FixedArray::from_array(codes),
+    extra,
+  )
+}
 
 ///|
 /// `json.replaceAll( '_' + id, '_#' )`.
@@ -428,7 +449,7 @@ fn g4_define_display_p3() -> Unit {
     2.4934969, -0.9313836, -0.4027108, -0.8294890, 1.7626641, 0.0236247, 0.0358458,
     -0.0761724, 0.9568845,
   )
-  @math.color_management.define(
+  @math.color_management.define_(
     Map::from_array([
       (
         "display-p3",

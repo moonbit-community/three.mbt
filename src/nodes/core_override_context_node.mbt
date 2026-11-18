@@ -18,7 +18,7 @@ pub impl NodeClass for OverrideContextNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for OverrideContextNode with fn has_flag(self, flag) {
-  flag == "isOverrideContextNode" || self.context.has_flag(flag)
+  flag == "isOverrideContextNode" || NodeClass::has_flag(self.context, flag)
 }
 
 ///|

@@ -193,7 +193,7 @@ test "Isolate, Bypass, Assign, Array and Index nodes" {
 test "OutputStruct, MRT, Struct and StructType nodes" {
   let os = @nodes.output_struct([c_const(1.0), c_const(2.0)])
   assert_eq(c_children(os), ["members[0]:ConstNode", "members[1]:ConstNode"])
-  let outputs = Map::new()
+  let outputs = Map([])
   outputs.set("output", c_const(1.0))
   outputs.set("emissive", c_const(2.0))
   let m = @nodes.mrt(outputs)

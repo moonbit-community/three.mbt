@@ -18,12 +18,13 @@ pub impl NodeClass for ReferenceElementNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for ReferenceElementNode with fn has_flag(self, flag) {
-  flag == "isReferenceElementNode" || self.array_element.has_flag(flag)
+  flag == "isReferenceElementNode" ||
+  NodeClass::has_flag(self.array_element, flag)
 }
 
 ///|
 pub impl NodeClass for ReferenceElementNode with fn children(self, node, out) {
-  self.array_element.children(node, out)
+  NodeClass::children(self.array_element, node, out)
   push_child(out, "referenceNode", Some(self.reference_node))
 }
 
@@ -51,7 +52,9 @@ pub impl NodeClass for ReferenceElementNode with fn generate(
   builder,
   output,
 ) {
-  let snippet = self.array_element.generate(node, builder, output).unwrap_or("")
+  let snippet = NodeClass::generate(self.array_element, node, builder, output).unwrap_or(
+    "",
+  )
   let array_type = self.reference_node.get_node_type(builder)
   let element_type = node.get_node_type(builder)
   Some(builder.format(snippet, array_type, element_type))

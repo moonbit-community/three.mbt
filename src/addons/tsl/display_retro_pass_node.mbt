@@ -63,7 +63,7 @@ pub impl @nodes.NodeClass for RetroPassNode with fn class_name(_) {
 ///|
 /// RetroPassNode has no `static get type()`: PassNode's.
 pub impl @nodes.NodeClass for RetroPassNode with fn type_name(self) {
-  self.pass.type_name()
+  @nodes.NodeClass::type_name(self.pass)
 }
 
 ///|
@@ -73,7 +73,7 @@ pub impl @nodes.NodeClass for RetroPassNode with fn parent(self) {
 
 ///|
 pub impl @nodes.NodeClass for RetroPassNode with fn children(self, node, out) {
-  self.pass.children(node, out)
+  @nodes.NodeClass::children(self.pass, node, out)
   @nodes.push_child(out, "affineDistortionNode", self.affine_distortion_node)
 }
 
@@ -833,7 +833,7 @@ pub impl @nodes.NodeClass for RetroPassNode with fn update_before(
 
 ///|
 pub impl @nodes.NodeClass for RetroPassNode with fn dispose(self, node) {
-  self.pass.dispose(node)
+  @nodes.NodeClass::dispose(self.pass, node)
   for entry in self._material_cache {
     entry.1.material.dispose()
   }

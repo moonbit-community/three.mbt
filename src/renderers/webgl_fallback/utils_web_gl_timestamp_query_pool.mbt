@@ -99,7 +99,7 @@ pub impl @nodes.TimestampQueryPoolClass for WebGLTimestampQueryPool with fn allo
     return None
   }
   if base.current_query_index + 2 > base.max_queries {
-    self.resolve_queries_async(base, fn(_) {  })
+    @nodes.TimestampQueryPoolClass::resolve_queries_async(self, base, fn(_) {  })
     base.current_query_index = 0
     base.query_offsets.clear()
     self.query_states.clear()

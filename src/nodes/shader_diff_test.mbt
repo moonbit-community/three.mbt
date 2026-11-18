@@ -8,12 +8,22 @@
 extern "js" fn shader_diff_enabled() -> Bool = "() => typeof process !== 'undefined' && process.env.SHADER_DIFF === '1'"
 
 ///|
-extern "js" fn shader_json(
+extern "js" fn shader_json_fixed(
+  code : String,
+  result : String,
+  vars : String,
+  uniforms : FixedArray[String],
+) -> String = "(code, result, vars, uniforms) => JSON.stringify({ code, result, vars, uniforms })"
+
+///|
+fn shader_json(
   code : String,
   result : String,
   vars : String,
   uniforms : Array[String],
-) -> String = "(code, result, vars, uniforms) => JSON.stringify({ code, result, vars, uniforms })"
+) -> String {
+  shader_json_fixed(code, result, vars, FixedArray::from_array(uniforms))
+}
 
 ///|
 /// `record( builder, flow )` of upstream.mjs.
@@ -120,7 +130,7 @@ fn shader_scenarios() -> Array[(String, () -> @nodes.Node)] {
       "fn_default_parameter",
       fn() {
         @nodes.fn_(fn(inputs, _) {
-          let a = inputs.get(0).or_else(fn() { @nodes.float(7) })
+          let a = inputs.get(0).unwrap_or_else(fn() { @nodes.float(7) })
           Some(a.to_var(name="d"))
         }).call([])
       },

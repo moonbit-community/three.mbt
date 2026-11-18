@@ -18,7 +18,7 @@ pub impl NodeClass for ParameterNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for ParameterNode with fn has_flag(self, flag) {
-  flag == "isParameterNode" || self.property.has_flag(flag)
+  flag == "isParameterNode" || NodeClass::has_flag(self.property, flag)
 }
 
 ///|

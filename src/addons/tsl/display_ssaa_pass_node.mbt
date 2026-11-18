@@ -32,12 +32,12 @@ pub impl @nodes.NodeClass for SSAAPassNode with fn parent(self) {
 
 ///|
 pub impl @nodes.NodeClass for SSAAPassNode with fn has_flag(self, flag) {
-  flag == "isSSAAPassNode" || self.pass.has_flag(flag)
+  flag == "isSSAAPassNode" || @nodes.NodeClass::has_flag(self.pass, flag)
 }
 
 ///|
 pub impl @nodes.NodeClass for SSAAPassNode with fn children(self, node, out) {
-  self.pass.children(node, out)
+  @nodes.NodeClass::children(self.pass, node, out)
   @nodes.push_child(out, "sampleWeight", Some(self.sample_weight))
 }
 
@@ -230,7 +230,7 @@ pub impl @nodes.NodeClass for SSAAPassNode with fn setup(self, node, builder) {
 
 ///|
 pub impl @nodes.NodeClass for SSAAPassNode with fn dispose(self, node) {
-  self.pass.dispose(node)
+  @nodes.NodeClass::dispose(self.pass, node)
   if self._sample_render_target is Some(target) {
     target.dispose()
   }

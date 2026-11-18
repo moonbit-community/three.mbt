@@ -81,7 +81,7 @@ pub fn run_scenario(
         let pmrem = @nodes.PMREMGenerator::new(r)
         let room = @environments.RoomEnvironment::new()
         let target = pmrem.from_scene(room, sigma=0.04, near=0.1, far=100.0, size=32)
-        note("target", js([
+        note("target", @core.JsValue::from_array([
           js(target.width.to_double()),
           js(target.height.to_double()),
           js(target.texture().mapping.to_double()),
@@ -129,7 +129,7 @@ pub fn run_scenario(
           far=100.0,
           size=16,
         )
-        note("targets", js([t1.width.to_double(), t2.width.to_double()]))
+        note("targets", @core.JsValue::from_array([t1.width.to_double(), t2.width.to_double()]))
         done()
       })
     }
@@ -148,11 +148,11 @@ pub fn run_scenario(
       r.init(on_done=fn(_) {
         let next = fn() {
           @utils.decompress(tex, fn(t) {
-            note("b", js(describe_texture(t)))
+            note("b", @core.JsValue::from_array(describe_texture(t)))
             @utils.decompress(tex, max_texture_size=2.0, renderer=r, fn(t2) {
               let d = describe_texture(t2)
               d.push(js(r.output_color_space))
-              note("c", js(d))
+              note("c", @core.JsValue::from_array(d))
               done()
             })
           })

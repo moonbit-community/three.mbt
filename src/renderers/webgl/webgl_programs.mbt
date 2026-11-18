@@ -505,7 +505,7 @@ pub fn WebGLPrograms::get_parameters(
         ImageArray(images) =>
           match images[0] {
             DataImage({ mipmaps: Some(mipmaps), .. }) =>
-              Some(mipmaps.map(fn(m) { @core.TextureImage::DataImage(m) }))
+              Some(mipmaps.map(fn(m) { DataImage(m) }))
             TextureImage(t) => Some(t.mipmaps)
             _ => abort("WebGLPrograms: compressed cube face without mipmaps")
           }

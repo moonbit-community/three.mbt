@@ -21,18 +21,18 @@ pub impl NodeClass for StorageTextureNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for StorageTextureNode with fn has_flag(self, flag) {
-  flag == "isStorageTextureNode" || self.texture.has_flag(flag)
+  flag == "isStorageTextureNode" || NodeClass::has_flag(self.texture, flag)
 }
 
 ///|
 pub impl NodeClass for StorageTextureNode with fn children(self, node, out) {
-  self.texture.children(node, out)
+  NodeClass::children(self.texture, node, out)
   push_child(out, "storeNode", self.store_node)
 }
 
 ///|
 pub impl NodeClass for StorageTextureNode with fn setup(self, node, builder) {
-  self.texture.setup(node, builder) |> ignore
+  NodeClass::setup(self.texture, node, builder) |> ignore
   let properties = builder.get_node_properties(node)
   properties.set_node_or_null("storeNode", self.store_node)
   // Upstream returns `properties`, which becomes the (non-node) output; the node is
@@ -51,7 +51,7 @@ pub impl NodeClass for StorageTextureNode with fn generate(
     StorageTextureNode::generate_store(node, builder)
     return Some("")
   }
-  self.texture.generate(node, builder, output)
+  NodeClass::generate(self.texture, node, builder, output)
 }
 
 ///|
@@ -214,9 +214,12 @@ pub fn StorageTextureNode::generate_store(
   let store_node = properties.get_node("storeNode").unwrap()
   let depth_node = properties.get_node("depthNode")
   // `super.generate( builder, 'property' )`: TextureNode's generate.
-  let texture_property = s.texture
-    .generate(node, builder, Some("property"))
-    .unwrap_or("")
+  let texture_property = NodeClass::generate(
+    s.texture,
+    node,
+    builder,
+    Some("property"),
+  ).unwrap_or("")
   let texture = TextureNode::get_value(node)
   let uv_snippet = uv_node.build(
     builder,

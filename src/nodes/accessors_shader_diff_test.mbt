@@ -11,7 +11,18 @@
 extern "js" fn g2_shader_diff_enabled() -> Bool = "() => typeof process !== 'undefined' && process.env.SHADER_DIFF === '1'"
 
 ///|
-extern "js" fn g2_shader_json(
+extern "js" fn g2_shader_json_fixed(
+  code : String,
+  result : String,
+  vars : String,
+  uniforms : FixedArray[String],
+  varyings : FixedArray[String],
+  attributes : FixedArray[String],
+  values : FixedArray[String],
+) -> String = "(code, result, vars, uniforms, varyings, attributes, values) => JSON.stringify({ code, result, vars, uniforms, varyings, attributes, values })"
+
+///|
+fn g2_shader_json(
   code : String,
   result : String,
   vars : String,
@@ -19,7 +30,17 @@ extern "js" fn g2_shader_json(
   varyings : Array[String],
   attributes : Array[String],
   values : Array[String],
-) -> String = "(code, result, vars, uniforms, varyings, attributes, values) => JSON.stringify({ code, result, vars, uniforms, varyings, attributes, values })"
+) -> String {
+  g2_shader_json_fixed(
+    code,
+    result,
+    vars,
+    FixedArray::from_array(uniforms),
+    FixedArray::from_array(varyings),
+    FixedArray::from_array(attributes),
+    FixedArray::from_array(values),
+  )
+}
 
 ///|
 /// JS `String( n )`.

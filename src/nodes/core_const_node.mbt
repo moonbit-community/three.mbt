@@ -18,7 +18,7 @@ pub impl NodeClass for ConstNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for ConstNode with fn has_flag(self, flag) {
-  flag == "isConstNode" || self.input.has_flag(flag)
+  flag == "isConstNode" || NodeClass::has_flag(self.input, flag)
 }
 
 ///|
@@ -45,13 +45,13 @@ pub impl NodeClass for ConstNode with fn generate(self, node, builder, output) {
 
 ///|
 pub impl NodeClass for ConstNode with fn serialize(self, node, data) {
-  self.input.serialize(node, data)
+  NodeClass::serialize(self.input, node, data)
   data.set("isWeak", @core.JsValue::of(self.is_weak))
 }
 
 ///|
 pub impl NodeClass for ConstNode with fn deserialize(self, node, data) {
-  self.input.deserialize(node, data)
+  NodeClass::deserialize(self.input, node, data)
   self.is_weak = const_node_js_is_true(data.get("isWeak"))
 }
 

@@ -23,34 +23,12 @@ extern "js" fn objects_array_sort(array : JsValue, compare : JsValue) -> Unit = 
 ///|
 /// `array.sort( compare )`. Core's sorts are unstable or differ on NaN comparisons.
 fn[T] objects_stable_sort(array : Array[T], compare : (T, T) -> Double) -> Unit {
-  objects_array_sort(JsValue::of(array), JsValue::of(compare))
+  let sorted = FixedArray::from_array(array)
+  objects_array_sort(JsValue::of(sorted), JsValue::of(compare))
+  for i, value in sorted {
+    array[i] = value
+  }
 }
-
-///|
-extern "js" fn typed_array_write_elements16(
-  array : TypedArray,
-  elements : JsValue,
-  offset : Int32,
-) -> Unit =
-  #|(a, e, o) => {
-  #|  a[o] = e[0]; a[o + 1] = e[1]; a[o + 2] = e[2]; a[o + 3] = e[3];
-  #|  a[o + 4] = e[4]; a[o + 5] = e[5]; a[o + 6] = e[6]; a[o + 7] = e[7];
-  #|  a[o + 8] = e[8]; a[o + 9] = e[9]; a[o + 10] = e[10]; a[o + 11] = e[11];
-  #|  a[o + 12] = e[12]; a[o + 13] = e[13]; a[o + 14] = e[14]; a[o + 15] = e[15];
-  #|}
-
-///|
-extern "js" fn typed_array_read_elements16(
-  array : TypedArray,
-  elements : JsValue,
-  offset : Int32,
-) -> Unit =
-  #|(a, e, o) => {
-  #|  e[0] = a[o]; e[1] = a[o + 1]; e[2] = a[o + 2]; e[3] = a[o + 3];
-  #|  e[4] = a[o + 4]; e[5] = a[o + 5]; e[6] = a[o + 6]; e[7] = a[o + 7];
-  #|  e[8] = a[o + 8]; e[9] = a[o + 9]; e[10] = a[o + 10]; e[11] = a[o + 11];
-  #|  e[12] = a[o + 12]; e[13] = a[o + 13]; e[14] = a[o + 14]; e[15] = a[o + 15];
-  #|}
 
 ///|
 /// `matrix.toArray( array, offset )` for a typed array. Allocates nothing.
@@ -59,7 +37,9 @@ fn typed_array_write_matrix4(
   matrix : @math.Matrix4,
   offset : Int32,
 ) -> Unit {
-  typed_array_write_elements16(array, JsValue::of(matrix.elements), offset)
+  for i in 0..<16 {
+    array[offset + i] = matrix.elements[i]
+  }
 }
 
 ///|
@@ -69,7 +49,9 @@ fn typed_array_read_matrix4(
   matrix : @math.Matrix4,
   offset : Int32,
 ) -> @math.Matrix4 {
-  typed_array_read_elements16(array, JsValue::of(matrix.elements), offset)
+  for i in 0..<16 {
+    matrix.elements[i] = array[offset + i]
+  }
   matrix
 }
 
@@ -377,7 +359,7 @@ pub fn frustum_array_set_from_array_camera(
 ) -> @math.FrustumArray {
   guard camera_array.kind
     is Camera(
-      { kind: PerspectiveCamera({ array_camera: Some(array_camera), .. }), .. }
+      { kind: PerspectiveCamera({ array_camera: Some(array_camera), .. }), .. },
     ) else {
     abort("FrustumArray.setFromArrayCamera: not an ArrayCamera")
   }

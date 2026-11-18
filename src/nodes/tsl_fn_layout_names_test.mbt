@@ -35,10 +35,17 @@ test "library Fns take upstream's names and leave the user counter alone" {
   let shader = @nodes.ShaderNodeInternal::of(
     @nodes.FnNode::of(library).unwrap().shader_node,
   ).unwrap()
-  tsl_inspect(shader.layout.unwrap().type_, content="Some(vec3)")
-  tsl_inspect(
+  debug_inspect(
+    shader.layout.unwrap().type_,
+    content=(
+      #|Some("vec3")
+    ),
+  )
+  debug_inspect(
     @nodes.FnNode::of(library).unwrap().shader_node.node_type,
-    content="Some(vec3)",
+    content=(
+      #|Some("vec3")
+    ),
   )
   tsl_inspect(g4_layout_number(user2) - g4_layout_number(user1), content="1")
   // user functions count on from the 130 names upstream's library takes
@@ -54,10 +61,15 @@ test "the ported library Fns of nodes/display have their names" {
   for s in display {
     assert_true(s.3 >= 1)
   }
-  tsl_inspect(
+  debug_inspect(
     status[39],
     content=(
-      #|(nodes/display/ToneMappingFunctions.js:RRTAndODTFit, fn39, display_tone_mapping_functions.mbt, 2)
+      #|(
+      #|  "nodes/display/ToneMappingFunctions.js:RRTAndODTFit",
+      #|  "fn39",
+      #|  "display_tone_mapping_functions.mbt",
+      #|  2,
+      #|)
     ),
   )
 }

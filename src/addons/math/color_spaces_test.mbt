@@ -7,7 +7,7 @@ extern "js" fn color_spaces_test_to_fixed3(x : Double) -> String =
 
 ///|
 fn color_spaces_test_define() -> Unit {
-  @three_math.color_management.define(
+  @three_math.color_management.define_(
     Map::from_array([
       (@addon_math.DisplayP3ColorSpace, @addon_math.display_p3_color_space_impl),
       (

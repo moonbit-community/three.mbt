@@ -1298,7 +1298,7 @@ pub fn WebGLRenderer::render_buffer_direct(
       self.indexed_buffer_renderer.set_index(attribute)
       RendererDraw::DrawElements(self.indexed_buffer_renderer)
     }
-    None => RendererDraw::DrawArrays(self.buffer_renderer)
+    None => DrawArrays(self.buffer_renderer)
   }
   //
   if object.is_mesh() {
@@ -1733,7 +1733,7 @@ pub fn WebGLRenderer::render(
         {
           kind: PerspectiveCamera({ array_camera: Some(array_camera), .. }),
           ..
-        }
+        },
       ) => {
         let cameras = array_camera.cameras
         if transmissive_objects.length() > 0 {

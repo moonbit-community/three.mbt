@@ -63,7 +63,8 @@ pub impl @nodes.NodeClass for StereoCompositePassNode with fn has_flag(
   self,
   flag,
 ) {
-  flag == "isStereoCompositePassNode" || self.pass.has_flag(flag)
+  flag == "isStereoCompositePassNode" ||
+  @nodes.NodeClass::has_flag(self.pass, flag)
 }
 
 ///|
@@ -110,7 +111,7 @@ pub impl @nodes.NodeClass for StereoCompositePassNode with fn dispose(
   self,
   node,
 ) {
-  self.pass.dispose(node)
+  @nodes.NodeClass::dispose(self.pass, node)
   self._render_target_l.dispose()
   self._render_target_r.dispose()
   if self._material is Some(material) {

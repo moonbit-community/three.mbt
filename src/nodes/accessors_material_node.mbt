@@ -9,7 +9,7 @@ extern "js" fn material_node_sin(x : Double) -> Double = "Math.sin"
 
 ///|
 /// `_propertyCache`: property -> material reference node.
-let _material_node_property_cache : Map[String, Node] = {}
+let _material_node_property_cache : Map[String, Node] = Map([])
 
 ///|
 pub(all) struct MaterialNode {

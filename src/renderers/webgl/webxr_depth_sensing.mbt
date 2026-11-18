@@ -78,7 +78,7 @@ pub fn WebXRDepthSensing::get_mesh(
     if self.mesh is None {
       let first = match camera_xr.kind {
         Camera(
-          { kind: PerspectiveCamera({ array_camera: Some(array), .. }), .. }
+          { kind: PerspectiveCamera({ array_camera: Some(array), .. }), .. },
         ) => array.cameras[0]
         _ => abort("WebXRDepthSensing.getMesh: cameraXR is not an ArrayCamera")
       }

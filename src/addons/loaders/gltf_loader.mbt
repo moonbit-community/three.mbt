@@ -166,7 +166,7 @@ pub struct GLTFResult {
 ///|
 /// Loads glTF 2.0 assets (`.gltf` and `.glb`).
 pub struct GLTFLoader {
-  base : @loaders.Loader
+  base : @base_loaders.Loader
   mut draco_loader : DRACOLoader?
   mut ktx2_loader : KTX2Loader?
   mut meshopt_decoder : @core.JsValue?
@@ -174,15 +174,15 @@ pub struct GLTFLoader {
 }
 
 ///|
-pub impl @loaders.LoaderLike for GLTFLoader with fn loader(self) {
+pub impl @base_loaders.LoaderLike for GLTFLoader with fn loader(self) {
   self.base
 }
 
 ///|
-pub impl @loaders.LoaderSettings for GLTFLoader
+pub impl @base_loaders.LoaderSettings for GLTFLoader
 
 ///|
-pub extend GLTFLoader with @loaders.LoaderSettings::{
+pub extend GLTFLoader with @base_loaders.LoaderSettings::{
   set_cross_origin,
   set_with_credentials,
   set_path,
@@ -193,12 +193,12 @@ pub extend GLTFLoader with @loaders.LoaderSettings::{
 }
 
 ///|
-pub extend GLTFLoader with @loaders.LoaderLike::{loader}
+pub extend GLTFLoader with @base_loaders.LoaderLike::{loader}
 
 ///|
-pub fn GLTFLoader::new(manager? : @loaders.LoadingManager) -> GLTFLoader {
+pub fn GLTFLoader::new(manager? : @base_loaders.LoadingManager) -> GLTFLoader {
   let loader = {
-    base: @loaders.Loader::new(manager?),
+    base: @base_loaders.Loader::new(manager?),
     draco_loader: None,
     ktx2_loader: None,
     meshopt_decoder: None,
@@ -237,7 +237,7 @@ pub fn GLTFLoader::load(
   self : GLTFLoader,
   url : String,
   on_load : (GLTFResult) -> Unit,
-  on_progress? : (@loaders.ProgressEvent) -> Unit,
+  on_progress? : (@base_loaders.ProgressEvent) -> Unit,
   on_error? : (@core.JsValue) -> Unit,
 ) -> Unit {
   let base = self.base
@@ -245,10 +245,10 @@ pub fn GLTFLoader::load(
     base.resource_path
   } else if base.path != "" {
     // If a base path is set, resources will be relative paths from that plus the relative path of the gltf file
-    let relative_url = @loaders.LoaderUtils::extract_url_base(url)
-    @loaders.LoaderUtils::resolve_url(relative_url, base.path)
+    let relative_url = @base_loaders.LoaderUtils::extract_url_base(url)
+    @base_loaders.LoaderUtils::resolve_url(relative_url, base.path)
   } else {
-    @loaders.LoaderUtils::extract_url_base(url)
+    @base_loaders.LoaderUtils::extract_url_base(url)
   }
 
   // Tells the LoadingManager to track an extra item, which resolves after
@@ -262,7 +262,7 @@ pub fn GLTFLoader::load(
     base.manager.item_error(url)
     base.manager.item_end(url)
   }
-  let loader = @loaders.FileLoader::new(manager=base.manager)
+  let loader = @base_loaders.FileLoader::new(manager=base.manager)
   loader.set_priority(base.priority) |> ignore
   loader.set_cache(base.cache) |> ignore
   loader.set_path(base.path) |> ignore
@@ -357,8 +357,8 @@ pub fn GLTFLoader::parse(
   on_load : (GLTFResult) -> Unit,
   on_error? : (@core.JsValue) -> Unit,
 ) -> Unit {
-  let extensions : Map[String, GLTFExtension] = {}
-  let plugins : Map[String, &GLTFPlugin] = {}
+  let extensions : Map[String, GLTFExtension] = Map([])
+  let plugins : Map[String, &GLTFPlugin] = Map([])
   let json = if gltf_is_string(data) {
     gltf_json_parse(data)
   } else if gltf_is_array_buffer(data) {
@@ -433,7 +433,7 @@ pub fn GLTFLoader::parse(
       let extension_name : String = gltf_at(extensions_used, i).cast()
       let extensions_required = gltf_or(
         json.get("extensionsRequired"),
-        @core.JsValue::of(([] : Array[String])),
+        @core.JsValue::of(([] : FixedArray[String])),
       )
       match extension_name {
         "KHR_materials_unlit" =>

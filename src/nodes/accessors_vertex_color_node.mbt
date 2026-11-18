@@ -19,7 +19,7 @@ pub impl NodeClass for VertexColorNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for VertexColorNode with fn has_flag(self, flag) {
-  flag == "isVertexColorNode" || self.attribute_node.has_flag(flag)
+  flag == "isVertexColorNode" || NodeClass::has_flag(self.attribute_node, flag)
 }
 
 ///|
@@ -29,10 +29,14 @@ pub impl NodeClass for VertexColorNode with fn generate(
   builder,
   output,
 ) {
-  let attribute_name = self.get_attribute_name(node, Some(builder))
+  let attribute_name = AttributeNodeClass::get_attribute_name(
+    self,
+    node,
+    Some(builder),
+  )
   let geometry_attribute = builder.has_geometry_attribute(attribute_name)
   if geometry_attribute {
-    self.attribute_node.generate(node, builder, output)
+    NodeClass::generate(self.attribute_node, node, builder, output)
   } else {
     Some(
       builder.generate_const(
@@ -45,13 +49,13 @@ pub impl NodeClass for VertexColorNode with fn generate(
 
 ///|
 pub impl NodeClass for VertexColorNode with fn serialize(self, node, data) {
-  self.attribute_node.serialize(node, data)
+  NodeClass::serialize(self.attribute_node, node, data)
   data.set("index", @core.JsValue::of(self.index))
 }
 
 ///|
 pub impl NodeClass for VertexColorNode with fn deserialize(self, node, data) {
-  self.attribute_node.deserialize(node, data)
+  NodeClass::deserialize(self.attribute_node, node, data)
   self.index = data.get("index").cast()
 }
 

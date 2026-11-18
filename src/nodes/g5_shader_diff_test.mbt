@@ -12,21 +12,33 @@
 extern "js" fn g5_enabled() -> Bool = "() => typeof process !== 'undefined' && process.env.SHADER_DIFF === '1'"
 
 ///|
-extern "js" fn g5_json(
+extern "js" fn g5_json_fixed(
+  code : String,
+  result : String,
+  vars : String,
+  uniforms : FixedArray[String],
+  codes : FixedArray[String],
+  extra : String,
+) -> String = "(code, result, vars, uniforms, codes, extra) => JSON.stringify({ code, result, vars, uniforms, codes, extra })"
+
+///|
+fn g5_json(
   code : String,
   result : String,
   vars : String,
   uniforms : Array[String],
   codes : Array[String],
   extra : String,
-) -> String = "(code, result, vars, uniforms, codes, extra) => JSON.stringify({ code, result, vars, uniforms, codes, extra })"
-
-///|
-extern "js" fn g5_json3(
-  code : String,
-  result : String,
-  vars : String,
-) -> String = "(code, result, vars) => JSON.stringify({ code, result, vars })"
+) -> String {
+  g5_json_fixed(
+    code,
+    result,
+    vars,
+    FixedArray::from_array(uniforms),
+    FixedArray::from_array(codes),
+    extra,
+  )
+}
 
 ///|
 extern "js" fn g5_json_code(code : String) -> String = "(code) => JSON.stringify({ code })"
@@ -36,17 +48,6 @@ extern "js" fn g5_json_code_result(code : String, result : String) -> String = "
 
 ///|
 extern "js" fn g5_js_string(x : Double) -> String = "(x) => String(x)"
-
-///|
-/// The normalization of upstream_g5.mjs: uuids replaced by their order of appearance.
-extern "js" fn g5_normalize(text : String) -> String =
-  #|(s) => {
-  #|  const ids = new Map();
-  #|  return s.replace( /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi, ( u ) => {
-  #|    if ( ! ids.has( u ) ) ids.set( u, '#' + ids.size );
-  #|    return ids.get( u );
-  #|  } );
-  #|}
 
 ///|
 fn g5_emit(name : String, record : String) -> Unit {

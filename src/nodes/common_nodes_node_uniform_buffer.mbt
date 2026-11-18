@@ -25,7 +25,7 @@ pub impl BindingClass for NodeUniformBuffer with fn parent(self) {
 
 ///|
 pub impl BindingClass for NodeUniformBuffer with fn has_flag(self, flag) {
-  flag == "isNodeUniformBuffer" || self.parent_.has_flag(flag)
+  flag == "isNodeUniformBuffer" || BindingClass::has_flag(self.parent_, flag)
 }
 
 ///|

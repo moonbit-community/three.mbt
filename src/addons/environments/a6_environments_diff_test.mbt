@@ -71,27 +71,27 @@ fn a6e_describe(scene : @core.Object3D) -> @core.JsValue {
       a6e_js((o.id - scene.id).to_double()),
       a6e_js(o.type_),
       a6e_js(o.name),
-      a6e_js(o.matrix_world.elements),
+      @core.JsValue::from_array(o.matrix_world.elements),
     ]
     if o.get_geometry() is Some(g) {
       if first_geometry is None {
         first_geometry = Some(g.id)
       }
       entry.push(a6e_js((g.id - first_geometry.unwrap()).to_double()))
-      entry.push(a6e_js(g.attributes.keys().collect()))
+      entry.push(@core.JsValue::from_array(g.attributes.keys().collect()))
       entry.push(
-        a6e_js(
-          g.attributes.values().map(fn(a) { a.array().to_array() }).collect(),
+        @core.JsValue::from_array(
+          g.attributes.values().map(fn(a) { @core.JsValue::from_array(a.array().to_array()) }).collect(),
         ),
       )
       entry.push(
         match g.index {
-          Some(index) => a6e_js(index.array().to_array())
+          Some(index) => @core.JsValue::from_array(index.array().to_array())
           None => @core.JsValue::null()
         },
       )
       entry.push(
-        a6e_js(
+        @core.JsValue::from_array(
           g.groups.map(fn(group) {
             let v = @core.JsValue::object()
             v.set("start", a6e_js(group.start.to_double()))
@@ -117,9 +117,9 @@ fn a6e_describe(scene : @core.Object3D) -> @core.JsValue {
         }
         _ => abort("unexpected light")
       }
-      entry.push(a6e_js(light.color.to_array()))
+      entry.push(@core.JsValue::from_array(light.color.to_array()))
     }
-    objects.push(a6e_js(entry))
+    objects.push(@core.JsValue::from_array(entry))
   })
   let log : Array[String] = []
   scene.traverse(fn(o) {
@@ -137,10 +137,10 @@ fn a6e_describe(scene : @core.Object3D) -> @core.JsValue {
   let json = scene.to_json()
   let clone = scene.clone()
   scene.dispose()
-  a6e_js([
+  @core.JsValue::from_array([
     @core.JsValue::from_json(json),
-    a6e_js(objects),
-    a6e_js(log),
+    @core.JsValue::from_array(objects),
+    @core.JsValue::from_array(log),
     a6e_js(scene.type_),
     a6e_js(clone.type_),
     a6e_js(clone.name),

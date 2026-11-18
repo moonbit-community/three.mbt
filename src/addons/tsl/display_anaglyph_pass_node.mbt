@@ -267,7 +267,7 @@ pub impl @nodes.NodeClass for AnaglyphPassNode with fn parent(self) {
 
 ///|
 pub impl @nodes.NodeClass for AnaglyphPassNode with fn has_flag(self, flag) {
-  flag == "isAnaglyphPassNode" || self.stereo.has_flag(flag)
+  flag == "isAnaglyphPassNode" || @nodes.NodeClass::has_flag(self.stereo, flag)
 }
 
 ///|

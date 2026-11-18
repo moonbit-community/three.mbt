@@ -10,16 +10,16 @@ const SORT_UTILS_POWER : Int32 = 3
 const SORT_UTILS_BIT_MAX : Int32 = 32
 
 ///|
-const SORT_UTILS_BIN_BITS : Int32 = 8 // 1 << POWER
+const SORT_UTILS_BIN_BITS : Int32 = 1 << SORT_UTILS_POWER
 
 ///|
-const SORT_UTILS_BIN_SIZE : Int32 = 256 // 1 << BIN_BITS
+const SORT_UTILS_BIN_SIZE : Int32 = 1 << SORT_UTILS_BIN_BITS
 
 ///|
-const SORT_UTILS_BIN_MAX : Int32 = 255 // BIN_SIZE - 1
+const SORT_UTILS_BIN_MAX : Int32 = SORT_UTILS_BIN_SIZE - 1
 
 ///|
-const SORT_UTILS_ITERATIONS : Int32 = 4 // BIT_MAX / BIN_BITS
+const SORT_UTILS_ITERATIONS : Int32 = SORT_UTILS_BIT_MAX / SORT_UTILS_BIN_BITS
 
 ///|
 /// `bins`: one histogram per depth plus one, shared by every call as upstream's

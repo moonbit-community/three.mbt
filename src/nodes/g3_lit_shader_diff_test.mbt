@@ -626,9 +626,7 @@ fn g3_cube(name : String, pmrem : Bool) -> @core.Texture {
   t.name = name
   if pmrem {
     t.is_pmrem_texture = true
-    t.mipmaps = [
-      @core.TextureImage::DataImage(@core.DataImage::new(width=64, height=64)),
-    ]
+    t.mipmaps = [DataImage(@core.DataImage::new(width=64, height=64))]
   }
   t
 }

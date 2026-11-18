@@ -25,7 +25,7 @@ pub impl BindingClass for SampledTexture with fn parent(self) {
 
 ///|
 pub impl BindingClass for SampledTexture with fn has_flag(self, flag) {
-  flag == "isSampledTexture" || self.parent_.has_flag(flag)
+  flag == "isSampledTexture" || BindingClass::has_flag(self.parent_, flag)
 }
 
 ///|
@@ -107,7 +107,7 @@ pub impl BindingClass for SampledArrayTexture with fn parent(self) {
 
 ///|
 pub impl BindingClass for SampledArrayTexture with fn has_flag(self, flag) {
-  flag == "isSampledArrayTexture" || self.parent_.has_flag(flag)
+  flag == "isSampledArrayTexture" || BindingClass::has_flag(self.parent_, flag)
 }
 
 ///|
@@ -146,7 +146,7 @@ pub impl BindingClass for Sampled3DTexture with fn parent(self) {
 
 ///|
 pub impl BindingClass for Sampled3DTexture with fn has_flag(self, flag) {
-  flag == "isSampled3DTexture" || self.parent_.has_flag(flag)
+  flag == "isSampled3DTexture" || BindingClass::has_flag(self.parent_, flag)
 }
 
 ///|
@@ -185,7 +185,7 @@ pub impl BindingClass for SampledCubeTexture with fn parent(self) {
 
 ///|
 pub impl BindingClass for SampledCubeTexture with fn has_flag(self, flag) {
-  flag == "isSampledCubeTexture" || self.parent_.has_flag(flag)
+  flag == "isSampledCubeTexture" || BindingClass::has_flag(self.parent_, flag)
 }
 
 ///|

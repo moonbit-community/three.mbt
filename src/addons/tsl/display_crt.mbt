@@ -13,8 +13,8 @@ priv struct CRTModule {
 let display_crt_module : AddonModule[CRTModule] = AddonModule::new(fn() {
   load_display_shape()
   let barrel_uv = @nodes.fn_(fn(inputs, _) {
-    let curvature = inputs.get(0).or_else(fn() { @nodes.float(0.1) })
-    let coord = inputs.get(1).or_else(fn() { @nodes.uv() })
+    let curvature = inputs.get(0).unwrap_or_else(fn() { @nodes.float(0.1) })
+    let coord = inputs.get(1).unwrap_or_else(fn() { @nodes.uv() })
     // Center UV coordinates (-1 to 1)
     let centered = coord.sub(0.5).mul(2.0)
     // Calculate squared distance from center
@@ -50,7 +50,7 @@ let display_crt_module : AddonModule[CRTModule] = AddonModule::new(fn() {
   })
   let color_bleeding = @nodes.fn_(fn(inputs, _) {
     let color = addon_arg(inputs, 0)
-    let amount = inputs.get(1).or_else(fn() { @nodes.float(0.002) })
+    let amount = inputs.get(1).unwrap_or_else(fn() { @nodes.float(0.002) })
     let input_texture = @nodes.convert_to_texture(color)
     // Get the original color
     let original = input_texture.sample(@nodes.screen_uv).rgb()
@@ -82,10 +82,10 @@ let display_crt_module : AddonModule[CRTModule] = AddonModule::new(fn() {
   })
   let scanlines = @nodes.fn_(fn(inputs, _) {
     let color = addon_arg(inputs, 0)
-    let intensity = inputs.get(1).or_else(fn() { @nodes.float(0.3) })
-    let count = inputs.get(2).or_else(fn() { @nodes.float(240.0) })
-    let speed = inputs.get(3).or_else(fn() { @nodes.float(0.0) })
-    let coord = inputs.get(4).or_else(fn() { @nodes.uv() })
+    let intensity = inputs.get(1).unwrap_or_else(fn() { @nodes.float(0.3) })
+    let count = inputs.get(2).unwrap_or_else(fn() { @nodes.float(240.0) })
+    let speed = inputs.get(3).unwrap_or_else(fn() { @nodes.float(0.0) })
+    let coord = inputs.get(4).unwrap_or_else(fn() { @nodes.uv() })
     // Animate scanlines scrolling down (like CRT vertical sync roll)
     let animated_y = coord.y().sub(@nodes.time.mul(speed))
     // Create scanline pattern
@@ -96,9 +96,9 @@ let display_crt_module : AddonModule[CRTModule] = AddonModule::new(fn() {
   })
   let vignette = @nodes.fn_(fn(inputs, _) {
     let color = addon_arg(inputs, 0)
-    let intensity = inputs.get(1).or_else(fn() { @nodes.float(0.4) })
-    let smoothness = inputs.get(2).or_else(fn() { @nodes.float(0.5) })
-    let coord = inputs.get(3).or_else(fn() { @nodes.uv() })
+    let intensity = inputs.get(1).unwrap_or_else(fn() { @nodes.float(0.4) })
+    let smoothness = inputs.get(2).unwrap_or_else(fn() { @nodes.float(0.5) })
+    let coord = inputs.get(3).unwrap_or_else(fn() { @nodes.uv() })
     // Use circle for radial gradient (1.42 ≈ √2 covers full diagonal)
     let mask = circle().call([@nodes.float(1.42), smoothness, coord])
     // Apply vignette: center = 1, edges = (1 - intensity)

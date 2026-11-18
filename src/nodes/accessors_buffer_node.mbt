@@ -21,7 +21,7 @@ pub impl NodeClass for BufferNode with fn parent(self) {
 
 ///|
 pub impl NodeClass for BufferNode with fn has_flag(self, flag) {
-  flag == "isBufferNode" || self.uniform.has_flag(flag)
+  flag == "isBufferNode" || NodeClass::has_flag(self.uniform, flag)
 }
 
 ///|

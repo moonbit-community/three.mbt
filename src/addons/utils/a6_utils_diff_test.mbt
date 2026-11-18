@@ -43,14 +43,26 @@ extern "js" fn a6u_enabled() -> Bool = "() => typeof process !== 'undefined' && 
 extern "js" fn a6u_canon(c : @core.JsValue, value : @core.JsValue) -> String = "(c, v) => c.canon(v)"
 
 ///|
-extern "js" fn a6u_data_raw(
+extern "js" fn a6u_data_raw_fixed(
   c : @core.JsValue,
   seed : Int32,
   n : Int32,
   scale : Double,
   offset : Double,
   float : Bool,
-) -> Array[Double] = "(c, s, n, k, o, f) => c.data(s, n, k, o, f)"
+) -> FixedArray[Double] = "(c, s, n, k, o, f) => c.data(s, n, k, o, f)"
+
+///|
+fn a6u_data_raw(
+  c : @core.JsValue,
+  seed : Int32,
+  n : Int32,
+  scale : Double,
+  offset : Double,
+  float : Bool,
+) -> Array[Double] {
+  Array::from_fixed_array(a6u_data_raw_fixed(c, seed, n, scale, offset, float))
+}
 
 ///|
 extern "js" fn a6u_rng_raw(c : @core.JsValue, seed : Int32) -> () -> Double = "(c, s) => c.rng(s)"
@@ -72,6 +84,11 @@ fn a6u_emit(name : String, value : @core.JsValue) -> Unit {
   if a6u_enabled() {
     println("@@A6U \{name} \{s}")
   }
+}
+
+///|
+fn[T] a6u_rows(rows : Array[Array[T]]) -> @core.JsValue {
+  @core.JsValue::from_array(rows.map(row => @core.JsValue::from_array(row)))
 }
 
 ///|
@@ -104,11 +121,11 @@ test "a6 utils: ColorUtils and GeometryUtils" {
     r.push([c.r, c.g, c.b])
     k += 250.0
   }
-  a6u_emit("kelvin", a6u_js(r))
+  a6u_emit("kelvin", a6u_rows(r))
   let c123 = @math.Vector3::new(1.0, 2.0, 3.0)
   a6u_emit(
     "hilbert2d",
-    a6u_js([
+    a6u_rows([
       a6u_xyz(@utils.hilbert2d()),
       a6u_xyz(@utils.hilbert2d(center=c123, size=7.0, iterations=3)),
       a6u_xyz(
@@ -127,7 +144,7 @@ test "a6 utils: ColorUtils and GeometryUtils" {
   )
   a6u_emit(
     "hilbert3d",
-    a6u_js([
+    a6u_rows([
       a6u_xyz(@utils.hilbert3d()),
       a6u_xyz(
         @utils.hilbert3d(
@@ -156,7 +173,7 @@ test "a6 utils: ColorUtils and GeometryUtils" {
   )
   assert_eq(@utils.hilbert3d(iterations=1).length(), 64)
   assert_eq(@utils.hilbert2d(iterations=2).length(), 64)
-  a6u_emit("gosper", a6u_js([@utils.gosper(), @utils.gosper(size=2.5)]))
+  a6u_emit("gosper", a6u_rows([@utils.gosper(), @utils.gosper(size=2.5)]))
 }
 
 ///|
@@ -180,7 +197,7 @@ test "a6 utils: SortUtils" {
       }
     }
   }
-  a6u_emit("radix_numbers", a6u_js(r))
+  a6u_emit("radix_numbers", a6u_rows(r))
   let r = []
   for n in [3, 40, 600] {
     for reversed in [false, true] {
@@ -190,7 +207,7 @@ test "a6 utils: SortUtils" {
       r.push(a.map(fn(e) { e.0 }))
     }
   }
-  a6u_emit("radix_get", a6u_js(r))
+  a6u_emit("radix_get", a6u_rows(r))
   let r = []
   for n in [10, 50, 700] {
     for reversed in [false, true] {
@@ -208,17 +225,17 @@ test "a6 utils: SortUtils" {
       let pa = Array::make(n, 0.0)
       @utils.radix_sort_numbers(p, aux=pa, reversed~)
       r.push([
-        a6u_js(a6u_array(u)),
-        a6u_js(a6u_array(ua)),
-        a6u_js(a6u_array(f)),
-        a6u_js(a6u_array(b)),
-        a6u_js(a6u_array(ba)),
-        a6u_js(p),
-        a6u_js(pa),
+        @core.JsValue::from_array(a6u_array(u)),
+        @core.JsValue::from_array(a6u_array(ua)),
+        @core.JsValue::from_array(a6u_array(f)),
+        @core.JsValue::from_array(a6u_array(b)),
+        @core.JsValue::from_array(a6u_array(ba)),
+        @core.JsValue::from_array(p),
+        @core.JsValue::from_array(pa),
       ])
     }
   }
-  a6u_emit("radix_typed", a6u_js(r))
+  a6u_emit("radix_typed", a6u_rows(r))
 }
 
 ///|
@@ -279,16 +296,16 @@ test "a6 utils: SceneUtils" {
   let group = @utils.create_meshes_from_instanced_mesh(im)
   a6u_emit(
     "scene_instanced",
-    a6u_js([
+    @core.JsValue::from_array([
       @core.JsValue::from_json(group.to_json()),
-      a6u_js(
+      @core.JsValue::from_array(
         group.children.map(fn(c) {
-          a6u_js([
+          @core.JsValue::from_array([
             a6u_js(c.type_),
             a6u_js(c.name),
-            a6u_js(c.matrix_world.elements),
-            a6u_js(a6u_xyz([c.position, c.scale])),
-            a6u_js(c.quaternion.to_array()),
+            @core.JsValue::from_array(c.matrix_world.elements),
+            @core.JsValue::from_array(a6u_xyz([c.position, c.scale])),
+            @core.JsValue::from_array(c.quaternion.to_array()),
             a6u_js(
               c.get_geometry() is Some(g) && physical_equal(g, a6u_geometry(im)),
             ),
@@ -311,9 +328,9 @@ test "a6 utils: SceneUtils" {
   ])
   a6u_emit(
     "scene_multi_object",
-    a6u_js([
+    @core.JsValue::from_array([
       @core.JsValue::from_json(group.to_json()),
-      a6u_js(group.children.map(fn(c) { physical_equal(a6u_geometry(c), g) })),
+      @core.JsValue::from_array(group.children.map(fn(c) { physical_equal(a6u_geometry(c), g) })),
     ]),
   )
   // createMeshesFromMultiMaterialMesh
@@ -341,34 +358,34 @@ test "a6 utils: SceneUtils" {
   )
   a6u_emit(
     "scene_multi_mesh",
-    a6u_js([
+    @core.JsValue::from_array([
       a6u_js(object.type_),
       a6u_js(object.name),
-      a6u_js(object.position.to_array()),
-      a6u_js(
+      @core.JsValue::from_array(object.position.to_array()),
+      a6u_rows(
         g.groups.map(fn(x) {
           [x.start.to_double(), x.count, x.material_index.to_double()]
         }),
       ),
-      a6u_js(a6u_array(g.index.unwrap().array())),
-      a6u_js(
+      @core.JsValue::from_array(a6u_array(g.index.unwrap().array())),
+      @core.JsValue::from_array(
         object.children.map(fn(c) {
           let geometry = a6u_geometry(c)
           let m = a6u_material(c)
-          a6u_js([
+          @core.JsValue::from_array([
             a6u_js(
               materials.search_by(fn(x) { physical_equal(x, m) }).unwrap_or(-1),
             ),
-            a6u_js(geometry.attributes.keys().collect()),
-            a6u_js(
+            @core.JsValue::from_array(geometry.attributes.keys().collect()),
+            @core.JsValue::from_array(
               geometry.attributes
               .values()
               .map(fn(a) {
-                a6u_js([
+                @core.JsValue::from_array([
                   a6u_js(a.array().type_name()),
                   a6u_js(a.item_size()),
                   a6u_js(a.normalized()),
-                  a6u_js(a6u_array(a.array())),
+                  @core.JsValue::from_array(a6u_array(a.array())),
                 ])
               })
               .collect(),
@@ -452,10 +469,10 @@ test "a6 utils: SceneUtils" {
   )
   a6u_emit(
     "scene_reduce",
-    a6u_js([
-      a6u_js(value),
-      a6u_js(bbox.min.to_array()),
-      a6u_js(bbox.max.to_array()),
+    @core.JsValue::from_array([
+      @core.JsValue::from_array(value),
+      @core.JsValue::from_array(bbox.min.to_array()),
+      @core.JsValue::from_array(bbox.max.to_array()),
     ]),
   )
   // sortInstancedMesh
@@ -500,13 +517,13 @@ test "a6 utils: SceneUtils" {
   let attrs = ig.attributes
   a6u_emit(
     "scene_sort_instanced",
-    a6u_js([
+    a6u_rows([
       a6u_array(matrix),
       a6u_array(color),
       a6u_array(attrs["offset"].array()),
       a6u_array(attrs["weight"].array()),
       a6u_array(attrs["id4"].array()),
-      a6u_array(attrs["position"].array())[0:6].to_array(),
+      a6u_array(attrs["position"].array())[0:6].to_owned(),
     ]),
   )
   // traverse generators
@@ -538,9 +555,9 @@ test "a6 utils: SceneUtils" {
   let all = names(@utils.traverse_generator(root))
   let visible = names(@utils.traverse_visible_generator(root))
   let ancestors = names(@utils.traverse_ancestors_generator(c1.children[0]))
-  let lazy = []
+  let traversed_names = []
   for o in @utils.traverse_generator(root) {
-    lazy.push(o.name)
+    traversed_names.push(o.name)
     if o.name == "a" {
       make("a3", Some(a)) |> ignore
       make("d", Some(root)) |> ignore
@@ -559,11 +576,11 @@ test "a6 utils: SceneUtils" {
   let invisible_root = names(@utils.traverse_visible_generator(b))
   a6u_emit(
     "scene_traverse",
-    a6u_js([
+    a6u_rows([
       all,
       visible,
       ancestors,
-      lazy,
+      traversed_names,
       early,
       invisible_root,
       names(@utils.traverse_ancestors_generator(root)),

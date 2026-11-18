@@ -6,31 +6,31 @@
 ///|
 /// A loader for the Ultra HDR Image Format (JPEG with a gain map).
 pub(all) struct UltraHDRLoader {
-  base : @loaders.Loader
+  base : @base_loaders.Loader
   /// The texture type, `HalfFloatType` (default) or `FloatType`.
   mut type_ : Int32
 }
 
 ///|
 pub fn UltraHDRLoader::new(
-  manager? : @loaders.LoadingManager,
+  manager? : @base_loaders.LoadingManager,
 ) -> UltraHDRLoader {
-  { base: @loaders.Loader::new(manager?), type_: @core.HalfFloatType, }
+  { base: @base_loaders.Loader::new(manager?), type_: @core.HalfFloatType, }
 }
 
 ///|
-pub impl @loaders.LoaderLike for UltraHDRLoader with fn loader(self) {
+pub impl @base_loaders.LoaderLike for UltraHDRLoader with fn loader(self) {
   self.base
 }
 
 ///|
-pub impl @loaders.LoaderSettings for UltraHDRLoader
+pub impl @base_loaders.LoaderSettings for UltraHDRLoader
 
 ///|
-pub extend UltraHDRLoader with @loaders.LoaderLike::{loader}
+pub extend UltraHDRLoader with @base_loaders.LoaderLike::{loader}
 
 ///|
-pub extend UltraHDRLoader with @loaders.LoaderSettings::{
+pub extend UltraHDRLoader with @base_loaders.LoaderSettings::{
   set_cross_origin,
   set_with_credentials,
   set_path,
@@ -232,9 +232,10 @@ let uhdr_srgb_to_linear : @core.TypedArray = {
 
 ///|
 /// Gain map metadata; `None` is upstream's `null`.
+/// `_base_rendition_is_hdr` retains upstream metadata for the parsed descriptor.
 priv struct UhdrMetadata {
   mut version : @core.JsValue
-  mut base_rendition_is_hdr : Bool?
+  mut _base_rendition_is_hdr : Bool?
   mut gain_map_min : Double
   mut gain_map_max : Double
   mut gamma : Double
@@ -257,12 +258,12 @@ priv struct UhdrSection {
 pub fn UltraHDRLoader::parse(
   self : UltraHDRLoader,
   buffer : @core.JsValue,
-  on_load : (@loaders.DataTexData) -> Unit,
+  on_load : (@base_loaders.DataTexData) -> Unit,
 ) -> Unit {
   // `null` fields: arithmetic reads them as 0
   let metadata = {
     version: @core.JsValue::null(),
-    base_rendition_is_hdr: None,
+    _base_rendition_is_hdr: None,
     gain_map_min: 0.0,
     gain_map_max: 0.0,
     gamma: 0.0,
@@ -407,7 +408,7 @@ pub fn UltraHDRLoader::parse(
         primary_image,
         gainmap_image,
         (hdr_buffer, width, height) => {
-          let tex_data = @loaders.DataTexData::new()
+          let tex_data = @base_loaders.DataTexData::new()
           tex_data.width = Some(width)
           tex_data.height = Some(height)
           tex_data.data = Some(hdr_buffer)
@@ -525,7 +526,7 @@ fn UltraHDRLoader::parse_iso_metadata(
   }
   // Convert log2 values to linear
   metadata.version = @core.JsValue::of("1.0") // ISO standard doesn't encode version string, use default
-  metadata.base_rendition_is_hdr = Some(backward_direction)
+  metadata._base_rendition_is_hdr = Some(backward_direction)
   metadata.gain_map_min = gain_map_min
   metadata.gain_map_max = gain_map_max
   metadata.gamma = gamma
@@ -540,8 +541,8 @@ fn UltraHDRLoader::parse_iso_metadata(
 pub fn UltraHDRLoader::load(
   self : UltraHDRLoader,
   url : String,
-  on_load? : (@core.Texture, @loaders.DataTexData) -> Unit,
-  on_progress? : (@loaders.ProgressEvent) -> Unit,
+  on_load? : (@core.Texture, @base_loaders.DataTexData) -> Unit,
+  on_progress? : (@base_loaders.ProgressEvent) -> Unit,
   on_error? : (@core.JsValue) -> Unit,
 ) -> @core.Texture {
   let texture = @core.DataTexture::new(
@@ -564,7 +565,7 @@ pub fn UltraHDRLoader::load(
   )
   texture.generate_mipmaps = true
   texture.flip_y = true
-  let loader = @loaders.FileLoader::new(manager=self.base.manager)
+  let loader = @base_loaders.FileLoader::new(manager=self.base.manager)
   loader.set_priority(self.base.priority) |> ignore
   loader.set_cache(self.base.cache) |> ignore
   loader.set_response_type("arraybuffer") |> ignore
@@ -626,7 +627,7 @@ fn UltraHDRLoader::parse_xmp_metadata(
     // Gainmap descriptor - defaults from https://developer.android.com/media/platform/hdr-image-format#HDR_gain_map_metadata
     let gainmap_node = uhdr_first_element(xmp_xml, "rdf:Description")
     metadata.version = uhdr_get_attribute(gainmap_node, "hdrgm:Version")
-    metadata.base_rendition_is_hdr = Some(
+    metadata._base_rendition_is_hdr = Some(
       uhdr_is_string_true(
         uhdr_get_attribute(gainmap_node, "hdrgm:BaseRenditionIsHDR"),
       ),
@@ -795,9 +796,9 @@ fn UltraHDRLoader::apply_gainmap_to_sdr(
 pub async fn UltraHDRLoader::load_async(
   self : UltraHDRLoader,
   url : String,
-  on_progress? : (@loaders.ProgressEvent) -> Unit,
-) -> @core.Texture raise @loaders.LoaderError {
-  @loaders.loader_promise((resolve, reject) => {
+  on_progress? : (@base_loaders.ProgressEvent) -> Unit,
+) -> @core.Texture raise @base_loaders.LoaderError {
+  @base_loaders.loader_promise((resolve, reject) => {
     self.load(
       url,
       on_load=(texture, _) => resolve(texture),

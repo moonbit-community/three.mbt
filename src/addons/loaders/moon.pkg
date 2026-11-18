@@ -2,12 +2,20 @@ import {
   "moonbit-community/three/core",
   "moonbit-community/three/math",
   "moonbit-community/three/renderers/webgl",
-  "moonbit-community/three/loaders",
+  "moonbit-community/three/loaders" @base_loaders,
   "moonbit-community/three/nodes",
   "moonbit-community/three/animation",
   "moonbit-community/three/addons/utils",
   "moonbit-community/three/addons/libs",
   "moonbit-community/three/addons/math" @addon_math,
 }
+
+import {
+  "moonbitlang/core/async",
+} for "wbtest"
+
+options(
+  "allow-experimental-packages": [ "moonbitlang/core/async" ],
+)
 
 warnings = "-79"

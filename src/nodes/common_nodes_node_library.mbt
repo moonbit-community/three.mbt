@@ -3,10 +3,10 @@
 // are not ported (lights register their nodes with `Light.registerNode`).
 
 ///|
-extern "js" fn node_library_assign_fields(
+extern "js" fn node_library_assign_fields_fixed(
   target : @core.Material,
   source : @core.Material,
-  skip : Array[String],
+  skip : FixedArray[String],
 ) -> Unit =
   #|(t, s, skip) => {
   #|  for ( const k of Object.keys( s ) ) {
@@ -15,6 +15,15 @@ extern "js" fn node_library_assign_fields(
   #|    t[ k ] = s[ k ];
   #|  }
   #|}
+
+///|
+fn node_library_assign_fields(
+  target : @core.Material,
+  source : @core.Material,
+  skip : Array[String],
+) -> Unit {
+  node_library_assign_fields_fixed(target, source, FixedArray::from_array(skip))
+}
 
 ///|
 /// The node material classes and tone mapping functions of a renderer.

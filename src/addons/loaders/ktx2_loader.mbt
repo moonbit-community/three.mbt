@@ -173,7 +173,7 @@ pub fn KTX2WorkerConfig::to_js(self : KTX2WorkerConfig) -> @core.JsValue {
 ///|
 /// A loader for KTX 2.0 GPU texture containers (Basis Universal and raw formats).
 pub(all) struct KTX2Loader {
-  base : @loaders.Loader
+  base : @base_loaders.Loader
   mut transcoder_path : String
   mut transcoder_binary : @core.JsValue
   mut transcoder_pending : @utils.AddonPromise?
@@ -183,9 +183,9 @@ pub(all) struct KTX2Loader {
 }
 
 ///|
-pub fn KTX2Loader::new(manager? : @loaders.LoadingManager) -> KTX2Loader {
+pub fn KTX2Loader::new(manager? : @base_loaders.LoadingManager) -> KTX2Loader {
   let loader = {
-    base: @loaders.Loader::new(manager?),
+    base: @base_loaders.Loader::new(manager?),
     transcoder_path: "",
     transcoder_binary: @core.JsValue::null(),
     transcoder_pending: None,
@@ -203,18 +203,18 @@ pub fn KTX2Loader::new(manager? : @loaders.LoadingManager) -> KTX2Loader {
 }
 
 ///|
-pub impl @loaders.LoaderLike for KTX2Loader with fn loader(self) {
+pub impl @base_loaders.LoaderLike for KTX2Loader with fn loader(self) {
   self.base
 }
 
 ///|
-pub impl @loaders.LoaderSettings for KTX2Loader
+pub impl @base_loaders.LoaderSettings for KTX2Loader
 
 ///|
-pub extend KTX2Loader with @loaders.LoaderLike::{loader}
+pub extend KTX2Loader with @base_loaders.LoaderLike::{loader}
 
 ///|
-pub extend KTX2Loader with @loaders.LoaderSettings::{
+pub extend KTX2Loader with @base_loaders.LoaderSettings::{
   set_cross_origin,
   set_with_credentials,
   set_path,
@@ -317,7 +317,7 @@ pub fn KTX2Loader::detect_support_webgpu(
 ///|
 /// Upstream `loader.loadAsync( url )` of `Loader`.
 fn ktx2_load_async(
-  loader : @loaders.FileLoader,
+  loader : @base_loaders.FileLoader,
   url : String,
 ) -> @utils.AddonPromise {
   @utils.AddonPromise::new((resolve, reject) => {
@@ -340,11 +340,11 @@ fn ktx2_json_stringify(table : Map[String, Int32]) -> String {
 pub fn KTX2Loader::init(self : KTX2Loader) -> @utils.AddonPromise {
   if self.transcoder_pending is None {
     let base = self.base
-    let js_loader = @loaders.FileLoader::new(manager=base.manager)
+    let js_loader = @base_loaders.FileLoader::new(manager=base.manager)
     ignore(js_loader.set_priority(base.priority))
     ignore(js_loader.set_cache(base.cache))
     ignore(js_loader.set_with_credentials(base.with_credentials))
-    let binary_loader = @loaders.FileLoader::new(manager=base.manager)
+    let binary_loader = @base_loaders.FileLoader::new(manager=base.manager)
     ignore(binary_loader.set_priority(base.priority))
     ignore(binary_loader.set_cache(base.cache))
     ignore(binary_loader.set_with_credentials(base.with_credentials))
@@ -367,7 +367,7 @@ pub fn KTX2Loader::init(self : KTX2Loader) -> @utils.AddonPromise {
     }
     self.transcoder_pending = Some(
       @utils.AddonPromise::all([js_content, binary_content]).then_(fn(
-        contents : Array[@core.JsValue],
+        contents : FixedArray[@core.JsValue],
       ) {
         let js_content : String = contents[0].cast()
         let binary_content = contents[1]
@@ -427,7 +427,7 @@ pub fn KTX2Loader::load(
   self : KTX2Loader,
   url : String,
   on_load : (@core.Texture) -> Unit,
-  on_progress? : (@loaders.ProgressEvent) -> Unit,
+  on_progress? : (@base_loaders.ProgressEvent) -> Unit,
   on_error? : (@core.JsValue) -> Unit,
 ) -> Unit {
   if self.worker_config is None {
@@ -436,7 +436,7 @@ pub fn KTX2Loader::load(
     )
   }
   let base = self.base
-  let loader = @loaders.FileLoader::new(manager=base.manager)
+  let loader = @base_loaders.FileLoader::new(manager=base.manager)
   ignore(loader.set_priority(base.priority))
   ignore(loader.set_cache(base.cache))
   ignore(loader.set_path(base.path))
@@ -1372,7 +1372,7 @@ fn ktx2_create_raw_texture_from_levels(
         depth=container.pixel_depth,
       )
     }
-    texture.mipmaps = mipmaps.map(m => @core.TextureImage::DataImage(m))
+    texture.mipmaps = mipmaps.map(m => DataImage(m))
     texture.min_filter = if use_mipmaps {
       @core.NearestMipmapNearestFilter
     } else {
@@ -1418,7 +1418,7 @@ fn ktx2_create_raw_texture_from_levels(
       @core.CompressedCubeTexture::new(faces)
     } else {
       @core.CompressedTexture::new(
-        mipmaps=mipmaps.map(m => @core.TextureImage::DataImage(m)),
+        mipmaps=mipmaps.map(m => DataImage(m)),
         width=container.pixel_width,
         height=container.pixel_height,
       )

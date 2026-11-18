@@ -38,14 +38,14 @@ fn register_compute() -> Unit {
         r.set_render_target(None)
         r.read_render_target_pixels_async(rt, 0, 0, 2, 2, fn(pixels) {
           let p = pixels.unwrap()
-          env.note("pixels", @core.JsValue::of([@core.JsValue::of(p.type_name()), @core.JsValue::of(p.length())]))
+          env.note("pixels", @core.JsValue::from_array([@core.JsValue::of(p.type_name()), @core.JsValue::of(p.length())]))
           let frt = @core.RenderTarget::new(width=4, height=4, type_=@core.FloatType)
           r.set_render_target(Some(frt))
           r.render(box_scene(), camera())
           r.set_render_target(None)
           r.read_render_target_pixels_async(frt, 1, 1, 3, 2, fn(pixels) {
             let p = pixels.unwrap()
-            env.note("fpixels", @core.JsValue::of([@core.JsValue::of(p.type_name()), @core.JsValue::of(p.length())]))
+            env.note("fpixels", @core.JsValue::from_array([@core.JsValue::of(p.type_name()), @core.JsValue::of(p.length())]))
             done()
           })
         })

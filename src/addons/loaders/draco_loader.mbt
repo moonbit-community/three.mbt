@@ -130,8 +130,8 @@ extern "js" fn draco_type_error(message : String) -> JsValue = "(m) => new TypeE
 ///|
 /// `workerPool.sort( f )`: JS's sort, as upstream's comparator never returns 0.
 extern "js" fn draco_sort_raw(
-  array : JsValue,
-  f : (JsValue, JsValue) -> Double,
+  array : FixedArray[DracoWorker],
+  f : (DracoWorker, DracoWorker) -> Double,
 ) -> Unit = "(a, f) => { a.sort(f); }"
 
 ///|
@@ -139,7 +139,11 @@ fn draco_sort_workers(
   pool : Array[DracoWorker],
   f : (DracoWorker, DracoWorker) -> Double,
 ) -> Unit {
-  draco_sort_raw(JsValue::of(pool), (a, b) => f(a.cast(), b.cast()))
+  let sorted = FixedArray::from_array(pool)
+  draco_sort_raw(sorted, f)
+  for i, worker in sorted {
+    pool[i] = worker
+  }
 }
 
 ///|
@@ -165,7 +169,7 @@ fn[V] draco_object(map : Map[String, V]) -> JsValue {
 ///|
 /// A loader for the Draco format.
 pub struct DRACOLoader {
-  base : @loaders.Loader
+  base : @base_loaders.Loader
   decoder_paths : DRACODecoderPaths
   /// Upstream `decoderConfig`, the plain object sent to the workers.
   mut decoder_config : JsValue
@@ -179,9 +183,9 @@ pub struct DRACOLoader {
 }
 
 ///|
-pub fn DRACOLoader::new(manager? : @loaders.LoadingManager) -> DRACOLoader {
+pub fn DRACOLoader::new(manager? : @base_loaders.LoadingManager) -> DRACOLoader {
   {
-    base: @loaders.Loader::new(manager?),
+    base: @base_loaders.Loader::new(manager?),
     decoder_paths: {
       js: DRACO_LIBS_URL + "draco_wasm_wrapper.js",
       wasm: DRACO_LIBS_URL + "draco_decoder.wasm",
@@ -209,18 +213,18 @@ pub fn DRACOLoader::new(manager? : @loaders.LoadingManager) -> DRACOLoader {
 }
 
 ///|
-pub impl @loaders.LoaderLike for DRACOLoader with fn loader(self) {
+pub impl @base_loaders.LoaderLike for DRACOLoader with fn loader(self) {
   self.base
 }
 
 ///|
-pub impl @loaders.LoaderSettings for DRACOLoader
+pub impl @base_loaders.LoaderSettings for DRACOLoader
 
 ///|
-pub extend DRACOLoader with @loaders.LoaderLike::{loader}
+pub extend DRACOLoader with @base_loaders.LoaderLike::{loader}
 
 ///|
-pub extend DRACOLoader with @loaders.LoaderSettings::{
+pub extend DRACOLoader with @base_loaders.LoaderSettings::{
   set_cross_origin,
   set_with_credentials,
   set_path,
@@ -238,14 +242,14 @@ pub fn DRACOLoader::set_decoder_path(
   path : String,
 ) -> DRACOLoader {
   let decoder_paths = self.decoder_paths
-  decoder_paths.js = @loaders.LoaderUtils::resolve_url(
+  decoder_paths.js = @base_loaders.LoaderUtils::resolve_url(
     "draco_wasm_wrapper.js", path,
   )
-  decoder_paths.wasm = @loaders.LoaderUtils::resolve_url(
+  decoder_paths.wasm = @base_loaders.LoaderUtils::resolve_url(
     "draco_decoder.wasm", path,
   )
   decoder_paths.dep_js = Some(
-    @loaders.LoaderUtils::resolve_url("draco_decoder.js", path),
+    @base_loaders.LoaderUtils::resolve_url("draco_decoder.js", path),
   )
   self
 }
@@ -292,11 +296,11 @@ pub fn DRACOLoader::load(
   self : DRACOLoader,
   url : String,
   on_load : (@core.BufferGeometry) -> Unit,
-  on_progress? : (@loaders.ProgressEvent) -> Unit,
+  on_progress? : (@base_loaders.ProgressEvent) -> Unit,
   on_error? : (JsValue) -> Unit,
 ) -> Unit {
   let base = self.base
-  let loader = @loaders.FileLoader::new(manager=base.manager)
+  let loader = @base_loaders.FileLoader::new(manager=base.manager)
   loader.set_priority(base.priority) |> ignore
   loader.set_cache(base.cache) |> ignore
   loader.set_path(base.path) |> ignore
@@ -427,7 +431,7 @@ fn DRACOLoader::create_geometry(
     geometry.set_index(@core.BufferAttribute::new(index.get("array").cast(), 1))
     |> ignore
   }
-  let attributes : Array[JsValue] = geometry_data.get("attributes").cast()
+  let attributes : Array[JsValue] = gltf_array(geometry_data.get("attributes"))
   for i in 0..<attributes.length() {
     let data = attributes[i]
     let name : String = data.get("name").cast()
@@ -441,9 +445,7 @@ fn DRACOLoader::create_geometry(
       )
     } else {
       let buffer = @core.InterleavedBuffer::new(array.cast(), stride)
-      @core.GeometryAttribute::Interleaved(
-        @core.InterleavedBufferAttribute::new(buffer, item_size, 0),
-      )
+      Interleaved(@core.InterleavedBufferAttribute::new(buffer, item_size, 0))
     }
     if name == "color" {
       self.assign_vertex_color_space(attribute, vertex_color_space)
@@ -488,7 +490,7 @@ fn DRACOLoader::load_library(
   response_type : String,
 ) -> @utils.AddonPromise {
   let base = self.base
-  let loader = @loaders.FileLoader::new(manager=base.manager)
+  let loader = @base_loaders.FileLoader::new(manager=base.manager)
   loader.set_priority(base.priority) |> ignore
   loader.set_cache(base.cache) |> ignore
   loader.set_response_type(response_type) |> ignore
@@ -525,7 +527,7 @@ fn DRACOLoader::init_decoder(self : DRACOLoader) -> @utils.AddonPromise {
     libraries_pending.push(self.load_library(decoder_paths.wasm, "arraybuffer"))
   }
   let pending = @utils.AddonPromise::all(libraries_pending).then_((
-    libraries : Array[JsValue],
+    libraries : FixedArray[JsValue],
   ) => {
     let js_content : String = libraries[0].cast()
     if !use_js {
@@ -632,7 +634,7 @@ fn DRACOLoader::release_task(
 pub fn DRACOLoader::debug(self : DRACOLoader) -> Unit {
   draco_console_log(
     "Task load: ",
-    JsValue::of(self.worker_pool.map(worker => worker.task_load)),
+    JsValue::from_array(self.worker_pool.map(worker => worker.task_load)),
   )
 }
 

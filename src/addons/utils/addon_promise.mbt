@@ -1,7 +1,7 @@
 // JS Promise bindings shared by the add-ons that upstream writes as promise chains
 // (WorkerPool, GLTFLoader, DRACOLoader, KTX2Loader). Each method is one upstream
 // expression, so `.then` chains take the same microtasks as upstream. Values cross
-// as JS values: a MoonBit struct is a JS object, an `Array` a JS array, `None` is
+// as JS values: a MoonBit struct is a JS object, a `FixedArray` a JS array, `None` is
 // `undefined`; `JsValue::null()` stands for upstream's `null`.
 
 ///|
@@ -98,15 +98,15 @@ pub fn AddonPromise::reject(error : JsValue) -> AddonPromise {
 }
 
 ///|
-/// `Promise.all( promises )`; resolves to a JS array, read as `Array[JsValue]`.
+/// `Promise.all( promises )`; resolves to a JS array, read as `FixedArray[JsValue]`.
 pub fn AddonPromise::all(promises : Array[AddonPromise]) -> AddonPromise {
-  addon_promise_all_raw(JsValue::of(promises))
+  addon_promise_all_raw(JsValue::of(FixedArray::from_array(promises)))
 }
 
 ///|
 /// `Promise.all( values )` where entries may be plain values or promises.
 pub fn AddonPromise::all_values(values : Array[JsValue]) -> AddonPromise {
-  addon_promise_all_raw(JsValue::of(values))
+  addon_promise_all_raw(JsValue::of(FixedArray::from_array(values)))
 }
 
 ///|

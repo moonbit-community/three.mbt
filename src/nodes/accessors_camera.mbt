@@ -17,7 +17,7 @@ fn camera_get_camera_array(
   let arrays = match _camera_arrays.get(renderer) {
     Some(a) => a
     None => {
-      let a = {}
+      let a = Map([])
       _camera_arrays.set(renderer, a)
       a
     }

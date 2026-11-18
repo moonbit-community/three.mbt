@@ -64,7 +64,7 @@ pub fn reference_tsl_of_js(value : @core.JsValue) -> TslValue {
     "boolean" => Bool(value.cast())
     "string" => String(value.cast())
     "array" => {
-      let items : Array[@core.JsValue] = value.cast()
+      let items : Array[@core.JsValue] = Array::from_fixed_array(value.cast())
       Array(items.map(reference_tsl_of_js))
     }
     _ => Js(value)

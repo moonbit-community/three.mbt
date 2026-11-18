@@ -147,7 +147,9 @@ pub fn ColorManagement::get_luminance_coefficients(
 }
 
 ///|
-pub fn ColorManagement::define(
+/// Defines color spaces, retaining the upstream `define` name as an alias.
+#alias(define)
+pub fn ColorManagement::define_(
   self : ColorManagement,
   color_spaces : Map[String, ColorSpaceDefinition],
 ) -> Unit {
@@ -196,7 +198,7 @@ fn create_color_management() -> ColorManagement {
   let rec709_primaries = [0.640, 0.330, 0.300, 0.600, 0.150, 0.060]
   let rec709_luminance_coefficients = [0.2126, 0.7152, 0.0722]
   let d65 = [0.3127, 0.3290]
-  color_management.define(
+  color_management.define_(
     Map::from_array([
       (
         LinearSRGBColorSpace,

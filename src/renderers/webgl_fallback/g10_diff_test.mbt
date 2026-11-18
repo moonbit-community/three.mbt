@@ -65,7 +65,6 @@ extern "js" fn g10_make_canvas(
 priv struct G10Context {
   renderer : @nodes.Renderer
   gl : @webgl.WebGL2RenderingContext
-  canvas : @core.JsValue
 }
 
 ///|
@@ -104,7 +103,7 @@ fn g10_make_renderer(
   )
   renderer.library = g10_standard_node_library()
   renderer.init()
-  { renderer, gl, canvas, }
+  { renderer, gl, }
 }
 
 ///|
@@ -157,7 +156,7 @@ fn g10_scenario_async(
 ///|
 test "g10diff init_basic" {
   g10_scenario("init_basic", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     g10_note(
       gl,
       "coordinateSystem",
@@ -180,7 +179,7 @@ test "g10diff init_basic" {
 ///|
 test "g10diff render_basic" {
   g10_scenario("render_basic", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     scene.add(g10_box(g10_basic(0xff0000))) |> ignore
     renderer.render(scene, g10_camera())
@@ -222,7 +221,7 @@ fn g10_shadow(light : @core.Object3D) -> @core.LightShadow {
 ///|
 test "g10diff init_options" {
   g10_scenario("init_options", fn() {
-    let { renderer, gl, .. } = g10_make_renderer(
+    let { renderer, gl, } = g10_make_renderer(
       parameters=g10_params([
         ("antialias", @core.JsValue::of(true)),
         ("stencil", @core.JsValue::of(true)),
@@ -258,7 +257,7 @@ test "g10diff init_options" {
 ///|
 test "g10diff init_no_extensions" {
   g10_scenario("init_no_extensions", fn() {
-    let { renderer, gl, .. } = g10_make_renderer(
+    let { renderer, gl, } = g10_make_renderer(
       mock="{\"extensions\":[]}",
       parameters=g10_params([
         ("reversedDepthBuffer", @core.JsValue::of(true)),
@@ -292,7 +291,7 @@ test "g10diff init_no_extensions" {
 ///|
 test "g10diff materials_unlit" {
   g10_scenario("materials_unlit", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     let m0 = g10_basic(0x00ff00)
     m0.transparent = true
@@ -348,7 +347,7 @@ test "g10diff materials_unlit" {
 ///|
 test "g10diff materials_lit" {
   g10_scenario("materials_lit", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     scene.add(
       @core.AmbientLight::new(
@@ -414,7 +413,7 @@ test "g10diff materials_lit" {
 ///|
 test "g10diff shadows" {
   g10_scenario("shadows", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     renderer.shadow_map.enabled = true
     let scene = @core.Scene::new()
     let dir = @core.DirectionalLight::new(
@@ -446,7 +445,7 @@ test "g10diff shadows" {
 ///|
 test "g10diff shadows_point" {
   g10_scenario("shadows_point", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     renderer.shadow_map.enabled = true
     let scene = @core.Scene::new()
     let point = @core.PointLight::new(
@@ -495,7 +494,7 @@ fn g10_basic_color_node(node : @nodes.Node) -> @core.Material {
 ///|
 test "g10diff textures_formats" {
   g10_scenario("textures_formats", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     let t0 = g10_data_texture(
       @core.TypedArray::uint8(16),
@@ -563,7 +562,7 @@ test "g10diff textures_formats" {
 ///|
 test "g10diff textures_kinds" {
   g10_scenario("textures_kinds", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     let face = fn() -> @core.TextureImage {
       DataImage(
@@ -638,7 +637,7 @@ test "g10diff textures_kinds" {
 ///|
 test "g10diff render_targets" {
   g10_scenario("render_targets", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     g10_add_box(scene, g10_basic(0x336699)) |> ignore
     let rt = @core.RenderTarget::new(width=8, height=8, depth_buffer=true)
@@ -666,7 +665,7 @@ extern "js" fn g10_array_from(a : @core.TypedArray) -> @core.JsValue = "(a) => A
 ///|
 test "g10diff render_targets_mrt" {
   g10_scenario("render_targets_mrt", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     g10_add_box(scene, @nodes.MeshStandardNodeMaterial::new()) |> ignore
     scene.add(
@@ -704,7 +703,7 @@ test "g10diff render_targets_mrt" {
 ///|
 test "g10diff copies" {
   g10_scenario("copies", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     g10_add_box(scene, @nodes.MeshBasicNodeMaterial::new()) |> ignore
     renderer.render(scene, g10_camera())
@@ -750,7 +749,7 @@ test "g10diff copies" {
 ///|
 test "g10diff geometry_kinds" {
   g10_scenario("geometry_kinds", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     let inst = @core.InstancedMesh::new(
       geometry=@geometries.BoxGeometry::new(),
@@ -827,7 +826,7 @@ test "g10diff batched_mesh" {
     out.get_error() |> ignore
     g10_ffi_clear(out)
     for mock in ["{}", "{\"extensions\":[\"EXT_color_buffer_float\"]}"] {
-      let { renderer, gl, .. } = g10_make_renderer(mock~)
+      let { renderer, gl, } = g10_make_renderer(mock~)
       let scene = @core.Scene::new()
       let batched = @core.BatchedMesh::new(
         4,
@@ -860,7 +859,7 @@ extern "js" fn g10_float32_array_from(buffer : @core.JsValue) -> @core.JsValue =
 ///|
 test "g10diff compute_transform_feedback" {
   g10_scenario("compute_transform_feedback", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let a = @nodes.StorageBufferAttribute::from_array(
       @core.TypedArray::float32(8),
       1,
@@ -893,7 +892,7 @@ test "g10diff compute_transform_feedback" {
 ///|
 test "g10diff compute_then_render" {
   g10_scenario("compute_then_render", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let offsets = @nodes.StorageInstancedBufferAttribute::from_array(
       @core.TypedArray::float32(3 * 3),
       3,
@@ -924,7 +923,7 @@ test "g10diff compute_then_render" {
 ///|
 test "g10diff queries" {
   g10_scenario("queries", fn() {
-    let { renderer, gl, .. } = g10_make_renderer(
+    let { renderer, gl, } = g10_make_renderer(
       parameters=g10_params([("trackTimestamp", @core.JsValue::of(true))]),
       mock="{\"extensions\":[\"EXT_color_buffer_float\",\"WEBGL_multi_draw\",\"EXT_disjoint_timer_query_webgl2\",\"KHR_parallel_shader_compile\"],\"queries\":{\"available\":true,\"result\":0}}",
     )
@@ -992,7 +991,7 @@ fn g10_cube_texture() -> @core.Texture {
 ///|
 test "g10diff background_environment" {
   g10_scenario("background_environment", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     let data = scene.as_scene()
     data.background = Some(Color(@math.Color::from_hex(0x112233)))
@@ -1015,7 +1014,7 @@ test "g10diff background_environment" {
 /// A known foundation difference: see scenarios.mjs.
 test "g10diff background_cube" {
   g10_scenario("background_cube", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     scene.as_scene().background = Some(Texture(g10_cube_texture()))
     g10_add_box(scene, @nodes.MeshBasicNodeMaterial::new()) |> ignore
@@ -1027,7 +1026,7 @@ test "g10diff background_cube" {
 ///|
 test "g10diff fog_tone_mapping" {
   g10_scenario("fog_tone_mapping", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     renderer.tone_mapping = @core.ACESFilmicToneMapping
     renderer.tone_mapping_exposure = 1.5
     let scene = @core.Scene::new()
@@ -1059,7 +1058,7 @@ test "g10diff fog_tone_mapping" {
 ///|
 test "g10diff post_processing" {
   g10_scenario("post_processing", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     g10_add_box(scene, g10_basic(0x00ff00)) |> ignore
     let cam = g10_camera()
@@ -1075,7 +1074,7 @@ test "g10diff post_processing" {
 ///|
 test "g10diff clear_resize_dispose" {
   g10_scenario("clear_resize_dispose", fn() {
-    let { renderer, gl, .. } = g10_make_renderer(
+    let { renderer, gl, } = g10_make_renderer(
       parameters=g10_params([("stencil", @core.JsValue::of(true))]),
       stencil=true,
     )
@@ -1110,7 +1109,7 @@ test "g10diff clear_resize_dispose" {
 ///|
 test "g10diff cube_render_target" {
   g10_scenario("cube_render_target", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     g10_add_box(scene, @nodes.MeshBasicNodeMaterial::new()) |> ignore
     let crt = @nodes.CubeRenderTarget::new(size=8)
@@ -1129,7 +1128,7 @@ test "g10diff cube_render_target" {
 /// A known difference outside this package: see scenarios.mjs.
 test "g10diff environment_cube" {
   g10_scenario("environment_cube", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     scene.as_scene().environment = Some(g10_cube_texture())
     g10_add_box(scene, @nodes.MeshStandardNodeMaterial::new()) |> ignore
@@ -1141,7 +1140,7 @@ test "g10diff environment_cube" {
 ///|
 test "g10diff compute_pbo_render" {
   g10_scenario("compute_pbo_render", fn() {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let data = @nodes.StorageBufferAttribute::from_array(
       @core.TypedArray::float32(6),
       1,
@@ -1169,7 +1168,7 @@ test "g10diff compute_pbo_render" {
 ///|
 test "g10diff compile_async_parallel" {
   g10_scenario_async("compile_async_parallel", fn(done) {
-    let { renderer, gl, .. } = g10_make_renderer()
+    let { renderer, gl, } = g10_make_renderer()
     let scene = @core.Scene::new()
     g10_add_box(scene, @nodes.MeshPhongNodeMaterial::new()) |> ignore
     scene.add(

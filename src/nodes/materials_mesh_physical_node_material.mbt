@@ -54,7 +54,7 @@ pub impl NodeMaterialClass for MeshPhysicalNodeMaterial with fn has_flag(
     "useTransmission" => self.use_transmission()
     "useDispersion" => self.use_dispersion()
     "useRetroreflection" => self.use_retroreflection()
-    _ => self.standard.has_flag(flag)
+    _ => NodeMaterialClass::has_flag(self.standard, flag)
   }
 }
 
@@ -100,7 +100,7 @@ pub impl NodeMaterialClass for MeshPhysicalNodeMaterial with fn node_slot(
       return Some(slot.1)
     }
   }
-  self.standard.node_slot(name)
+  NodeMaterialClass::node_slot(self.standard, name)
 }
 
 ///|
@@ -108,7 +108,7 @@ pub impl NodeMaterialClass for MeshPhysicalNodeMaterial with fn own_node_slots(
   self,
   out,
 ) {
-  self.standard.own_node_slots(out)
+  NodeMaterialClass::own_node_slots(self.standard, out)
   out.append(self.own_slots())
 }
 
@@ -138,7 +138,7 @@ pub impl NodeMaterialClass for MeshPhysicalNodeMaterial with fn set_node_slot(
     "dispersionNode" => self.dispersion_node = value
     "retroreflectivityNode" => self.retroreflectivity_node = value
     "anisotropyNode" => self.anisotropy_node = value
-    _ => return self.standard.set_node_slot(name, value)
+    _ => return NodeMaterialClass::set_node_slot(self.standard, name, value)
   }
   true
 }
@@ -157,14 +157,15 @@ pub impl NodeMaterialClass for MeshPhysicalNodeMaterial with fn get_property(
     | "useAnisotropy"
     | "useTransmission"
     | "useDispersion"
-    | "useRetroreflection" => Some(Bool(self.has_flag(name)))
+    | "useRetroreflection" =>
+      Some(Bool(NodeMaterialClass::has_flag(self, name)))
     _ =>
       for slot in self.own_slots() {
         if slot.0 == name {
           break Some(node_material_slot_value(slot.1))
         }
       } nobreak {
-        self.standard.get_property(material, name)
+        NodeMaterialClass::get_property(self.standard, material, name)
       }
   }
 }
@@ -177,7 +178,7 @@ pub impl NodeMaterialClass for MeshPhysicalNodeMaterial with fn copy_members(
   material,
   source,
 ) {
-  self.standard.copy_members(material, source)
+  NodeMaterialClass::copy_members(self.standard, material, source)
   if source.anisotropy() is Some(v) {
     material.set_anisotropy(v)
   }
@@ -497,7 +498,7 @@ pub impl NodeMaterialClass for MeshPhysicalNodeMaterial with fn setup(
       sub_build(self.setup_clearcoat_normal(), "NORMAL", type_="vec3")
     }),
   )
-  self.standard.setup(material, builder)
+  NodeMaterialClass::setup(self.standard, material, builder)
 }
 
 ///|

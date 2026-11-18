@@ -84,7 +84,7 @@ pub(all) struct QuadMesh {
 pub fn QuadMesh::new(material? : @core.Material) -> QuadMesh {
   let object = @core.Mesh::new(
     geometry=_quad_mesh_geometry,
-    material?=material.map(fn(m) { @core.MaterialSlot::Single(m) }),
+    material?=material.map(fn(m) { Single(m) }),
   )
   object.set_extension(QuadMeshExtension::{ camera: _quad_mesh_camera, })
   |> ignore

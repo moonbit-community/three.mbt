@@ -9,13 +9,13 @@ pub(all) enum PipelineKind {
   /// `RenderObjectPipeline`.
   RenderObject(
     vertex_program~ : ProgrammableStage,
-    fragment_program~ : ProgrammableStage
+    fragment_program~ : ProgrammableStage,
   )
   /// `ComputePipeline`; `None` is `null`.
   Compute(
     compute_program~ : ProgrammableStage,
     transforms~ : Array[NodeTransform]?,
-    attributes~ : Array[NodeAttribute]?
+    attributes~ : Array[NodeAttribute]?,
   )
 }
 

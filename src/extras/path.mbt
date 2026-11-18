@@ -475,7 +475,7 @@ pub fn Path::compute_frenet_frames(
 
 ///|
 pub fn Path::clone(self : Path) -> Path {
-  Path::{ curve: self.curve.clone(), }
+  { curve: self.curve.clone(), }
 }
 
 ///|

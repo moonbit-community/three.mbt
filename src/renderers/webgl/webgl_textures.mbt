@@ -272,7 +272,7 @@ fn textures_image_mipmaps(
   match image {
     DataImage(d) =>
       match d.mipmaps {
-        Some(mipmaps) => mipmaps.map(m => @core.TextureImage::DataImage(m))
+        Some(mipmaps) => mipmaps.map(m => DataImage(m))
         None => []
       }
     TextureImage(texture) => texture.mipmaps
