@@ -88,7 +88,7 @@ struct G6Log {
 
 ///|
 fn G6Log::push(self : G6Log, entry : Array[@core.JsValue]) -> Unit {
-  g6_push(self.array, g6j(entry))
+  g6_push(self.array, @core.JsValue::from_array(entry))
 }
 
 ///|
@@ -130,7 +130,7 @@ fn g6_align(log : G6Log) -> Unit {
 
 ///|
 fn g6_v4(v : @math.Vector4) -> @core.JsValue {
-  g6j([g6j(v.x), g6j(v.y), g6j(v.z), g6j(v.w)])
+  @core.JsValue::from_array([g6j(v.x), g6j(v.y), g6j(v.z), g6j(v.w)])
 }
 
 ///|
@@ -145,7 +145,7 @@ fn g6_mid(o : @core.Object3D) -> @core.JsValue {
 
 ///|
 fn g6_tex_ids(a : Array[@core.Texture]?) -> @core.JsValue {
-  g6_opt(a, fn(a) { g6j(a.map(fn(t) { g6j(t.id) })) })
+  g6_opt(a, fn(a) { @core.JsValue::from_array(a.map(fn(t) { g6j(t.id) })) })
 }
 
 ///|
@@ -160,7 +160,7 @@ fn g6_context_state(rc : @nodes.RenderContext) -> Array[@core.JsValue] {
     g6_v4(rc.scissor_value),
     g6j(rc.scissor),
     g6j(rc.clear_color),
-    g6j([g6j(c.r), g6j(c.g), g6j(c.b), g6j(c.a)]),
+    @core.JsValue::from_array([g6j(c.r), g6j(c.g), g6j(c.b), g6j(c.a)]),
     g6j(rc.clear_depth),
     g6j(rc.clear_depth_value),
     g6j(rc.clear_stencil),
@@ -197,9 +197,9 @@ fn g6_render_object_state(ro : @nodes.RenderObject) -> Array[@core.JsValue] {
     g6_mid(ro.camera),
     g6_mid(ro.scene),
     g6_opt(ro.group, fn(g) {
-      g6j([g6j(g.start), g6j(g.count), g6j(g.material_index)])
+      @core.JsValue::from_array([g6j(g.start), g6j(g.count), g6j(g.material_index)])
     }),
-    g6_opt(ro.draw_range, fn(d) { g6j([g6j(d.start), g6j(d.count)]) }),
+    g6_opt(ro.draw_range, fn(d) { @core.JsValue::from_array([g6j(d.start), g6j(d.count)]) }),
     g6_opt(ro.bundle, fn(b) { g6j(b.id) }),
     g6_opt(ro.clipping_context, fn(c) { g6j(c.version) }),
   ]
@@ -257,7 +257,7 @@ impl @nodes.NodeBuilderClass for G6NodeBuilder with fn prebuild(self, builder) {
     g6_opt(builder.fog_node, fn(_) { g6j("fog") }),
     g6_opt(builder.environment_node, fn(_) { g6j("env") }),
     g6_opt(builder.lights_node, fn(n) {
-      g6j(@nodes.LightsNode::get_lights(n).map(fn(l) { g6j(l.id) }))
+      @core.JsValue::from_array(@nodes.LightsNode::get_lights(n).map(fn(l) { g6j(l.id) }))
     }),
   ])
   if m is Some(_) {
@@ -309,7 +309,7 @@ fn G6Backend::b(self : G6Backend, entry : Array[@core.JsValue]) -> Unit {
 fn g6_group_ids(g : @nodes.ComputeGroup) -> @core.JsValue {
   match g {
     Node(n) => g6j(n.id)
-    Nodes(a) => g6j(a.map(fn(n) { g6j(n.id) }))
+    Nodes(a) => @core.JsValue::from_array(a.map(fn(n) { g6j(n.id) }))
   }
 }
 
@@ -430,7 +430,7 @@ impl @nodes.BackendClass for G6Backend with fn compute(
     match dispatch_size {
       None => g6_null()
       Some(Count(n)) => g6j(n)
-      Some(Size(a)) => g6j(a)
+      Some(Size(a)) => @core.JsValue::from_array(a)
       Some(Indirect(_)) => g6j("indirect")
     },
   ])
@@ -444,7 +444,7 @@ impl @nodes.BackendClass for G6Backend with fn draw(self, _, ro, info) {
       g6j("draw"),
       ..g6_render_object_state(ro),
       g6_opt(p, fn(p) {
-        g6j([
+        @core.JsValue::from_array([
           g6j(p.vertex_count),
           g6j(p.first_vertex),
           g6j(p.instance_count),
@@ -661,14 +661,14 @@ impl @nodes.BackendClass for G6Backend with fn copy_texture_to_texture(
     g6j(d.id),
     match r {
       Some(Box2(r)) =>
-        g6j([g6j(r.min.x), g6j(r.min.y), g6j(r.max.x), g6j(r.max.y)])
+        @core.JsValue::from_array([g6j(r.min.x), g6j(r.min.y), g6j(r.max.x), g6j(r.max.y)])
       Some(Box3(r)) =>
-        g6j([g6j(r.min.x), g6j(r.min.y), g6j(r.max.x), g6j(r.max.y)])
+        @core.JsValue::from_array([g6j(r.min.x), g6j(r.min.y), g6j(r.max.x), g6j(r.max.y)])
       None => g6_null()
     },
     match p {
-      Some(Vec2(p)) => g6j([g6j(p.x), g6j(p.y)])
-      Some(Vec3(p)) => g6j([g6j(p.x), g6j(p.y)])
+      Some(Vec2(p)) => @core.JsValue::from_array([g6j(p.x), g6j(p.y)])
+      Some(Vec3(p)) => @core.JsValue::from_array([g6j(p.x), g6j(p.y)])
       None => g6_null()
     },
     g6j(sl),
@@ -848,7 +848,7 @@ impl @nodes.BackendClass for G6Backend with fn clear(
     g6j(color),
     g6j(depth),
     g6j(stencil),
-    g6_opt(rc, fn(rc) { g6j(g6_context_state(rc)) }),
+    g6_opt(rc, fn(rc) { @core.JsValue::from_array(g6_context_state(rc)) }),
   ])
 }
 
@@ -1563,7 +1563,7 @@ test "g6diff info_dispose" {
         g6_fire_frame(frames, g6_frame_count(frames) - 1, 48.0)
         log.push([
           g6j("loop"),
-          g6j(loops),
+          @core.JsValue::from_array(loops),
           g6j(renderer.get_animation_loop() is Some(_)),
         ])
         renderer.set_animation_loop(None, on_done=fn() {
@@ -1940,7 +1940,7 @@ test "g6diff utils_misc" {
           }
           log.push([
             g6j("reset"),
-            g6j([
+            @core.JsValue::from_array([
               g6j(state.tone_mapping),
               g6j(state.active_cube_face),
               g6j(state.active_mipmap_level),
@@ -1954,7 +1954,7 @@ test "g6diff utils_misc" {
               bg_r,
               g6j(state.override_material.unwrap().name),
             ]),
-            g6j([
+            @core.JsValue::from_array([
               g6j(c.r),
               g6j(c.g),
               g6j(renderer.get_clear_alpha()),

@@ -176,7 +176,7 @@ pub fn exr_parse(
 ///|
 pub fn cube_load(
   path : String,
-  urls : Array[String],
+  urls : FixedArray[String],
   type_ : Int,
   done : (@core.JsValue) -> Unit,
 ) -> Unit {
@@ -184,7 +184,7 @@ pub fn cube_load(
   if type_ != 0 {
     loader.set_data_type(type_) |> ignore
   }
-  let texture = loader.load(urls, on_load=t => done(describe_texture(texture_js(t))), on_error=e => done(error_js(e)))
+  let texture = loader.load(Array::from_fixed_array(urls), on_load=t => done(describe_texture(texture_js(t))), on_error=e => done(error_js(e)))
   ignore(texture)
 }
 
@@ -208,7 +208,7 @@ extern "js" fn js_later(f : () -> Unit) -> Unit = "(f) => setTimeout(f, 50)"
 /// every corrupt face has reported its error.
 pub fn cube_load_errors(
   path : String,
-  urls : Array[String],
+  urls : FixedArray[String],
   done : (@core.JsValue) -> Unit,
 ) -> Unit {
   let errs = js_new_array()
@@ -218,6 +218,7 @@ pub fn cube_load_errors(
     set(o, "timeout", @core.JsValue::of(true))
     done(o)
   })
+  let urls = Array::from_fixed_array(urls)
   let bad = urls.filter(u => u == "bad.hdr").length()
   let loader = @aloaders.HDRCubeTextureLoader::new().set_path(path)
   loader.load(

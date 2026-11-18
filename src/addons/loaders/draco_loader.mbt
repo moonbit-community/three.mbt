@@ -130,8 +130,8 @@ extern "js" fn draco_type_error(message : String) -> JsValue = "(m) => new TypeE
 ///|
 /// `workerPool.sort( f )`: JS's sort, as upstream's comparator never returns 0.
 extern "js" fn draco_sort_raw(
-  array : JsValue,
-  f : (JsValue, JsValue) -> Double,
+  array : FixedArray[DracoWorker],
+  f : (DracoWorker, DracoWorker) -> Double,
 ) -> Unit = "(a, f) => { a.sort(f); }"
 
 ///|
@@ -139,7 +139,11 @@ fn draco_sort_workers(
   pool : Array[DracoWorker],
   f : (DracoWorker, DracoWorker) -> Double,
 ) -> Unit {
-  draco_sort_raw(JsValue::of(pool), (a, b) => f(a.cast(), b.cast()))
+  let sorted = FixedArray::from_array(pool)
+  draco_sort_raw(sorted, f)
+  for i, worker in sorted {
+    pool[i] = worker
+  }
 }
 
 ///|
@@ -630,7 +634,7 @@ fn DRACOLoader::release_task(
 pub fn DRACOLoader::debug(self : DRACOLoader) -> Unit {
   draco_console_log(
     "Task load: ",
-    JsValue::of(self.worker_pool.map(worker => worker.task_load)),
+    JsValue::from_array(self.worker_pool.map(worker => worker.task_load)),
   )
 }
 

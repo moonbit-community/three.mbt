@@ -67,7 +67,7 @@ fn register_other() -> Unit {
           r.render(box_scene(), cam)
           r.resolve_timestamps_async(fn(t3) {
             env.note("render2", opt_double(t3))
-            env.note("frames", @core.JsValue::of(r.backend.get_timestamp_frames("render")))
+            env.note("frames", @core.JsValue::from_array(r.backend.get_timestamp_frames("render")))
             done()
           })
         })
@@ -91,7 +91,7 @@ fn register_other() -> Unit {
       r.render(scene, cam)
       r.render(scene, cam)
       tick(fn() {
-        env.note("occluded", @core.JsValue::of([r.is_occluded(a), r.is_occluded(b), r.is_occluded(c)]))
+        env.note("occluded", @core.JsValue::from_array([r.is_occluded(a), r.is_occluded(b), r.is_occluded(c)]))
         @nodes.set_occlusion_test(a, false)
         @nodes.set_occlusion_test(c, false)
         r.render(scene, cam)
@@ -290,7 +290,7 @@ fn register_other() -> Unit {
   scenario("features", fn(env, done) {
     let r = renderer(env)
     r.init(on_done=fn(_) {
-      env.note("features", @core.JsValue::of([r.has_feature("float32-filterable"), r.has_feature("texture-compression-s3tc"), r.has_feature("timestamp-query")]))
+      env.note("features", @core.JsValue::from_array([r.has_feature("float32-filterable"), r.has_feature("texture-compression-s3tc"), r.has_feature("timestamp-query")]))
       let f = data_tex("Float32Array", 4, @core.RGBAFormat, @core.FloatType)
       let n = data_tex("Int16Array", 4, @core.RGBAFormat, @core.ShortType)
       n.normalized = true
@@ -336,7 +336,7 @@ fn register_no_adapter() -> Unit {
     r.init(on_done=fn(error) {
       env.note(
         "init",
-        @core.JsValue::of([
+        @core.JsValue::from_array([
           match error {
             Some(_) => @core.JsValue::of("rejected")
             None => @core.JsValue::null()

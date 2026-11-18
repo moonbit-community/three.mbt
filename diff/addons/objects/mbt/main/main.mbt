@@ -82,7 +82,7 @@ fn vector3_of(node : @nodes.Node) -> @math.Vector3 {
 ///|
 fn flow_config(water : @core.Object3D) -> @core.JsValue {
   let color_node = @nodes.NodeMaterial::of(material_of(water)).unwrap().color_node.unwrap()
-  js(
+  @core.JsValue::from_array(
     vector3_of(@objects.WaterNode::of(color_node).unwrap().flow_config).to_array(),
   )
 }
@@ -98,7 +98,7 @@ pub fn run_scenario(
   align()
   let canvas = env.get("canvas")
   let note = fn(label : String, value : Array[@core.JsValue]) {
-    env_note(env, label, js(value))
+    env_note(env, label, @core.JsValue::from_array(value))
   }
   let r = @webgpu.WebGPURenderer::new(canvas~)
   r.init(on_done=fn(_) {

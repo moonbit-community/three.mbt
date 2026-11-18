@@ -25,7 +25,7 @@ const kept = cases.filter((c) => !/[ \t]$/.test(c));
 cases.length = 0; cases.push(...kept);
 let out = '';
 cases.forEach((c, i) => { out += mbtStringLet(`s${i}`, c) + '\n'; });
-out += `///|\npub fn all() -> Array[String] {\n  [${cases.map((_, i) => `s${i}`).join(', ')}]\n}\n`;
+out += `///|\npub fn all() -> FixedArray[String] {\n  [${cases.map((_, i) => `s${i}`).join(', ')}]\n}\n`;
 fs.writeFileSync(path.join(dir, 'src/main/f.mbt'), out);
 fs.writeFileSync(path.join(dir, 'expected.json'), JSON.stringify(cases));
 if (process.argv.includes('fmt')) execFileSync('moonfmt', ['-w', path.join(dir, 'src/main/f.mbt')]);
