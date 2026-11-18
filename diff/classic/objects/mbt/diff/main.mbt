@@ -56,7 +56,7 @@ fn[T] jv(x : T) -> @core.JsValue {
 
 ///|
 fn nums(v : @core.JsValue) -> Array[Double] {
-  v.cast()
+  Array::from_fixed_array(v.cast())
 }
 
 ///|
@@ -81,7 +81,7 @@ fn str(v : @core.JsValue) -> String {
 
 ///|
 fn items(v : @core.JsValue) -> Array[@core.JsValue] {
-  v.cast()
+  Array::from_fixed_array(v.cast())
 }
 
 ///|
@@ -97,22 +97,22 @@ fn v3(v : @core.JsValue) -> @math.Vector3 {
 
 ///|
 fn arr3(v : @math.Vector3) -> @core.JsValue {
-  jv([v.x, v.y, v.z])
+  list([v.x, v.y, v.z])
 }
 
 ///|
 fn arr2(v : @math.Vector2) -> @core.JsValue {
-  jv([v.x, v.y])
+  list([v.x, v.y])
 }
 
 ///|
 fn arr4(v : @math.Vector4) -> @core.JsValue {
-  jv([v.x, v.y, v.z, v.w])
+  list([v.x, v.y, v.z, v.w])
 }
 
 ///|
-fn list(xs : Array[@core.JsValue]) -> @core.JsValue {
-  jv(xs)
+fn[T] list(xs : ArrayView[T]) -> @core.JsValue {
+  jv(FixedArray::from_array(xs))
 }
 
 ///|
@@ -646,15 +646,15 @@ fn run_skinning(s : @core.JsValue) -> @core.JsValue {
   let box_ = skinned.bounding_box.unwrap()
   let sphere = skinned.bounding_sphere.unwrap()
   let bone_matrices = typed_to_array(skeleton.bone_matrices.unwrap())
-  let bind_inverse = jv(skinned.bind_matrix_inverse.to_array())
+  let bind_inverse = list(skinned.bind_matrix_inverse.to_array())
   o.pose()
   o.update_matrix_world(force=true)
   let posed = built_bones[o.uuid].bones.map(b => {
     list([
       arr3(b.position),
-      jv([b.quaternion.x, b.quaternion.y, b.quaternion.z, b.quaternion.w]),
+      list([b.quaternion.x, b.quaternion.y, b.quaternion.z, b.quaternion.w]),
       arr3(b.scale),
-      jv(b.matrix_world.to_array()),
+      list(b.matrix_world.to_array()),
     ])
   })
   obj([
@@ -675,7 +675,7 @@ fn run_skeleton(s : @core.JsValue) -> @core.JsValue {
   let built = build_skeleton(spec)
   let skel = built.skeleton
   let bones = built.bones
-  let inverses = list(skel.bone_inverses.map(m => jv(m.to_array())))
+  let inverses = list(skel.bone_inverses.map(m => list(m.to_array())))
   ignore(skel.compute_bone_texture())
   guard skel.bone_texture.unwrap().source.data is DataImage({ width, .. }) else {
     abort("texture")
@@ -704,7 +704,7 @@ fn run_skeleton(s : @core.JsValue) -> @core.JsValue {
           bones.map(b => {
             list([
               arr3(b.position),
-              jv([b.quaternion.x, b.quaternion.y, b.quaternion.z, b.quaternion.w]),
+              list([b.quaternion.x, b.quaternion.y, b.quaternion.z, b.quaternion.w]),
               arr3(b.scale),
             ])
           }),
@@ -904,7 +904,7 @@ fn run_frustum_array(s : @core.JsValue) -> @core.JsValue {
           fa.frustums.map(x => {
             list(
               x.planes.map(p => {
-                jv([p.normal.x, p.normal.y, p.normal.z, p.constant])
+                list([p.normal.x, p.normal.y, p.normal.z, p.constant])
               }),
             )
           }),
@@ -940,8 +940,8 @@ fn batched_state(o : @core.Object3D) -> @core.JsValue {
     ("nextIndexStart", jv(b._next_index_start)),
     ("nextVertexStart", jv(b._next_vertex_start)),
     ("geometryCount", jv(b._geometry_count)),
-    ("availableInstanceIds", jv(b._available_instance_ids)),
-    ("availableGeometryIds", jv(b._available_geometry_ids)),
+    ("availableInstanceIds", list(b._available_instance_ids)),
+    ("availableGeometryIds", list(b._available_geometry_ids)),
     (
       "instanceInfo",
       list(
@@ -1031,7 +1031,7 @@ fn run_batched(s : @core.JsValue) -> @core.JsValue {
         let c = nums(op[2])
         ignore(mesh.set_color_at(int(op[1]), @math.Color::new(c[0], c[1], c[2])))
         let got = mesh.get_color_at(int(op[1]), @math.Color::new(0, 0, 0))
-        out.push(jv([got.r, got.g, got.b]))
+        out.push(list([got.r, got.g, got.b]))
       }
       "setVisibleAt" => {
         ignore(mesh.set_visible_at(int(op[1]), bool(op[2])))
@@ -1091,8 +1091,9 @@ fn run_batched(s : @core.JsValue) -> @core.JsValue {
         )
         let hits = []
         mesh.raycast(rc, hits)
-        js_sort_hits(jv(hits))
-        out.push(list(hits.map(encode_hit)))
+        let result = list(hits.map(encode_hit))
+        js_sort_hits(result)
+        out.push(result)
       }
       "bounds" => {
         mesh.compute_bounding_box()
