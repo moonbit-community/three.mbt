@@ -197,9 +197,15 @@ fn g6_render_object_state(ro : @nodes.RenderObject) -> Array[@core.JsValue] {
     g6_mid(ro.camera),
     g6_mid(ro.scene),
     g6_opt(ro.group, fn(g) {
-      @core.JsValue::from_array([g6j(g.start), g6j(g.count), g6j(g.material_index)])
+      @core.JsValue::from_array([
+        g6j(g.start),
+        g6j(g.count),
+        g6j(g.material_index),
+      ])
     }),
-    g6_opt(ro.draw_range, fn(d) { @core.JsValue::from_array([g6j(d.start), g6j(d.count)]) }),
+    g6_opt(ro.draw_range, fn(d) {
+      @core.JsValue::from_array([g6j(d.start), g6j(d.count)])
+    }),
     g6_opt(ro.bundle, fn(b) { g6j(b.id) }),
     g6_opt(ro.clipping_context, fn(c) { g6j(c.version) }),
   ]
@@ -257,7 +263,9 @@ impl @nodes.NodeBuilderClass for G6NodeBuilder with fn prebuild(self, builder) {
     g6_opt(builder.fog_node, fn(_) { g6j("fog") }),
     g6_opt(builder.environment_node, fn(_) { g6j("env") }),
     g6_opt(builder.lights_node, fn(n) {
-      @core.JsValue::from_array(@nodes.LightsNode::get_lights(n).map(fn(l) { g6j(l.id) }))
+      @core.JsValue::from_array(
+        @nodes.LightsNode::get_lights(n).map(fn(l) { g6j(l.id) }),
+      )
     }),
   ])
   if m is Some(_) {
@@ -661,9 +669,19 @@ impl @nodes.BackendClass for G6Backend with fn copy_texture_to_texture(
     g6j(d.id),
     match r {
       Some(Box2(r)) =>
-        @core.JsValue::from_array([g6j(r.min.x), g6j(r.min.y), g6j(r.max.x), g6j(r.max.y)])
+        @core.JsValue::from_array([
+          g6j(r.min.x),
+          g6j(r.min.y),
+          g6j(r.max.x),
+          g6j(r.max.y),
+        ])
       Some(Box3(r)) =>
-        @core.JsValue::from_array([g6j(r.min.x), g6j(r.min.y), g6j(r.max.x), g6j(r.max.y)])
+        @core.JsValue::from_array([
+          g6j(r.min.x),
+          g6j(r.min.y),
+          g6j(r.max.x),
+          g6j(r.max.y),
+        ])
       None => g6_null()
     },
     match p {

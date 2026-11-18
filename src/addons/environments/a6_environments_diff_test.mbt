@@ -81,7 +81,10 @@ fn a6e_describe(scene : @core.Object3D) -> @core.JsValue {
       entry.push(@core.JsValue::from_array(g.attributes.keys().collect()))
       entry.push(
         @core.JsValue::from_array(
-          g.attributes.values().map(fn(a) { @core.JsValue::from_array(a.array().to_array()) }).collect(),
+          g.attributes
+          .values()
+          .map(fn(a) { @core.JsValue::from_array(a.array().to_array()) })
+          .collect(),
         ),
       )
       entry.push(

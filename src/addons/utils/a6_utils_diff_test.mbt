@@ -330,7 +330,9 @@ test "a6 utils: SceneUtils" {
     "scene_multi_object",
     @core.JsValue::from_array([
       @core.JsValue::from_json(group.to_json()),
-      @core.JsValue::from_array(group.children.map(fn(c) { physical_equal(a6u_geometry(c), g) })),
+      @core.JsValue::from_array(
+        group.children.map(fn(c) { physical_equal(a6u_geometry(c), g) }),
+      ),
     ]),
   )
   // createMeshesFromMultiMaterialMesh
