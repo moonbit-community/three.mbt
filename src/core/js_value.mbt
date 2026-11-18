@@ -11,6 +11,12 @@ pub type JsValue
 pub fn[T] JsValue::of(value : T) -> JsValue = "%identity"
 
 ///|
+/// Copies the elements to a JavaScript Array, preserving their JS values.
+pub fn[T] JsValue::from_array(values : ArrayView[T]) -> JsValue {
+  JsValue::of(FixedArray::makei(values.length(), i => JsValue::of(values[i])))
+}
+
+///|
 /// Reinterprets the value; the caller guarantees the type, as `JsValue::of` erased it.
 pub fn[T] JsValue::cast(self : JsValue) -> T = "%identity"
 

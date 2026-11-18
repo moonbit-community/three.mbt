@@ -26,8 +26,8 @@ extern "js" fn emit_json_raw(name : String, json : @core.JsValue) -> Unit =
   #|}
 
 ///|
-fn[T] emit(name : String, value : T) -> Unit {
-  emit_raw(name, @core.JsValue::of(value))
+fn[T] emit(name : String, value : ArrayView[T]) -> Unit {
+  emit_raw(name, @core.JsValue::from_array(value))
 }
 
 ///|

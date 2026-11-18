@@ -12,7 +12,7 @@ extern "js" fn js_kind(v : JsValue) -> Int =
   #|(v) => v === null || v === undefined ? 0 : typeof v === 'number' ? 1 : typeof v === 'string' ? 2 : typeof v === 'boolean' ? 3 : Array.isArray(v) ? 4 : 5
 
 ///|
-extern "js" fn js_keys(v : JsValue) -> Array[String] = "(v) => Object.keys(v)"
+extern "js" fn js_keys(v : JsValue) -> FixedArray[String] = "(v) => Object.keys(v)"
 
 ///|
 fn js_to_json(v : JsValue) -> Json {
@@ -22,8 +22,8 @@ fn js_to_json(v : JsValue) -> Json {
     2 => Json::string(v.cast())
     3 => Json::boolean(v.cast())
     4 => {
-      let a : Array[JsValue] = v.cast()
-      Json::array(a.map(js_to_json))
+      let a : FixedArray[JsValue] = v.cast()
+      Json::array(Array::from_fixed_array(a).map(js_to_json))
     }
     _ => {
       let m : Map[String, Json] = Map([])
@@ -43,7 +43,7 @@ fn json_to_js(j : Json) -> JsValue {
     False => JsValue::of(false)
     Number(n, ..) => JsValue::of(n)
     String(s) => JsValue::of(s)
-    Array(a) => JsValue::of(a.map(json_to_js))
+    Array(a) => JsValue::from_array(a.map(json_to_js))
     Object(m) => {
       let o = JsValue::object()
       for k, v in m {
@@ -56,19 +56,19 @@ fn json_to_js(j : Json) -> JsValue {
 
 ///|
 fn v2(a : JsValue) -> Vector2 {
-  let a : Array[Double] = a.cast()
+  let a : FixedArray[Double] = a.cast()
   Vector2::new(a[0], a[1])
 }
 
 ///|
 fn v3(a : JsValue) -> Vector3 {
-  let a : Array[Double] = a.cast()
+  let a : FixedArray[Double] = a.cast()
   Vector3::new(a[0], a[1], a[2])
 }
 
 ///|
 fn arr(a : JsValue) -> Array[JsValue] {
-  a.cast()
+  Array::from_fixed_array(a.cast())
 }
 
 ///|
@@ -225,7 +225,7 @@ pub fn build3(spec : JsValue) -> Curve[Vector3] {
 
 ///|
 fn[V : @extras.CurveVector] pt(p : V) -> JsValue {
-  JsValue::of(p.to_array())
+  JsValue::from_array(p.to_array())
 }
 
 ///|
@@ -238,7 +238,7 @@ fn[V : @extras.CurveVector] opt_pt(p : V?) -> JsValue {
 
 ///|
 fn[V : @extras.CurveVector] pts(a : Array[V]) -> JsValue {
-  JsValue::of(a.map(pt))
+  JsValue::from_array(a.map(pt))
 }
 
 ///|
@@ -248,7 +248,7 @@ fn opt_int(v : JsValue) -> Int? {
 
 ///|
 fn frames(f : @extras.FrenetFrames) -> JsValue {
-  JsValue::of([pts(f.tangents), pts(f.normals), pts(f.binormals)])
+  JsValue::from_array([pts(f.tangents), pts(f.normals), pts(f.binormals)])
 }
 
 ///|
@@ -263,7 +263,7 @@ fn[V : @extras.CurveVector] apply(
     "getPointT" => {
       let t = V::zero().from_array([7.0, 8.0, 9.0])
       match c.get_point_or_null(d(o[1]), optional_target=t) {
-        Some(r) => JsValue::of([JsValue::of(physical_equal(r, t)), pt(r)])
+        Some(r) => JsValue::from_array([JsValue::of(physical_equal(r, t)), pt(r)])
         None => JsValue::null()
       }
     }
@@ -271,7 +271,7 @@ fn[V : @extras.CurveVector] apply(
     "getPointAtT" => {
       let t = V::zero().from_array([7.0, 8.0, 9.0])
       match c.get_point_at_or_null(d(o[1]), optional_target=t) {
-        Some(r) => JsValue::of([JsValue::of(physical_equal(r, t)), pt(r)])
+        Some(r) => JsValue::from_array([JsValue::of(physical_equal(r, t)), pt(r)])
         None => JsValue::null()
       }
     }
@@ -288,8 +288,8 @@ fn[V : @extras.CurveVector] apply(
     "getLength" => JsValue::of(c.get_length())
     "getLengths" =>
       match opt_int(o[1]) {
-        Some(n) => JsValue::of(c.get_lengths(divisions=n))
-        None => JsValue::of(c.get_lengths())
+        Some(n) => JsValue::from_array(c.get_lengths(divisions=n))
+        None => JsValue::from_array(c.get_lengths())
       }
     "lengthsCached" => {
       let a = c.get_lengths()
@@ -305,13 +305,13 @@ fn[V : @extras.CurveVector] apply(
     "tangentT" => {
       let t = V::zero().from_array([7.0, 8.0, 9.0])
       let r = c.get_tangent(d(o[1]), optional_target=t)
-      JsValue::of([JsValue::of(physical_equal(r, t)), pt(r)])
+      JsValue::from_array([JsValue::of(physical_equal(r, t)), pt(r)])
     }
     "tangentAt" => pt(c.get_tangent_at(d(o[1])))
     "tangentAtT" => {
       let t = V::zero().from_array([7.0, 8.0, 9.0])
       let r = c.get_tangent_at(d(o[1]), optional_target=t)
-      JsValue::of([JsValue::of(physical_equal(r, t)), pt(r)])
+      JsValue::from_array([JsValue::of(physical_equal(r, t)), pt(r)])
     }
     "frenet" => frames(c.compute_frenet_frames(d(o[1]).to_int(), closed=b(o[2])))
     "updateArc" => {
@@ -326,17 +326,17 @@ fn[V : @extras.CurveVector] apply(
       c.needs_update = true
       JsValue::null()
     }
-    "curveLengths" => JsValue::of(c.get_curve_lengths())
+    "curveLengths" => JsValue::from_array(c.get_curve_lengths())
     "toJSON" => json_to_js(c.to_json())
     "fromUpstreamJSON" => json_to_js(mk(c).from_json(js_to_json(o[1])).to_json())
     "selfRoundtrip" => {
       let j = c.to_json()
       let r = mk(c).from_json(j)
-      JsValue::of([json_to_js(r.to_json()), pts(r.get_points())])
+      JsValue::from_array([json_to_js(r.to_json()), pts(r.get_points())])
     }
     "clone" => {
       let r = c.clone()
-      JsValue::of([
+      JsValue::from_array([
         json_to_js(r.to_json()),
         pts(r.get_points()),
         JsValue::of(r.arc_length_divisions.to_double()),
@@ -345,7 +345,7 @@ fn[V : @extras.CurveVector] apply(
     }
     "copy" => {
       let r = mk(c).copy(c)
-      JsValue::of([json_to_js(r.to_json()), pts(r.get_points())])
+      JsValue::from_array([json_to_js(r.to_json()), pts(r.get_points())])
     }
     "cloneIndependent" => {
       // A clone must not alias the source's vectors or curve list.
@@ -360,7 +360,7 @@ fn[V : @extras.CurveVector] apply(
         CurvePath(p) | Path(p, _) | Shape(p, _, _) => p.curves.clear()
         _ => ()
       }
-      JsValue::of([before, json_to_js(c.to_json())])
+      JsValue::from_array([before, json_to_js(c.to_json())])
     }
     "aliasAutoClose" => {
       let p = c.get_points()
@@ -387,13 +387,13 @@ fn[V : @extras.CurveVector] apply(
 }
 
 ///|
-pub fn apply2(c : Curve[Vector2], o : Array[JsValue], spec : JsValue) -> JsValue {
-  apply(c, o, _ => build_default2(spec))
+pub fn apply2(c : Curve[Vector2], o : JsValue, spec : JsValue) -> JsValue {
+  apply(c, arr(o), _ => build_default2(spec))
 }
 
 ///|
-pub fn apply3(c : Curve[Vector3], o : Array[JsValue], spec : JsValue) -> JsValue {
-  apply(c, o, _ => build_default3(spec))
+pub fn apply3(c : Curve[Vector3], o : JsValue, spec : JsValue) -> JsValue {
+  apply(c, arr(o), _ => build_default3(spec))
 }
 
 ///|
@@ -429,19 +429,20 @@ fn build_default3(spec : JsValue) -> Curve[Vector3] {
 }
 
 ///|
-pub fn earcut(data : Array[Double], holes : Array[Int], dim : Int) -> Array[Int] {
-  @extras.Earcut::triangulate(data, holes, dim~)
+pub fn earcut(data : FixedArray[Double], holes : FixedArray[Int], dim : Int) -> JsValue {
+  JsValue::from_array(@extras.Earcut::triangulate(Array::from_fixed_array(data), Array::from_fixed_array(holes), dim~))
 }
 
 ///|
-pub fn earcut_dev(data : Array[Double], holes : Array[Int], dim : Int, tris : Array[Int]) -> Double {
-  @extras.earcut_deviation(data, holes, dim, tris)
+pub fn earcut_dev(data : FixedArray[Double], holes : FixedArray[Int], dim : Int, tris : FixedArray[Int]) -> Double {
+  @extras.earcut_deviation(Array::from_fixed_array(data), Array::from_fixed_array(holes), dim, Array::from_fixed_array(tris))
 }
 
 ///|
-pub fn earcut_flat(data : Array[Array[Array[Double]]]) -> JsValue {
-  let r = @extras.earcut_flatten(data)
-  JsValue::of([JsValue::of(r.vertices), JsValue::of(r.holes), JsValue::of(r.dimensions)])
+pub fn earcut_flat(data : JsValue) -> JsValue {
+  let rings = arr(data).map(ring => arr(ring).map(point => arr(point).map(d)))
+  let r = @extras.earcut_flatten(rings)
+  JsValue::from_array([JsValue::from_array(r.vertices), JsValue::from_array(r.holes), JsValue::of(r.dimensions)])
 }
 
 ///|
@@ -459,13 +460,13 @@ pub fn shape_tri(c : JsValue, h : JsValue) -> JsValue {
   let contour = arr(c).map(v2)
   let holes = arr(h).map(x => arr(x).map(v2))
   let f = @extras.ShapeUtils::triangulate_shape(contour, holes)
-  JsValue::of([JsValue::of(f), pts(contour), JsValue::of(holes.map(pts))])
+  JsValue::from_array([JsValue::from_array(f.map(face => JsValue::from_array(face))), pts(contour), JsValue::from_array(holes.map(pts))])
 }
 
 ///|
 fn mask_uuid(v : JsValue) -> JsValue {
   match js_kind(v) {
-    4 => JsValue::of(arr(v).map(mask_uuid))
+    4 => JsValue::from_array(arr(v).map(mask_uuid))
     5 => {
       let o = JsValue::object()
       for k in js_keys(v) {
@@ -494,14 +495,14 @@ pub fn to_shapes(spec : JsValue) -> JsValue {
     }
   }
   let shapes = sp.to_shapes()
-  JsValue::of(
+  JsValue::from_array(
     shapes.map(s => {
       let e = s.extract_points(12)
-      JsValue::of([
+      JsValue::from_array([
         pts(e.shape),
-        JsValue::of(e.holes.map(pts)),
-        JsValue::of(s.curves().map(c => JsValue::of(c.type_))),
-        JsValue::of(s.holes().map(h => JsValue::of(h.curves().map(c => JsValue::of(c.type_))))),
+        JsValue::from_array(e.holes.map(pts)),
+        JsValue::from_array(s.curves().map(c => JsValue::of(c.type_))),
+        JsValue::from_array(s.holes().map(h => JsValue::from_array(h.curves().map(c => JsValue::of(c.type_))))),
         JsValue::of(@core.SerializableResource::uuid(s) != ""),
         mask_uuid(json_to_js(s.to_json())),
       ])
@@ -518,7 +519,7 @@ pub fn byte_length(w : Int, h : Int, format : Int, type_ : Int) -> Double {
 extern "js" fn make_dom_image(w : Double, h : Double) -> JsValue = "(w, h) => ({ width: w, height: h })"
 
 ///|
-pub fn fit(mode : Int, kind : Int, w : Double, h : Double, aspect : Double) -> Array[Double] {
+pub fn fit(mode : Int, kind : Int, w : Double, h : Double, aspect : Double) -> FixedArray[Double] {
   let t = @core.Texture::new()
   match kind {
     1 => t.set_image(DomImage(make_dom_image(w, h)))
@@ -553,7 +554,7 @@ pub fn half_from(x : Double) -> Double {
 }
 
 ///|
-pub fn interp(a : Array[Double]) -> Array[Double] {
+pub fn interp(a : FixedArray[Double]) -> FixedArray[Double] {
   [
     @extras.catmull_rom(a[0], a[1], a[2], a[3], a[4]),
     @extras.quadratic_bezier(a[0], a[1], a[2], a[3]),

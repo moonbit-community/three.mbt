@@ -5,7 +5,7 @@
 
 ///|
 fn g3_arr(items : Array[@core.JsValue]) -> @core.JsValue {
-  @core.JsValue::of(items)
+  @core.JsValue::from_array(items)
 }
 
 ///|

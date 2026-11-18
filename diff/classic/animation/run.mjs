@@ -138,7 +138,7 @@ function upstream(spec) {
       case 'fromMorphs': clips.push(...T.AnimationClip.CreateClipsFromMorphTargetSequences(op[1].map(name => ({ name })), op[2], op[3])); break;
       case 'evaluate': {
         const interpolant = clips[op[1]].tracks[op[2]].createInterpolant();
-        for (const t of op[3]) L('eval', t, interpolant.evaluate(t));
+        for (const t of op[3]) L('eval', t, Array.from(interpolant.evaluate(t)));
         break;
       }
       case 'keyframeOrder': {
@@ -338,9 +338,8 @@ function compare(name, spec) {
   let mb, mbThrew = null;
   try { mb = port(spec); }
   catch (e) {
-    // `abort` prints its message before throwing
     const lines = portConsole.map(e => e[1]);
-    mbThrew = lines.length ? lines.pop() : 'panic: ' + String(e.stack).split('\n').slice(1, 4).join(' / ');
+    mbThrew = e.message;
     mb = { entries: Array.from(M.last_log()), console: lines };
   }
   const n = Math.max(upEntries.length, mb.entries.length);

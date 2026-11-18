@@ -1,5 +1,7 @@
 ///|
-extern "js" fn js_array(a : Array[@core.JsValue]) -> @core.JsValue = "(a) => a"
+fn js_array(a : ArrayView[@core.JsValue]) -> @core.JsValue {
+  @core.JsValue::from_array(a)
+}
 
 ///|
 fn obj(fields : Array[(String, @core.JsValue)]) -> @core.JsValue {
@@ -39,7 +41,7 @@ fn ser(v : @core.UniformValue) -> @core.JsValue {
         ("ref", of(a)),
       ])
     Matrix3(m) =>
-      obj([("t", of("matrix3")), ("e", of(m.elements)), ("ref", of(m))])
+      obj([("t", of("matrix3")), ("e", @core.JsValue::from_array(m.elements)), ("ref", of(m))])
     Array(items) =>
       obj([
         ("t", of("array")),
@@ -89,10 +91,10 @@ fn dfg(t : @core.Texture) -> @core.JsValue {
     ("unpackAlignment", of(t.unpack_alignment)),
     ("matrixAutoUpdate", of(t.matrix_auto_update)),
     ("rotation", of(t.rotation)),
-    ("offset", of(t.offset.to_array())),
-    ("repeat", of(t.repeat.to_array())),
-    ("center", of(t.center.to_array())),
-    ("matrix", of(t.matrix.elements)),
+    ("offset", @core.JsValue::from_array(t.offset.to_array())),
+    ("repeat", @core.JsValue::from_array(t.repeat.to_array())),
+    ("center", @core.JsValue::from_array(t.center.to_array())),
+    ("matrix", @core.JsValue::from_array(t.matrix.elements)),
     ("mipmapsLength", of(t.mipmaps.length())),
     ("version", of(t.version)),
     ("sourceVersion", of(t.source.version)),

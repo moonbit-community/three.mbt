@@ -207,7 +207,7 @@ test "diff: audio_filters" {
   let list = [f1, f2]
   ignore(sound.set_filters(value=list))
   list.push(f3)
-  note(ctx, "filters", @core.JsValue::of(sound.get_filters()))
+  note(ctx, "filters", @core.JsValue::from_array(sound.get_filters()))
   note(ctx, "getFilter", opt_node(sound.get_filter()))
   ignore(sound.set_buffer(ffi_buffer(ctx, 2)))
   ignore(sound.play())
@@ -217,7 +217,7 @@ test "diff: audio_filters" {
   note(ctx, "getFilter", opt_node(sound.get_filter()))
   ignore(sound.set_filters(value=[f1, f2, f3]))
   ignore(sound.set_filters())
-  note(ctx, "filters", @core.JsValue::of(sound.get_filters()))
+  note(ctx, "filters", @core.JsValue::from_array(sound.get_filters()))
   ignore(sound.disconnect())
   ignore(sound.disconnect())
   note_bool(ctx, "_connected", sound._connected)
@@ -225,11 +225,11 @@ test "diff: audio_filters" {
   let list2 = [f1, f2]
   ignore(sound.set_filters(value=list2))
   list2.push(f3)
-  note(ctx, "filters", @core.JsValue::of(sound.get_filters()))
+  note(ctx, "filters", @core.JsValue::from_array(sound.get_filters()))
   ignore(sound.set_filters(value=[f1, f2, f3]))
   ignore(sound.disconnect())
   ignore(sound.set_filters(value=[f2]))
-  note(ctx, "filters", @core.JsValue::of(sound.get_filters()))
+  note(ctx, "filters", @core.JsValue::from_array(sound.get_filters()))
   ignore(emit_log("audio_filters", ctx))
 }
 
@@ -391,7 +391,7 @@ fn note_fields(
   note_bool(ctx, label + ".hasPlaybackControl", a.has_playback_control)
   note_str(ctx, label + ".sourceType", a.source_type)
   note_bool(ctx, label + ".isPlaying", a.is_playing)
-  note(ctx, label + ".filters", @core.JsValue::of(a.filters))
+  note(ctx, label + ".filters", @core.JsValue::from_array(a.filters))
   note(
     ctx,
     label + ".buffer",

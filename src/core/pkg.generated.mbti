@@ -1147,6 +1147,7 @@ pub(all) struct Intersection {
 #external
 pub type JsValue
 pub fn[T] JsValue::cast(Self) -> T
+pub fn[T] JsValue::from_array(ArrayView[T]) -> Self
 pub fn JsValue::from_json(@json.Json) -> Self
 pub fn JsValue::get(Self, String) -> Self
 pub fn JsValue::is_null(Self) -> Bool

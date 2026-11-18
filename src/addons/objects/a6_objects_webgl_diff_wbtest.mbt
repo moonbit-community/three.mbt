@@ -40,7 +40,7 @@ fn[T] a6_v(value : T) -> @core.JsValue {
 ///|
 /// A JS array of the values.
 fn a6_arr(values : Array[@core.JsValue]) -> @core.JsValue {
-  @core.JsValue::of(values)
+  @core.JsValue::from_array(values)
 }
 
 ///|
@@ -54,7 +54,7 @@ fn a6_note(
 
 ///|
 fn a6_elements(m : @math.Matrix4) -> @core.JsValue {
-  @core.JsValue::of(m.elements.copy())
+  @core.JsValue::from_array(m.elements)
 }
 
 ///|
@@ -65,7 +65,7 @@ fn a6_keys(uniforms : Map[String, @core.Uniform]?) -> @core.JsValue {
       keys.push(k)
     }
   }
-  @core.JsValue::of(keys)
+  @core.JsValue::from_array(keys)
 }
 
 ///|
@@ -173,8 +173,8 @@ test "diff a6_reflector" {
   let reflection_camera = Reflector::get_reflection_camera(mirror, camera)
   a6_note(gl, "reflection camera", [
     a6_v(!physical_equal(reflection_camera, camera)),
-    a6_v(reflection_camera.position.to_array()),
-    a6_v(reflection_camera.up.to_array()),
+    @core.JsValue::from_array(reflection_camera.position.to_array()),
+    @core.JsValue::from_array(reflection_camera.up.to_array()),
     a6_v(a6_far(reflection_camera)),
     a6_elements(reflection_camera.projection_matrix()),
   ])
@@ -384,7 +384,7 @@ test "diff a6_sky_water" {
   ])
   renderer.render(scene, camera)
   match a6_uniform_value(water_material, "eye") {
-    Vector3(v) => mock_note(gl, "eye", a6_v(v.to_array()))
+    Vector3(v) => mock_note(gl, "eye", @core.JsValue::from_array(v.to_array()))
     _ => abort("eye")
   }
   match a6_uniform_value(water_material, "time") {
@@ -414,7 +414,7 @@ fn a6_data_texture(seed : Int32, offset : Int32) -> @core.Texture {
 ///|
 fn a6_config(material : @core.Material) -> @core.JsValue {
   match a6_uniform_value(material, "config") {
-    Vector4(v) => a6_v(v.to_array())
+    Vector4(v) => @core.JsValue::from_array(v.to_array())
     _ => abort("config")
   }
 }

@@ -112,7 +112,7 @@ fn arr4(v : @math.Vector4) -> @core.JsValue {
 
 ///|
 fn[T] list(xs : ArrayView[T]) -> @core.JsValue {
-  jv(FixedArray::from_array(xs))
+  @core.JsValue::from_array(xs)
 }
 
 ///|

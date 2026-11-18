@@ -29,7 +29,7 @@ extern "js" fn wgpu_join_js(a : @core.JsValue) -> String = "(a) => a.join()"
 
 ///|
 fn wgpu_join(a : Array[@core.JsValue]) -> String {
-  wgpu_join_js(@core.JsValue::of(a))
+  wgpu_join_js(@core.JsValue::from_array(a))
 }
 
 ///|

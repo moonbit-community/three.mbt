@@ -39,7 +39,7 @@ pub fn Worker::post_message(
   msg : JsValue,
   transfer : Array[JsValue],
 ) -> Unit {
-  worker_pool_post_message(self, msg, JsValue::of(transfer))
+  worker_pool_post_message(self, msg, JsValue::from_array(transfer))
 }
 
 ///|

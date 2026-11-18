@@ -1519,7 +1519,7 @@ pub fn node_material_js_to_json(value : @core.JsValue) -> Json {
     "boolean" => Json::boolean(value.cast())
     "string" => Json::string(value.cast())
     "array" => {
-      let items : Array[@core.JsValue] = value.cast()
+      let items : Array[@core.JsValue] = Array::from_fixed_array(value.cast())
       Json::array(items.map(node_material_js_to_json))
     }
     _ => {

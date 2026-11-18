@@ -99,7 +99,7 @@ fn G7Log::new() -> G7Log {
 
 ///|
 fn G7Log::push(self : G7Log, entry : Array[@core.JsValue]) -> Unit {
-  g7_push(self.array, g7j(entry))
+  g7_push(self.array, @core.JsValue::from_array(entry))
 }
 
 ///|
@@ -187,12 +187,12 @@ fn G7StubBackend::create_buffer(
 
 ///|
 fn g7_binding_ranges(b : @nodes.Binding) -> @core.JsValue {
-  g7j(b.update_ranges().map(fn(r) { g7j([g7j(r.start), g7j(r.count)]) }))
+  @core.JsValue::from_array(b.update_ranges().map(fn(r) { @core.JsValue::from_array([g7j(r.start), g7j(r.count)]) }))
 }
 
 ///|
 fn g7_texture_options(o : @nodes.TextureOptions) -> @core.JsValue {
-  g7j([
+  @core.JsValue::from_array([
     g7_opt_int(o.sample_count),
     g7j(o.width),
     g7j(o.height),
@@ -334,7 +334,7 @@ impl @nodes.BackendClass for G7StubBackend with fn create_bindings(
     g7j("createBindings"),
     g7j(bind_group.name),
     g7j(bind_group.id),
-    g7j(bind_group.bindings.map(fn(b) { g7j(b.name) })),
+    @core.JsValue::from_array(bind_group.bindings.map(fn(b) { g7j(b.name) })),
     g7j(bindings.length()),
     g7j(cache_index),
   ])
@@ -611,7 +611,7 @@ fn g7_modules(renderer : @nodes.Renderer) -> G7Modules {
 ///|
 fn g7_info_memory(info : @nodes.Info) -> @core.JsValue {
   let m = info.memory
-  g7j([
+  @core.JsValue::from_array([
     g7j(m.attributes),
     g7j(m.attributes_size),
     g7j(m.geometries),
@@ -657,14 +657,14 @@ fn g7_node_uniform(
 
 ///|
 fn g7_group_state(group : @nodes.Binding) -> @core.JsValue {
-  g7j([
+  @core.JsValue::from_array([
     g7j(group.name),
     g7j(group.byte_length()),
-    g7j(
+    @core.JsValue::from_array(
       group
       .uniforms()
       .map(fn(u) {
-        g7j([
+        @core.JsValue::from_array([
           g7j(u.name),
           g7j(u.offset),
           g7j(u.index),
@@ -792,13 +792,13 @@ test "g7diff buffer_utils_chain_map" {
     g7_align(log)
     log.push([
       g7j("floatLength"),
-      g7j(
+      @core.JsValue::from_array(
         [0, 1, 4, 15, 16, 17, 33].map(fn(x) { g7j(@nodes.get_float_length(x)) }),
       ),
     ])
     log.push([
       g7j("vectorLength"),
-      g7j(
+      @core.JsValue::from_array(
         [(1, 4), (2, 3), (3, 2), (5, 1)].map(fn(p) {
           g7j(@nodes.get_vector_length(p.0, vector_length=p.1))
         }),
@@ -807,7 +807,7 @@ test "g7diff buffer_utils_chain_map" {
     ])
     log.push([
       g7j("strideLength"),
-      g7j([1, 2, 3, 4, 5, 7, 8].map(fn(x) { g7j(@nodes.get_stride_length(x)) })),
+      @core.JsValue::from_array([1, 2, 3, 4, 5, 7, 8].map(fn(x) { g7j(@nodes.get_stride_length(x)) })),
     ])
     let map : @nodes.ChainMap[String] = @nodes.ChainMap::new()
     let a = @core.JsValue::object()
@@ -1045,12 +1045,12 @@ test "g7diff uniforms_types" {
 
 ///|
 fn g7_describe(groups : Array[@nodes.BindGroup]) -> @core.JsValue {
-  g7j(
+  @core.JsValue::from_array(
     groups.map(fn(g) {
-      g7j([
+      @core.JsValue::from_array([
         g7j(g.name),
         g7j(g.id),
-        g7j(
+        @core.JsValue::from_array(
           g.bindings.map(fn(x) {
             let id = match @nodes.NodeUniformsGroup::of(x) {
               Some(u) => g7j(u.id)
@@ -1060,7 +1060,7 @@ fn g7_describe(groups : Array[@nodes.BindGroup]) -> @core.JsValue {
                   None => @core.JsValue::null()
                 }
             }
-            g7j([
+            @core.JsValue::from_array([
               g7j(x.name),
               id,
               g7j(x.has_flag("isSampledTexture")),
@@ -1132,7 +1132,7 @@ test "g7diff bindings" {
       g7j("bg1"),
       g7_describe(bg1),
       g7j(physical_equal(bg1[1], ren_group)),
-      g7j(ren.uniforms().map(fn(u) { g7j(u.name) })),
+      @core.JsValue::from_array(ren.uniforms().map(fn(u) { g7j(u.name) })),
     ])
     let bg2 = state.create_bindings(Some(m.bindings), Some(ctx1))
     log.push([
@@ -1170,7 +1170,7 @@ test "g7diff bindings" {
     }
     texture.set_needs_update(true)
     m.bindings._update_bindings(bg1)
-    log.push([g7j("updated3"), g7j(ren.uniforms().map(fn(u) { g7j(u.name) }))])
+    log.push([g7j("updated3"), @core.JsValue::from_array(ren.uniforms().map(fn(u) { g7j(u.name) }))])
     render_group.set_needs_update(true)
     m.bindings._update_bindings(bg1)
     m.bindings._update_bindings(bg2)
@@ -1238,7 +1238,7 @@ fn g7_keys(ro : @nodes.RenderObject) -> @core.JsValue {
   let initial_geometry_cache_key = ro.initial_geometry_cache_key
   let material_key = ro.get_material_cache_key()
   let dynamic_key = ro.get_dynamic_cache_key()
-  g7j([
+  @core.JsValue::from_array([
     g7j(id),
     g7j(initial_cache_key),
     g7j(initial_nodes_cache_key),
@@ -1443,9 +1443,9 @@ fn g7_items(
   items : Array[@nodes.RenderItem],
   first : @core.Object3D,
 ) -> @core.JsValue {
-  g7j(
+  @core.JsValue::from_array(
     items.map(fn(it) {
-      g7j([
+      @core.JsValue::from_array([
         g7j(it.id.unwrap() - first.id),
         g7_opt_int(it.group_order),
         g7_opt_double(it.render_order),
@@ -1535,7 +1535,7 @@ test "g7diff render_list" {
     list.clear()
     log.push([
       g7j("cleared"),
-      g7j(list.render_items.map(fn(it) { g7j(it.id is None) })),
+      @core.JsValue::from_array(list.render_items.map(fn(it) { g7j(it.id is None) })),
       g7j(list.opaque_.length()),
     ])
     list.begin() |> ignore
@@ -1550,7 +1550,7 @@ test "g7diff render_list" {
       g7j("finish"),
       g7j(lights.length()),
       g7j(physical_equal(lights[0], l1)),
-      g7j(list.render_items.map(fn(it) { g7j(it.id is None) })),
+      @core.JsValue::from_array(list.render_items.map(fn(it) { g7j(it.id is None) })),
     ])
     lighting.enabled = false
     list.begin() |> ignore
@@ -1566,7 +1566,7 @@ test "g7diff render_list" {
 
 ///|
 fn g7_context_state(c : @nodes.RenderContext) -> @core.JsValue {
-  g7j([
+  @core.JsValue::from_array([
     g7j(c.id),
     g7j(c.state_key),
     g7j(c.sample_count),
@@ -1616,7 +1616,7 @@ test "g7diff render_contexts" {
     )
     log.push([
       g7j("contexts"),
-      g7j([c1, c2, c3, c4, c5, c6].map(g7_context_state)),
+      @core.JsValue::from_array([c1, c2, c3, c4, c5, c6].map(g7_context_state)),
       g7j(physical_equal(c5, c1)),
     ])
     c2.textures = Some(rt.textures)
@@ -1690,7 +1690,7 @@ test "g7diff attributes_geometries" {
       g7j("attributes"),
       g7j(attrs.length()),
       g7j(ro.get_vertex_buffers().length()),
-      g7j(attrs.map(fn(a) { g7j(a is Interleaved(_)) })),
+      @core.JsValue::from_array(attrs.map(fn(a) { g7j(a is Interleaved(_)) })),
     ])
     m.geometries.update_for_render(ro)
     log.push([
@@ -1853,7 +1853,7 @@ test "g7diff textures" {
     ])
     t.update_render_target(rt, active_mipmap_level=1)
     let mip_keys = rt_data.depth_texture_mips.unwrap().keys().collect()
-    log.push([g7j("rt mip1"), g7j(mip_keys.map(fn(k) { g7j(k.to_string()) }))])
+    log.push([g7j("rt mip1"), @core.JsValue::from_array(mip_keys.map(fn(k) { g7j(k.to_string()) }))])
     let rts = @core.RenderTarget::new(
       width=2,
       height=2,
@@ -1918,7 +1918,7 @@ test "g7diff textures" {
 
 ///|
 fn g7_pipeline_state(p : @nodes.Pipeline) -> @core.JsValue {
-  g7j([
+  @core.JsValue::from_array([
     g7j(p.cache_key),
     g7j(p.used_times),
     g7j(p.vertex_program().id),
@@ -2120,7 +2120,7 @@ test "g7diff info" {
 
 ///|
 fn g7_planes(c : @nodes.ClippingContext) -> @core.JsValue {
-  g7j([
+  @core.JsValue::from_array([
     g7j(c.id),
     g7j(c.version),
     g7j(c.cache_key),
@@ -2129,8 +2129,8 @@ fn g7_planes(c : @nodes.ClippingContext) -> @core.JsValue {
       None => @core.JsValue::null()
     },
     g7_opt_int(c.parent_version),
-    g7j(c.intersection_planes.map(fn(v) { g7j(v.to_array()) })),
-    g7j(c.union_planes.map(fn(v) { g7j(v.to_array()) })),
+    @core.JsValue::from_array(c.intersection_planes.map(fn(v) { @core.JsValue::from_array(v.to_array()) })),
+    @core.JsValue::from_array(c.union_planes.map(fn(v) { @core.JsValue::from_array(v.to_array()) })),
     g7j(c.union_clipping_count()),
   ])
 }
@@ -2200,8 +2200,8 @@ test "g7diff clipping_context" {
     log.push([
       g7j("array camera"),
       g7_planes(cc),
-      g7j(root.view_matrix.to_array()),
-      g7j(root.view_normal_matrix.to_array()),
+      @core.JsValue::from_array(root.view_matrix.to_array()),
+      @core.JsValue::from_array(root.view_normal_matrix.to_array()),
     ])
   })
 }
@@ -2304,7 +2304,7 @@ fn g7_none_or(is_none : Bool) -> @core.JsValue {
 
 ///|
 fn g7_attribute_flags(a : @core.BufferAttribute) -> @core.JsValue {
-  g7j([
+  @core.JsValue::from_array([
     g7j(a.array.type_name()),
     g7j(a.array.length()),
     g7j(a.count),
@@ -2322,7 +2322,7 @@ fn g7_texture_flags(t : @core.Texture) -> @core.JsValue {
     DataImage(i) => (i.width, i.height, i.depth)
     _ => abort("image")
   }
-  g7j([
+  @core.JsValue::from_array([
     g7j(w),
     g7j(h),
     g7_opt_int(d),
@@ -2415,7 +2415,7 @@ test "g7diff misc_classes" {
     readback.dispose()
     log.push([
       g7j("readback"),
-      g7j(events),
+      @core.JsValue::from_array(events),
       g7j(readback.max_byte_length),
       g7j(readback.name),
       g7_none_or(readback.buffer is None),
@@ -2429,7 +2429,7 @@ test "g7diff misc_classes" {
       g7j(pool.get_timestamp("missing")),
       g7j(pool.has_timestamp_query("r:0:0:f0")),
       g7j(pool.has_timestamp_query("x")),
-      g7j(pool.get_timestamp_frames()),
+      @core.JsValue::from_array(pool.get_timestamp_frames()),
     ])
     let lib = @nodes.NodeLibrary::new()
     lib.add_material(fn() { @nodes.NodeMaterial::new() }, "MeshBasicMaterial")
@@ -2466,10 +2466,10 @@ test "g7diff misc_classes" {
     ]
     log.push([
       g7j("sampled"),
-      g7j(
+      @core.JsValue::from_array(
         sampled.map(fn(s) {
           let p = @nodes.SampledTexture::of(s).unwrap()
-          g7j([
+          @core.JsValue::from_array([
             g7j(p.id),
             g7j(s.has_flag("isSampledTexture")),
             g7j(s.has_flag("isSampledArrayTexture")),
@@ -2578,7 +2578,7 @@ test "g7diff render_bindings" {
     let b1 = m.bindings.get_for_render(ro1)
     let b2 = m.bindings.get_for_render(ro2)
     let names = fn(bs : Array[@nodes.BindGroup]) {
-      g7j(bs.map(fn(g) { g7j([g7j(g.name), g7j(g.id)]) }))
+      @core.JsValue::from_array(bs.map(fn(g) { @core.JsValue::from_array([g7j(g.name), g7j(g.id)]) }))
     }
     log.push([
       g7j("bindings"),
@@ -2673,7 +2673,7 @@ test "g7diff animation" {
       g7j(m.info.render.draw_calls),
       g7j(m.info.frame),
       g7j(renderer._inspector.is_running),
-      g7j(loop_calls.copy()),
+      @core.JsValue::from_array(loop_calls.copy()),
     ])
     animation.start()
     m.info.render.draw_calls = 2
@@ -2685,7 +2685,7 @@ test "g7diff animation" {
       g7j(m.info.frame),
       g7j(m.nodes.node_frame.frame_id),
       g7j(renderer._inspector.is_running),
-      g7j(loop_calls.copy()),
+      @core.JsValue::from_array(loop_calls.copy()),
     ])
     animation.stop()
     log.push([g7j("stopped"), g7j(renderer._inspector.is_running)])
@@ -2787,7 +2787,7 @@ test "g7diff node_buffers" {
 ///|
 fn g7_node_kind(n : @nodes.Node?) -> @core.JsValue {
   match n {
-    Some(n) => g7j([g7j(n.type_()), g7j(n.id)])
+    Some(n) => @core.JsValue::from_array([g7j(n.type_()), g7j(n.id)])
     None => @core.JsValue::null()
   }
 }
@@ -2896,7 +2896,7 @@ test "g7diff scene_nodes" {
       g7j("cache keys"),
       g7j(key1),
       g7j(key2),
-      g7j(
+      @core.JsValue::from_array(
         [f1, f2, e1, e2, e3, b1, b2, out, out2].map(fn(n) { n.get_cache_key() }),
       ),
     ])
