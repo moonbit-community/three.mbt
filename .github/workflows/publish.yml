@@ -16,6 +16,7 @@ on:
 permissions: {}
 
 env:
+  MOON_SEPARATE_COMPILATION: "1"
   MOONBIT_VERSION: 0.10.21+06da1ed44
 
 jobs:
