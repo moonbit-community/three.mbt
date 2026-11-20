@@ -22,6 +22,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
+  MOON_SEPARATE_COMPILATION: "1"
   # The toolchain the port was last verified with (`moonc -v`); bump it deliberately.
   MOONBIT_VERSION: 0.10.21+06da1ed44
 
